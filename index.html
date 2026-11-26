@@ -411,7 +411,6 @@
       margin-bottom: 10px;
     }
 
-    /* GIAO DIỆN CHIẾN ĐẤU TỐI ƯU */
     .combat-card {
       background: #1a1118;
       border: 1.5px solid #ef4444;
@@ -525,6 +524,29 @@
     .log-item { padding: 3px 0; border-bottom: 1px dashed #1e293b; }
     .log-item:last-child { border-bottom: none; }
 
+    /* TAB PHÂN LOẠI TÚI ĐỒ */
+    .bag-cat-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .bag-cat-btn {
+      font-size: 0.78rem;
+      padding: 5px 9px;
+      border-radius: 999px;
+    }
+    .bag-cat-btn.active {
+      background: #b45309;
+      border-color: #fbbf24;
+      color: #fff;
+    }
+    .bag-cat-btn.sup-tab.active {
+      background: #7e22ce;
+      border-color: #e879f9;
+      color: #fff;
+    }
+
     .inv-toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -536,7 +558,7 @@
 
     .inv-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 7px;
       max-height: 270px;
       overflow-y: auto;
@@ -549,6 +571,10 @@
       padding: 7px 8px;
       font-size: 0.82rem;
       text-align: left;
+    }
+    .inv-slot.sup-slot {
+      border-color: #a855f7;
+      background: #201533;
     }
     .inv-slot.selected {
       border-color: #fbbf24;
@@ -815,20 +841,21 @@
   <main class="main-layout">
     <!-- CỘT TRÁI -->
     <div>
-      <!-- BẢNG ADMIN TEST & LỆNH LẤY ĐỒ (CHỈ HIỆN KHI LÀ ADMIN) -->
+      <!-- BẢNG ADMIN TEST & LỆNH LẤY ĐỒ -->
       <section class="box admin-box hidden" id="admin-panel">
         <div class="box-header">
           <h2>Bảng Admin — Test Game & Lệnh Lấy Đồ</h2>
           <button type="button" onclick="togglePanel('admin-panel')">Ẩn</button>
         </div>
         <div class="admin-cmd-row">
-          <input id="admin-cmd-input" type="text" placeholder="Lệnh: /give wood 50, /give axe 1, /give chest_gold 2, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
+          <input id="admin-cmd-input" type="text" placeholder="Lệnh: /give wood 50, /sup, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
           <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy lệnh</button>
         </div>
         <div id="admin-cmd-status" style="font-size:0.8rem; color:#d8b4fe; margin-bottom:6px;">
           Gõ <code>/help</code> để xem danh sách lệnh hoặc bấm nhanh các nút bên dưới:
         </div>
         <div class="admin-quick-grid">
+          <button type="button" onclick="adminGiveSupremeSet()">+1 Bộ Siêu Phàm (5 Bậc)</button>
           <button type="button" onclick="adminQuickGive('wood', 50)">+50 Gỗ</button>
           <button type="button" onclick="adminQuickGive('stone', 50)">+50 Đá</button>
           <button type="button" onclick="adminQuickGive('ore', 30)">+30 Quặng</button>
@@ -964,17 +991,26 @@
         <div id="crafting-container"></div>
       </section>
 
-      <!-- BALO CHỈ HIỂN THỊ VẬT PHẨM ĐANG CÓ (> 0) -->
+      <!-- TÚI ĐỒ CHIA 6 MỤC + CHỈ HIỆN MÓN ĐANG CÓ (> 0) -->
       <section class="box" id="bag-pet-panel">
         <div class="box-header">
-          <h2>Balo (<span id="ui-owned-item-count">0</span> món đang có) & Thú</h2>
+          <h2>Túi đồ (<span id="ui-owned-item-count">0</span> món đang có) & Thú</h2>
           <button type="button" onclick="togglePanel('bag-pet-panel')">Ẩn</button>
         </div>
 
+        <div class="bag-cat-tabs" id="bag-category-tabs">
+          <button type="button" class="bag-cat-btn active" data-tab="all" onclick="setBagTab('all')">Tất cả</button>
+          <button type="button" class="bag-cat-btn" data-tab="tools" onclick="setBagTab('tools')">Dụng cụ</button>
+          <button type="button" class="bag-cat-btn" data-tab="food" onclick="setBagTab('food')">Thức ăn</button>
+          <button type="button" class="bag-cat-btn" data-tab="materials" onclick="setBagTab('materials')">Nguyên liệu</button>
+          <button type="button" class="bag-cat-btn" data-tab="medicine" onclick="setBagTab('medicine')">Thuốc</button>
+          <button type="button" class="bag-cat-btn sup-tab" data-tab="supreme" onclick="setBagTab('supreme')">Vật phẩm siêu phàm</button>
+        </div>
+
         <div class="inv-toolbar">
-          <input id="inv-search-input" type="text" placeholder="Tìm món đang có trong balo..." oninput="renderAll()" />
+          <input id="inv-search-input" type="text" placeholder="Tìm món đang có trong túi..." oninput="renderAll()" />
           <select id="inv-filter-select" onchange="renderAll()">
-            <option value="all">Tất cả món có</option>
+            <option value="all">Mọi trạng thái</option>
             <option value="usable">Chỉ món dùng được</option>
           </select>
         </div>
@@ -985,7 +1021,7 @@
           <div>
             <div style="font-weight:700; color:#fbbf24;" id="insp-name">Chưa chọn vật phẩm</div>
             <div style="font-size:0.78rem; color:var(--muted);" id="insp-type">Nhóm: -</div>
-            <div style="font-size:0.84rem; margin-top:3px;" id="insp-desc">Bấm vào một món trong balo để xem chi tiết.</div>
+            <div style="font-size:0.84rem; margin-top:3px;" id="insp-desc">Bấm vào một món đang có trong túi để xem chi tiết.</div>
           </div>
           <button class="primary" id="btn-use-item" onclick="useSelectedItem()" disabled>Dùng</button>
         </div>
@@ -998,7 +1034,7 @@
         <div style="margin-top:12px;" id="pet-info-section">
           <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; margin-bottom:6px;">
             <strong style="font-size:0.9rem;">Thú đã thu phục (<span id="ui-tamed-count">0</span>)</strong>
-            <button class="primary" onclick="feedSelectedBeast()">Cho thú ăn từ balo</button>
+            <button class="primary" onclick="feedSelectedBeast()">Cho thú ăn từ túi</button>
           </div>
           <div class="inv-grid" id="tamed-beasts-grid"></div>
 
@@ -1078,8 +1114,17 @@
 
   <script>
     const GAME_SECONDS_PER_REAL_SECOND = 12;
-    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v1';
+    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v2';
     const CATEGORIES = ['Công cụ', 'Vật phẩm sinh hoạt', 'Vật phẩm y tế', 'Công trình'];
+
+    const BAG_TABS = [
+      { id: 'all', label: 'Tất cả' },
+      { id: 'tools', label: 'Dụng cụ' },
+      { id: 'food', label: 'Thức ăn' },
+      { id: 'materials', label: 'Nguyên liệu' },
+      { id: 'medicine', label: 'Thuốc' },
+      { id: 'supreme', label: 'Vật phẩm siêu phàm' }
+    ];
 
     const WEATHER_TYPES = [
       { id: 'clear', name: 'Quang đãng', tempMod: 0, lootMult: 1.0, mobMod: 0, desc: 'Trời quang, dễ nhìn đường.' },
@@ -1103,11 +1148,11 @@
     ];
 
     const CHEST_TIERS = [
-      { key: 'chest_bronze', name: 'Rương Đồng', wood: 8, stone: 5, ore: 1, bpChance: 0.06 },
-      { key: 'chest_silver', name: 'Rương Bạc', wood: 14, stone: 10, ore: 3, bpChance: 0.10 },
-      { key: 'chest_gold', name: 'Rương Vàng', wood: 22, stone: 15, ore: 6, bpChance: 0.15 },
-      { key: 'chest_platinum', name: 'Rương Bạch Ngân', wood: 32, stone: 22, ore: 10, bpChance: 0.22 },
-      { key: 'chest_diamond', name: 'Rương Kim Cương', wood: 45, stone: 32, ore: 16, bpChance: 0.30 }
+      { key: 'chest_bronze', name: 'Rương Đồng', wood: 8, stone: 5, ore: 1, bpChance: 0.06, supChance: 0.05 },
+      { key: 'chest_silver', name: 'Rương Bạc', wood: 14, stone: 10, ore: 3, bpChance: 0.10, supChance: 0.09 },
+      { key: 'chest_gold', name: 'Rương Vàng', wood: 22, stone: 15, ore: 6, bpChance: 0.15, supChance: 0.14 },
+      { key: 'chest_platinum', name: 'Rương Bạch Ngân', wood: 32, stone: 22, ore: 10, bpChance: 0.22, supChance: 0.20 },
+      { key: 'chest_diamond', name: 'Rương Kim Cương', wood: 45, stone: 32, ore: 16, bpChance: 0.30, supChance: 0.28 }
     ];
 
     const RECIPES = [
@@ -1123,48 +1168,109 @@
       { id: 'auto_snare', name: 'Bẫy Dây Tự Động', category: 'Công trình', blueprintKey: 'bp_auto_snare', uniqueBuild: true, weight: 0, powerBonus: 15, threatReduction: 2, desc: 'Xây 1 lần: +15 Công và kiếm thêm ít đồ khi đi xa.', cost: { wood: 22, stone: 12, ore: 5 } }
     ];
 
+    const SUPREME_ITEM_KEYS = [
+      'sup_mist_dew',
+      'sup_break_seal',
+      'sup_beast_essence',
+      'sup_mist_orb',
+      'sup_sovereign_core'
+    ];
+
     function buildItemCatalog() {
       const items = {
-        axe: { name: 'Rìu', category: 'Dụng cụ', weight: 2, desc: 'Cây rìu mang theo từ đầu. Dùng để chặt gỗ.', usable: true, useLabel: 'Chặt nhẹ (+2 Gỗ, -5 TL)' },
-        wood: { name: 'Gỗ', category: 'Vật liệu', weight: 2, desc: 'Gỗ rừng, dùng nâng nhà và chế đồ.', usable: false },
-        stone: { name: 'Đá', category: 'Vật liệu', weight: 3, desc: 'Đá làm vật liệu xây dựng.', usable: false },
-        ore: { name: 'Quặng', category: 'Vật liệu', weight: 4, desc: 'Quặng thô, dùng rèn đồ hoặc đổi đồ.', usable: false },
-        fish: { name: 'Cá', category: 'Đồ ăn', weight: 2, desc: 'Ăn đỡ đói (+20 no, -8 khát, +5 máu).', usable: true, useLabel: 'Ăn cá' },
-        water: { name: 'Nước', category: 'Đồ uống', weight: 2, desc: 'Uống giải khát (-30 khát, +8 máu).', usable: true, useLabel: 'Uống nước' },
-        meat: { name: 'Thịt', category: 'Đồ ăn', weight: 2, desc: 'Ăn no bụng (+28 no, -6 khát, +10 máu).', usable: true, useLabel: 'Ăn thịt' },
-        hide: { name: 'Da thú', category: 'Vật liệu', weight: 2, desc: 'Da lấy từ thú.', usable: false },
-        feather: { name: 'Lông thú', category: 'Vật liệu', weight: 1, desc: 'Lông nhặt được.', usable: false },
-        mist_torch: { name: 'Đuốc', category: 'Đồ sinh hoạt', weight: 2, desc: 'Thắp sáng đỡ mệt (+18 thể lực, -12 khát, +8 máu).', usable: true, useLabel: 'Dùng đuốc' },
-        mist_herb: { name: 'Lá thuốc', category: 'Y tế', weight: 1, desc: 'Lá thuốc (+30 máu, -20 khát, +12 thể lực).', usable: true, useLabel: 'Dùng lá thuốc' },
-        life_charm: { name: 'Bùa hộ mệnh', category: 'Đồ sinh hoạt', weight: 1, desc: 'Giữ bên mình +8 công; dùng ngay +35 máu.', usable: true, useLabel: 'Dùng bùa' },
-        chest_bronze: { name: 'Rương Đồng', category: 'Rương', weight: 3, desc: 'Mở ra có gỗ, đá, quặng và cơ hội bản vẽ.', usable: true, useLabel: 'Mở rương', chestTierIdx: 0 },
-        chest_silver: { name: 'Rương Bạc', category: 'Rương', weight: 4, desc: 'Mở ra nhiều nguyên liệu hơn rương đồng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 1 },
-        chest_gold: { name: 'Rương Vàng', category: 'Rương', weight: 5, desc: 'Rương khá nhiều tài nguyên.', usable: true, useLabel: 'Mở rương', chestTierIdx: 2 },
-        chest_platinum: { name: 'Rương Bạch Ngân', category: 'Rương', weight: 6, desc: 'Rương nhiều nguyên liệu tốt.', usable: true, useLabel: 'Mở rương', chestTierIdx: 3 },
-        chest_diamond: { name: 'Rương Kim Cương', category: 'Rương', weight: 7, desc: 'Rương lớn nhất.', usable: true, useLabel: 'Mở rương', chestTierIdx: 4 },
-        bandage: { name: 'Băng gạc', category: 'Y tế', weight: 1, desc: 'Băng vết thương, hồi +25 máu.', usable: true, useLabel: 'Băng bó' },
-        tonic: { name: 'Nước ấm', category: 'Y tế', weight: 1, desc: 'Uống cho ấm người, +20 máu, -20 khát.', usable: true, useLabel: 'Uống nước ấm' },
-        bp_iron_axe: { name: 'Bản vẽ Rìu Sắt', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Rìu Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_axe' },
-        bp_iron_pickaxe: { name: 'Bản vẽ Cuốc Chim Sắt', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Cuốc Chim Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_pickaxe' },
-        bp_bow_arrow: { name: 'Bản vẽ Cung Tên', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Cung Tên.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'bow_arrow' },
-        bp_meat_soup: { name: 'Bản vẽ Súp Thịt', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Súp Thịt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'meat_soup' },
-        bp_bandage: { name: 'Bản vẽ Băng Thảo Dược', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Băng Thảo Dược.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'herbal_bandage' },
-        bp_tonic: { name: 'Bản vẽ Nước Ấm Gừng', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Nước Ấm Gừng.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'warm_tonic' },
-        bp_watch_hut: { name: 'Bản vẽ Chòi Canh', category: 'Bản vẽ', weight: 1, desc: 'Học cách xây Chòi Canh.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'watch_hut' },
-        bp_spike_fence: { name: 'Bản vẽ Rào Gỗ Nhọn', category: 'Bản vẽ', weight: 1, desc: 'Học cách xây Rào Gỗ Nhọn.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'spike_fence' },
-        bp_warming_stove: { name: 'Bản vẽ Bếp Sưởi', category: 'Bản vẽ', weight: 1, desc: 'Học cách xây Bếp Sưởi.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'warming_stove' },
-        bp_auto_snare: { name: 'Bản vẽ Bẫy Dây Tự Động', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Bẫy Dây Tự Động.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'auto_snare' }
+        axe: { name: 'Rìu', category: 'Dụng cụ', bagTab: 'tools', weight: 2, desc: 'Cây rìu mang theo từ đầu. Dùng để chặt gỗ.', usable: true, useLabel: 'Chặt nhẹ (+2 Gỗ, -5 TL)' },
+        wood: { name: 'Gỗ', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Gỗ rừng, dùng nâng nhà và chế đồ.', usable: false },
+        stone: { name: 'Đá', category: 'Nguyên liệu', bagTab: 'materials', weight: 3, desc: 'Đá làm vật liệu xây dựng.', usable: false },
+        ore: { name: 'Quặng', category: 'Nguyên liệu', bagTab: 'materials', weight: 4, desc: 'Quặng thô, dùng rèn đồ hoặc đổi đồ.', usable: false },
+        fish: { name: 'Cá', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Ăn đỡ đói (+20 no, -8 khát, +5 máu).', usable: true, useLabel: 'Ăn cá' },
+        water: { name: 'Nước', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Uống giải khát (-30 khát, +8 máu).', usable: true, useLabel: 'Uống nước' },
+        meat: { name: 'Thịt', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Ăn no bụng (+28 no, -6 khát, +10 máu).', usable: true, useLabel: 'Ăn thịt' },
+        hide: { name: 'Da thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Da lấy từ thú.', usable: false },
+        feather: { name: 'Lông thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 1, desc: 'Lông nhặt được.', usable: false },
+        mist_torch: { name: 'Đuốc', category: 'Dụng cụ', bagTab: 'tools', weight: 2, desc: 'Thắp sáng đỡ mệt (+18 thể lực, -12 khát, +8 máu).', usable: true, useLabel: 'Dùng đuốc' },
+        mist_herb: { name: 'Lá thuốc', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Lá thuốc (+30 máu, -20 khát, +12 thể lực).', usable: true, useLabel: 'Dùng lá thuốc' },
+        life_charm: { name: 'Bùa hộ mệnh', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Giữ bên mình +8 công; dùng ngay +35 máu.', usable: true, useLabel: 'Dùng bùa' },
+        chest_bronze: { name: 'Rương Đồng', category: 'Dụng cụ', bagTab: 'tools', weight: 3, desc: 'Mở ra có gỗ, đá, quặng và cơ hội bản vẽ.', usable: true, useLabel: 'Mở rương', chestTierIdx: 0 },
+        chest_silver: { name: 'Rương Bạc', category: 'Dụng cụ', bagTab: 'tools', weight: 4, desc: 'Mở ra nhiều nguyên liệu hơn rương đồng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 1 },
+        chest_gold: { name: 'Rương Vàng', category: 'Dụng cụ', bagTab: 'tools', weight: 5, desc: 'Rương khá nhiều tài nguyên.', usable: true, useLabel: 'Mở rương', chestTierIdx: 2 },
+        chest_platinum: { name: 'Rương Bạch Ngân', category: 'Dụng cụ', bagTab: 'tools', weight: 6, desc: 'Rương nhiều nguyên liệu tốt.', usable: true, useLabel: 'Mở rương', chestTierIdx: 3 },
+        chest_diamond: { name: 'Rương Kim Cương', category: 'Dụng cụ', bagTab: 'tools', weight: 7, desc: 'Rương lớn nhất.', usable: true, useLabel: 'Mở rương', chestTierIdx: 4 },
+        bandage: { name: 'Băng gạc', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Băng vết thương, hồi +25 máu.', usable: true, useLabel: 'Băng bó' },
+        tonic: { name: 'Nước ấm', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Uống cho ấm người, +20 máu, -20 khát.', usable: true, useLabel: 'Uống nước ấm' },
+
+        /* VẬT PHẨM SIÊU PHÀM CÓ CẤP BẬC */
+        sup_mist_dew: {
+          name: 'Sương Tinh Tụ [Bậc I]',
+          category: 'Vật phẩm siêu phàm',
+          bagTab: 'supreme',
+          gradeRank: 'Bậc I',
+          weight: 1,
+          usable: true,
+          useLabel: 'Dùng Siêu Phàm',
+          desc: '[Bậc I - Sương Trắng] Hồi đầy Máu, Thể lực, Độ no và giải hết Khát.'
+        },
+        sup_break_seal: {
+          name: 'Ấn Ký Phá Giới [Bậc II]',
+          category: 'Vật phẩm siêu phàm',
+          bagTab: 'supreme',
+          gradeRank: 'Bậc II',
+          weight: 1,
+          usable: true,
+          useLabel: 'Dùng Siêu Phàm',
+          desc: '[Bậc II - Sương Lam] Tăng vĩnh viễn +8 Công cho nhân vật.'
+        },
+        sup_beast_essence: {
+          name: 'Chân Dịch Thú Hồn [Bậc III]',
+          category: 'Vật phẩm siêu phàm',
+          bagTab: 'supreme',
+          gradeRank: 'Bậc III',
+          weight: 1,
+          usable: true,
+          useLabel: 'Dùng Siêu Phàm',
+          desc: '[Bậc III - Sương Tím] Đẩy nhanh +35% tiến độ thuần thú và +25% tăng trưởng cho thú nuôi.'
+        },
+        sup_mist_orb: {
+          name: 'Linh Châu Xua Sương [Bậc IV]',
+          category: 'Vật phẩm siêu phàm',
+          bagTab: 'supreme',
+          gradeRank: 'Bậc IV',
+          weight: 2,
+          usable: true,
+          useLabel: 'Dùng Siêu Phàm',
+          desc: '[Bậc IV - Sương Xích] Tăng vĩnh viễn +12 Công và +10 sức chứa túi đồ.'
+        },
+        sup_sovereign_core: {
+          name: 'Thiên Khải Chí Tôn [Bậc V]',
+          category: 'Vật phẩm siêu phàm',
+          bagTab: 'supreme',
+          gradeRank: 'Bậc V',
+          weight: 2,
+          usable: true,
+          useLabel: 'Dùng Siêu Phàm',
+          desc: '[Bậc V - Cực Phẩm] Hồi đầy chỉ số, +20 Công vĩnh viễn, +20 Máu & Thể lực tối đa, mở mọi bản vẽ.'
+        },
+
+        bp_iron_axe: { name: 'Bản vẽ Rìu Sắt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Rìu Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_axe' },
+        bp_iron_pickaxe: { name: 'Bản vẽ Cuốc Chim Sắt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Cuốc Chim Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_pickaxe' },
+        bp_bow_arrow: { name: 'Bản vẽ Cung Tên', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Cung Tên.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'bow_arrow' },
+        bp_meat_soup: { name: 'Bản vẽ Súp Thịt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Súp Thịt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'meat_soup' },
+        bp_bandage: { name: 'Bản vẽ Băng Thảo Dược', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Băng Thảo Dược.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'herbal_bandage' },
+        bp_tonic: { name: 'Bản vẽ Nước Ấm Gừng', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Nước Ấm Gừng.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'warm_tonic' },
+        bp_watch_hut: { name: 'Bản vẽ Chòi Canh', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách xây Chòi Canh.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'watch_hut' },
+        bp_spike_fence: { name: 'Bản vẽ Rào Gỗ Nhọn', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách xây Rào Gỗ Nhọn.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'spike_fence' },
+        bp_warming_stove: { name: 'Bản vẽ Bếp Sưởi', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách xây Bếp Sưởi.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'warming_stove' },
+        bp_auto_snare: { name: 'Bản vẽ Bẫy Dây Tự Động', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Bẫy Dây Tự Động.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'auto_snare' }
       };
 
       const extraSpecs = [
-        { cat: 'Vật liệu', w: 2, usable: false, names: ['Nhựa cây', 'Vỏ cây', 'Dây leo', 'Rễ cây', 'Cành khô', 'Mùn gỗ', 'Vỏ sò', 'Bùn non', 'Đất sét', 'Than củi', 'Tro bếp', 'Sỏi nhỏ', 'Đá vôi', 'Thạch anh', 'Mảnh sắt', 'Dây đồng', 'Đinh gỉ', 'Vải thô', 'Sợi lanh', 'Bông lau', 'Rơm khô', 'Vỏ hạt', 'Nhựa thông', 'Sáp ong', 'Mật rừng', 'Nấm dại', 'Rêu xanh', 'Cỏ khô', 'Vỏ trứng', 'Xương nhỏ', 'Sừng non', 'Móng thú', 'Vảy cá', 'Bọt biển', 'Cát sông', 'Đá mài', 'Keo nhựa', 'Bấc đèn', 'Dầu cá', 'Mỡ thú', 'Bột đá', 'Gạch vỡ', 'Ngói cũ', 'Thanh tre', 'Lá cọ', 'Vỏ quế', 'Củ gừng', 'Tỏi rừng', 'Ớt dại', 'Hạt tiêu', 'Muối mỏ', 'Đá lửa', 'Bùi nhùi', 'Ống tre', 'Gùi mây', 'Thừng gai', 'Móc sắt', 'Khóa đồng', 'Bản lề', 'Vòng sắt'] },
-        { cat: 'Đồ ăn', w: 2, usable: true, label: 'Ăn', names: ['Cá nướng', 'Thịt xiên', 'Bánh ngô', 'Khoai nướng', 'Sắn luộc', 'Cháo gạo', 'Cơm nắm', 'Trứng luộc', 'Nấm xào', 'Măng luộc', 'Đậu hầm', 'Ngô luộc', 'Hạt dẻ rang', 'Dâu rừng', 'Chuối rừng', 'Táo dại', 'Lê dại', 'Ổi rừng', 'Mít non', 'Dừa non', 'Mía khúc', 'Bánh đa', 'Bún khô', 'Mì sợi', 'Chả cá', 'Nem nướng', 'Gà quay', 'Vịt hầm', 'Sườn nướng', 'Canh rau', 'Rau luộc', 'Dưa muối', 'Cà muối', 'Mứt quả', 'Bánh bao', 'Xôi đậu', 'Bánh chưng', 'Chè đỗ', 'Sữa hạt', 'Bơ thực vật'] },
-        { cat: 'Đồ uống', w: 2, usable: true, label: 'Uống', names: ['Nước suối', 'Nước mưa', 'Nước dừa', 'Trà lá', 'Trà gừng', 'Trà bạc hà', 'Nước mía', 'Nước quả', 'Nước ép táo', 'Nước ép lê', 'Nước chanh', 'Sữa nóng', 'Canh nóng', 'Nước sâm', 'Nước thảo mộc', 'Nước gạo rang', 'Nước vối', 'Nước atiso', 'Nước dâu', 'Nước mơ'] },
-        { cat: 'Y tế', w: 1, usable: true, label: 'Dùng', names: ['Cao dán', 'Dầu gió', 'Rượu thuốc', 'Thuốc cầm máu', 'Thuốc hạ sốt', 'Thuốc giảm đau', 'Thuốc tiêu hóa', 'Thuốc bổ', 'Gạc sạch', 'Cồn sát trùng', 'Bột cầm máu', 'Nước muối', 'Viên ngậm', 'Dầu xoa bóp', 'Bột thảo dược', 'Cốt thuốc', 'Sáp vết thương', 'Nước rửa', 'Băng thun', 'Lá chườm'] },
-        { cat: 'Dụng cụ', w: 3, usable: false, names: ['Dao găm', 'Rìu nhỏ', 'Rìu lớn', 'Cưa tay', 'Đục gỗ', 'Búa sắt', 'Kìm sắt', 'Kéo cắt', 'Lưỡi câu', 'Cần câu', 'Lưới bắt', 'Rổ tre', 'Nón lá', 'Áo mưa', 'Áo khoác', 'Găng tay', 'Ủng cao su', 'Giày đi rừng', 'Thắt lưng', 'Bao tay', 'Mũ vải', 'Khăn quàng', 'Đèn dầu', 'Ống nhòm', 'La bàn', 'Còi báo', 'Dây thừng', 'Cọc lều', 'Bạt che', 'Túi ngủ'] },
-        { cat: 'Vật liệu', w: 2, usable: false, names: ['Bánh răng', 'Lò xo', 'Trục sắt', 'Vòng bi', 'Tấm thép', 'Ống đồng', 'Dây kẽm', 'Chốt sắt', 'Đai ốc', 'Bu lông', 'Cò bẫy', 'Lưỡi bẫy', 'Ngàm kẹp', 'Tay quay', 'Ròng rọc', 'Khung gỗ', 'Nắp đậy', 'Van nước', 'Ống dẫn', 'Mặt đồng hồ'] },
-        { cat: 'Rương', w: 3, usable: true, label: 'Mở hộp', names: ['Hộp gỗ nhỏ', 'Hộp thiếc', 'Hộp sắt', 'Hộp đồng', 'Hộp kín', 'Túi đồ cũ', 'Thùng nhỏ', 'Giỏ quà', 'Hộp dụng cụ', 'Hộp y tế', 'Hộp lương khô', 'Hộp hạt giống', 'Hộp linh kiện', 'Hộp cổ vật', 'Hộp bí mật', 'Hộp thợ săn', 'Hộp thợ mỏ', 'Hộp đi rừng', 'Hộp lưu trữ', 'Hộp đặc biệt'] },
-        { cat: 'Bản vẽ', w: 1, usable: true, label: 'Xem phác thảo', names: ['Phác lều', 'Phác bếp', 'Phác giếng', 'Phác cầu', 'Phác bè', 'Phác xe đẩy', 'Phác kệ đồ', 'Phác tủ', 'Phác chuồng', 'Phác hàng rào', 'Phác bẫy thú', 'Phác máng nước', 'Phác lò sấy', 'Phác hầm trữ', 'Phác tháp canh', 'Phác cối xay', 'Phác máy bơm', 'Phác đèn hiệu', 'Phác cổng', 'Phác nhà kho'] }
+        { cat: 'Nguyên liệu', tab: 'materials', w: 2, usable: false, names: ['Nhựa cây', 'Vỏ cây', 'Dây leo', 'Rễ cây', 'Cành khô', 'Mùn gỗ', 'Vỏ sò', 'Bùn non', 'Đất sét', 'Than củi', 'Tro bếp', 'Sỏi nhỏ', 'Đá vôi', 'Thạch anh', 'Mảnh sắt', 'Dây đồng', 'Đinh gỉ', 'Vải thô', 'Sợi lanh', 'Bông lau', 'Rơm khô', 'Vỏ hạt', 'Nhựa thông', 'Sáp ong', 'Mật rừng', 'Nấm dại', 'Rêu xanh', 'Cỏ khô', 'Vỏ trứng', 'Xương nhỏ', 'Sừng non', 'Móng thú', 'Vảy cá', 'Bọt biển', 'Cát sông', 'Đá mài', 'Keo nhựa', 'Bấc đèn', 'Dầu cá', 'Mỡ thú', 'Bột đá', 'Gạch vỡ', 'Ngói cũ', 'Thanh tre', 'Lá cọ', 'Vỏ quế', 'Củ gừng', 'Tỏi rừng', 'Ớt dại', 'Hạt tiêu', 'Muối mỏ', 'Đá lửa', 'Bùi nhùi', 'Ống tre', 'Gùi mây', 'Thừng gai', 'Móc sắt', 'Khóa đồng', 'Bản lề', 'Vòng sắt'] },
+        { cat: 'Thức ăn', tab: 'food', w: 2, usable: true, label: 'Ăn', names: ['Cá nướng', 'Thịt xiên', 'Bánh ngô', 'Khoai nướng', 'Sắn luộc', 'Cháo gạo', 'Cơm nắm', 'Trứng luộc', 'Nấm xào', 'Măng luộc', 'Đậu hầm', 'Ngô luộc', 'Hạt dẻ rang', 'Dâu rừng', 'Chuối rừng', 'Táo dại', 'Lê dại', 'Ổi rừng', 'Mít non', 'Dừa non', 'Mía khúc', 'Bánh đa', 'Bún khô', 'Mì sợi', 'Chả cá', 'Nem nướng', 'Gà quay', 'Vịt hầm', 'Sườn nướng', 'Canh rau', 'Rau luộc', 'Dưa muối', 'Cà muối', 'Mứt quả', 'Bánh bao', 'Xôi đậu', 'Bánh chưng', 'Chè đỗ', 'Sữa hạt', 'Bơ thực vật'] },
+        { cat: 'Thức ăn', tab: 'food', w: 2, usable: true, label: 'Uống', names: ['Nước suối', 'Nước mưa', 'Nước dừa', 'Trà lá', 'Trà gừng', 'Trà bạc hà', 'Nước mía', 'Nước quả', 'Nước ép táo', 'Nước ép lê', 'Nước chanh', 'Sữa nóng', 'Canh nóng', 'Nước sâm', 'Nước thảo mộc', 'Nước gạo rang', 'Nước vối', 'Nước atiso', 'Nước dâu', 'Nước mơ'] },
+        { cat: 'Thuốc', tab: 'medicine', w: 1, usable: true, label: 'Dùng', names: ['Cao dán', 'Dầu gió', 'Rượu thuốc', 'Thuốc cầm máu', 'Thuốc hạ sốt', 'Thuốc giảm đau', 'Thuốc tiêu hóa', 'Thuốc bổ', 'Gạc sạch', 'Cồn sát trùng', 'Bột cầm máu', 'Nước muối', 'Viên ngậm', 'Dầu xoa bóp', 'Bột thảo dược', 'Cốt thuốc', 'Sáp vết thương', 'Nước rửa', 'Băng thun', 'Lá chườm'] },
+        { cat: 'Dụng cụ', tab: 'tools', w: 3, usable: false, names: ['Dao găm', 'Rìu nhỏ', 'Rìu lớn', 'Cưa tay', 'Đục gỗ', 'Búa sắt', 'Kìm sắt', 'Kéo cắt', 'Lưỡi câu', 'Cần câu', 'Lưới bắt', 'Rổ tre', 'Nón lá', 'Áo mưa', 'Áo khoác', 'Găng tay', 'Ủng cao su', 'Giày đi rừng', 'Thắt lưng', 'Bao tay', 'Mũ vải', 'Khăn quàng', 'Đèn dầu', 'Ống nhòm', 'La bàn', 'Còi báo', 'Dây thừng', 'Cọc lều', 'Bạt che', 'Túi ngủ'] },
+        { cat: 'Nguyên liệu', tab: 'materials', w: 2, usable: false, names: ['Bánh răng', 'Lò xo', 'Trục sắt', 'Vòng bi', 'Tấm thép', 'Ống đồng', 'Dây kẽm', 'Chốt sắt', 'Đai ốc', 'Bu lông', 'Cò bẫy', 'Lưỡi bẫy', 'Ngàm kẹp', 'Tay quay', 'Ròng rọc', 'Khung gỗ', 'Nắp đậy', 'Van nước', 'Ống dẫn', 'Mặt đồng hồ'] },
+        { cat: 'Dụng cụ', tab: 'tools', w: 3, usable: true, label: 'Mở hộp', names: ['Hộp gỗ nhỏ', 'Hộp thiếc', 'Hộp sắt', 'Hộp đồng', 'Hộp kín', 'Túi đồ cũ', 'Thùng nhỏ', 'Giỏ quà', 'Hộp dụng cụ', 'Hộp y tế', 'Hộp lương khô', 'Hộp hạt giống', 'Hộp linh kiện', 'Hộp cổ vật', 'Hộp bí mật', 'Hộp thợ săn', 'Hộp thợ mỏ', 'Hộp đi rừng', 'Hộp lưu trữ', 'Hộp đặc biệt'] },
+        { cat: 'Dụng cụ', tab: 'tools', w: 1, usable: true, label: 'Xem phác thảo', names: ['Phác lều', 'Phác bếp', 'Phác giếng', 'Phác cầu', 'Phác bè', 'Phác xe đẩy', 'Phác kệ đồ', 'Phác tủ', 'Phác chuồng', 'Phác hàng rào', 'Phác bẫy thú', 'Phác máng nước', 'Phác lò sấy', 'Phác hầm trữ', 'Phác tháp canh', 'Phác cối xay', 'Phác máy bơm', 'Phác đèn hiệu', 'Phác cổng', 'Phác nhà kho'] }
       ];
 
       let idx = 1;
@@ -1174,6 +1280,7 @@
           items[key] = {
             name: nm,
             category: grp.cat,
+            bagTab: grp.tab,
             weight: grp.w,
             usable: grp.usable,
             useLabel: grp.label || 'Dùng',
@@ -1293,6 +1400,9 @@
       return {
         charName: charName || 'Lâm Dã',
         isAdmin: Boolean(isAdmin),
+        bonusAtk: 0,
+        bonusBagCap: 0,
+        bagTab: 'all',
         day: 1,
         timeOfDaySec: 6 * 3600,
         weatherId: 'clear',
@@ -1356,6 +1466,11 @@
     }
 
     let state = createInitialState();
+
+    function setBagTab(tabId) {
+      state.bagTab = tabId;
+      renderAll();
+    }
 
     function switchAuthMode(mode) {
       authMode = mode;
@@ -1519,7 +1634,7 @@
 
     function getMaxBagCapacity() {
       const staminaBonus = Math.round(state.maxStamina * 0.5);
-      return 30 + staminaBonus + (state.houseLevel - 1) * 5;
+      return 30 + staminaBonus + (state.houseLevel - 1) * 5 + (state.bonusBagCap || 0);
     }
 
     function getPrepUsedCapacity() {
@@ -1534,7 +1649,7 @@
     }
 
     function getPlayerStrength() {
-      let str = 20 + state.houseLevel * 4;
+      let str = 20 + state.houseLevel * 4 + (state.bonusAtk || 0);
       if ((state.inv.axe || 0) > 0) str += 4;
       if (state.talent?.rank === 'D') str += 5;
       if (state.talent?.rank === 'S') str += 12;
@@ -1653,6 +1768,19 @@
       renderAll();
     }
 
+    function adminGiveSupremeSet() {
+      if (!state.isAdmin) return;
+      for (const k of SUPREME_ITEM_KEYS) {
+        state.inv[k] = (state.inv[k] || 0) + 1;
+      }
+      state.bagTab = 'supreme';
+      state.selectedItem = SUPREME_ITEM_KEYS[0];
+      const msg = 'Admin đã nhận 1 bộ 5 vật phẩm siêu phàm (Bậc I - Bậc V).';
+      document.getElementById('admin-cmd-status').textContent = msg;
+      logMsg(msg);
+      renderAll();
+    }
+
     function adminUnlockAllRecipes() {
       if (!state.isAdmin) return;
       state.unlockedRecipes = RECIPES.map(r => r.id);
@@ -1722,7 +1850,9 @@
       const cmd = (parts[0] || '').toLowerCase();
 
       if (cmd === 'help') {
-        statusEl.textContent = 'Lệnh: /give <tên_hoặc_mã> <số_lượng>, /heal, /stamina, /addtime <phút>, /day <số_ngày>, /allbp';
+        statusEl.textContent = 'Lệnh: /give <tên_hoặc_mã> <số_lượng>, /sup, /heal, /stamina, /addtime <phút>, /day <số_ngày>, /allbp';
+      } else if (cmd === 'sup') {
+        adminGiveSupremeSet();
       } else if (cmd === 'give') {
         const itemQuery = parts.slice(1, parts.length - 1).join(' ') || parts[1];
         const qtyVal = parseInt(parts[parts.length - 1], 10);
@@ -2157,18 +2287,51 @@
         state.hp = Math.min(state.maxHp, state.hp + 35);
         state.stamina = Math.min(state.maxStamina, state.stamina + 15);
         logMsg(`Dùng bùa hộ mệnh ${place}: +35 máu, +15 thể lực.`);
+      } else if (key === 'sup_mist_dew') {
+        state.inv.sup_mist_dew = Math.max(0, (state.inv.sup_mist_dew || 0) - 1);
+        state.hp = state.maxHp;
+        state.stamina = state.maxStamina;
+        state.hunger = state.maxHunger;
+        state.thirst = 0;
+        logMsg(`Dùng Sương Tinh Tụ [Bậc I] ${place}: hồi đầy Máu, Thể lực, Độ no và giải hết Khát.`);
+      } else if (key === 'sup_break_seal') {
+        state.inv.sup_break_seal = Math.max(0, (state.inv.sup_break_seal || 0) - 1);
+        state.bonusAtk = (state.bonusAtk || 0) + 8;
+        logMsg(`Dùng Ấn Ký Phá Giới [Bậc II] ${place}: tăng vĩnh viễn +8 Công.`);
+      } else if (key === 'sup_beast_essence') {
+        state.inv.sup_beast_essence = Math.max(0, (state.inv.sup_beast_essence || 0) - 1);
+        for (const t of state.tamingQueue) {
+          t.progressPct = Math.min(100, t.progressPct + 35);
+        }
+        for (const pet of state.tamedBeasts) {
+          pet.growthPct = Math.min(99, (pet.growthPct || 0) + 25);
+        }
+        logMsg(`Dùng Chân Dịch Thú Hồn [Bậc III] ${place}: +35% tiến độ thuần thú và +25% tăng trưởng thú nuôi.`);
+      } else if (key === 'sup_mist_orb') {
+        state.inv.sup_mist_orb = Math.max(0, (state.inv.sup_mist_orb || 0) - 1);
+        state.bonusAtk = (state.bonusAtk || 0) + 12;
+        state.bonusBagCap = (state.bonusBagCap || 0) + 10;
+        logMsg(`Dùng Linh Châu Xua Sương [Bậc IV] ${place}: +12 Công và +10 sức chứa túi đồ.`);
+      } else if (key === 'sup_sovereign_core') {
+        state.inv.sup_sovereign_core = Math.max(0, (state.inv.sup_sovereign_core || 0) - 1);
+        state.maxHp += 20;
+        state.maxStamina += 20;
+        state.bonusAtk = (state.bonusAtk || 0) + 20;
+        state.hp = state.maxHp;
+        state.stamina = state.maxStamina;
+        state.hunger = state.maxHunger;
+        state.thirst = 0;
+        state.unlockedRecipes = RECIPES.map(r => r.id);
+        logMsg(`Dùng Thiên Khải Chí Tôn [Bậc V] ${place}: hồi đầy chỉ số, +20 Công/Máu tối đa/Thể lực tối đa, mở mọi bản vẽ.`);
       } else {
         const def = ITEM_DEFS[key];
         state.inv[key] = Math.max(0, (state.inv[key] || 0) - 1);
-        if (def?.category === 'Đồ ăn') {
+        if (def?.bagTab === 'food') {
           state.hunger = Math.min(state.maxHunger, state.hunger + 16);
+          state.thirst = Math.max(0, state.thirst - 14);
           state.hp = Math.min(state.maxHp, state.hp + 4);
-          logMsg(`Dùng ${def.name}: +16 no, +4 máu.`);
-        } else if (def?.category === 'Đồ uống') {
-          state.thirst = Math.max(0, state.thirst - 20);
-          state.hp = Math.min(state.maxHp, state.hp + 5);
-          logMsg(`Uống ${def.name}: -20 khát, +5 máu.`);
-        } else if (def?.category === 'Y tế') {
+          logMsg(`Dùng ${def.name}: +16 no, -14 khát, +4 máu.`);
+        } else if (def?.bagTab === 'medicine') {
           state.hp = Math.min(state.maxHp, state.hp + 18);
           logMsg(`Dùng ${def.name}: +18 máu.`);
         } else {
@@ -2246,6 +2409,12 @@
       });
       if (!availableBps.length) return null;
       return availableBps[Math.floor(Math.random() * availableBps.length)];
+    }
+
+    function pickSupremeItem() {
+      const pool = ['sup_mist_dew', 'sup_break_seal', 'sup_beast_essence', 'sup_mist_orb'];
+      if (Math.random() < 0.15) pool.push('sup_sovereign_core');
+      return pool[Math.floor(Math.random() * pool.length)];
     }
 
     function pickRandomExtraItem() {
@@ -2337,6 +2506,12 @@
       if (bpKey && Math.random() < (0.07 + bpBonus)) {
         state.inv[bpKey] = (state.inv[bpKey] || 0) + 1;
         foundItems.push(`1 ${ITEM_DEFS[bpKey].name}`);
+      }
+
+      if (Math.random() < 0.06 * loc.lootMult) {
+        const supKey = pickSupremeItem();
+        state.inv[supKey] = (state.inv[supKey] || 0) + 1;
+        foundItems.push(`1 ${ITEM_DEFS[supKey].name}`);
       }
 
       let encounterObj = null;
@@ -2529,6 +2704,11 @@
       state.stats.beastsDefeated = (state.stats.beastsDefeated || 0) + 1;
 
       const extraDrops = [`${meatGain} thịt`, `${hideGain} da thú`, `1 ${ITEM_DEFS[chestKey].name}`];
+      if (Math.random() < 0.25) {
+        const supKey = pickSupremeItem();
+        state.inv[supKey] = (state.inv[supKey] || 0) + 1;
+        extraDrops.push(`1 ${ITEM_DEFS[supKey].name}`);
+      }
       if (Math.random() < 0.5) {
         if (!state.beastBloodlines[c.speciesId]) {
           state.beastBloodlines[c.speciesId] = {
@@ -2599,7 +2779,7 @@
 
       const chosenFood = foodOrder.find(f => (state.inv[f.key] || 0) > 0);
       if (!chosenFood) {
-        logMsg('Trong balo hết đồ ăn/nước uống để cho thú ăn.');
+        logMsg('Trong túi hết đồ ăn/nước uống để cho thú ăn.');
         renderAll();
         return;
       }
@@ -2719,6 +2899,12 @@
         rewards.push({ key: bpKey, name: ITEM_DEFS[bpKey].name, qty: 1 });
       }
 
+      if (Math.random() < (tier.supChance || 0.1)) {
+        const supKey = pickSupremeItem();
+        state.inv[supKey] = (state.inv[supKey] || 0) + 1;
+        rewards.push({ key: supKey, name: ITEM_DEFS[supKey].name, qty: 1 });
+      }
+
       logMsg(`Mở ${tier.name}: ${rewards.map(r => `+${r.qty} ${r.name}`).join(', ')}.`);
       openChestRewardModal(tier.name, rewards, 0);
       renderAll();
@@ -2811,10 +2997,10 @@
           desc: 'Hoàn thành 2 chuyến trên bản đồ.',
           cur: state.stats?.expeditionsDone || 0,
           target: 2,
-          rewardText: '+1 Rương Bạc, +1 Đuốc',
+          rewardText: '+1 Rương Bạc, +1 Sương Tinh Tụ [Bậc I]',
           grant: () => {
             state.inv.chest_silver = (state.inv.chest_silver || 0) + 1;
-            state.inv.mist_torch = (state.inv.mist_torch || 0) + 1;
+            state.inv.sup_mist_dew = (state.inv.sup_mist_dew || 0) + 1;
           }
         },
         {
@@ -2823,10 +3009,10 @@
           desc: 'Làm 1 món hoặc công trình ở Nhà gỗ.',
           cur: totalCrafted,
           target: 1,
-          rewardText: '+1 Rương Vàng, +1 Lá thuốc',
+          rewardText: '+1 Rương Vàng, +1 Ấn Ký Phá Giới [Bậc II]',
           grant: () => {
             state.inv.chest_gold = (state.inv.chest_gold || 0) + 1;
-            state.inv.mist_herb = (state.inv.mist_herb || 0) + 1;
+            state.inv.sup_break_seal = (state.inv.sup_break_seal || 0) + 1;
           }
         },
         {
@@ -2835,10 +3021,10 @@
           desc: 'Đánh hạ 1 con thú khi đi thám hiểm.',
           cur: state.stats?.beastsDefeated || 0,
           target: 1,
-          rewardText: '+1 Rương Bạch Ngân, +1 Bùa hộ mệnh',
+          rewardText: '+1 Rương Bạch Ngân, +1 Chân Dịch Thú Hồn [Bậc III]',
           grant: () => {
             state.inv.chest_platinum = (state.inv.chest_platinum || 0) + 1;
-            state.inv.life_charm = (state.inv.life_charm || 0) + 1;
+            state.inv.sup_beast_essence = (state.inv.sup_beast_essence || 0) + 1;
           }
         }
       ];
@@ -3129,7 +3315,7 @@
                 </span>
               `;
             }).join('')
-          : `<span style="color:var(--muted); font-size:0.78rem;">Balo trống</span>`;
+          : `<span style="color:var(--muted); font-size:0.78rem;">Túi trống</span>`;
 
         const curLoc = MAP_LOCATIONS.find(m => m.id === state.selectedMapId) || MAP_LOCATIONS[0];
         const curStrat = STRATEGIES.find(s => s.id === state.selectedStrategyId) || STRATEGIES[0];
@@ -3210,42 +3396,68 @@
         expRepBox.classList.add('hidden');
       }
 
-      // Chỉ lấy vật phẩm đang có số lượng > 0
+      // Cập nhật trạng thái tab túi đồ
+      const curTab = state.bagTab || 'all';
+      document.querySelectorAll('#bag-category-tabs .bag-cat-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === curTab);
+      });
+
       const searchText = (document.getElementById('inv-search-input')?.value || '').trim().toLowerCase();
       const filterMode = document.getElementById('inv-filter-select')?.value || 'all';
 
-      const ownedSlots = [];
+      const allOwnedSlots = [];
       for (const [k, def] of Object.entries(ITEM_DEFS)) {
         const cnt = state.inv[k] || 0;
         if (cnt <= 0) continue;
-        if (filterMode === 'usable' && !def.usable) continue;
-        if (searchText && !def.name.toLowerCase().includes(searchText) && !def.category.toLowerCase().includes(searchText)) continue;
-        ownedSlots.push({ key: k, label: def.name, count: cnt, accent: '#f8fafc' });
+        allOwnedSlots.push({
+          key: k,
+          label: def.name,
+          count: cnt,
+          tab: def.bagTab || 'tools',
+          usable: Boolean(def.usable),
+          isSupreme: def.bagTab === 'supreme',
+          accent: def.bagTab === 'supreme' ? '#e879f9' : '#f8fafc'
+        });
       }
       for (const bl of Object.values(state.beastBloodlines)) {
         if ((bl.count || 0) <= 0) continue;
-        if (filterMode === 'usable') continue;
-        const key = `bl_${bl.speciesId}`;
-        if (searchText && !`huyết mạch ${bl.speciesName}`.toLowerCase().includes(searchText)) continue;
-        ownedSlots.push({ key, label: `Huyết mạch ${bl.speciesName}`, count: bl.count, accent: '#f472b6' });
+        allOwnedSlots.push({
+          key: `bl_${bl.speciesId}`,
+          label: `Huyết mạch ${bl.speciesName}`,
+          count: bl.count,
+          tab: 'materials',
+          usable: false,
+          isSupreme: false,
+          accent: '#f472b6'
+        });
       }
 
-      document.getElementById('ui-owned-item-count').textContent = ownedSlots.length;
-      if (ownedSlots.length > 0 && !ownedSlots.some(s => s.key === state.selectedItem)) {
-        state.selectedItem = ownedSlots[0].key;
+      document.getElementById('ui-owned-item-count').textContent = allOwnedSlots.length;
+
+      const filteredSlots = allOwnedSlots.filter(s => {
+        if (curTab !== 'all' && s.tab !== curTab) return false;
+        if (filterMode === 'usable' && !s.usable) return false;
+        if (searchText && !s.label.toLowerCase().includes(searchText)) return false;
+        return true;
+      });
+
+      if (filteredSlots.length > 0 && !filteredSlots.some(s => s.key === state.selectedItem)) {
+        state.selectedItem = filteredSlots[0].key;
       }
 
-      document.getElementById('inventory-grid').innerHTML = ownedSlots.length
-        ? ownedSlots.map(s => {
+      const curTabLabel = BAG_TABS.find(t => t.id === curTab)?.label || 'Tất cả';
+      document.getElementById('inventory-grid').innerHTML = filteredSlots.length
+        ? filteredSlots.map(s => {
             const activeClass = state.selectedItem === s.key ? 'selected' : '';
+            const supClass = s.isSupreme ? 'sup-slot' : '';
             return `
-              <button type="button" class="inv-slot ${activeClass}" onclick="selectItem('${s.key}')">
+              <button type="button" class="inv-slot ${supClass} ${activeClass}" onclick="selectItem('${s.key}')">
                 <div style="color:${s.accent};">${s.label}</div>
                 <strong>${s.count}</strong>
               </button>
             `;
           }).join('')
-        : `<div class="inv-slot" style="color:var(--muted);">Balo hiện không có món nào</div>`;
+        : `<div class="inv-slot" style="color:var(--muted);">Không có món nào trong mục "${curTabLabel}"</div>`;
 
       const selKey = state.selectedItem;
       const useBtn = document.getElementById('btn-use-item');
@@ -3254,7 +3466,7 @@
         const bl = state.beastBloodlines[spId];
         const cnt = bl ? bl.count : 0;
         document.getElementById('insp-name').textContent = `Huyết mạch ${bl ? bl.speciesName : ''} (Có: ${cnt})`;
-        document.getElementById('insp-type').textContent = `Nhóm: Huyết mạch (${bl ? bl.rank : ''})`;
+        document.getElementById('insp-type').textContent = `Mục: Nguyên liệu • Huyết mạch (${bl ? bl.rank : ''})`;
         document.getElementById('insp-desc').textContent = `Lấy từ thú, thử dùng cho thú nuôi để xem có đột biến không.`;
         useBtn.disabled = cnt <= 0 || !state.selectedPetUid;
         useBtn.textContent = 'Dùng cho thú';
@@ -3262,15 +3474,16 @@
         const selDef = ITEM_DEFS[selKey];
         const count = state.inv[selKey] || 0;
         if (selDef && count > 0) {
+          const rankInfo = selDef.gradeRank ? ` • Cấp bậc: ${selDef.gradeRank}` : '';
           document.getElementById('insp-name').textContent = `${selDef.name} (Có: ${count})`;
-          document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category} • Nặng: ${selDef.weight}`;
+          document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category}${rankInfo} • Nặng: ${selDef.weight}`;
           document.getElementById('insp-desc').textContent = selDef.desc;
           useBtn.disabled = !selDef.usable || count <= 0 || state.isDead;
           useBtn.textContent = selDef.usable ? selDef.useLabel : 'Không dùng trực tiếp';
         } else {
           document.getElementById('insp-name').textContent = 'Chưa chọn vật phẩm';
           document.getElementById('insp-type').textContent = 'Nhóm: -';
-          document.getElementById('insp-desc').textContent = 'Bấm vào một món đang có trong balo để xem chi tiết.';
+          document.getElementById('insp-desc').textContent = 'Bấm vào một món đang có trong túi để xem chi tiết.';
           useBtn.disabled = true;
           useBtn.textContent = 'Dùng';
         }
