@@ -69,10 +69,37 @@
     .mat-ok { color: var(--ok); font-weight: 700; }
     .mat-bad { color: var(--bad); font-weight: 700; }
 
+    /* TOÀN BỘ BẢNG CHỨC NĂNG HIỂN THỊ TOÀN MÀN HÌNH */
+    .fullscreen-panel {
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      background: var(--bg);
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .fullscreen-inner {
+      width: 100%;
+      max-width: 1220px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.72);
+      margin-bottom: 24px;
+    }
+    .fullscreen-inner.admin-box {
+      border-color: #a855f7;
+      background: #181329;
+    }
+
     #intro-overlay, #victory-overlay, #gameover-overlay, #craft-block-overlay, #levelup-overlay, #chest-reward-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(7, 10, 16, 0.92);
+      background: rgba(7, 10, 16, 0.94);
       z-index: 65;
       display: flex;
       align-items: center;
@@ -82,7 +109,7 @@
     }
     .intro-card, .fullscreen-modal {
       width: 100%;
-      max-width: 760px;
+      max-width: 780px;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -109,7 +136,7 @@
 
     .chest-loot-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
       gap: 8px;
       margin: 12px 0;
     }
@@ -120,6 +147,9 @@
       padding: 9px;
       text-align: left;
       font-size: 0.84rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .chest-loot-btn.active { border-color: #fbbf24; background: #222838; }
     .chest-item-detail {
@@ -129,6 +159,9 @@
       padding: 11px;
       margin-bottom: 14px;
       font-size: 0.86rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .wheel-stage {
@@ -243,9 +276,9 @@
       border: 1px solid #2b4570;
       color: #dbeafe;
       border-radius: 8px;
-      padding: 7px 12px;
+      padding: 8px 12px;
       margin: 10px 14px 0;
-      font-size: 0.83rem;
+      font-size: 0.84rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -261,7 +294,7 @@
       border: 1px solid #ef4444;
       color: #fecaca;
       border-radius: 8px;
-      padding: 7px 12px;
+      padding: 8px 12px;
       margin: 8px 14px 0;
       font-size: 0.84rem;
       font-weight: 700;
@@ -273,52 +306,87 @@
       color: #fde68a;
     }
 
-    .main-layout {
+    .home-hub {
+      max-width: 1220px;
+      margin: 16px auto 28px;
+      padding: 0 14px;
+    }
+    .home-hero {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+    .home-quick-grid {
       display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 12px;
-      padding: 12px 14px 20px;
-      max-width: 1460px;
-      margin: 0 auto;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 10px;
     }
-    @media (max-width: 980px) {
-      .main-layout { grid-template-columns: 1fr; }
-    }
-
-    .box {
+    .home-tile {
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 12px;
+      padding: 14px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
-    .admin-box {
-      border-color: #a855f7;
-      background: #181329;
-    }
+    .home-tile:hover { border-color: #fbbf24; background: #192334; }
+
     .box-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 9px;
-      padding-bottom: 6px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #222e42;
     }
-    .box h2 { font-size: 0.96rem; color: #f8fafc; margin: 0; }
+    .box-header h2 { font-size: 1.15rem; color: #fbbf24; margin: 0; }
+
+    /* HÌNH ẢNH VẬT PHẨM & THÚ */
+    .item-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: #090d14;
+      flex-shrink: 0;
+    }
+    .item-thumb-lg {
+      width: 64px;
+      height: 64px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1.5px solid #38bdf8;
+      background: #090d14;
+      flex-shrink: 0;
+    }
+    .pet-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 9px;
+      object-fit: cover;
+      border: 1px solid #c084fc;
+      background: #090d14;
+      flex-shrink: 0;
+    }
 
     .char-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 7px;
-      margin-bottom: 9px;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
     }
     .char-stat-card {
       background: var(--panel-2);
       border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 7px 9px;
-      font-size: 0.82rem;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.86rem;
     }
     .talent-clickable {
       border-color: #d97706;
@@ -328,18 +396,18 @@
     .talent-detail-box {
       background: #0d1320;
       border: 1px solid #d97706;
-      border-radius: 7px;
-      padding: 9px;
-      margin-bottom: 9px;
-      font-size: 0.82rem;
+      border-radius: 8px;
+      padding: 11px;
+      margin-bottom: 14px;
+      font-size: 0.85rem;
       color: #fde68a;
     }
 
     .camp-actions-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 7px;
-      padding: 8px;
+      gap: 8px;
+      padding: 10px;
       background: #0d131d;
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -347,17 +415,17 @@
 
     .map-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
-      gap: 7px;
+      grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+      gap: 8px;
       margin-top: 8px;
     }
     .map-node {
       background: #0d1420;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 9px;
+      padding: 10px;
       text-align: left;
-      font-size: 0.81rem;
+      font-size: 0.82rem;
     }
     .map-node.selected { border-color: #38bdf8; background: #15253c; }
     .map-node.marked { border-color: #f59e0b; }
@@ -366,35 +434,35 @@
       background: #0d131d;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 9px;
+      padding: 10px;
       margin-top: 8px;
-      font-size: 0.81rem;
+      font-size: 0.82rem;
     }
     .prep-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-    .chip-btn { font-size: 0.76rem; padding: 5px 8px; border-radius: 6px; }
+    .chip-btn { font-size: 0.78rem; padding: 5px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; }
     .chip-btn.active { background: #1d4ed8; border-color: #93c5fd; color: #fff; }
 
     .action-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .modal-card {
       background: #131e30;
       border: 1px solid #3b82f6;
       border-radius: 8px;
-      padding: 11px;
-      margin-bottom: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
     }
 
     .combat-card {
       background: #191018;
       border: 1.5px solid #ef4444;
       border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
     }
     .combat-top-bar {
       display: flex;
@@ -408,7 +476,7 @@
     .combat-vs-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap: 10px;
       margin-top: 8px;
     }
     @media (max-width: 680px) {
@@ -418,8 +486,11 @@
       background: #101622;
       border: 1px solid #2b3950;
       border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.81rem;
+      padding: 10px;
+      font-size: 0.82rem;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
     }
     .combatant-enemy { background: #231118; border-color: #7f1d1d; }
     .hp-bar-track {
@@ -450,7 +521,7 @@
       border-radius: 8px;
       padding: 8px 10px;
       margin-top: 8px;
-      max-height: 165px;
+      max-height: 175px;
       overflow-y: auto;
       font-size: 0.81rem;
     }
@@ -462,49 +533,52 @@
       background: #0e1f1a;
       border: 1px solid #22c55e;
       border-radius: 8px;
-      padding: 11px;
-      margin-bottom: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
     }
-    .warn-line { color: #fbbf24; font-size: 0.81rem; margin-top: 6px; }
-    .danger-line { color: #f87171; font-weight: 700; font-size: 0.81rem; margin-top: 4px; }
+    .warn-line { color: #fbbf24; font-size: 0.82rem; margin-top: 6px; }
+    .danger-line { color: #f87171; font-weight: 700; font-size: 0.82rem; margin-top: 4px; }
     .encounter-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
 
     .log-box {
       background: #0a0e16;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 9px;
-      height: 150px;
+      padding: 10px;
+      height: 170px;
       overflow-y: auto;
       font-size: 0.82rem;
     }
     .log-item { padding: 3px 0; border-bottom: 1px dashed #1e293b; }
     .log-item:last-child { border-bottom: none; }
 
-    .bag-cat-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-    .bag-cat-btn { font-size: 0.77rem; padding: 5px 9px; border-radius: 999px; }
+    .bag-cat-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .bag-cat-btn { font-size: 0.78rem; padding: 6px 11px; border-radius: 999px; }
     .bag-cat-btn.active { background: #b45309; border-color: #fbbf24; color: #fff; }
     .bag-cat-btn.chest-tab.active { background: #0369a1; border-color: #38bdf8; color: #fff; }
     .bag-cat-btn.sup-tab.active { background: #7e22ce; border-color: #e879f9; color: #fff; }
 
-    .inv-toolbar { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; align-items: center; }
-    .inv-toolbar input { flex: 1; min-width: 150px; }
+    .inv-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; align-items: center; }
+    .inv-toolbar input { flex: 1; min-width: 180px; }
 
     .inv-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
-      gap: 7px;
-      max-height: 265px;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 9px;
+      max-height: 360px;
       overflow-y: auto;
-      padding-right: 2px;
+      padding-right: 3px;
     }
     .inv-slot {
       background: var(--panel-2);
       border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 7px 8px;
-      font-size: 0.81rem;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
       text-align: left;
+      display: flex;
+      gap: 9px;
+      align-items: center;
     }
     .inv-slot.chest-slot { border-color: #0ea5e9; background: #102233; }
     .inv-slot.sup-slot { border-color: #a855f7; background: #201533; }
@@ -523,48 +597,48 @@
     .growth-fill { height: 100%; background: #f59e0b; }
 
     .inspector-box {
-      margin-top: 9px;
+      margin-top: 12px;
       background: #0a0e16;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 10px;
+      padding: 12px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 9px;
+      gap: 12px;
     }
 
     .craft-cat-title {
-      font-size: 0.87rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: #fbbf24;
-      margin: 9px 0 5px;
+      margin: 12px 0 6px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 3px;
+      padding-bottom: 4px;
     }
 
     .build-card {
       background: var(--panel-2);
       border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 9px;
-      margin-bottom: 7px;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      font-size: 0.81rem;
+      gap: 10px;
+      font-size: 0.82rem;
     }
 
     .quest-card {
       background: var(--panel-2);
       border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 8px 10px;
-      margin-bottom: 7px;
-      font-size: 0.81rem;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      font-size: 0.83rem;
     }
     .quest-card.done { border-color: #22c55e; background: #10211c; }
 
@@ -573,12 +647,12 @@
     .chat-list {
       background: #0a0e16;
       border: 1px solid var(--border);
-      border-radius: 7px;
-      height: 140px;
+      border-radius: 8px;
+      height: 220px;
       overflow-y: auto;
-      padding: 8px;
-      margin-bottom: 7px;
-      font-size: 0.82rem;
+      padding: 10px;
+      margin-bottom: 8px;
+      font-size: 0.83rem;
     }
     .chat-row { display: flex; gap: 6px; }
     .chat-row input, .chat-row select { flex: 1; }
@@ -587,21 +661,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       background: var(--panel-2);
       border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 7px 9px;
-      margin-bottom: 7px;
-      font-size: 0.81rem;
+      border-radius: 8px;
+      padding: 9px 11px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
     }
 
     .admin-cmd-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
     .admin-cmd-row input { flex: 1; min-width: 210px; }
     .admin-quick-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 6px;
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      gap: 7px;
       margin-top: 6px;
     }
   </style>
@@ -613,7 +687,7 @@
     <div class="intro-card">
       <h1 class="intro-title">100 Ngày Sinh Tồn Trong Sương Mù</h1>
       <p class="intro-sub">
-        Đăng nhập hoặc tạo tài khoản để bắt đầu. Chọn nút trên thanh trên cùng để mở các mục khi cần.
+        Đăng nhập hoặc tạo tài khoản để bắt đầu. Mọi bảng chức năng đều mở toàn màn hình khi bạn chọn.
       </p>
 
       <div id="step-auth">
@@ -726,16 +800,16 @@
       <span class="pill">Nhà: <strong>Cấp <span id="ui-house">1</span>/8</strong></span>
     </div>
     <div class="toggle-bar">
-      <button id="btn-toggle-char-panel" onclick="togglePanel('char-panel')">Nhân vật</button>
-      <button id="btn-toggle-explore-panel" onclick="togglePanel('explore-panel')">Thám hiểm</button>
-      <button id="btn-toggle-bag-pet-panel" onclick="togglePanel('bag-pet-panel')">Balo & Thú</button>
+      <button id="btn-toggle-char-panel" onclick="openFullscreenPanel('char-panel')">Nhân vật</button>
+      <button id="btn-toggle-explore-panel" onclick="openFullscreenPanel('explore-panel')">Thám hiểm</button>
+      <button id="btn-toggle-bag-pet-panel" onclick="openFullscreenPanel('bag-pet-panel')">Balo & Thú</button>
       <button id="btn-toggle-craft-panel" class="primary" onclick="openCraftingPanel()">Chế tạo</button>
-      <button id="btn-toggle-house-upgrade-panel" onclick="togglePanel('house-upgrade-panel')">Nhà gỗ</button>
-      <button id="btn-toggle-quest-panel" onclick="togglePanel('quest-panel')">Nhiệm vụ</button>
-      <button id="btn-toggle-chat-panel" onclick="togglePanel('chat-panel')">Chat chung</button>
-      <button id="btn-toggle-trade-panel" onclick="togglePanel('trade-panel')">Giao dịch</button>
-      <button id="btn-toggle-npc-panel" onclick="togglePanel('npc-panel')">Chat NPC</button>
-      <button id="btn-toggle-admin" class="admin-btn hidden" onclick="togglePanel('admin-panel')">Admin</button>
+      <button id="btn-toggle-house-upgrade-panel" onclick="openFullscreenPanel('house-upgrade-panel')">Nhà gỗ</button>
+      <button id="btn-toggle-quest-panel" onclick="openFullscreenPanel('quest-panel')">Nhiệm vụ</button>
+      <button id="btn-toggle-chat-panel" onclick="openFullscreenPanel('chat-panel')">Chat chung</button>
+      <button id="btn-toggle-trade-panel" onclick="openFullscreenPanel('trade-panel')">Giao dịch</button>
+      <button id="btn-toggle-npc-panel" onclick="openFullscreenPanel('npc-panel')">Chat NPC</button>
+      <button id="btn-toggle-admin" class="admin-btn hidden" onclick="openFullscreenPanel('admin-panel')">Admin</button>
       <button class="success-btn" onclick="saveGameManual()">Lưu</button>
       <button onclick="backToAuth()">Đổi TK</button>
     </div>
@@ -743,289 +817,342 @@
 
   <div class="status-strip" id="cold-warning-banner">
     <span id="status-env-text">06:00 (Ban ngày) • Quang đãng • 18°C • Nhà gỗ</span>
-    <span id="status-notice-text" style="color:#fde68a;">Bấm các nút trên thanh để mở mục cần xem.</span>
+    <span id="status-notice-text" style="color:#fde68a;">Chọn một mục để mở toàn màn hình.</span>
   </div>
 
   <div class="hp-low-alert hidden" id="hp-danger-banner">
     Máu đang thấp (dưới 40), hãy dùng thuốc, ăn uống hoặc về Nhà gỗ nghỉ ngơi.
   </div>
 
-  <main class="main-layout">
-    <!-- CỘT TRÁI -->
-    <div>
-      <section class="box admin-box hidden" id="admin-panel">
-        <div class="box-header">
-          <h2>Bảng Admin</h2>
-          <button type="button" onclick="togglePanel('admin-panel')">Đóng</button>
-        </div>
-        <div class="admin-cmd-row">
-          <input id="admin-cmd-input" type="text" placeholder="Lệnh: /sup, /give wood 50, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
-          <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy</button>
-        </div>
-        <div id="admin-cmd-status" style="font-size:0.79rem; color:#d8b4fe; margin-bottom:6px;">
-          Gõ /help để xem danh sách lệnh Admin.
-        </div>
-        <div class="admin-quick-grid">
-          <button type="button" class="admin-btn" onclick="adminGiveSupremeSet()">+1 Bộ Siêu Phàm</button>
-          <button type="button" onclick="adminQuickGive('wood', 50)">+50 Gỗ</button>
-          <button type="button" onclick="adminQuickGive('stone', 50)">+50 Đá</button>
-          <button type="button" onclick="adminQuickGive('ore', 30)">+30 Quặng</button>
-          <button type="button" onclick="adminQuickGive('meat', 20)">+20 Thịt sống</button>
-          <button type="button" onclick="adminQuickGive('water', 20)">+20 Nước</button>
-          <button type="button" onclick="adminQuickGive('chest_gold', 3)">+3 Rương Vàng</button>
-          <button type="button" onclick="adminUnlockAllRecipes()">Mở mọi bản vẽ</button>
-          <button type="button" onclick="adminFullRestore()">Hồi đầy chỉ số</button>
-          <button type="button" onclick="adminAdvanceTime(180)">Tua +180 phút</button>
-          <button type="button" onclick="adminSpawnTestPet()">+1 Sói Lớn</button>
-        </div>
-      </section>
+  <!-- TRUNG TÂM ĐIỀU KHIỂN KHI ĐÓNG CÁC BẢNG TOÀN MÀN HÌNH -->
+  <div class="home-hub" id="home-hub">
+    <div class="home-hero">
+      <h2 style="font-size:1.1rem; color:#fbbf24; margin-bottom:4px;">Tổng Quan Căn Cứ & Sương Mù</h2>
+      <p style="font-size:0.84rem; color:var(--muted);">
+        Mỗi bảng (Nhân vật, Balo & Thú, Thám hiểm, Chế tạo, Nhà gỗ, Nhiệm vụ, Chat, Giao dịch) đều hiển thị toàn màn hình kèm hình ảnh minh họa cho vật phẩm và thú.
+      </p>
+    </div>
+    <div class="home-quick-grid">
+      <button type="button" class="home-tile" onclick="openFullscreenPanel('char-panel')">
+        <strong style="color:#fbbf24;">Nhân Vật & Chiến Lực</strong>
+        <span style="font-size:0.79rem; color:var(--muted);">Chỉ số, thiên phú, chặt gỗ, nướng cá, lọc nước.</span>
+      </button>
+      <button type="button" class="home-tile" onclick="openFullscreenPanel('bag-pet-panel')">
+        <strong style="color:#38bdf8;">Balo & Thú Cưng</strong>
+        <span style="font-size:0.79rem; color:var(--muted);">Xem vật phẩm có ảnh, dùng đồ, thuần thú & đột biến.</span>
+      </button>
+      <button type="button" class="home-tile" onclick="openFullscreenPanel('explore-panel')">
+        <strong style="color:#f87171;">Thám Hiểm & Chiến Đấu</strong>
+        <span style="font-size:0.79rem; color:var(--muted);">Bản đồ 5 khu vực, chuẩn bị đồ/thú, giao chiến.</span>
+      </button>
+      <button type="button" class="home-tile" onclick="openCraftingPanel()">
+        <strong style="color:#4ade80;">Chế Tạo Tại Nhà Gỗ</strong>
+        <span style="font-size:0.79rem; color:var(--muted);">Rèn vũ khí, làm thuốc, dựng công trình phòng thủ.</span>
+      </button>
+    </div>
+  </div>
 
-      <section class="box hidden" id="char-panel">
-        <div class="box-header">
-          <h2>Nhân Vật & Chiến Lực</h2>
-          <button type="button" onclick="togglePanel('char-panel')">Đóng</button>
+  <!-- CÁC BẢNG TOÀN MÀN HÌNH -->
+  <section class="fullscreen-panel hidden" id="admin-panel">
+    <div class="fullscreen-inner admin-box">
+      <div class="box-header">
+        <h2>Bảng Admin (Toàn Màn Hình)</h2>
+        <button type="button" onclick="closeFullscreenPanel('admin-panel')">Đóng</button>
+      </div>
+      <div class="admin-cmd-row">
+        <input id="admin-cmd-input" type="text" placeholder="Lệnh: /sup, /give wood 50, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
+        <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy</button>
+      </div>
+      <div id="admin-cmd-status" style="font-size:0.81rem; color:#d8b4fe; margin-bottom:8px;">
+        Gõ /help để xem danh sách lệnh Admin.
+      </div>
+      <div class="admin-quick-grid">
+        <button type="button" class="admin-btn" onclick="adminGiveSupremeSet()">+1 Bộ Siêu Phàm</button>
+        <button type="button" onclick="adminQuickGive('wood', 50)">+50 Gỗ</button>
+        <button type="button" onclick="adminQuickGive('stone', 50)">+50 Đá</button>
+        <button type="button" onclick="adminQuickGive('ore', 30)">+30 Quặng</button>
+        <button type="button" onclick="adminQuickGive('meat', 20)">+20 Thịt sống</button>
+        <button type="button" onclick="adminQuickGive('water', 20)">+20 Nước</button>
+        <button type="button" onclick="adminQuickGive('chest_gold', 3)">+3 Rương Vàng</button>
+        <button type="button" onclick="adminUnlockAllRecipes()">Mở mọi bản vẽ</button>
+        <button type="button" onclick="adminFullRestore()">Hồi đầy chỉ số</button>
+        <button type="button" onclick="adminAdvanceTime(180)">Tua +180 phút</button>
+        <button type="button" onclick="adminSpawnTestPet()">+1 Sói Xám Lớn</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="fullscreen-panel hidden" id="char-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Nhân Vật & Chiến Lực</h2>
+        <button type="button" onclick="closeFullscreenPanel('char-panel')">Đóng</button>
+      </div>
+      <div class="char-grid">
+        <div class="char-stat-card">Máu: <strong id="char-hp">100/100</strong></div>
+        <div class="char-stat-card">Công: <strong id="char-atk">24</strong></div>
+        <div class="char-stat-card">CL nhân vật: <strong id="char-power">120 <span class="rank-F">[F]</span></strong></div>
+        <div class="char-stat-card">Tổng CL (+Thú): <strong id="char-total-power">120 <span class="rank-F">[F]</span></strong></div>
+        <div class="char-stat-card">Đói: <strong id="char-hunger">80/100</strong></div>
+        <div class="char-stat-card">Khát: <strong id="char-thirst">30/100</strong></div>
+        <div class="char-stat-card">Thể lực: <strong id="char-stamina">100/100</strong></div>
+        <div class="char-stat-card">Tải balo: <strong id="char-bag">2/50</strong></div>
+        <div class="char-stat-card talent-clickable" onclick="toggleTalentDetail()">
+          Thiên phú: <strong id="ui-talent">-</strong>
         </div>
-        <div class="char-grid">
-          <div class="char-stat-card">Máu: <strong id="char-hp">100/100</strong></div>
-          <div class="char-stat-card">Công: <strong id="char-atk">24</strong></div>
-          <div class="char-stat-card">CL nhân vật: <strong id="char-power">120 <span class="rank-F">[F]</span></strong></div>
-          <div class="char-stat-card">Tổng CL (+Thú): <strong id="char-total-power">120 <span class="rank-F">[F]</span></strong></div>
-          <div class="char-stat-card">Đói: <strong id="char-hunger">80/100</strong></div>
-          <div class="char-stat-card">Khát: <strong id="char-thirst">30/100</strong></div>
-          <div class="char-stat-card">Thể lực: <strong id="char-stamina">100/100</strong></div>
-          <div class="char-stat-card">Tải balo: <strong id="char-bag">2/50</strong></div>
-          <div class="char-stat-card talent-clickable" onclick="toggleTalentDetail()">
-            Thiên phú: <strong id="ui-talent">-</strong>
+      </div>
+      <div class="talent-detail-box hidden" id="talent-detail-box"></div>
+
+      <div class="camp-actions-bar">
+        <button type="button" onclick="campGatherWood()">Chặt gỗ (+4 Gỗ, 15p)</button>
+        <button type="button" onclick="campCollectStone()">Nhặt đá (+3 Đá, 15p)</button>
+        <button type="button" class="primary" onclick="campCookMeat()">Nướng cá (2 Cá sống → 2 Thịt chín, 15p)</button>
+        <button type="button" class="accent-btn" onclick="campPurifyWater()">Lọc nước (+2 Nước, 15p)</button>
+        <button type="button" onclick="campRest()">Nghỉ (+25 TL, +10 Máu, 45p)</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="fullscreen-panel hidden" id="explore-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Thám Hiểm & Chiến Đấu</h2>
+        <button type="button" onclick="closeFullscreenPanel('explore-panel')">Đóng</button>
+      </div>
+      <div class="action-grid">
+        <button class="accent-btn" onclick="openWorldMap()">Mở bản đồ đi xa</button>
+        <button onclick="returnToHouse()">Về Nhà gỗ</button>
+      </div>
+
+      <div class="modal-card hidden" id="expedition-pack-box">
+        <div style="font-weight:700; color:#38bdf8;" id="exp-pack-title">Đồ mang theo chuyến này</div>
+        <div class="prep-chips" id="exp-pack-chips" style="margin-top:8px;"></div>
+      </div>
+
+      <div class="modal-card hidden" id="world-map-box">
+        <div style="font-weight:700; color:#38bdf8;">Chọn khu vực thám hiểm</div>
+        <div class="map-grid" id="map-nodes-grid"></div>
+
+        <div class="prep-section">
+          <div><strong>Cách đi:</strong></div>
+          <div class="prep-chips" id="strategy-chips"></div>
+        </div>
+
+        <div class="prep-section">
+          <div><strong>Thú đi cùng (chỉ thú Trẻ hoặc Lớn mới tham chiến):</strong></div>
+          <div class="prep-chips" id="prep-pets-chips"></div>
+        </div>
+
+        <div class="prep-section">
+          <div><strong>Đồ mang theo (<span id="prep-load-info">0/50</span>):</strong></div>
+          <div class="prep-chips" id="prep-items-chips"></div>
+        </div>
+
+        <p class="warn-line" id="map-travel-summary"></p>
+        <p class="danger-line hidden" id="map-night-danger-note"></p>
+        <div class="encounter-actions">
+          <button class="primary" onclick="executeMapExpedition()">Lên đường</button>
+          <button onclick="closeWorldMap()">Đóng bản đồ</button>
+        </div>
+      </div>
+
+      <!-- GIAO DIỆN CHIẾN ĐẤU -->
+      <div class="combat-card hidden" id="explore-combat-box">
+        <div class="combat-top-bar">
+          <div style="font-weight:700; color:#fca5a5; font-size:0.96rem;" id="exp-mob-header">Đang giao chiến</div>
+          <div style="display:flex; gap:10px; align-items:center; font-size:0.82rem;">
+            <span id="exp-mob-danger"></span>
+            <span id="exp-mob-time" style="color:#fbbf24;"></span>
           </div>
         </div>
-        <div class="talent-detail-box hidden" id="talent-detail-box"></div>
 
-        <div class="camp-actions-bar">
-          <button type="button" onclick="campGatherWood()">Chặt gỗ (+4 Gỗ, 15p)</button>
-          <button type="button" onclick="campCollectStone()">Nhặt đá (+3 Đá, 15p)</button>
-          <button type="button" class="primary" onclick="campCookMeat()">Nướng cá (2 Cá sống → 2 Thịt chín, 15p)</button>
-          <button type="button" class="accent-btn" onclick="campPurifyWater()">Lọc nước (+2 Nước, 15p)</button>
-          <button type="button" onclick="campRest()">Nghỉ (+25 TL, +10 Máu, 45p)</button>
-        </div>
-      </section>
-
-      <section class="box hidden" id="explore-panel">
-        <div class="box-header">
-          <h2>Thám Hiểm & Chiến Đấu</h2>
-          <button type="button" onclick="togglePanel('explore-panel')">Đóng</button>
-        </div>
-        <div class="action-grid">
-          <button class="accent-btn" onclick="openWorldMap()">Mở bản đồ đi xa</button>
-          <button onclick="returnToHouse()">Về Nhà gỗ</button>
-        </div>
-
-        <div class="modal-card hidden" id="expedition-pack-box">
-          <div style="font-weight:700; color:#38bdf8;" id="exp-pack-title">Đồ mang theo chuyến này</div>
-          <div class="prep-chips" id="exp-pack-chips" style="margin-top:8px;"></div>
-        </div>
-
-        <div class="modal-card hidden" id="world-map-box">
-          <div style="font-weight:700; color:#38bdf8;">Chọn khu vực thám hiểm</div>
-          <div class="map-grid" id="map-nodes-grid"></div>
-
-          <div class="prep-section">
-            <div><strong>Cách đi:</strong></div>
-            <div class="prep-chips" id="strategy-chips"></div>
-          </div>
-
-          <div class="prep-section">
-            <div><strong>Thú đi cùng (chỉ thú Trẻ hoặc Lớn mới tham chiến):</strong></div>
-            <div class="prep-chips" id="prep-pets-chips"></div>
-          </div>
-
-          <div class="prep-section">
-            <div><strong>Đồ mang theo (<span id="prep-load-info">0/50</span>):</strong></div>
-            <div class="prep-chips" id="prep-items-chips"></div>
-          </div>
-
-          <p class="warn-line" id="map-travel-summary"></p>
-          <p class="danger-line hidden" id="map-night-danger-note"></p>
-          <div class="encounter-actions">
-            <button class="primary" onclick="executeMapExpedition()">Lên đường</button>
-            <button onclick="closeWorldMap()">Đóng</button>
-          </div>
-        </div>
-
-        <!-- GIAO DIỆN CHIẾN ĐẤU -->
-        <div class="combat-card hidden" id="explore-combat-box">
-          <div class="combat-top-bar">
-            <div style="font-weight:700; color:#fca5a5; font-size:0.94rem;" id="exp-mob-header">Đang giao chiến</div>
-            <div style="display:flex; gap:10px; align-items:center; font-size:0.81rem;">
-              <span id="exp-mob-danger"></span>
-              <span id="exp-mob-time" style="color:#fbbf24;"></span>
-            </div>
-          </div>
-
-          <div class="combat-vs-grid">
-            <div class="combatant-box">
+        <div class="combat-vs-grid">
+          <div class="combatant-box">
+            <img id="combat-player-img" class="pet-thumb" src="" alt="Phe bạn" />
+            <div style="flex:1;">
               <div style="font-weight:700; color:#86efac;" id="combat-side-player-title">Phe bạn</div>
               <div id="combat-side-player-hp" style="font-size:0.79rem; margin-top:2px;"></div>
               <div class="hp-bar-track"><div id="combat-bar-player" class="hp-bar-player" style="width:100%"></div></div>
               <div id="combat-side-player-stats" style="font-size:0.77rem; color:var(--muted); margin-top:4px;"></div>
             </div>
+          </div>
 
-            <div class="combatant-box combatant-enemy">
+          <div class="combatant-box combatant-enemy">
+            <img id="combat-enemy-img" class="pet-thumb" src="" alt="Đối thủ" />
+            <div style="flex:1;">
               <div style="font-weight:700; color:#fca5a5;" id="combat-side-enemy-title">Đối thủ</div>
               <div id="combat-side-enemy-hp" style="font-size:0.79rem; margin-top:2px;"></div>
               <div class="hp-bar-track"><div id="combat-bar-enemy" class="hp-bar-enemy" style="width:100%"></div></div>
               <div class="mob-stat-strip" id="exp-mob-stats"></div>
             </div>
           </div>
-
-          <div class="encounter-actions" id="combat-action-buttons"></div>
-          <div class="combat-feed" id="combat-feed-list"></div>
         </div>
 
-        <div class="report-card hidden" id="explore-report-box">
-          <div style="font-weight:700; color:#86efac;" id="exp-rep-title">Tổng kết chuyến đi</div>
-          <p style="font-size:0.85rem; margin-top:5px;" id="exp-rep-items"></p>
-          <p style="font-size:0.81rem; color:#cbd5e1; margin-top:3px;" id="exp-rep-summary"></p>
-          <div class="encounter-actions">
-            <button class="primary" onclick="closeExploreReport()">Đóng</button>
-          </div>
+        <div class="encounter-actions" id="combat-action-buttons"></div>
+        <div class="combat-feed" id="combat-feed-list"></div>
+      </div>
+
+      <div class="report-card hidden" id="explore-report-box">
+        <div style="font-weight:700; color:#86efac;" id="exp-rep-title">Tổng kết chuyến đi</div>
+        <p style="font-size:0.85rem; margin-top:5px;" id="exp-rep-items"></p>
+        <p style="font-size:0.81rem; color:#cbd5e1; margin-top:3px;" id="exp-rep-summary"></p>
+        <div class="encounter-actions">
+          <button class="primary" onclick="closeExploreReport()">Đóng</button>
         </div>
+      </div>
 
-        <div class="log-box" id="adventure-log"></div>
-      </section>
+      <div class="log-box" id="adventure-log"></div>
+    </div>
+  </section>
 
-      <section class="box hidden" id="craft-panel">
-        <div class="box-header">
-          <h2>Chế Tạo tại Nhà gỗ</h2>
-          <button type="button" onclick="togglePanel('craft-panel')">Đóng</button>
-        </div>
-        <div id="crafting-container"></div>
-      </section>
+  <!-- TÚI ĐỒ & THÚ TOÀN MÀN HÌNH -->
+  <section class="fullscreen-panel hidden" id="bag-pet-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Túi đồ (<span id="ui-owned-item-count">0</span> món) & Thú</h2>
+        <button type="button" onclick="closeFullscreenPanel('bag-pet-panel')">Đóng</button>
+      </div>
 
-      <!-- TÚI ĐỒ -->
-      <section class="box hidden" id="bag-pet-panel">
-        <div class="box-header">
-          <h2>Túi đồ (<span id="ui-owned-item-count">0</span> món) & Thú</h2>
-          <button type="button" onclick="togglePanel('bag-pet-panel')">Đóng</button>
-        </div>
+      <div class="bag-cat-tabs" id="bag-category-tabs">
+        <button type="button" class="bag-cat-btn active" data-tab="all" onclick="setBagTab('all')">Tất cả</button>
+        <button type="button" class="bag-cat-btn" data-tab="tools" onclick="setBagTab('tools')">Dụng cụ</button>
+        <button type="button" class="bag-cat-btn" data-tab="food" onclick="setBagTab('food')">Thức ăn</button>
+        <button type="button" class="bag-cat-btn" data-tab="materials" onclick="setBagTab('materials')">Nguyên liệu</button>
+        <button type="button" class="bag-cat-btn" data-tab="medicine" onclick="setBagTab('medicine')">Thuốc</button>
+        <button type="button" class="bag-cat-btn chest-tab" data-tab="chests" onclick="setBagTab('chests')">Rương</button>
+        <button type="button" class="bag-cat-btn sup-tab" data-tab="supreme" onclick="setBagTab('supreme')">Vật phẩm siêu phàm</button>
+      </div>
 
-        <div class="bag-cat-tabs" id="bag-category-tabs">
-          <button type="button" class="bag-cat-btn active" data-tab="all" onclick="setBagTab('all')">Tất cả</button>
-          <button type="button" class="bag-cat-btn" data-tab="tools" onclick="setBagTab('tools')">Dụng cụ</button>
-          <button type="button" class="bag-cat-btn" data-tab="food" onclick="setBagTab('food')">Thức ăn</button>
-          <button type="button" class="bag-cat-btn" data-tab="materials" onclick="setBagTab('materials')">Nguyên liệu</button>
-          <button type="button" class="bag-cat-btn" data-tab="medicine" onclick="setBagTab('medicine')">Thuốc</button>
-          <button type="button" class="bag-cat-btn chest-tab" data-tab="chests" onclick="setBagTab('chests')">Rương</button>
-          <button type="button" class="bag-cat-btn sup-tab" data-tab="supreme" onclick="setBagTab('supreme')">Vật phẩm siêu phàm</button>
-        </div>
+      <div class="inv-toolbar">
+        <input id="inv-search-input" type="text" placeholder="Tìm món đang có..." oninput="renderAll()" />
+        <select id="inv-filter-select" onchange="renderAll()">
+          <option value="all">Tất cả</option>
+          <option value="usable">Dùng được</option>
+        </select>
+      </div>
 
-        <div class="inv-toolbar">
-          <input id="inv-search-input" type="text" placeholder="Tìm món đang có..." oninput="renderAll()" />
-          <select id="inv-filter-select" onchange="renderAll()">
-            <option value="all">Tất cả</option>
-            <option value="usable">Dùng được</option>
-          </select>
-        </div>
+      <div class="inv-grid" id="inventory-grid"></div>
 
-        <div class="inv-grid" id="inventory-grid"></div>
-
-        <div class="inspector-box" id="item-inspector">
+      <div class="inspector-box" id="item-inspector">
+        <div style="display:flex; gap:12px; align-items:center; flex:1;">
+          <img id="insp-item-img" class="item-thumb-lg" src="" alt="Vật phẩm" />
           <div>
-            <div style="font-weight:700; color:#fbbf24;" id="insp-name">Chưa chọn vật phẩm</div>
-            <div style="font-size:0.77rem; color:var(--muted);" id="insp-type">Nhóm: -</div>
-            <div style="font-size:0.82rem; margin-top:3px;" id="insp-desc">Chọn một món đang có trong túi để xem chi tiết.</div>
+            <div style="font-weight:700; color:#fbbf24; font-size:0.95rem;" id="insp-name">Chưa chọn vật phẩm</div>
+            <div style="font-size:0.78rem; color:var(--muted);" id="insp-type">Nhóm: -</div>
+            <div style="font-size:0.83rem; margin-top:3px;" id="insp-desc">Chọn một món đang có trong túi để xem chi tiết.</div>
           </div>
-          <button class="primary" id="btn-use-item" onclick="useSelectedItem()" disabled>Dùng</button>
         </div>
+        <button class="primary" id="btn-use-item" onclick="useSelectedItem()" disabled>Dùng</button>
+      </div>
 
-        <div style="margin-top:12px;">
-          <strong style="font-size:0.88rem;">Đang thuần phục (<span id="ui-taming-count">0</span>)</strong>
-          <div class="inv-grid" id="taming-queue-grid" style="margin-top:6px;"></div>
+      <div style="margin-top:16px;">
+        <strong style="font-size:0.92rem;">Đang thuần phục (<span id="ui-taming-count">0</span>)</strong>
+        <div class="inv-grid" id="taming-queue-grid" style="margin-top:8px;"></div>
+      </div>
+
+      <div style="margin-top:16px;" id="pet-info-section">
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; margin-bottom:8px;">
+          <strong style="font-size:0.92rem;">Thú đã thu phục (<span id="ui-tamed-count">0</span>)</strong>
+          <button class="primary" onclick="feedSelectedBeast()">Cho thú ăn</button>
         </div>
+        <div class="inv-grid" id="tamed-beasts-grid"></div>
 
-        <div style="margin-top:12px;" id="pet-info-section">
-          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; margin-bottom:6px;">
-            <strong style="font-size:0.88rem;">Thú đã thu phục (<span id="ui-tamed-count">0</span>)</strong>
-            <button class="primary" onclick="feedSelectedBeast()">Cho thú ăn</button>
-          </div>
-          <div class="inv-grid" id="tamed-beasts-grid"></div>
-
-          <div class="inspector-box" id="beast-inspector">
+        <div class="inspector-box" id="beast-inspector">
+          <div style="display:flex; gap:12px; align-items:center; flex:1;">
+            <img id="insp-pet-img" class="item-thumb-lg" src="" alt="Thú" />
             <div>
-              <div style="font-weight:700; color:#c084fc;" id="pet-insp-name">Chưa chọn thú</div>
-              <div style="font-size:0.77rem; color:var(--muted);" id="pet-insp-meta">-</div>
-              <div style="font-size:0.81rem; margin-top:3px;" id="pet-insp-mut">-</div>
+              <div style="font-weight:700; color:#c084fc; font-size:0.95rem;" id="pet-insp-name">Chưa chọn thú</div>
+              <div style="font-size:0.78rem; color:var(--muted);" id="pet-insp-meta">-</div>
+              <div style="font-size:0.82rem; margin-top:3px;" id="pet-insp-mut">-</div>
             </div>
-            <button class="primary" id="btn-mutate-selected-pet" onclick="mutateSelectedBeastWithSelectedBloodline()" disabled>Dùng huyết mạch</button>
           </div>
+          <button class="primary" id="btn-mutate-selected-pet" onclick="mutateSelectedBeastWithSelectedBloodline()" disabled>Dùng huyết mạch</button>
         </div>
-      </section>
-
-      <section class="box hidden" id="house-upgrade-panel">
-        <div class="box-header">
-          <h2>Nâng cấp Nhà gỗ</h2>
-          <button type="button" onclick="togglePanel('house-upgrade-panel')">Đóng</button>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
-          <button class="primary" id="btn-upgrade-house" onclick="upgradeHouse()">Nâng cấp</button>
-        </div>
-        <p id="house-req" class="intro-sub" style="margin-bottom:0;"></p>
-      </section>
+      </div>
     </div>
+  </section>
 
-    <!-- CỘT PHẢI -->
-    <div>
-      <section class="box hidden" id="quest-panel">
-        <div class="box-header">
-          <h2>Nhiệm Vụ</h2>
-          <button type="button" onclick="togglePanel('quest-panel')">Đóng</button>
-        </div>
-        <div id="quest-list"></div>
-      </section>
-
-      <section class="box hidden" id="chat-panel">
-        <div class="box-header">
-          <h2>Kênh Chat Chung</h2>
-          <button type="button" onclick="togglePanel('chat-panel')">Đóng</button>
-        </div>
-        <div class="chat-list" id="world-chat-list"></div>
-        <div class="chat-row">
-          <input id="world-chat-input" type="text" placeholder="Gửi tin lên kênh chung..." onkeydown="if(event.key==='Enter') sendWorldChat()" />
-          <button class="accent-btn" onclick="sendWorldChat()">Gửi</button>
-        </div>
-      </section>
-
-      <section class="box hidden" id="trade-panel">
-        <div class="box-header">
-          <h2>Trao Đổi Đồ</h2>
-          <button type="button" onclick="togglePanel('trade-panel')">Đóng</button>
-        </div>
-        <div id="trade-list"></div>
-      </section>
-
-      <section class="box hidden" id="npc-panel">
-        <div class="box-header">
-          <h2>Nói Chuyện Với Người Quen</h2>
-          <button type="button" onclick="togglePanel('npc-panel')">Đóng</button>
-        </div>
-        <div style="display:flex; gap:8px; margin-bottom:7px;">
-          <select id="npc-select" onchange="renderNpcChat()"></select>
-        </div>
-        <div class="chat-list" id="npc-chat-list"></div>
-        <div class="chat-row" style="margin-bottom:7px;">
-          <input id="npc-chat-input" type="text" placeholder="Nhắn tin..." onkeydown="if(event.key==='Enter') sendNpcMessage()" />
-          <button onclick="sendNpcMessage()">Gửi</button>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:7px;">
-          <button class="primary" onclick="proposeNpcTrade()">Đổi đồ</button>
-          <button class="accent-btn" onclick="haggleWithNpc()">Mặc cả</button>
-        </div>
-      </section>
+  <section class="fullscreen-panel hidden" id="craft-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Chế Tạo tại Nhà gỗ</h2>
+        <button type="button" onclick="closeFullscreenPanel('craft-panel')">Đóng</button>
+      </div>
+      <div id="crafting-container"></div>
     </div>
-  </main>
+  </section>
+
+  <section class="fullscreen-panel hidden" id="house-upgrade-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Nâng cấp Nhà gỗ</h2>
+        <button type="button" onclick="closeFullscreenPanel('house-upgrade-panel')">Đóng</button>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+        <button class="primary" id="btn-upgrade-house" onclick="upgradeHouse()">Nâng cấp</button>
+      </div>
+      <p id="house-req" class="intro-sub" style="margin-bottom:0;"></p>
+    </div>
+  </section>
+
+  <section class="fullscreen-panel hidden" id="quest-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Nhiệm Vụ</h2>
+        <button type="button" onclick="closeFullscreenPanel('quest-panel')">Đóng</button>
+      </div>
+      <div id="quest-list"></div>
+    </div>
+  </section>
+
+  <section class="fullscreen-panel hidden" id="chat-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Kênh Chat Chung</h2>
+        <button type="button" onclick="closeFullscreenPanel('chat-panel')">Đóng</button>
+      </div>
+      <div class="chat-list" id="world-chat-list"></div>
+      <div class="chat-row">
+        <input id="world-chat-input" type="text" placeholder="Gửi tin lên kênh chung..." onkeydown="if(event.key==='Enter') sendWorldChat()" />
+        <button class="accent-btn" onclick="sendWorldChat()">Gửi</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="fullscreen-panel hidden" id="trade-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Trao Đổi Đồ</h2>
+        <button type="button" onclick="closeFullscreenPanel('trade-panel')">Đóng</button>
+      </div>
+      <div id="trade-list"></div>
+    </div>
+  </section>
+
+  <section class="fullscreen-panel hidden" id="npc-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Nói Chuyện Với Người Quen</h2>
+        <button type="button" onclick="closeFullscreenPanel('npc-panel')">Đóng</button>
+      </div>
+      <div style="display:flex; gap:8px; margin-bottom:8px;">
+        <select id="npc-select" onchange="renderNpcChat()"></select>
+      </div>
+      <div class="chat-list" id="npc-chat-list"></div>
+      <div class="chat-row" style="margin-bottom:8px;">
+        <input id="npc-chat-input" type="text" placeholder="Nhắn tin..." onkeydown="if(event.key==='Enter') sendNpcMessage()" />
+        <button onclick="sendNpcMessage()">Gửi</button>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:7px;">
+        <button class="primary" onclick="proposeNpcTrade()">Đổi đồ</button>
+        <button class="accent-btn" onclick="haggleWithNpc()">Mặc cả</button>
+      </div>
+    </div>
+  </section>
 
   <script>
     const GAME_SECONDS_PER_REAL_SECOND = 12;
-    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v5';
+    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v6';
     const CATEGORIES = ['Công cụ', 'Vật phẩm sinh hoạt', 'Vật phẩm y tế', 'Công trình'];
 
     const BAG_TABS = [
@@ -1037,6 +1164,84 @@
       { id: 'chests', label: 'Rương' },
       { id: 'supreme', label: 'Vật phẩm siêu phàm' }
     ];
+
+    function makeArtSvgDataUrl(label, bg1, bg2, accentColor, shapeType) {
+      const safeLabel = (label || 'ITEM').slice(0, 3).toUpperCase();
+      let shapeSvg = '';
+      if (shapeType === 'axe') {
+        shapeSvg = `<rect x="28" y="10" width="8" height="44" rx="3" transform="rotate(25 32 32)" fill="#b45309"/><path d="M22 14 L46 22 L38 34 L18 22 Z" fill="${accentColor}"/>`;
+      } else if (shapeType === 'chest') {
+        shapeSvg = `<rect x="14" y="20" width="36" height="26" rx="5" fill="#78350f" stroke="${accentColor}" stroke-width="2.5"/><line x1="14" y1="31" x2="50" y2="31" stroke="${accentColor}" stroke-width="2"/><circle cx="32" cy="31" r="4" fill="${accentColor}"/>`;
+      } else if (shapeType === 'orb') {
+        shapeSvg = `<circle cx="32" cy="32" r="16" fill="${accentColor}" opacity="0.28"/><circle cx="32" cy="32" r="11" fill="none" stroke="${accentColor}" stroke-width="2.5"/><circle cx="28" cy="27" r="3" fill="#ffffff" opacity="0.85"/>`;
+      } else if (shapeType === 'food') {
+        shapeSvg = `<ellipse cx="32" cy="36" rx="18" ry="11" fill="${accentColor}" opacity="0.85"/><path d="M22 24 L42 38" stroke="#fde68a" stroke-width="3" stroke-linecap="round"/>`;
+      } else if (shapeType === 'med') {
+        shapeSvg = `<rect x="27" y="16" width="10" height="32" rx="2" fill="${accentColor}"/><rect x="16" y="27" width="32" height="10" rx="2" fill="${accentColor}"/>`;
+      } else if (shapeType === 'scroll') {
+        shapeSvg = `<rect x="17" y="15" width="30" height="34" rx="4" fill="#fef3c7" stroke="${accentColor}" stroke-width="2"/><line x1="22" y1="25" x2="42" y2="25" stroke="#1e293b" stroke-width="2"/><line x1="22" y1="33" x2="38" y2="33" stroke="#1e293b" stroke-width="2"/>`;
+      } else if (shapeType === 'beast') {
+        shapeSvg = `<polygon points="16,26 24,12 30,22 34,22 40,12 48,26 42,46 22,46" fill="${accentColor}" opacity="0.9"/><circle cx="26" cy="31" r="2.5" fill="#090d14"/><circle cx="38" cy="31" r="2.5" fill="#090d14"/>`;
+      } else {
+        shapeSvg = `<polygon points="32,12 49,22 49,42 32,52 15,42 15,22" fill="${accentColor}" opacity="0.82"/>`;
+      }
+
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${bg1}"/><stop offset="100%" stop-color="${bg2}"/></linearGradient></defs>
+        <rect width="64" height="64" rx="10" fill="url(#g)"/>
+        ${shapeSvg}
+        <text x="32" y="59" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#f8fafc" opacity="0.85">${safeLabel}</text>
+      </svg>`;
+      return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+    }
+
+    const ART_SPRITES = {
+      axe: makeArtSvgDataUrl('AXE', '#172554', '#0f172a', '#60a5fa', 'axe'),
+      wood: makeArtSvgDataUrl('WOOD', '#451a03', '#1c1917', '#d97706', 'mat'),
+      stone: makeArtSvgDataUrl('STN', '#334155', '#0f172a', '#cbd5e1', 'mat'),
+      ore: makeArtSvgDataUrl('ORE', '#1e1b4b', '#090d14', '#818cf8', 'mat'),
+      food: makeArtSvgDataUrl('FOOD', '#451a03', '#18181b', '#fb923c', 'food'),
+      drink: makeArtSvgDataUrl('DRK', '#083344', '#0f172a', '#38bdf8', 'food'),
+      med: makeArtSvgDataUrl('MED', '#064e3b', '#090d14', '#34d399', 'med'),
+      chest: makeArtSvgDataUrl('BOX', '#422006', '#0f172a', '#fbbf24', 'chest'),
+      sup: makeArtSvgDataUrl('SUP', '#3b0764', '#090d14', '#e879f9', 'orb'),
+      bp: makeArtSvgDataUrl('BP', '#1e293b', '#090d14', '#facc15', 'scroll'),
+      beast_low: makeArtSvgDataUrl('PET', '#1e293b', '#0f172a', '#94a3b8', 'beast'),
+      beast_mid: makeArtSvgDataUrl('PET', '#172554', '#0f172a', '#38bdf8', 'beast'),
+      beast_high: makeArtSvgDataUrl('PET', '#3b0764', '#090d14', '#f472b6', 'beast'),
+      hero: makeArtSvgDataUrl('YOU', '#14532d', '#090d14', '#4ade80', 'beast')
+    };
+
+    function getItemImageUrl(key) {
+      const def = ITEM_DEFS[key];
+      if (!def) return ART_SPRITES.mat;
+      if (def.artUrl) return def.artUrl;
+      if (key === 'axe' || key.startsWith('bp_')) {
+        return key.startsWith('bp_') ? ART_SPRITES.bp : ART_SPRITES.axe;
+      }
+      if (def.bagTab === 'chests') return ART_SPRITES.chest;
+      if (def.bagTab === 'supreme') return ART_SPRITES.sup;
+      if (def.bagTab === 'medicine') return ART_SPRITES.med;
+      if (def.bagTab === 'food') {
+        return key === 'water' || (def.useLabel && def.useLabel.includes('Uống')) ? ART_SPRITES.drink : ART_SPRITES.food;
+      }
+      if (key === 'wood') return ART_SPRITES.wood;
+      if (key === 'stone') return ART_SPRITES.stone;
+      if (key === 'ore') return ART_SPRITES.ore;
+      if (def.bagTab === 'tools') return ART_SPRITES.axe;
+      return ART_SPRITES.mat;
+    }
+
+    function getBeastImageUrl(petOrSpecies) {
+      if (!petOrSpecies) return ART_SPRITES.beast_mid;
+      if (petOrSpecies.artUrl) return petOrSpecies.artUrl;
+      const spId = petOrSpecies.speciesId || petOrSpecies.id || '';
+      const rank = petOrSpecies.rank || 'Thường';
+      if (spId === 'wolf' || spId === 'cub_fox' || spId === 'wild_cat') return ART_SPRITES.beast_low;
+      if (spId === 'mist_leopard' || spId === 'tiger' || spId === 'dragon' || spId === 'mist_unicorn') return ART_SPRITES.beast_high;
+      if (rank === 'Quý' || rank === 'Hiếm') return ART_SPRITES.beast_high;
+      return ART_SPRITES.beast_mid;
+    }
 
     const WEATHER_TYPES = [
       { id: 'clear', name: 'Quang đãng', tempMod: 0, lootMult: 1.0, mobMod: 0, desc: 'Trời quang, dễ di chuyển.' },
@@ -1174,7 +1379,6 @@
         bp_auto_snare: { name: 'Bản vẽ Bẫy Dây Tự Động', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Bẫy Dây Tự Động.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'auto_snare' }
       };
 
-      // THÊM 105 VẬT PHẨM MỚI ĐỀU CÓ CÔNG DỤNG THẬT SỰ
       const foodNames = [
         'Cá nướng than', 'Thịt xiên nướng', 'Cháo kê ấm', 'Cơm nắm muối vừng', 'Khoai lang nướng',
         'Sắn hấp nóng', 'Nấm rừng xào', 'Măng non luộc', 'Đậu hầm thảo mộc', 'Ngô nếp luộc',
@@ -1185,7 +1389,7 @@
         'Cà muối giòn', 'Mứt quả rừng', 'Bánh bao nóng', 'Xôi đậu xanh', 'Bánh chưng nếp',
         'Chè đậu đỏ', 'Sữa hạt bổ dưỡng', 'Bơ thực vật', 'Nước suối thanh mát', 'Nước mưa lọc',
         'Nước dừa tươi', 'Trà lá rừng', 'Trà gừng ấm', 'Trà bạc hà mát', 'Nước mía ngọt'
-      ]; // 45 món
+      ];
 
       foodNames.forEach((nm, i) => {
         const key = `new_${i + 1}`;
@@ -1216,7 +1420,7 @@
         'Găng tay lao động', 'Ủng chống trơn', 'Giày đi rừng', 'Thắt lưng chịu lực', 'Bao tay bảo hộ',
         'Mũ vải che sương', 'Khăn giữ cổ', 'Đèn dầu chiếu sáng', 'Ống nhòm dò đường', 'La bàn định hướng',
         'Còi báo hiệu', 'Dây thừng leo núi', 'Cọc lều chắc', 'Bạt che mưa', 'Túi ngủ giữ nhiệt'
-      ]; // 30 món (new_46 .. new_75)
+      ];
 
       toolNames.forEach((nm, i) => {
         const key = `new_${46 + i}`;
@@ -1246,7 +1450,7 @@
         'Cốt thuốc hồi sức', 'Sáp liền vết thương', 'Nước rửa vết thương', 'Băng thun quấn', 'Lá chườm mát',
         'Cao sâm phục lực', 'Viên bổ máu', 'Thuốc giải độc sương', 'Nước sâm giải nhiệt', 'Trà thảo mộc',
         'Nước gạo rang bổ', 'Nước vối mát gan', 'Nước atiso thanh nhiệt', 'Nước dâu bổ huyết', 'Nước mơ giải khát'
-      ]; // 30 món (new_76 .. new_105)
+      ];
 
       medNames.forEach((nm, i) => {
         const key = `new_${76 + i}`;
@@ -1271,6 +1475,68 @@
     }
 
     const ITEM_DEFS = buildItemCatalog();
+
+    function applyGeneratedMediaAssets(assets) {
+      if (!assets) return;
+      if (assets.axe) {
+        ITEM_DEFS.axe.artUrl = assets.axe;
+        for (let i = 46; i <= 75; i++) {
+          if (ITEM_DEFS[`new_${i}`]) ITEM_DEFS[`new_${i}`].artUrl = assets.axe;
+        }
+      }
+      if (assets.chest) {
+        for (const t of CHEST_TIERS) {
+          if (ITEM_DEFS[t.key]) ITEM_DEFS[t.key].artUrl = assets.chest;
+        }
+      }
+      if (assets.orb) {
+        for (const k of SUPREME_ITEM_KEYS) {
+          if (ITEM_DEFS[k]) ITEM_DEFS[k].artUrl = assets.orb;
+        }
+      }
+      if (assets.food) {
+        if (ITEM_DEFS.fish) ITEM_DEFS.fish.artUrl = assets.food;
+        if (ITEM_DEFS.meat) ITEM_DEFS.meat.artUrl = assets.food;
+        if (ITEM_DEFS.cooked_meat) ITEM_DEFS.cooked_meat.artUrl = assets.food;
+        for (let i = 1; i <= 38; i++) {
+          if (ITEM_DEFS[`new_${i}`]) ITEM_DEFS[`new_${i}`].artUrl = assets.food;
+        }
+      }
+      if (assets.med) {
+        if (ITEM_DEFS.mist_herb) ITEM_DEFS.mist_herb.artUrl = assets.med;
+        if (ITEM_DEFS.bandage) ITEM_DEFS.bandage.artUrl = assets.med;
+        if (ITEM_DEFS.tonic) ITEM_DEFS.tonic.artUrl = assets.med;
+        for (let i = 76; i <= 105; i++) {
+          if (ITEM_DEFS[`new_${i}`]) ITEM_DEFS[`new_${i}`].artUrl = assets.med;
+        }
+      }
+      if (assets.scroll) {
+        for (const k of Object.keys(ITEM_DEFS)) {
+          if (k.startsWith('bp_')) ITEM_DEFS[k].artUrl = assets.scroll;
+        }
+      }
+      if (assets.wolf) {
+        for (const sp of BEAST_SPECIES) {
+          if (['cub_fox', 'wild_cat', 'spotted_deer', 'night_owl', 'wolf', 'boar'].includes(sp.id)) {
+            sp.artUrl = assets.wolf;
+          }
+        }
+      }
+      if (assets.leopard) {
+        for (const sp of BEAST_SPECIES) {
+          if (['brown_bear', 'snake', 'mist_leopard', 'tiger'].includes(sp.id)) {
+            sp.artUrl = assets.leopard;
+          }
+        }
+      }
+      if (assets.dragon) {
+        for (const sp of BEAST_SPECIES) {
+          if (['mist_unicorn', 'dragon'].includes(sp.id)) {
+            sp.artUrl = assets.dragon;
+          }
+        }
+      }
+    }
 
     const TALENTS = [
       { rank: 'F', name: 'Chân khỏe', desc: '+15 Thể lực tối đa, bớt hao sức khi đi bộ.' },
@@ -1412,7 +1678,7 @@
         bonusAtk: 0,
         bonusBagCap: 0,
         bagTab: 'all',
-        lastNotice: 'Đã vào game. Bấm nút trên thanh trên cùng để mở mục cần dùng.',
+        lastNotice: 'Đã vào game. Chọn mục bất kỳ để mở toàn màn hình.',
         day: 1,
         timeOfDaySec: 6 * 3600,
         weatherId: 'clear',
@@ -1471,23 +1737,42 @@
 
     let state = createInitialState();
 
-    function hideAllMainPanelsOnStart() {
-      const panelIds = [
-        'admin-panel',
-        'char-panel',
-        'explore-panel',
-        'bag-pet-panel',
-        'craft-panel',
-        'house-upgrade-panel',
-        'quest-panel',
-        'chat-panel',
-        'trade-panel',
-        'npc-panel'
-      ];
-      panelIds.forEach(id => {
+    const FULLSCREEN_PANEL_IDS = [
+      'admin-panel',
+      'char-panel',
+      'explore-panel',
+      'bag-pet-panel',
+      'craft-panel',
+      'house-upgrade-panel',
+      'quest-panel',
+      'chat-panel',
+      'trade-panel',
+      'npc-panel'
+    ];
+
+    function hideAllFullscreenPanels() {
+      FULLSCREEN_PANEL_IDS.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.classList.add('hidden');
       });
+      syncPanelButtonsState();
+    }
+
+    function openFullscreenPanel(id) {
+      if (id === 'admin-panel' && !state.isAdmin) return;
+  
+    applyGeneratedMediaAssets({"axe": "image_generation_content/13200236400358069847", "chest": "image_generation_content/17125330217378247469", "orb": "image_generation_content/4005331867623937088", "food": "image_generation_content/12416985203669094388", "med": "image_generation_content/17354913031513419970", "scroll": "image_generation_content/17562516425914559038", "wolf": "image_generation_content/7719335250588753385", "leopard": "image_generation_content/13523088881554855671", "dragon": "image_generation_content/9259293298956216781"});
+    hideAllFullscreenPanels();
+
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+      syncPanelButtonsState();
+    }
+
+    function closeFullscreenPanel(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+      syncPanelButtonsState();
     }
 
     function setBagTab(tabId) {
@@ -1596,7 +1881,7 @@
       state.charName = rec.charName || state.charName || 'Lâm Dã';
       state.isAdmin = adminFlag;
       nightRoamMinutesAcc = 0;
-      hideAllMainPanelsOnStart();
+      hideAllFullscreenPanels();
       document.getElementById('intro-overlay').classList.add('hidden');
       logMsg(`Đã tải dữ liệu của ${currentAccount.username}.`);
       renderAll();
@@ -2018,7 +2303,7 @@
 
       const loc = MAP_LOCATIONS.find(m => m.id === state.locationId) || MAP_LOCATIONS[0];
       if (Math.random() < 0.78) {
-        document.getElementById('explore-panel').classList.remove('hidden');
+        openFullscreenPanel('explore-panel');
         state.mapOpen = false;
         const mob = createEnemyEncounter(loc, true);
         state.activeExploreSession = {
@@ -2173,7 +2458,7 @@
       document.getElementById('chest-reward-overlay').classList.add('hidden');
       document.getElementById('adventure-log').innerHTML = '';
       nightRoamMinutesAcc = 0;
-      hideAllMainPanelsOnStart();
+      hideAllFullscreenPanels();
       const charName = currentAccount?.charName || 'Lâm Dã';
       state = createInitialState(charName, Boolean(currentAccount?.isAdmin));
       document.getElementById('cards-container').classList.add('hidden');
@@ -2267,9 +2552,9 @@
         <div style="font-size:0.78rem; color:#fde68a; margin-top:8px;">Đã chọn</div>
       `;
       setTimeout(() => {
-        hideAllMainPanelsOnStart();
+        hideAllFullscreenPanels();
         document.getElementById('intro-overlay').classList.add('hidden');
-        logMsg(`Bắt đầu với thiên phú ${talent.name} [${talent.rank}]. Bấm nút để mở mục.`);
+        logMsg(`Bắt đầu với thiên phú ${talent.name} [${talent.rank}]. Chọn mục để mở toàn màn hình.`);
         saveGameState(true);
         renderAll();
       }, 500);
@@ -2285,7 +2570,7 @@
         document.getElementById('craft-block-overlay').classList.remove('hidden');
         return;
       }
-      togglePanel('craft-panel');
+      openFullscreenPanel('craft-panel');
     }
 
     function closeCraftBlockModal() {
@@ -2409,7 +2694,7 @@
 
     function openWorldMap() {
       if (state.isDead || state.activeExploreSession) return;
-      document.getElementById('explore-panel').classList.remove('hidden');
+      openFullscreenPanel('explore-panel');
       state.lastExploreReport = null;
       state.mapOpen = true;
       renderAll();
@@ -2903,8 +3188,11 @@
         const active = idx === modal.selectedIdx ? 'active' : '';
         return `
           <button type="button" class="chest-loot-btn ${active}" onclick="selectChestRewardItem(${idx})">
-            <div style="font-weight:700; color:#fbbf24;">${rw.name}</div>
-            <div style="color:#86efac; font-size:0.83rem; margin-top:2px;">+${rw.qty}</div>
+            <img class="item-thumb" src="${getItemImageUrl(rw.key)}" alt="${rw.name}" />
+            <div>
+              <div style="font-weight:700; color:#fbbf24;">${rw.name}</div>
+              <div style="color:#86efac; font-size:0.83rem; margin-top:2px;">+${rw.qty}</div>
+            </div>
           </button>
         `;
       }).join('');
@@ -2914,9 +3202,12 @@
       const detailEl = document.getElementById('chest-reward-detail');
       if (cur && def) {
         detailEl.innerHTML = `
-          <div style="font-weight:700; color:#38bdf8; font-size:0.95rem;">${def.name} (+${cur.qty})</div>
-          <div style="color:var(--muted); font-size:0.79rem; margin-top:2px;">Nhóm: <strong>${def.category}</strong> • Nặng: <strong>${def.weight}</strong></div>
-          <p style="margin-top:6px; color:var(--text);">${def.desc}</p>
+          <img class="item-thumb-lg" src="${getItemImageUrl(cur.key)}" alt="${def.name}" />
+          <div>
+            <div style="font-weight:700; color:#38bdf8; font-size:0.95rem;">${def.name} (+${cur.qty})</div>
+            <div style="color:var(--muted); font-size:0.79rem; margin-top:2px;">Nhóm: <strong>${def.category}</strong> • Nặng: <strong>${def.weight}</strong></div>
+            <p style="margin-top:6px; color:var(--text);">${def.desc}</p>
+          </div>
         `;
       } else {
         detailEl.textContent = '';
@@ -3097,8 +3388,8 @@
                 ${claimed ? 'Đã nhận' : (ready ? 'Nhận' : 'Chưa đạt')}
               </button>
             </div>
-            <div style="color:var(--muted); font-size:0.77rem; margin-top:2px;">${q.desc}</div>
-            <div style="color:#86efac; font-size:0.77rem; margin-top:2px;">Thưởng: ${q.rewardText}</div>
+            <div style="color:var(--muted); font-size:0.78rem; margin-top:2px;">${q.desc}</div>
+            <div style="color:#86efac; font-size:0.78rem; margin-top:2px;">Thưởng: ${q.rewardText}</div>
           </div>
         `;
       }).join('');
@@ -3126,14 +3417,6 @@
       }
     }
 
-    function togglePanel(id) {
-      if (id === 'admin-panel' && !state.isAdmin) return;
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.classList.toggle('hidden');
-      syncPanelButtonsState();
-    }
-
     function renderWorldChat() {
       const list = document.getElementById('world-chat-list');
       list.innerHTML = state.worldChat.map(m => `<div class="log-item">${m}</div>`).join('');
@@ -3157,7 +3440,10 @@
         const div = document.createElement('div');
         div.className = 'trade-item';
         div.innerHTML = `
-          <span>${t.text}</span>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <img class="item-thumb" src="${getItemImageUrl(t.get)}" alt="Trao đổi" />
+            <span>${t.text}</span>
+          </div>
           <button onclick="executeTrade(${t.id})" ${canAfford ? '' : 'disabled'}>Đổi</button>
         `;
         container.appendChild(div);
@@ -3244,6 +3530,7 @@
           const countBuilt = state.craftedCounts[r.id] || 0;
           const maxedUnique = r.uniqueBuild && countBuilt >= 1;
           const okAll = canCraftRecipe(r);
+          const iconKey = r.grantsItem?.key || (r.category === 'Công cụ' ? 'axe' : 'bp_watch_hut');
           const costSpans = Object.entries(r.cost).map(([k, need]) => {
             const have = state.inv[k] || 0;
             const cls = have >= need ? 'mat-ok' : 'mat-bad';
@@ -3253,10 +3540,13 @@
 
           return `
             <div class="build-card">
-              <div>
-                <div><strong>${r.name}</strong> ${r.uniqueBuild ? `(${countBuilt}/1)` : `(Đã làm: ${countBuilt})`}</div>
-                <div style="color:var(--muted); font-size:0.77rem;">${r.desc}</div>
-                <div style="font-size:0.79rem; margin-top:2px;">${costSpans}</div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <img class="item-thumb" src="${getItemImageUrl(iconKey)}" alt="${r.name}" />
+                <div>
+                  <div><strong>${r.name}</strong> ${r.uniqueBuild ? `(${countBuilt}/1)` : `(Đã làm: ${countBuilt})`}</div>
+                  <div style="color:var(--muted); font-size:0.77rem;">${r.desc}</div>
+                  <div style="font-size:0.79rem; margin-top:2px;">${costSpans}</div>
+                </div>
               </div>
               <button class="${okAll ? 'primary' : ''}" onclick="craftRecipe('${r.id}')" ${okAll ? '' : 'disabled'}>${maxedUnique ? 'Đã làm' : 'Làm'}</button>
             </div>
@@ -3344,7 +3634,8 @@
           const def = ITEM_DEFS[k];
           const canUseNow = Boolean(def?.usable);
           return `
-            <span style="display:inline-flex; align-items:center; gap:6px; background:#1b2434; padding:5px 8px; border-radius:7px; font-size:0.77rem;">
+            <span style="display:inline-flex; align-items:center; gap:6px; background:#1b2434; padding:5px 8px; border-radius:7px; font-size:0.78rem;">
+              <img class="item-thumb" style="width:26px; height:26px;" src="${getItemImageUrl(k)}" alt="${def?.name || k}" />
               <span>${def?.name || k}: <strong>${q}</strong></span>
               <button type="button" class="primary" style="padding:3px 7px; font-size:0.73rem;" onclick="useExpeditionItem('${k}')" ${canUseNow ? '' : 'disabled'}>Dùng</button>
             </span>
@@ -3381,9 +3672,12 @@
               const st = STAGES[pet.stageIdx];
               const cp = calcCombatPower(pet);
               const active = state.prepPetUid === pet.uid;
-              return `<button type="button" class="chip-btn ${active ? 'active' : ''}" onclick="togglePrepPet('${pet.uid}')" ${!st.canFight ? 'disabled' : ''}>${pet.name} (${st.name} • Cấp ${pet.lv} • CL ${cp.score} [${cp.tier}])</button>`;
+              return `<button type="button" class="chip-btn ${active ? 'active' : ''}" onclick="togglePrepPet('${pet.uid}')" ${!st.canFight ? 'disabled' : ''}>
+                <img class="item-thumb" style="width:26px; height:26px;" src="${getBeastImageUrl(pet)}" alt="${pet.name}" />
+                <span>${pet.name} (${st.name} • Cấp ${pet.lv} • CL ${cp.score} [${cp.tier}])</span>
+              </button>`;
             }).join('')
-          : `<span style="color:var(--muted); font-size:0.77rem;">Chưa có thú</span>`;
+          : `<span style="color:var(--muted); font-size:0.78rem;">Chưa có thú</span>`;
 
         const ownedPrepKeys = Object.keys(ITEM_DEFS).filter(k => (state.inv[k] || 0) > 0);
         document.getElementById('prep-items-chips').innerHTML = ownedPrepKeys.length
@@ -3392,14 +3686,15 @@
               const owned = state.inv[k] || 0;
               const chosen = state.prepItems[k] || 0;
               return `
-                <span style="display:inline-flex; align-items:center; gap:4px; background:#1b2434; padding:4px 7px; border-radius:6px; font-size:0.75rem;">
+                <span style="display:inline-flex; align-items:center; gap:5px; background:#1b2434; padding:4px 7px; border-radius:6px; font-size:0.76rem;">
+                  <img class="item-thumb" style="width:24px; height:24px;" src="${getItemImageUrl(k)}" alt="${def.name}" />
                   <span>${def.name} (có ${owned}, nặng ${def.weight}): <strong>${chosen}</strong></span>
                   <button type="button" style="padding:2px 6px;" onclick="adjustPrepItem('${k}', 1)" ${chosen >= owned ? 'disabled' : ''}>+</button>
                   <button type="button" style="padding:2px 6px;" onclick="adjustPrepItem('${k}', -1)" ${chosen <= 0 ? 'disabled' : ''}>-</button>
                 </span>
               `;
             }).join('')
-          : `<span style="color:var(--muted); font-size:0.77rem;">Túi trống</span>`;
+          : `<span style="color:var(--muted); font-size:0.78rem;">Túi trống</span>`;
 
         const curLoc = MAP_LOCATIONS.find(m => m.id === state.selectedMapId) || MAP_LOCATIONS[0];
         const curStrat = STRATEGIES.find(s => s.id === state.selectedStrategyId) || STRATEGIES[0];
@@ -3435,6 +3730,7 @@
         let playerHpText = `Máu: ${state.hp}/${state.maxHp} • Thể lực: ${state.stamina}/${state.maxStamina}`;
         let playerPct = Math.max(0, Math.min(100, Math.round((state.hp / Math.max(1, state.maxHp)) * 100)));
         let playerSub = `Công: ${getPlayerStrength()}`;
+        let playerImg = ART_SPRITES.hero;
 
         if (c.ally) {
           const allyCp = calcCombatPower(c.ally);
@@ -3442,7 +3738,11 @@
           playerHpText = `Máu bạn: ${state.hp}/${state.maxHp} • Máu thú: ${c.ally.hp}/${c.ally.maxHp}`;
           playerPct = Math.max(0, Math.min(100, Math.round((c.ally.hp / Math.max(1, c.ally.maxHp)) * 100)));
           playerSub = `Công bạn: ${getPlayerStrength()} • Thú CL ${allyCp.score} [${allyCp.tier}] (Công ${c.ally.atk} | Thủ ${c.ally.def})`;
+          playerImg = getBeastImageUrl(c.ally);
         }
+
+        document.getElementById('combat-player-img').src = playerImg;
+        document.getElementById('combat-enemy-img').src = getBeastImageUrl(c);
 
         document.getElementById('exp-mob-header').textContent = `Giao chiến tại ${state.activeExploreSession.locName}${isNight ? ' (ĐÊM NGUY HIỂM)' : ''}`;
         document.getElementById('exp-mob-danger').innerHTML = `Độ khó: <span class="${danger.cls}">${danger.label}</span>`;
@@ -3514,6 +3814,7 @@
           usable: Boolean(def.usable),
           isChest: def.bagTab === 'chests',
           isSupreme: def.bagTab === 'supreme',
+          imgUrl: getItemImageUrl(k),
           accent: def.bagTab === 'supreme' ? '#e879f9' : (def.bagTab === 'chests' ? '#38bdf8' : '#f8fafc')
         });
       }
@@ -3527,6 +3828,7 @@
           usable: false,
           isChest: false,
           isSupreme: false,
+          imgUrl: ART_SPRITES.orb,
           accent: '#f472b6'
         });
       }
@@ -3552,8 +3854,11 @@
             const chestClass = s.isChest ? 'chest-slot' : '';
             return `
               <button type="button" class="inv-slot ${supClass} ${chestClass} ${activeClass}" onclick="selectItem('${s.key}')">
-                <div style="color:${s.accent};">${s.label}</div>
-                <strong>${s.count}</strong>
+                <img class="item-thumb" src="${s.imgUrl}" alt="${s.label}" />
+                <div>
+                  <div style="color:${s.accent};">${s.label}</div>
+                  <strong>${s.count}</strong>
+                </div>
               </button>
             `;
           }).join('')
@@ -3561,10 +3866,12 @@
 
       const selKey = state.selectedItem;
       const useBtn = document.getElementById('btn-use-item');
+      const inspItemImg = document.getElementById('insp-item-img');
       if (selKey && selKey.startsWith('bl_')) {
         const spId = selKey.replace('bl_', '');
         const bl = state.beastBloodlines[spId];
         const cnt = bl ? bl.count : 0;
+        inspItemImg.src = ART_SPRITES.orb;
         document.getElementById('insp-name').textContent = `Huyết mạch ${bl ? bl.speciesName : ''} (Có: ${cnt})`;
         document.getElementById('insp-type').textContent = `Tab: Nguyên liệu • Huyết mạch (${bl ? bl.rank : ''})`;
         document.getElementById('insp-desc').textContent = `Dùng cho thú nuôi để thử đột biến.`;
@@ -3574,6 +3881,7 @@
         const selDef = ITEM_DEFS[selKey];
         const count = state.inv[selKey] || 0;
         if (selDef && count > 0) {
+          inspItemImg.src = getItemImageUrl(selKey);
           const rankInfo = selDef.gradeRank ? ` • ${selDef.gradeRank}` : '';
           document.getElementById('insp-name').textContent = `${selDef.name} (Có: ${count})`;
           document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category}${rankInfo} • Nặng: ${selDef.weight}`;
@@ -3581,6 +3889,7 @@
           useBtn.disabled = !selDef.usable || count <= 0 || state.isDead;
           useBtn.textContent = selDef.usable ? selDef.useLabel : 'Nguyên liệu';
         } else {
+          inspItemImg.src = ART_SPRITES.mat;
           document.getElementById('insp-name').textContent = 'Chưa chọn vật phẩm';
           document.getElementById('insp-type').textContent = 'Nhóm: -';
           document.getElementById('insp-desc').textContent = 'Chọn một món đang có trong túi để xem chi tiết.';
@@ -3595,9 +3904,12 @@
             const pctStr = t.progressPct.toFixed(1);
             return `
               <div class="inv-slot">
-                <div><strong>${t.name}</strong> (${t.rank})</div>
-                <div style="font-size:0.75rem; color:#93c5fd;">Thuần phục: <strong>${pctStr}%</strong></div>
-                <div class="progress-track"><div class="progress-fill" style="width:${pctStr}%"></div></div>
+                <img class="pet-thumb" src="${getBeastImageUrl(t)}" alt="${t.name}" />
+                <div style="flex:1;">
+                  <div><strong>${t.name}</strong> (${t.rank})</div>
+                  <div style="font-size:0.75rem; color:#93c5fd;">Thuần phục: <strong>${pctStr}%</strong></div>
+                  <div class="progress-track"><div class="progress-fill" style="width:${pctStr}%"></div></div>
+                </div>
               </div>
             `;
           }).join('')
@@ -3617,13 +3929,16 @@
             const healTag = (pet.healingRemainingHp || 0) > 0 ? ` • Hồi +${Math.round(pet.healingRemainingHp)}` : '';
             return `
               <button type="button" class="inv-slot ${isSel ? 'selected' : ''}" onclick="selectBeast('${pet.uid}')">
-                <div><strong>${pet.name}</strong> <span class="rank-${cp.tier}">[${cp.tier}]</span>${pet.mutated ? ' ✦' : ''}</div>
-                <div style="color:#fbbf24; font-size:0.73rem;">CL ${cp.score} • ${pet.rank}</div>
-                <div style="color:#93c5fd; font-size:0.75rem;">${st.name} • Cấp ${pet.lv}/${st.maxLv}</div>
-                <div style="color:var(--muted); font-size:0.73rem;">Máu ${pet.hp}/${pet.maxHp}${healTag}</div>
-                <div style="font-size:0.73rem;">Công ${pet.atk} | Thủ ${pet.def}</div>
-                <div style="font-size:0.69rem; color:#fde68a; margin-top:2px;">Tăng trưởng: ${gPct}%</div>
-                <div class="progress-track"><div class="growth-fill" style="width:${gPct}%"></div></div>
+                <img class="pet-thumb" src="${getBeastImageUrl(pet)}" alt="${pet.name}" />
+                <div style="flex:1;">
+                  <div><strong>${pet.name}</strong> <span class="rank-${cp.tier}">[${cp.tier}]</span>${pet.mutated ? ' ✦' : ''}</div>
+                  <div style="color:#fbbf24; font-size:0.73rem;">CL ${cp.score} • ${pet.rank}</div>
+                  <div style="color:#93c5fd; font-size:0.75rem;">${st.name} • Cấp ${pet.lv}/${st.maxLv}</div>
+                  <div style="color:var(--muted); font-size:0.73rem;">Máu ${pet.hp}/${pet.maxHp}${healTag}</div>
+                  <div style="font-size:0.73rem;">Công ${pet.atk} | Thủ ${pet.def}</div>
+                  <div style="font-size:0.69rem; color:#fde68a; margin-top:2px;">Tăng trưởng: ${gPct}%</div>
+                  <div class="progress-track"><div class="growth-fill" style="width:${gPct}%"></div></div>
+                </div>
               </button>
             `;
           }).join('')
@@ -3632,7 +3947,9 @@
       const selPet = state.tamedBeasts.find(b => b.uid === state.selectedPetUid);
       const blEntries = getAvailableBloodlineEntries();
       const petBtn = document.getElementById('btn-mutate-selected-pet');
+      const inspPetImg = document.getElementById('insp-pet-img');
       if (selPet) {
+        inspPetImg.src = getBeastImageUrl(selPet);
         const st = STAGES[selPet.stageIdx];
         const cp = calcCombatPower(selPet);
         const healInfo = (selPet.healingRemainingHp || 0) > 0 ? ` • Đang hồi +${Math.round(selPet.healingRemainingHp)} Máu` : '';
@@ -3645,6 +3962,7 @@
           : 'Không có huyết mạch.';
         petBtn.disabled = selPet.mutated || blEntries.length === 0;
       } else {
+        inspPetImg.src = ART_SPRITES.beast_mid;
         document.getElementById('pet-insp-name').textContent = 'Chưa chọn thú';
         document.getElementById('pet-insp-meta').textContent = 'Thuần thú khi đi xa rồi quản lý tại đây.';
         document.getElementById('pet-insp-mut').textContent = '-';
@@ -3688,7 +4006,7 @@
       renderAll();
     }, 1000);
 
-    hideAllMainPanelsOnStart();
+    hideAllFullscreenPanels();
     initNpcSelect();
     renderAll();
   </script>
