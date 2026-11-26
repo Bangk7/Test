@@ -1091,9 +1091,23 @@
   <section class="fullscreen-panel hidden" id="craft-panel">
     <div class="fullscreen-inner">
       <div class="box-header">
-        <h2>Chế Tạo tại Nhà gỗ</h2>
+        <h2>Chế Tạo & Nâng Cấp tại Nhà gỗ</h2>
         <button type="button" onclick="closeFullscreenPanel('craft-panel')">Đóng</button>
       </div>
+      <div class="prep-section" style="margin-bottom:12px;">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; align-items:center;">
+          <strong>Bộ lọc công thức & chế tạo:</strong>
+          <select id="craft-status-filter" onchange="setCraftStatusFilter(this.value)">
+            <option value="all">Tất cả trạng thái</option>
+            <option value="craftable">Đủ nguyên liệu làm ngay</option>
+            <option value="unlocked">Đã mở công thức</option>
+            <option value="locked">Chưa có bản vẽ</option>
+          </select>
+        </div>
+        <div class="prep-chips" id="craft-category-chips"></div>
+      </div>
+      <div class="craft-cat-title">Rèn Cấp Dụng Cụ Cầm Tay (Tăng Tài Nguyên & Chiến Lực)</div>
+      <div id="tool-upgrade-container"></div>
       <div id="crafting-container"></div>
     </div>
   </section>
@@ -1297,6 +1311,94 @@
       { id: 'spike_fence', name: 'Rào Gỗ Nhọn', category: 'Công trình', blueprintKey: 'bp_spike_fence', uniqueBuild: true, weight: 0, powerBonus: 12, threatReduction: 3, desc: 'Xây 1 lần: +12 Công, chắn sát thương thú.', cost: { wood: 18, stone: 8, hide: 1 } },
       { id: 'warming_stove', name: 'Bếp Sưởi', category: 'Công trình', blueprintKey: 'bp_warming_stove', uniqueBuild: true, weight: 0, powerBonus: 10, threatReduction: 2, desc: 'Xây 1 lần: +10 Công, giảm hại thời tiết/thiên tai.', cost: { stone: 16, ore: 3, wood: 12 } },
       { id: 'auto_snare', name: 'Bẫy Dây Tự Động', category: 'Công trình', blueprintKey: 'bp_auto_snare', uniqueBuild: true, weight: 0, powerBonus: 15, threatReduction: 2, desc: 'Xây 1 lần: +15 Công và thêm tài nguyên đi xa.', cost: { wood: 22, stone: 12, ore: 5 } }
+    ];
+
+    const UPGRADEABLE_TOOLS = [
+      {
+        id: 'axe',
+        name: 'Rìu Khởi Đầu',
+        maxLv: 5,
+        atkPerLv: 4,
+        woodPerLv: 2,
+        bagPerLv: 1,
+        desc: 'Mỗi cấp +4 Công, +2 Gỗ khi chặt, +1 sức chứa balo.',
+        baseCost: { wood: 8, stone: 4 }
+      },
+      {
+        id: 'iron_axe',
+        name: 'Rìu Sắt',
+        recipeReq: 'iron_axe',
+        maxLv: 5,
+        atkPerLv: 7,
+        woodPerLv: 3,
+        bagPerLv: 2,
+        desc: 'Mỗi cấp +7 Công, +3 Gỗ khi đi xa, +2 sức chứa balo.',
+        baseCost: { wood: 12, ore: 5 }
+      },
+      {
+        id: 'iron_pickaxe',
+        name: 'Cuốc Chim Sắt',
+        recipeReq: 'iron_pickaxe',
+        maxLv: 5,
+        atkPerLv: 6,
+        stonePerLv: 3,
+        orePerLv: 2,
+        desc: 'Mỗi cấp +6 Công, +3 Đá và +2 Quặng khi đi xa.',
+        baseCost: { wood: 12, stone: 8, ore: 6 }
+      },
+      {
+        id: 'bow_arrow',
+        name: 'Cung Tên',
+        recipeReq: 'bow_arrow',
+        maxLv: 5,
+        atkPerLv: 9,
+        woodPerLv: 1,
+        desc: 'Mỗi cấp +9 Công khi giao chiến và +1 Gỗ khi đi xa.',
+        baseCost: { wood: 14, hide: 2, feather: 2 }
+      }
+    ];
+
+    const SUPREME_CRAFT_RECIPES = [
+      {
+        id: 'craft_sup_mist_dew',
+        name: 'Chế tạo Sương Tinh Tụ [Bậc I]',
+        category: 'Vật phẩm siêu phàm',
+        grantsItem: { key: 'sup_mist_dew', qty: 1 },
+        desc: 'Tạo 1 Sương Tinh Tụ [Bậc I] hồi đầy Máu, Thể lực, No và giải Khát.',
+        cost: { wood: 25, stone: 15, ore: 8, mist_herb: 2 }
+      },
+      {
+        id: 'craft_sup_break_seal',
+        name: 'Chế tạo Ấn Ký Phá Giới [Bậc II]',
+        category: 'Vật phẩm siêu phàm',
+        grantsItem: { key: 'sup_break_seal', qty: 1 },
+        desc: 'Tạo 1 Ấn Ký Phá Giới [Bậc II] tăng vĩnh viễn +8 Công.',
+        cost: { wood: 30, stone: 20, ore: 14, hide: 4 }
+      },
+      {
+        id: 'craft_sup_beast_essence',
+        name: 'Chế tạo Chân Dịch Thú Hồn [Bậc III]',
+        category: 'Vật phẩm siêu phàm',
+        grantsItem: { key: 'sup_beast_essence', qty: 1 },
+        desc: 'Tạo 1 Chân Dịch Thú Hồn [Bậc III] tăng tốc thuần thú & trưởng thành.',
+        cost: { wood: 25, ore: 12, hide: 6, chest_silver: 1 }
+      },
+      {
+        id: 'craft_sup_mist_orb',
+        name: 'Chế tạo Linh Châu Xua Sương [Bậc IV]',
+        category: 'Vật phẩm siêu phàm',
+        grantsItem: { key: 'sup_mist_orb', qty: 1 },
+        desc: 'Tạo 1 Linh Châu Xua Sương [Bậc IV] tăng +12 Công và +10 sức chứa balo.',
+        cost: { wood: 40, stone: 30, ore: 20, chest_gold: 1 }
+      },
+      {
+        id: 'craft_sup_sovereign_core',
+        name: 'Ngưng Luyện Thiên Khải Chí Tôn [Bậc V]',
+        category: 'Vật phẩm siêu phàm',
+        grantsItem: { key: 'sup_sovereign_core', qty: 1 },
+        desc: 'Tạo 1 Thiên Khải Chí Tôn [Bậc V] mở toàn bộ bản vẽ & buff toàn diện.',
+        cost: { wood: 65, stone: 45, ore: 35, hide: 8, chest_platinum: 1 }
+      }
     ];
 
     const SUPREME_ITEM_KEYS = [
@@ -1646,6 +1748,9 @@
         bonusAtk: 0,
         bonusBagCap: 0,
         bagTab: 'all',
+        craftFilterCat: 'all',
+        craftFilterStatus: 'all',
+        toolUpgrades: {},
         lastNotice: 'Đã vào game. Chọn mục bất kỳ để mở toàn màn hình.',
         day: 1,
         timeOfDaySec: 6 * 3600,
@@ -1819,6 +1924,9 @@
       state = {
         ...base,
         ...rec.save,
+        toolUpgrades: { ...(rec.save.toolUpgrades || {}) },
+        craftFilterCat: rec.save.craftFilterCat || 'all',
+        craftFilterStatus: rec.save.craftFilterStatus || 'all',
         eventHistory: Array.isArray(rec.save.eventHistory) ? rec.save.eventHistory : [],
         eventStats: { ...base.eventStats, ...(rec.save.eventStats || {}) },
         stats: { ...base.stats, ...(rec.save.stats || {}) }
@@ -2107,7 +2215,8 @@
     function getMaxBagCapacity() {
       const staminaBonus = Math.round(state.maxStamina * 0.5);
       const holdB = getHoldItemBonuses().bagCap;
-      return 30 + staminaBonus + (state.houseLevel - 1) * 5 + (state.bonusBagCap || 0) + holdB;
+      const toolBag = getToolUpgradeBonuses().bagCap;
+      return 30 + staminaBonus + (state.houseLevel - 1) * 5 + (state.bonusBagCap || 0) + holdB + toolBag;
     }
 
     function getPrepUsedCapacity() {
@@ -2122,7 +2231,7 @@
     }
 
     function getPlayerStrength() {
-      let str = 20 + state.houseLevel * 4 + (state.bonusAtk || 0) + getHoldItemBonuses().atk;
+      let str = 20 + state.houseLevel * 4 + (state.bonusAtk || 0) + getHoldItemBonuses().atk + getToolUpgradeBonuses().atk;
       if (state.talent?.rank === 'D') str += 5;
       if (state.talent?.rank === 'S') str += 12;
       for (const r of RECIPES) {
@@ -2153,7 +2262,8 @@
       if (state.stamina < 5) { logMsg('Không đủ thể lực để chặt gỗ.'); return; }
       advanceGameMinutes(15);
       state.stamina = Math.max(0, state.stamina - 5);
-      const gain = 4 + (state.talent?.rank === 'D' ? 1 : 0);
+      const axeBonus = (state.toolUpgrades?.axe || 0) * 2;
+      const gain = 4 + (state.talent?.rank === 'D' ? 1 : 0) + axeBonus;
       state.inv.wood = (state.inv.wood || 0) + gain;
       logMsg(`Chặt được +${gain} Gỗ (-5 Thể lực, 15p).`);
       renderAll();
@@ -2640,6 +2750,10 @@
       if ((state.craftedCounts.auto_snare || 0) > 0) {
         woodAdd += 3; stoneAdd += 2; oreAdd += 2;
       }
+      const toolUpg = getToolUpgradeBonuses();
+      woodAdd += toolUpg.wood;
+      stoneAdd += toolUpg.stone;
+      oreAdd += toolUpg.ore;
       return { power, threatCut, woodAdd, stoneAdd, oreAdd };
     }
 
@@ -2766,8 +2880,9 @@
       if (key === 'axe') {
         advanceGameMinutes(10);
         state.stamina = Math.max(0, state.stamina - 5);
-        state.inv.wood = (state.inv.wood || 0) + 2;
-        logMsg(`Chặt gỗ +2 (-5 Thể lực, 10p)${place}.`);
+        const axeGain = 2 + (state.toolUpgrades?.axe || 0) * 2;
+        state.inv.wood = (state.inv.wood || 0) + axeGain;
+        logMsg(`Chặt gỗ +${axeGain} (-5 Thể lực, 10p)${place}.`);
         return;
       }
       if (key === 'sup_mist_dew') {
@@ -3098,7 +3213,7 @@
         const lostHp = Math.min(c.ally.hp, mobDmg);
         c.ally.hp = Math.max(0, c.ally.hp - lostHp);
         if (realPet) realPet.hp = c.ally.hp;
-        c.lines.push(`${c.name} đánh ${c.ally.name}${isNight ? ' (đêm)' : ''}: -${lostHp} Máu thú (còn ${c.ally.hp}/${c.ally.maxHp}).`);
+        c.lines.push(`${c.name} đánh ${c.ally.name}${isNight ? ' (đêm)' : ''}: -${lostHp} Máu thú (còn ${c.ally.hp}/${c.maxHp}).`);
       } else {
         const maxHeroHit = isNight ? 38 : 26;
         const heroDmg = Math.max(5, Math.min(maxHeroHit, Math.round(c.atk * 0.36 * nightAtkMult - cBonus.threatCut)));
@@ -3416,6 +3531,105 @@
       renderAll();
     }
 
+    function ensureCraftUpgradeState() {
+      if (!state.toolUpgrades || typeof state.toolUpgrades !== 'object') state.toolUpgrades = {};
+      if (!state.craftFilterCat) state.craftFilterCat = 'all';
+      if (!state.craftFilterStatus) state.craftFilterStatus = 'all';
+    }
+
+    function setCraftCategoryFilter(cat) {
+      ensureCraftUpgradeState();
+      state.craftFilterCat = cat;
+      renderAll();
+    }
+
+    function setCraftStatusFilter(st) {
+      ensureCraftUpgradeState();
+      state.craftFilterStatus = st;
+      renderAll();
+    }
+
+    function getToolUpgradeCost(toolCfg, curLv) {
+      const mult = 1 + curLv * 0.45;
+      const out = {};
+      for (const [k, v] of Object.entries(toolCfg.baseCost)) {
+        out[k] = Math.max(1, Math.round(v * mult));
+      }
+      return out;
+    }
+
+    function canUpgradeTool(toolCfg) {
+      ensureCraftUpgradeState();
+      const curLv = state.toolUpgrades[toolCfg.id] || 0;
+      if (curLv >= toolCfg.maxLv) return false;
+      if (toolCfg.recipeReq && !state.unlockedRecipes.includes(toolCfg.recipeReq)) return false;
+      const cost = getToolUpgradeCost(toolCfg, curLv);
+      return Object.entries(cost).every(([k, need]) => (state.inv[k] || 0) >= need);
+    }
+
+    function upgradeToolLevel(toolId) {
+      if (state.locationId !== 'house') {
+        document.getElementById('craft-block-overlay').classList.remove('hidden');
+        return;
+      }
+      ensureCraftUpgradeState();
+      const cfg = UPGRADEABLE_TOOLS.find(t => t.id === toolId);
+      if (!cfg) return;
+      const curLv = state.toolUpgrades[toolId] || 0;
+      if (curLv >= cfg.maxLv) {
+        logMsg(`${cfg.name} đã đạt cấp nâng cấp tối đa +${cfg.maxLv}.`);
+        return;
+      }
+      if (!canUpgradeTool(cfg)) {
+        logMsg(`Chưa đủ điều kiện hoặc nguyên liệu nâng cấp ${cfg.name}.`);
+        renderAll();
+        return;
+      }
+      const cost = getToolUpgradeCost(cfg, curLv);
+      for (const [k, need] of Object.entries(cost)) {
+        state.inv[k] -= need;
+      }
+      state.toolUpgrades[toolId] = curLv + 1;
+      logMsg(`Đã rèn ${cfg.name} lên +${state.toolUpgrades[toolId]}!`);
+      renderAll();
+    }
+
+    function getToolUpgradeBonuses() {
+      ensureCraftUpgradeState();
+      let atk = 0, bagCap = 0, wood = 0, stone = 0, ore = 0;
+      for (const cfg of UPGRADEABLE_TOOLS) {
+        const lv = state.toolUpgrades[cfg.id] || 0;
+        if (lv > 0) {
+          atk += (cfg.atkPerLv || 0) * lv;
+          bagCap += (cfg.bagPerLv || 0) * lv;
+          wood += (cfg.woodPerLv || 0) * lv;
+          stone += (cfg.stonePerLv || 0) * lv;
+          ore += (cfg.orePerLv || 0) * lv;
+        }
+      }
+      return { atk, bagCap, wood, stone, ore };
+    }
+
+    function canCraftSupreme(rec) {
+      return Object.entries(rec.cost).every(([k, need]) => (state.inv[k] || 0) >= need);
+    }
+
+    function craftSupremeItem(recId) {
+      if (state.locationId !== 'house') {
+        document.getElementById('craft-block-overlay').classList.remove('hidden');
+        return;
+      }
+      const rec = SUPREME_CRAFT_RECIPES.find(r => r.id === recId);
+      if (!rec || !canCraftSupreme(rec)) return;
+      for (const [k, need] of Object.entries(rec.cost)) {
+        state.inv[k] -= need;
+      }
+      state.inv[rec.grantsItem.key] = (state.inv[rec.grantsItem.key] || 0) + rec.grantsItem.qty;
+      state.craftedCounts[rec.id] = (state.craftedCounts[rec.id] || 0) + 1;
+      logMsg(`Chế tạo thành công ${rec.name}!`);
+      renderAll();
+    }
+
     function upgradeHouse() {
       const cfg = HOUSE_LEVELS[state.houseLevel - 1];
       if (!cfg.cost) return;
@@ -3622,21 +3836,120 @@
     }
 
     function renderCraftingPanel() {
-      const container = document.getElementById('crafting-container');
-      const unlocked = RECIPES.filter(r => state.unlockedRecipes.includes(r.id));
-      if (!unlocked.length) {
-        container.innerHTML = `<p class="intro-sub" style="margin-bottom:0;">Chưa mở công thức nào. Hãy học bản vẽ trong túi đồ.</p>`;
-        return;
+      ensureCraftUpgradeState();
+      const statusSel = document.getElementById('craft-status-filter');
+      if (statusSel && statusSel.value !== state.craftFilterStatus) {
+        statusSel.value = state.craftFilterStatus;
       }
-      container.innerHTML = CATEGORIES.map(cat => {
-        const list = unlocked
-          .filter(r => r.category === cat)
-          .sort((a, b) => Number(canCraftRecipe(b)) - Number(canCraftRecipe(a)));
-        if (!list.length) return '';
-        const cardsHtml = list.map(r => {
+
+      const filterCats = ['all', ...CATEGORIES, 'Vật phẩm siêu phàm'];
+      const filterLabels = {
+        all: 'Tất cả',
+        'Công cụ': 'Công cụ',
+        'Vật phẩm sinh hoạt': 'Sinh hoạt',
+        'Vật phẩm y tế': 'Y tế',
+        'Công trình': 'Công trình',
+        'Vật phẩm siêu phàm': 'Siêu phàm'
+      };
+      const chipsEl = document.getElementById('craft-category-chips');
+      if (chipsEl) {
+        chipsEl.innerHTML = filterCats.map(cat => {
+          const active = state.craftFilterCat === cat ? 'active' : '';
+          return `<button type="button" class="chip-btn ${active}" onclick="setCraftCategoryFilter('${cat}')">${filterLabels[cat] || cat}</button>`;
+        }).join('');
+      }
+
+      const upgContainer = document.getElementById('tool-upgrade-container');
+      if (upgContainer) {
+        upgContainer.innerHTML = UPGRADEABLE_TOOLS.map(cfg => {
+          const curLv = state.toolUpgrades[cfg.id] || 0;
+          const isMax = curLv >= cfg.maxLv;
+          const lockedByBp = Boolean(cfg.recipeReq && !state.unlockedRecipes.includes(cfg.recipeReq));
+          const cost = getToolUpgradeCost(cfg, curLv);
+          const ok = canUpgradeTool(cfg);
+          const costHtml = isMax
+            ? `<span class="mat-ok">Đã đạt cấp tối đa (+${cfg.maxLv})</span>`
+            : lockedByBp
+              ? `<span class="mat-bad">Cần mở bản vẽ ${RECIPES.find(r => r.id === cfg.recipeReq)?.name || ''}</span>`
+              : Object.entries(cost).map(([k, need]) => {
+                  const have = state.inv[k] || 0;
+                  const cls = have >= need ? 'mat-ok' : 'mat-bad';
+                  return `${ITEM_DEFS[k]?.name || k}: <span class="${cls}">${have}/${need}</span>`;
+                }).join(' • ');
+
+          return `
+            <div class="build-card">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <img class="item-thumb" src="${getItemImageUrl(cfg.id)}" alt="${cfg.name}" />
+                <div>
+                  <div><strong>${cfg.name}</strong> <span style="color:#38bdf8;">[+${curLv}/${cfg.maxLv}]</span></div>
+                  <div style="color:var(--muted); font-size:0.77rem;">${cfg.desc}</div>
+                  <div style="font-size:0.79rem; margin-top:2px;">${costHtml}</div>
+                </div>
+              </div>
+              <button class="${ok ? 'accent-btn' : ''}" onclick="upgradeToolLevel('${cfg.id}')" ${ok ? '' : 'disabled'}>
+                ${isMax ? 'Tối đa' : `Rèn +${curLv + 1}`}
+              </button>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const container = document.getElementById('crafting-container');
+      let html = '';
+
+      const showSupreme = state.craftFilterCat === 'all' || state.craftFilterCat === 'Vật phẩm siêu phàm';
+      if (showSupreme && state.craftFilterStatus !== 'locked') {
+        const supList = SUPREME_CRAFT_RECIPES.filter(r => {
+          if (state.craftFilterStatus === 'craftable') return canCraftSupreme(r);
+          return true;
+        });
+        if (supList.length) {
+          html += `<div class="craft-cat-title">Chế Tạo Vật Phẩm Siêu Phàm</div>` + supList.map(r => {
+            const ok = canCraftSupreme(r);
+            const doneCnt = state.craftedCounts[r.id] || 0;
+            const costSpans = Object.entries(r.cost).map(([k, need]) => {
+              const have = state.inv[k] || 0;
+              const cls = have >= need ? 'mat-ok' : 'mat-bad';
+              return `${ITEM_DEFS[k]?.name || k}: <span class="${cls}">${have}/${need}</span>`;
+            }).join(' • ');
+            return `
+              <div class="build-card" style="border-color:#a855f7;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <img class="item-thumb" src="${getItemImageUrl(r.grantsItem.key)}" alt="${r.name}" />
+                  <div>
+                    <div><strong style="color:#e879f9;">${r.name}</strong> (Đã tạo: ${doneCnt})</div>
+                    <div style="color:var(--muted); font-size:0.77rem;">${r.desc}</div>
+                    <div style="font-size:0.79rem; margin-top:2px;">${costSpans}</div>
+                  </div>
+                </div>
+                <button class="${ok ? 'primary' : ''}" onclick="craftSupremeItem('${r.id}')" ${ok ? '' : 'disabled'}>Chế tạo</button>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      const targetCats = state.craftFilterCat === 'all'
+        ? CATEGORIES
+        : (CATEGORIES.includes(state.craftFilterCat) ? [state.craftFilterCat] : []);
+
+      for (const cat of targetCats) {
+        const list = RECIPES.filter(r => {
+          if (r.category !== cat) return false;
+          const isUnlocked = state.unlockedRecipes.includes(r.id);
+          if (state.craftFilterStatus === 'locked') return !isUnlocked;
+          if (!isUnlocked) return false;
+          if (state.craftFilterStatus === 'craftable') return canCraftRecipe(r);
+          return true;
+        }).sort((a, b) => Number(canCraftRecipe(b)) - Number(canCraftRecipe(a)));
+
+        if (!list.length) continue;
+        html += `<div class="craft-cat-title">${cat}</div>` + list.map(r => {
+          const isUnlocked = state.unlockedRecipes.includes(r.id);
           const countBuilt = state.craftedCounts[r.id] || 0;
           const maxedUnique = r.uniqueBuild && countBuilt >= 1;
-          const okAll = canCraftRecipe(r);
+          const okAll = isUnlocked && canCraftRecipe(r);
           const iconKey = r.grantsItem?.key || (r.category === 'Công cụ' ? 'axe' : 'bp_watch_hut');
           const costSpans = Object.entries(r.cost).map(([k, need]) => {
             const have = state.inv[k] || 0;
@@ -3649,17 +3962,20 @@
               <div style="display:flex; align-items:center; gap:10px;">
                 <img class="item-thumb" src="${getItemImageUrl(iconKey)}" alt="${r.name}" />
                 <div>
-                  <div><strong>${r.name}</strong> ${r.uniqueBuild ? `(${countBuilt}/1)` : `(Đã làm: ${countBuilt})`}</div>
+                  <div><strong>${r.name}</strong> ${r.uniqueBuild ? `(${countBuilt}/1)` : `(Đã làm: ${countBuilt})`} ${!isUnlocked ? '<span style="color:#f59e0b;">[Chưa học bản vẽ]</span>' : ''}</div>
                   <div style="color:var(--muted); font-size:0.77rem;">${r.desc}</div>
                   <div style="font-size:0.79rem; margin-top:2px;">${costSpans}</div>
                 </div>
               </div>
-              <button class="${okAll ? 'primary' : ''}" onclick="craftRecipe('${r.id}')" ${okAll ? '' : 'disabled'}>${maxedUnique ? 'Đã làm' : 'Làm'}</button>
+              <button class="${okAll ? 'primary' : ''}" onclick="craftRecipe('${r.id}')" ${okAll ? '' : 'disabled'}>
+                ${!isUnlocked ? 'Cần bản vẽ' : (maxedUnique ? 'Đã làm' : 'Làm')}
+              </button>
             </div>
           `;
         }).join('');
-        return `<div class="craft-cat-title">${cat}</div>${cardsHtml}`;
-      }).join('');
+      }
+
+      container.innerHTML = html || `<p class="intro-sub" style="margin-bottom:0;">Không có công thức phù hợp với bộ lọc hiện tại.</p>`;
     }
 
     function renderAll() {
@@ -3871,250 +4187,198 @@
           `;
         } else {
           document.getElementById('combat-action-buttons').innerHTML = `
-            <button class="danger-btn" onclick="stepCombatRound()">Tấn công</button>
-            <button onclick="markAndLeaveCombat()">Đánh dấu & rời đi</button>
+            <button class="danger-btn" onclick="stepCombatRound()">Đánh tới (10p)</button>
+            <button onclick="markAndLeaveCombat()">Đánh dấu & rời (15p)</button>
           `;
         }
-        document.getElementById('combat-feed-list').innerHTML = c.lines.map(l => {
-          const isDead = l.includes('tử trận');
-          return `<div class="combat-line ${isDead ? 'dead-line' : ''}">${l}</div>`;
+        const feedEl = document.getElementById('combat-feed-list');
+        feedEl.innerHTML = c.lines.map(line => {
+          const isDeadLine = line.includes('tử trận') || line.includes('bị hạ gục');
+          return `<div class="combat-line ${isDeadLine ? 'dead-line' : ''}">${line}</div>`;
         }).join('');
+        feedEl.scrollTop = feedEl.scrollHeight;
       } else {
         expCombatBox.classList.add('hidden');
       }
 
       const expRepBox = document.getElementById('explore-report-box');
-      if (state.lastExploreReport) {
+      if (state.lastExploreReport && !state.activeExploreSession) {
         expRepBox.classList.remove('hidden');
-        const rep = state.lastExploreReport;
-        document.getElementById('exp-rep-title').textContent = `Hoàn tất chuyến đi (${rep.totalMinutes} phút)`;
-        document.getElementById('exp-rep-items').textContent = `Thu thập: ${rep.foundItems.join(', ')}.`;
-        document.getElementById('exp-rep-summary').textContent = rep.deeds.join(' • ');
+        document.getElementById('exp-rep-title').textContent = `Tổng kết (${state.lastExploreReport.totalMinutes} phút)`;
+        document.getElementById('exp-rep-items').textContent = `Nhận: ${state.lastExploreReport.foundItems.join(', ')}.`;
+        document.getElementById('exp-rep-summary').textContent = state.lastExploreReport.deeds.join(' • ');
       } else {
         expRepBox.classList.add('hidden');
       }
 
-      const curTab = state.bagTab || 'all';
       document.querySelectorAll('#bag-category-tabs .bag-cat-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tab === curTab);
+        btn.classList.toggle('active', btn.dataset.tab === state.bagTab);
       });
-      const searchText = (document.getElementById('inv-search-input')?.value || '').trim().toLowerCase();
-      const filterMode = document.getElementById('inv-filter-select')?.value || 'all';
 
-      const allOwnedSlots = [];
-      for (const [k, def] of Object.entries(ITEM_DEFS)) {
-        const cnt = state.inv[k] || 0;
-        if (cnt <= 0) continue;
-        allOwnedSlots.push({
-          key: k,
-          label: def.name,
-          count: cnt,
-          tab: def.bagTab || 'tools',
-          usable: Boolean(def.usable),
-          isChest: def.bagTab === 'chests',
-          isSupreme: def.bagTab === 'supreme',
-          imgUrl: getItemImageUrl(k),
-          accent: def.bagTab === 'supreme' ? '#e879f9' : (def.bagTab === 'chests' ? '#38bdf8' : '#f8fafc')
-        });
-      }
-      for (const bl of Object.values(state.beastBloodlines)) {
-        if ((bl.count || 0) <= 0) continue;
-        allOwnedSlots.push({
-          key: `bl_${bl.speciesId}`,
-          label: `Huyết mạch ${bl.speciesName}`,
-          count: bl.count,
-          tab: 'materials',
-          usable: false,
-          isChest: false,
-          isSupreme: false,
-          imgUrl: ART_SPRITES.orb,
-          accent: '#f472b6'
-        });
-      }
+      const ownedKeys = Object.keys(ITEM_DEFS).filter(k => (state.inv[k] || 0) > 0);
+      document.getElementById('ui-owned-item-count').textContent = ownedKeys.length;
+      const searchQ = (document.getElementById('inv-search-input').value || '').trim().toLowerCase();
+      const filterType = document.getElementById('inv-filter-select').value;
 
-      document.getElementById('ui-owned-item-count').textContent = allOwnedSlots.length;
-      const filteredSlots = allOwnedSlots.filter(s => {
-        if (curTab !== 'all' && s.tab !== curTab) return false;
-        if (filterMode === 'usable' && !s.usable) return false;
-        if (searchText && !s.label.toLowerCase().includes(searchText)) return false;
+      const filteredKeys = ownedKeys.filter(k => {
+        const def = ITEM_DEFS[k];
+        if (state.bagTab !== 'all' && def.bagTab !== state.bagTab) return false;
+        if (filterType === 'usable' && !def.usable) return false;
+        if (searchQ && !def.name.toLowerCase().includes(searchQ) && !def.category.toLowerCase().includes(searchQ)) return false;
         return true;
       });
-      if (filteredSlots.length > 0 && !filteredSlots.some(s => s.key === state.selectedItem)) {
-        state.selectedItem = filteredSlots[0].key;
-      }
 
-      const curTabLabel = BAG_TABS.find(t => t.id === curTab)?.label || 'Tất cả';
-      document.getElementById('inventory-grid').innerHTML = filteredSlots.length
-        ? filteredSlots.map(s => {
-            const activeClass = state.selectedItem === s.key ? 'selected' : '';
-            const supClass = s.isSupreme ? 'sup-slot' : '';
-            const chestClass = s.isChest ? 'chest-slot' : '';
-            return `
-              <button type="button" class="inv-slot ${supClass} ${chestClass} ${activeClass}" onclick="selectItem('${s.key}')">
-                <img class="item-thumb" src="${s.imgUrl}" alt="${s.label}" />
-                <div>
-                  <div style="color:${s.accent};">${s.label}</div>
-                  <strong>${s.count}</strong>
-                </div>
-              </button>
-            `;
-          }).join('')
-        : `<div class="inv-slot" style="color:var(--muted);">Không có vật phẩm trong tab "${curTabLabel}"</div>`;
-
-      const selKey = state.selectedItem;
-      const useBtn = document.getElementById('btn-use-item');
-      const inspItemImg = document.getElementById('insp-item-img');
-      if (selKey && selKey.startsWith('bl_')) {
-        const spId = selKey.replace('bl_', '');
-        const bl = state.beastBloodlines[spId];
-        const cnt = bl ? bl.count : 0;
-        inspItemImg.src = ART_SPRITES.orb;
-        document.getElementById('insp-name').textContent = `Huyết mạch ${bl ? bl.speciesName : ''} (Có: ${cnt})`;
-        document.getElementById('insp-type').textContent = `Tab: Nguyên liệu • Huyết mạch (${bl ? bl.rank : ''})`;
-        document.getElementById('insp-desc').textContent = `Dùng cho thú nuôi để thử đột biến.`;
-        useBtn.disabled = cnt <= 0 || !state.selectedPetUid;
-        useBtn.textContent = 'Dùng cho thú';
+      const invGrid = document.getElementById('inventory-grid');
+      invGrid.innerHTML = '';
+      if (!filteredKeys.length) {
+        invGrid.innerHTML = `<div class="inv-slot" style="color:var(--muted);">Chưa có món phù hợp.</div>`;
       } else {
-        const selDef = ITEM_DEFS[selKey];
-        const count = state.inv[selKey] || 0;
-        if (selDef && count > 0) {
-          inspItemImg.src = getItemImageUrl(selKey);
-          const rankInfo = selDef.gradeRank ? ` • ${selDef.gradeRank}` : '';
-          document.getElementById('insp-name').textContent = `${selDef.name} (Có: ${count})`;
-          document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category}${rankInfo} • Nặng: ${selDef.weight}`;
-          document.getElementById('insp-desc').textContent = selDef.desc;
-          useBtn.disabled = !selDef.usable || count <= 0 || state.isDead;
-          useBtn.textContent = selDef.usable ? selDef.useLabel : 'Nguyên liệu';
-        } else {
-          inspItemImg.src = ART_SPRITES.mat;
-          document.getElementById('insp-name').textContent = 'Chưa chọn vật phẩm';
-          document.getElementById('insp-type').textContent = 'Nhóm: -';
-          document.getElementById('insp-desc').textContent = 'Chọn một món đang có trong túi để xem chi tiết.';
-          useBtn.disabled = true;
-          useBtn.textContent = 'Dùng';
-        }
+        filteredKeys.forEach(k => {
+          const def = ITEM_DEFS[k];
+          const qty = state.inv[k];
+          const isChest = def.bagTab === 'chests';
+          const isSup = def.bagTab === 'supreme';
+          const slot = document.createElement('button');
+          slot.type = 'button';
+          slot.className = `inv-slot ${isChest ? 'chest-slot' : ''} ${isSup ? 'sup-slot' : ''} ${state.selectedItem === k ? 'selected' : ''}`;
+          slot.onclick = () => selectItem(k);
+          slot.innerHTML = `
+            <img class="item-thumb" src="${getItemImageUrl(k)}" alt="${def.name}" />
+            <div>
+              <div><strong>${def.name}</strong> ×${qty}</div>
+              <div style="font-size:0.75rem; color:${isSup ? '#e879f9' : (isChest ? '#7dd3fc' : 'var(--muted)')};">${def.category} • Nặng ${def.weight}</div>
+            </div>
+          `;
+          invGrid.appendChild(slot);
+        });
       }
 
+      const selKey = filteredKeys.includes(state.selectedItem) ? state.selectedItem : (filteredKeys[0] || null);
+      state.selectedItem = selKey;
+      const useBtn = document.getElementById('btn-use-item');
+      const inspImg = document.getElementById('insp-item-img');
+      if (selKey && ITEM_DEFS[selKey]) {
+        const def = ITEM_DEFS[selKey];
+        const qty = state.inv[selKey] || 0;
+        inspImg.src = getItemImageUrl(selKey);
+        document.getElementById('insp-name').textContent = `${def.name} (Đang có: ${qty})`;
+        document.getElementById('insp-type').textContent = `Nhóm: ${def.category} • Nặng: ${def.weight}`;
+        document.getElementById('insp-desc').textContent = def.desc;
+        useBtn.disabled = !def.usable || qty <= 0 || state.isDead;
+        useBtn.textContent = def.useLabel || 'Dùng';
+      } else {
+        inspImg.src = ART_SPRITES.mat;
+        document.getElementById('insp-name').textContent = 'Chưa chọn vật phẩm';
+        document.getElementById('insp-type').textContent = 'Nhóm: -';
+        document.getElementById('insp-desc').textContent = 'Chọn một món đang có trong túi để xem chi tiết.';
+        useBtn.disabled = true;
+        useBtn.textContent = 'Dùng';
+      }
+
+      const tameGrid = document.getElementById('taming-queue-grid');
       document.getElementById('ui-taming-count').textContent = state.tamingQueue.length;
-      document.getElementById('taming-queue-grid').innerHTML = state.tamingQueue.length
-        ? state.tamingQueue.map(t => {
-            const pctStr = t.progressPct.toFixed(1);
-            return `
-              <div class="inv-slot">
-                <img class="pet-thumb" src="${getBeastImageUrl(t)}" alt="${t.name}" />
-                <div style="flex:1;">
-                  <div><strong>${t.name}</strong> (${t.rank})</div>
-                  <div style="font-size:0.75rem; color:#93c5fd;">Thuần phục: <strong>${pctStr}%</strong></div>
-                  <div class="progress-track"><div class="progress-fill" style="width:${pctStr}%"></div></div>
-                </div>
+      if (!state.tamingQueue.length) {
+        tameGrid.innerHTML = `<div class="inv-slot" style="color:var(--muted);">Chưa có thú đang thuần phục.</div>`;
+      } else {
+        tameGrid.innerHTML = state.tamingQueue.map(t => {
+          const pct = Math.min(100, Math.round(t.progressPct));
+          return `
+            <div class="inv-slot">
+              <img class="pet-thumb" src="${getBeastImageUrl(t)}" alt="${t.name}" />
+              <div style="flex:1;">
+                <div><strong>${t.name}</strong> (${t.rank})</div>
+                <div style="font-size:0.76rem; color:var(--muted);">Tiến độ thuần: ${pct}%</div>
+                <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
               </div>
-            `;
-          }).join('')
-        : `<div class="inv-slot" style="color:var(--muted);">Chưa thuần thú nào</div>`;
-
-      if (!state.selectedPetUid && state.tamedBeasts.length > 0) {
-        state.selectedPetUid = state.tamedBeasts[0].uid;
+            </div>
+          `;
+        }).join('');
       }
-      document.getElementById('ui-tamed-count').textContent = state.tamedBeasts.length;
-      const tamedGrid = document.getElementById('tamed-beasts-grid');
-      tamedGrid.innerHTML = state.tamedBeasts.length
-        ? state.tamedBeasts.map(pet => {
-            const st = STAGES[pet.stageIdx];
-            const cp = calcCombatPower(pet);
-            const isSel = pet.uid === state.selectedPetUid;
-            const gPct = Math.min(100, Math.round(pet.growthPct || 0));
-            const healTag = (pet.healingRemainingHp || 0) > 0 ? ` • Hồi +${Math.round(pet.healingRemainingHp)}` : '';
-            return `
-              <button type="button" class="inv-slot ${isSel ? 'selected' : ''}" onclick="selectBeast('${pet.uid}')">
-                <img class="pet-thumb" src="${getBeastImageUrl(pet)}" alt="${pet.name}" />
-                <div style="flex:1;">
-                  <div><strong>${pet.name}</strong> <span class="rank-${cp.tier}">[${cp.tier}]</span>${pet.mutated ? ' ✦' : ''}</div>
-                  <div style="color:#fbbf24; font-size:0.73rem;">CL ${cp.score} • ${pet.rank}</div>
-                  <div style="color:#93c5fd; font-size:0.75rem;">${st.name} • Cấp ${pet.lv}/${st.maxLv}</div>
-                  <div style="color:var(--muted); font-size:0.73rem;">Máu ${pet.hp}/${pet.maxHp}${healTag}</div>
-                  <div style="font-size:0.73rem;">Công ${pet.atk} | Thủ ${pet.def}</div>
-                  <div style="font-size:0.69rem; color:#fde68a; margin-top:2px;">Tăng trưởng: ${gPct}%</div>
-                  <div class="progress-track"><div class="growth-fill" style="width:${gPct}%"></div></div>
-                </div>
-              </button>
-            `;
-          }).join('')
-        : `<div class="inv-slot" style="color:var(--muted);">Chưa có thú</div>`;
 
-      const selPet = state.tamedBeasts.find(b => b.uid === state.selectedPetUid);
+      const petGrid = document.getElementById('tamed-beasts-grid');
+      document.getElementById('ui-tamed-count').textContent = state.tamedBeasts.length;
+      if (!state.tamedBeasts.length) {
+        petGrid.innerHTML = `<div class="inv-slot" style="color:var(--muted);">Chưa có thú đã thu phục.</div>`;
+      } else {
+        if (!state.selectedPetUid || !state.tamedBeasts.some(p => p.uid === state.selectedPetUid)) {
+          state.selectedPetUid = state.tamedBeasts[0].uid;
+        }
+        petGrid.innerHTML = state.tamedBeasts.map(pet => {
+          const st = STAGES[pet.stageIdx];
+          const cp = calcCombatPower(pet);
+          const gPct = Math.min(100, Math.round(pet.growthPct || 0));
+          const healTag = (pet.healingRemainingHp || 0) > 0 ? ` • Đang hồi +${Math.round(pet.healingRemainingHp)}` : '';
+          return `
+            <button type="button" class="inv-slot ${state.selectedPetUid === pet.uid ? 'selected' : ''}" onclick="selectBeast('${pet.uid}')">
+              <img class="pet-thumb" src="${getBeastImageUrl(pet)}" alt="${pet.name}" />
+              <div style="flex:1;">
+                <div><strong>${pet.name}</strong> • Cấp ${pet.lv} (${st.name})</div>
+                <div style="font-size:0.75rem; color:#93c5fd;">CL: <strong>${cp.score} [${cp.tier}]</strong> • Máu ${pet.hp}/${pet.maxHp}${healTag}</div>
+                <div style="font-size:0.74rem; color:var(--muted);">Tăng trưởng: ${gPct}%</div>
+                <div class="progress-track"><div class="growth-fill" style="width:${gPct}%"></div></div>
+              </div>
+            </button>
+          `;
+        }).join('');
+      }
+
+      const selPet = state.tamedBeasts.find(p => p.uid === state.selectedPetUid);
       const blEntries = getAvailableBloodlineEntries();
-      const petBtn = document.getElementById('btn-mutate-selected-pet');
-      const inspPetImg = document.getElementById('insp-pet-img');
+      const mutBtn = document.getElementById('btn-mutate-selected-pet');
+      const petImgEl = document.getElementById('insp-pet-img');
       if (selPet) {
-        inspPetImg.src = getBeastImageUrl(selPet);
         const st = STAGES[selPet.stageIdx];
         const cp = calcCombatPower(selPet);
-        const healInfo = (selPet.healingRemainingHp || 0) > 0 ? ` • Đang hồi +${Math.round(selPet.healingRemainingHp)} Máu` : '';
-        const fightNote = st.canFight ? 'Tham chiến được' : 'Còn nhỏ';
-        document.getElementById('pet-insp-name').textContent = `${selPet.name} • CL ${cp.score} [${cp.tier}] ${selPet.mutated ? '• Đột biến' : ''}`;
-        document.getElementById('pet-insp-meta').textContent = `${selPet.rank} • ${st.name} (Cấp ${selPet.lv}/${st.maxLv}, ${fightNote}) • Máu ${selPet.hp}/${selPet.maxHp}${healInfo} • Công ${selPet.atk} | Thủ ${selPet.def}`;
-        document.getElementById('pet-insp-mut').textContent = blEntries.length
-          ? `Huyết mạch: ${blEntries.map(e => `${e.speciesName} (${e.count})`).join(', ')}`
-          : 'Không có huyết mạch.';
-        petBtn.disabled = selPet.mutated || blEntries.length === 0;
+        petImgEl.src = getBeastImageUrl(selPet);
+        document.getElementById('pet-insp-name').textContent = `${selPet.name} • Cấp ${selPet.lv} (${st.name})`;
+        document.getElementById('pet-insp-meta').textContent = `CL: ${cp.score} [${cp.tier}] • Máu ${selPet.hp}/${selPet.maxHp} • Công ${selPet.atk} • Thủ ${selPet.def}`;
+        document.getElementById('pet-insp-mut').textContent = selPet.mutated
+          ? `Đã đột biến thành ${selPet.name}.`
+          : (blEntries.length ? `Huyết mạch có sẵn: ${blEntries.map(b => `${b.speciesName} ×${b.count}`).join(', ')}.` : 'Chưa có huyết mạch.');
+        mutBtn.disabled = !blEntries.length || selPet.mutated || state.isDead;
+        mutBtn.textContent = selPet.mutated ? 'Đã đột biến' : 'Dùng huyết mạch';
       } else {
-        inspPetImg.src = ART_SPRITES.beast_mid;
+        petImgEl.src = ART_SPRITES.beast_mid;
         document.getElementById('pet-insp-name').textContent = 'Chưa chọn thú';
-        document.getElementById('pet-insp-meta').textContent = 'Thuần thú khi đi xa rồi quản lý tại đây.';
+        document.getElementById('pet-insp-meta').textContent = '-';
         document.getElementById('pet-insp-mut').textContent = '-';
-        petBtn.disabled = true;
-      }
-
-      const hCfg = HOUSE_LEVELS[state.houseLevel - 1];
-      const upBtn = document.getElementById('btn-upgrade-house');
-      const reqEl = document.getElementById('house-req');
-      if (!hCfg.cost) {
-        upBtn.disabled = true;
-        upBtn.textContent = 'Cấp tối đa (8/8)';
-        reqEl.textContent = hCfg.unlock;
-      } else {
-        upBtn.disabled = false;
-        const costStr = Object.entries(hCfg.cost).map(([k, v]) => `${ITEM_DEFS[k]?.name || k}: ${v}`).join(', ');
-        reqEl.textContent = `Cấp ${state.houseLevel + 1} cần: ${costStr} — ${HOUSE_LEVELS[state.houseLevel].unlock}`;
+        mutBtn.disabled = true;
+        mutBtn.textContent = 'Dùng huyết mạch';
       }
 
       renderCraftingPanel();
-      renderEventPanel();
+
+      const houseCfg = HOUSE_LEVELS[state.houseLevel - 1];
+      const upgBtn = document.getElementById('btn-upgrade-house');
+      const reqEl = document.getElementById('house-req');
+      if (!houseCfg.cost) {
+        upgBtn.disabled = true;
+        reqEl.textContent = `${houseCfg.name} • Đã đạt cấp tối đa.`;
+      } else {
+        const parts = Object.entries(houseCfg.cost).map(([k, v]) => {
+          const have = state.inv[k] || 0;
+          return `${ITEM_DEFS[k]?.name || k}: <span class="${have >= v ? 'mat-ok' : 'mat-bad'}">${have}/${v}</span>`;
+        });
+        reqEl.innerHTML = `${houseCfg.name} • Cần: ${parts.join(' • ')}. ${houseCfg.unlock}`;
+        upgBtn.disabled = Object.entries(houseCfg.cost).some(([k, v]) => (state.inv[k] || 0) < v);
+      }
+
       renderQuests();
-      renderTrades();
+      renderEventPanel();
       renderWorldChat();
+      renderTrades();
+      renderNpcChat();
       syncPanelButtonsState();
+      saveGameState(true);
     }
 
-    let lastRealTick = Date.now();
-    let autosaveAccumulatorSec = 0;
     setInterval(() => {
-      const now = Date.now();
-      const elapsedSec = (now - lastRealTick) / 1000;
-      lastRealTick = now;
-      if (state.isDead) return;
-      advanceGameMinutes((elapsedSec * GAME_SECONDS_PER_REAL_SECOND) / 60);
-      autosaveAccumulatorSec += elapsedSec;
-      if (autosaveAccumulatorSec >= 15) {
-        autosaveAccumulatorSec = 0;
-        if (state.talent && currentAccount) saveGameState(true);
-      }
+      if (state.isDead || !state.talent) return;
+      advanceGameMinutes((GAME_SECONDS_PER_REAL_SECOND * 1) / 60);
       renderAll();
     }, 1000);
 
-    applyGeneratedMediaAssets({
-      axe: ART_SPRITES.axe,
-      mat: ART_SPRITES.wood,
-      food: ART_SPRITES.food,
-      med: ART_SPRITES.med,
-      chest: ART_SPRITES.chest,
-      orb: ART_SPRITES.sup,
-      scroll: ART_SPRITES.bp,
-      wolf: ART_SPRITES.beast_low,
-      leopard: ART_SPRITES.beast_mid,
-      dragon: ART_SPRITES.beast_high
-    });
-    hideAllFullscreenPanels();
+    switchAuthMode('login');
     initNpcSelect();
     renderAll();
   </script>
