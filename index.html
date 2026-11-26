@@ -933,7 +933,7 @@
     ];
 
     function makeArtSvgDataUrl(label, bg1, bg2, accentColor, shapeType) {
-      const safeLabel = (label || 'ITEM').slice(0, 3).toUpperCase();
+      const safeLabel = (label || 'ITEM').slice(0, 4).toUpperCase();
       let shapeSvg = '';
       if (shapeType === 'axe') {
         shapeSvg = `<rect x="28" y="10" width="8" height="44" rx="3" transform="rotate(25 32 32)" fill="#b45309"/><path d="M22 14 L46 22 L38 34 L18 22 Z" fill="${accentColor}"/>`;
@@ -3556,13 +3556,16 @@
     }, 1000);
 
     applyGeneratedMediaAssets({
-      axe: "image_generation_content/15429323153396518962",
-      mat: "image_generation_content/1613116857785245002",
-      food: "image_generation_content/18035298926833848039",
-      med: "image_generation_content/11928886314146012015",
-      chest: "image_generation_content/15589425835423705472",
-      orb: "image_generation_content/9883175419704636470",
-      scroll: "image_generation_content/12891487189002798759"
+      axe: ART_SPRITES.axe,
+      mat: ART_SPRITES.wood,
+      food: ART_SPRITES.food,
+      med: ART_SPRITES.med,
+      chest: ART_SPRITES.chest,
+      orb: ART_SPRITES.sup,
+      scroll: ART_SPRITES.bp,
+      wolf: ART_SPRITES.beast_low,
+      leopard: ART_SPRITES.beast_mid,
+      dragon: ART_SPRITES.beast_high
     });
     hideAllFullscreenPanels();
     initNpcSelect();
