@@ -374,7 +374,6 @@
       box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.25);
     }
 
-    /* THANH ĐIỀU HƯỚNG DƯỚI CÙNG CHO THAO TÁC CẢM ỨNG MOBILE */
     .mobile-bottom-nav {
       position: fixed;
       bottom: 0;
@@ -542,7 +541,6 @@
       margin-bottom: 12px;
     }
 
-    /* GIAO DIỆN CHIẾN ĐẤU NÂNG CẤP CHO DESKTOP & MOBILE */
     .combat-card {
       background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.14), transparent 55%), #160e16;
       border: 1.5px solid #ef4444;
@@ -632,7 +630,6 @@
     .danger-high { color: #fb923c; font-weight: 700; }
     .danger-extreme { color: #f87171; font-weight: 700; }
 
-    /* LƯỚI NÚT KỸ NĂNG CHIẾN ĐẤU TO RÕ CHO NGÓN TAY */
     .combat-skill-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -718,6 +715,7 @@
     }
     .inv-slot.chest-slot { border-color: #0ea5e9; background: #102233; }
     .inv-slot.sup-slot { border-color: #a855f7; background: #201533; }
+    .inv-slot.bl-slot { border-color: #e879f9; background: #241333; }
     .inv-slot.selected { border-color: #fbbf24; background: #243147; }
 
     .progress-track {
@@ -743,6 +741,15 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+    }
+
+    .mutation-preview-box {
+      margin-top: 10px;
+      background: linear-gradient(135deg, rgba(88, 28, 135, 0.28), rgba(15, 23, 42, 0.92));
+      border: 1px solid #c084fc;
+      border-radius: var(--radius-sm);
+      padding: 11px 12px;
+      font-size: 0.82rem;
     }
 
     .craft-cat-title {
@@ -829,7 +836,7 @@
     <div class="intro-card">
       <h1 class="intro-title">100 Ngày Sinh Tồn Trong Sương Mù</h1>
       <p class="intro-sub">
-        Đăng nhập hoặc tạo tài khoản để bắt đầu. Giao diện tối ưu thao tác chạm trên điện thoại và máy tính.
+        Đăng nhập hoặc tạo tài khoản để bắt đầu. Tích hợp thuần thú, dung hợp huyết mạch đột biến, rèn dụng cụ và chiến đấu mobile.
       </p>
       <div id="step-auth">
         <div class="auth-tabs">
@@ -980,7 +987,7 @@
     <div class="home-hero">
       <h2 style="font-size:1.08rem; color:#fbbf24; margin-bottom:4px;">Tổng Quan Căn Cứ & Sương Mù</h2>
       <p style="font-size:0.83rem; color:var(--muted);">
-        Thời gian sinh tồn càng kéo dài, xác suất xuất hiện thiên tai, thú tấn công và biến cố sương mù càng cao. Dùng thanh chạm bên dưới để điều hướng nhanh bằng một ngón tay.
+        Thời gian sinh tồn càng kéo dài, xác suất xuất hiện thiên tai, thú tấn công và biến cố sương mù càng cao. Dùng thanh chạm bên dưới để điều hướng nhanh.
       </p>
     </div>
     <div class="home-quick-grid">
@@ -997,8 +1004,8 @@
         <span style="font-size:0.78rem; color:var(--muted);">Rèn cấp dụng cụ +1..+5, chế tạo đồ siêu phàm & công trình.</span>
       </button>
       <button type="button" class="home-tile" onclick="openFullscreenPanel('bag-pet-panel')">
-        <strong style="color:#38bdf8;">Balo & Thú Cưng</strong>
-        <span style="font-size:0.78rem; color:var(--muted);">Xem vật phẩm, dùng đồ, thuần thú & đột biến.</span>
+        <strong style="color:#c084fc;">Thuần Thú & Đột Biến</strong>
+        <span style="font-size:0.78rem; color:var(--muted);">Chọn huyết mạch cụ thể, dự báo tỷ lệ đột biến & tiến hóa thú.</span>
       </button>
       <button type="button" class="home-tile" onclick="openFullscreenPanel('event-panel')">
         <strong style="color:#fb923c;">Sự Kiện & Thiên Tai</strong>
@@ -1018,7 +1025,7 @@
       <span>Thám hiểm</span>
     </button>
     <button type="button" class="mobile-nav-btn" id="mob-nav-bag" onclick="openFullscreenPanel('bag-pet-panel')">
-      <span class="nav-ico">🎒</span>
+      <span class="nav-ico">🐾</span>
       <span>Balo & Thú</span>
     </button>
     <button type="button" class="mobile-nav-btn" id="mob-nav-craft" onclick="openCraftingPanel()">
@@ -1064,7 +1071,7 @@
         <button type="button" onclick="closeFullscreenPanel('admin-panel')">Đóng</button>
       </div>
       <div class="admin-cmd-row">
-        <input id="admin-cmd-input" type="text" placeholder="Lệnh: /sup, /give wood 50, /heal, /stamina, /addtime 180, /day 5, /allbp, /event" onkeydown="if(event.key==='Enter') runAdminCommand()" />
+        <input id="admin-cmd-input" type="text" placeholder="Lệnh: /sup, /give wood 50, /heal, /stamina, /addtime 180, /day 5, /allbp, /event, /bloodline" onkeydown="if(event.key==='Enter') runAdminCommand()" />
         <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy</button>
       </div>
       <div id="admin-cmd-status" style="font-size:0.81rem; color:#d8b4fe; margin-bottom:8px;">
@@ -1072,6 +1079,7 @@
       </div>
       <div class="admin-quick-grid">
         <button type="button" class="admin-btn" onclick="adminGiveSupremeSet()">+1 Bộ Siêu Phàm</button>
+        <button type="button" class="admin-btn" onclick="adminGiveAllBloodlines()">+2 Huyết Mạch Mỗi Loài</button>
         <button type="button" class="admin-btn" onclick="adminQuickGive('wood', 50)">+50 Gỗ</button>
         <button type="button" class="admin-btn" onclick="adminQuickGive('stone', 50)">+50 Đá</button>
         <button type="button" class="admin-btn" onclick="adminQuickGive('ore', 30)">+30 Quặng</button>
@@ -1203,11 +1211,11 @@
     </div>
   </section>
 
-  <!-- TÚI ĐỒ & THÚ TOÀN MÀN HÌNH -->
+  <!-- TÚI ĐỒ, THUẦN THÚ & ĐỘT BIẾN HUYẾT MẠCH -->
   <section class="fullscreen-panel hidden" id="bag-pet-panel">
     <div class="fullscreen-inner">
       <div class="box-header">
-        <h2>Túi đồ (<span id="ui-owned-item-count">0</span> món) & Thú</h2>
+        <h2>Túi đồ (<span id="ui-owned-item-count">0</span> món) & Thuần Thú</h2>
         <button type="button" onclick="closeFullscreenPanel('bag-pet-panel')">Đóng</button>
       </div>
       <div class="bag-cat-tabs" id="bag-category-tabs">
@@ -1238,16 +1246,33 @@
         </div>
         <button class="primary" id="btn-use-item" onclick="useSelectedItem()" disabled>Dùng</button>
       </div>
+
+      <!-- KHU VỰC THUẦN PHỤC THÚ -->
       <div style="margin-top:16px;">
         <strong style="font-size:0.92rem;">Đang thuần phục (<span id="ui-taming-count">0</span>)</strong>
         <div class="inv-grid" id="taming-queue-grid" style="margin-top:8px;"></div>
       </div>
+
+      <!-- KHU VỰC THÚ ĐÃ THU PHỤC & KHO HUYẾT MẠCH ĐỘT BIẾN -->
       <div style="margin-top:16px;" id="pet-info-section">
         <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; margin-bottom:8px;">
           <strong style="font-size:0.92rem;">Thú đã thu phục (<span id="ui-tamed-count">0</span>)</strong>
-          <button class="primary" onclick="feedSelectedBeast()">Cho thú ăn</button>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="primary" onclick="feedSelectedBeast()">Cho thú ăn hồi máu</button>
+          </div>
         </div>
         <div class="inv-grid" id="tamed-beasts-grid"></div>
+
+        <div style="margin-top:14px;">
+          <strong style="font-size:0.9rem; color:#e879f9;">Kho Huyết Mạch Đột Biến (<span id="ui-bloodline-count">0</span> loại)</strong>
+          <div class="inv-grid" id="bloodline-inventory-grid" style="margin-top:8px;"></div>
+        </div>
+
+        <div class="mutation-preview-box" id="mutation-preview-box">
+          <div style="font-weight:700; color:#e879f9; margin-bottom:4px;">Dự Báo Dung Hợp Huyết Mạch</div>
+          <div id="mutation-preview-text" style="color:var(--muted);">Chọn 1 thú chưa đột biến và 1 huyết mạch trong kho để xem tỷ lệ thành công.</div>
+        </div>
+
         <div class="inspector-box" id="beast-inspector">
           <div style="display:flex; gap:12px; align-items:center; flex:1;">
             <img id="insp-pet-img" class="item-thumb-lg" src="" alt="Thú" />
@@ -1257,7 +1282,7 @@
               <div style="font-size:0.82rem; margin-top:3px;" id="pet-insp-mut">-</div>
             </div>
           </div>
-          <button class="primary" id="btn-mutate-selected-pet" onclick="mutateSelectedBeastWithSelectedBloodline()" disabled>Dùng huyết mạch</button>
+          <button class="primary" id="btn-mutate-selected-pet" onclick="mutateSelectedBeastWithSelectedBloodline()" disabled>Dung hợp huyết mạch</button>
         </div>
       </div>
     </div>
@@ -1358,7 +1383,7 @@
 
   <script>
     const GAME_SECONDS_PER_REAL_SECOND = 12;
-    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v7';
+    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v8';
     const CATEGORIES = ['Công cụ', 'Vật phẩm sinh hoạt', 'Vật phẩm y tế', 'Công trình'];
     const BAG_TABS = [
       { id: 'all', label: 'Tất cả' },
@@ -1409,6 +1434,7 @@
       med: makeArtSvgDataUrl('MED', '#064e3b', '#090d14', '#34d399', 'med'),
       chest: makeArtSvgDataUrl('BOX', '#422006', '#0f172a', '#fbbf24', 'chest'),
       sup: makeArtSvgDataUrl('SUP', '#3b0764', '#090d14', '#e879f9', 'orb'),
+      blood: makeArtSvgDataUrl('DNA', '#4c0519', '#090d14', '#f43f5e', 'orb'),
       bp: makeArtSvgDataUrl('BP', '#1e293b', '#090d14', '#facc15', 'scroll'),
       beast_low: makeArtSvgDataUrl('PET', '#1e293b', '#0f172a', '#94a3b8', 'beast'),
       beast_mid: makeArtSvgDataUrl('PET', '#172554', '#0f172a', '#38bdf8', 'beast'),
@@ -1441,6 +1467,7 @@
       if (petOrSpecies.artUrl) return petOrSpecies.artUrl;
       const spId = petOrSpecies.speciesId || petOrSpecies.id || '';
       const rank = petOrSpecies.rank || 'Thường';
+      if (petOrSpecies.mutated) return ART_SPRITES.beast_high;
       if (spId === 'wolf' || spId === 'cub_fox' || spId === 'wild_cat') return ART_SPRITES.beast_low;
       if (spId === 'mist_leopard' || spId === 'tiger' || spId === 'dragon' || spId === 'mist_unicorn') return ART_SPRITES.beast_high;
       if (rank === 'Quý' || rank === 'Hiếm') return ART_SPRITES.beast_high;
@@ -1717,7 +1744,7 @@
       { rank: 'D', name: 'Quen việc rừng', desc: '+5 Công, nhặt thêm chút gỗ khi đi xa.' },
       { rank: 'C', name: 'Mắt tinh', desc: 'Tăng nhẹ cơ hội tìm thấy bản vẽ.' },
       { rank: 'B', name: 'Hợp thú', desc: 'Thuần thú nhanh hơn, thú lên cấp nhỉnh hơn.' },
-      { rank: 'A', name: 'Huyết mạch lạ', desc: 'Tăng cơ hội đột biến khi dùng huyết mạch.' },
+      { rank: 'A', name: 'Huyết mạch lạ', desc: 'Tăng +12% cơ hội đột biến khi dung hợp huyết mạch.' },
       { rank: 'S', name: 'Cứng cáp', desc: '+25 Thể lực tối đa và +12 Công.' }
     ];
 
@@ -1735,18 +1762,18 @@
     };
 
     const BEAST_SPECIES = [
-      { id: 'cub_fox', name: 'Cáo Con', rank: 'Thường', baseAtk: 14, baseDef: 5, baseHp: 320, healRatePerMin: 5, tameGameHours: 18, mutateChance: 0.15, mutateTo: 'Cáo Đuôi Lửa', rewardChest: 'chest_bronze' },
-      { id: 'wild_cat', name: 'Mèo Rừng', rank: 'Thường', baseAtk: 16, baseDef: 6, baseHp: 420, healRatePerMin: 5, tameGameHours: 18, mutateChance: 0.16, mutateTo: 'Mèo Sương Đêm', rewardChest: 'chest_bronze' },
-      { id: 'spotted_deer', name: 'Hươu Sao', rank: 'Thường', baseAtk: 15, baseDef: 6, baseHp: 520, healRatePerMin: 4, tameGameHours: 20, mutateChance: 0.15, mutateTo: 'Hươu Sừng Ngọc', rewardChest: 'chest_bronze' },
-      { id: 'night_owl', name: 'Cú Đêm', rank: 'Thường', baseAtk: 18, baseDef: 6, baseHp: 460, healRatePerMin: 4, tameGameHours: 20, mutateChance: 0.17, mutateTo: 'Cú Bóng Tối', rewardChest: 'chest_silver' },
-      { id: 'wolf', name: 'Sói Xám', rank: 'Thường', baseAtk: 20, baseDef: 7, baseHp: 680, healRatePerMin: 4, tameGameHours: 24, mutateChance: 0.16, mutateTo: 'Sói Đầu Đàn', rewardChest: 'chest_silver' },
-      { id: 'boar', name: 'Heo Rừng', rank: 'Thường', baseAtk: 24, baseDef: 9, baseHp: 780, healRatePerMin: 3, tameGameHours: 26, mutateChance: 0.17, mutateTo: 'Heo Nanh Sắt', rewardChest: 'chest_bronze' },
-      { id: 'brown_bear', name: 'Gấu Nâu', rank: 'Khá', baseAtk: 28, baseDef: 11, baseHp: 1050, healRatePerMin: 4, tameGameHours: 30, mutateChance: 0.22, mutateTo: 'Gấu Đá Lớn', rewardChest: 'chest_silver' },
-      { id: 'snake', name: 'Rắn Lục', rank: 'Khá', baseAtk: 30, baseDef: 12, baseHp: 1100, healRatePerMin: 4, tameGameHours: 32, mutateChance: 0.24, mutateTo: 'Rắn Mào Đỏ', rewardChest: 'chest_gold' },
-      { id: 'mist_leopard', name: 'Báo Sương', rank: 'Hiếm', baseAtk: 35, baseDef: 14, baseHp: 1280, healRatePerMin: 5, tameGameHours: 38, mutateChance: 0.28, mutateTo: 'Báo Vằn Sương', rewardChest: 'chest_gold' },
-      { id: 'tiger', name: 'Hổ Rừng', rank: 'Hiếm', baseAtk: 38, baseDef: 15, baseHp: 1400, healRatePerMin: 6, tameGameHours: 42, mutateChance: 0.30, mutateTo: 'Hổ Trắng', rewardChest: 'chest_platinum' },
-      { id: 'mist_unicorn', name: 'Thú Sừng Trắng', rank: 'Quý', baseAtk: 46, baseDef: 19, baseHp: 1700, healRatePerMin: 7, tameGameHours: 48, mutateChance: 0.38, mutateTo: 'Thú Sừng Sáng', rewardChest: 'chest_platinum' },
-      { id: 'dragon', name: 'Thằn Lằn Lớn', rank: 'Quý', baseAtk: 52, baseDef: 22, baseHp: 1900, healRatePerMin: 8, tameGameHours: 54, mutateChance: 0.45, mutateTo: 'Rồng Sương Mù', rewardChest: 'chest_diamond' }
+      { id: 'cub_fox', name: 'Cáo Con', rank: 'Thường', baseAtk: 14, baseDef: 5, baseHp: 320, healRatePerMin: 5, tameGameHours: 18, mutateChance: 0.25, mutateTo: 'Cáo Đuôi Lửa', rewardChest: 'chest_bronze' },
+      { id: 'wild_cat', name: 'Mèo Rừng', rank: 'Thường', baseAtk: 16, baseDef: 6, baseHp: 420, healRatePerMin: 5, tameGameHours: 18, mutateChance: 0.26, mutateTo: 'Mèo Sương Đêm', rewardChest: 'chest_bronze' },
+      { id: 'spotted_deer', name: 'Hươu Sao', rank: 'Thường', baseAtk: 15, baseDef: 6, baseHp: 520, healRatePerMin: 4, tameGameHours: 20, mutateChance: 0.25, mutateTo: 'Hươu Sừng Ngọc', rewardChest: 'chest_bronze' },
+      { id: 'night_owl', name: 'Cú Đêm', rank: 'Thường', baseAtk: 18, baseDef: 6, baseHp: 460, healRatePerMin: 4, tameGameHours: 20, mutateChance: 0.27, mutateTo: 'Cú Bóng Tối', rewardChest: 'chest_silver' },
+      { id: 'wolf', name: 'Sói Xám', rank: 'Thường', baseAtk: 20, baseDef: 7, baseHp: 680, healRatePerMin: 4, tameGameHours: 24, mutateChance: 0.26, mutateTo: 'Sói Đầu Đàn', rewardChest: 'chest_silver' },
+      { id: 'boar', name: 'Heo Rừng', rank: 'Thường', baseAtk: 24, baseDef: 9, baseHp: 780, healRatePerMin: 3, tameGameHours: 26, mutateChance: 0.27, mutateTo: 'Heo Nanh Sắt', rewardChest: 'chest_bronze' },
+      { id: 'brown_bear', name: 'Gấu Nâu', rank: 'Khá', baseAtk: 28, baseDef: 11, baseHp: 1050, healRatePerMin: 4, tameGameHours: 30, mutateChance: 0.32, mutateTo: 'Gấu Đá Lớn', rewardChest: 'chest_silver' },
+      { id: 'snake', name: 'Rắn Lục', rank: 'Khá', baseAtk: 30, baseDef: 12, baseHp: 1100, healRatePerMin: 4, tameGameHours: 32, mutateChance: 0.34, mutateTo: 'Rắn Mào Đỏ', rewardChest: 'chest_gold' },
+      { id: 'mist_leopard', name: 'Báo Sương', rank: 'Hiếm', baseAtk: 35, baseDef: 14, baseHp: 1280, healRatePerMin: 5, tameGameHours: 38, mutateChance: 0.38, mutateTo: 'Báo Vằn Sương', rewardChest: 'chest_gold' },
+      { id: 'tiger', name: 'Hổ Rừng', rank: 'Hiếm', baseAtk: 38, baseDef: 15, baseHp: 1400, healRatePerMin: 6, tameGameHours: 42, mutateChance: 0.40, mutateTo: 'Hổ Trắng', rewardChest: 'chest_platinum' },
+      { id: 'mist_unicorn', name: 'Thú Sừng Trắng', rank: 'Quý', baseAtk: 46, baseDef: 19, baseHp: 1700, healRatePerMin: 7, tameGameHours: 48, mutateChance: 0.48, mutateTo: 'Thú Sừng Sáng', rewardChest: 'chest_platinum' },
+      { id: 'dragon', name: 'Thằn Lằn Lớn', rank: 'Quý', baseAtk: 52, baseDef: 22, baseHp: 1900, healRatePerMin: 8, tameGameHours: 54, mutateChance: 0.55, mutateTo: 'Rồng Sương Mù', rewardChest: 'chest_diamond' }
     ];
 
     const HOUSE_LEVELS = [
@@ -1763,7 +1790,7 @@
     const NPCS = [
       { id: 'linh', name: 'Linh (Đi buôn)', haggleBonus: 0, offer: { give: 'wood', giveQty: 12, get: 'bp_bow_arrow', getQty: 1 }, lines: ['Ban đêm ngoài rừng cực nguy hiểm, nên về sớm.', 'Mình có bản vẽ Cung Tên, đổi 12 gỗ nhé.'] },
       { id: 'minh', name: 'Minh (Thợ rèn)', haggleBonus: 0, offer: { give: 'ore', giveQty: 5, get: 'bp_iron_pickaxe', getQty: 1 }, lines: ['Cá sống và thịt sống ăn ít no, nên nấu chín trước khi đi xa.', 'Có cuốc sắt sẽ đào đá và quặng nhanh hơn.'] },
-      { id: 'an', name: 'An (Chăm thú)', haggleBonus: 0, offer: { give: 'fish', giveQty: 3, get: 'bp_warming_stove', getQty: 1 }, lines: ['Nhớ cho thú ăn khi bị thương.', 'Thú con nhỏ chưa tham chiến được.'] }
+      { id: 'an', name: 'An (Chăm thú)', haggleBonus: 0, offer: { give: 'fish', giveQty: 3, get: 'bp_warming_stove', getQty: 1 }, lines: ['Nhớ cho thú ăn khi bị thương.', 'Hạ thú có cơ hội rơi Huyết Mạch để dung hợp đột biến cho thú nuôi.'] }
     ];
 
     let authMode = 'login';
@@ -1885,6 +1912,7 @@
         markedMonsters: {},
         selectedItem: 'axe',
         selectedPetUid: null,
+        selectedBloodlineId: null,
         chestRewardModal: null,
         activeExploreSession: null,
         lastExploreReport: null,
@@ -1912,7 +1940,7 @@
         npcChats: {
           linh: ['Linh: Ban đêm ở ngoài rất nguy hiểm, quái thú dễ tấn công bất ngờ.'],
           minh: ['Minh: Cá sống và thịt sống ăn ít no, nên nấu chín trước khi đi xa.'],
-          an: ['An: Thuần thú xong nhớ cho ăn khi chúng mất máu.']
+          an: ['An: Thuần thú xong nhớ cho ăn khi chúng mất máu, và dùng Huyết Mạch để đột biến.']
         }
       };
     }
@@ -2043,6 +2071,7 @@
         toolUpgrades: { ...(rec.save.toolUpgrades || {}) },
         craftFilterCat: rec.save.craftFilterCat || 'all',
         craftFilterStatus: rec.save.craftFilterStatus || 'all',
+        selectedBloodlineId: rec.save.selectedBloodlineId || null,
         eventHistory: Array.isArray(rec.save.eventHistory) ? rec.save.eventHistory : [],
         eventStats: { ...base.eventStats, ...(rec.save.eventStats || {}) },
         stats: { ...base.stats, ...(rec.save.stats || {}) }
@@ -2462,6 +2491,28 @@
       renderAll();
     }
 
+    function adminGiveAllBloodlines() {
+      if (!state.isAdmin) return;
+      for (const sp of BEAST_SPECIES) {
+        if (!state.beastBloodlines[sp.id]) {
+          state.beastBloodlines[sp.id] = {
+            speciesId: sp.id,
+            speciesName: sp.name,
+            rank: sp.rank,
+            mutateChance: sp.mutateChance,
+            mutateTo: sp.mutateTo,
+            count: 0
+          };
+        }
+        state.beastBloodlines[sp.id].count += 2;
+      }
+      state.selectedBloodlineId = BEAST_SPECIES[0].id;
+      const msg = 'Admin: +2 Huyết Mạch mỗi loài vào kho đột biến.';
+      document.getElementById('admin-cmd-status').textContent = msg;
+      logMsg(msg);
+      renderAll();
+    }
+
     function adminUnlockAllRecipes() {
       if (!state.isAdmin) return;
       state.unlockedRecipes = RECIPES.map(r => r.id);
@@ -2530,9 +2581,11 @@
       const parts = raw.replace(/^\//, '').split(/\s+/);
       const cmd = (parts[0] || '').toLowerCase();
       if (cmd === 'help') {
-        statusEl.textContent = '/sup | /give <tên> <sl> | /heal | /stamina | /addtime <phút> | /day <ngày> | /allbp | /event [disaster|attack|boon]';
+        statusEl.textContent = '/sup | /bloodline | /give <tên> <sl> | /heal | /stamina | /addtime <phút> | /day <ngày> | /allbp | /event';
       } else if (cmd === 'sup') {
         adminGiveSupremeSet();
+      } else if (cmd === 'bloodline') {
+        adminGiveAllBloodlines();
       } else if (cmd === 'event') {
         const sub = (parts[1] || '').toLowerCase();
         const valid = ['disaster', 'attack', 'boon'].includes(sub) ? sub : null;
@@ -2800,6 +2853,9 @@
       if (q.includes('sự kiện') || q.includes('thiên tai')) {
         const pct = Math.round(getSurvivalEventChance('trip') * 100);
         return `[Linh] Ngày ${state.day} rồi, tỉ lệ sự kiện chuyến đi khoảng ${pct}%. Xây Chòi Canh hoặc Bếp Sưởi để giảm hại.`;
+      }
+      if (q.includes('đột biến') || q.includes('huyết mạch')) {
+        return `[An] Hạ gục quái thú sẽ rơi Huyết Mạch. Vào mục Balo & Thú, chọn thú nuôi rồi chọn Huyết Mạch để dung hợp đột biến!`;
       }
       if (q.includes('đêm') || q.includes('tối') || q.includes('quái')) {
         return `[Linh] Ban đêm ngoài rừng cực kỳ nguy hiểm, tỷ lệ bị quái thú tấn công rất cao.`;
@@ -3484,7 +3540,7 @@
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
         extraDrops.push(`1 ${ITEM_DEFS[supKey].name}`);
       }
-      if (Math.random() < 0.5) {
+      if (Math.random() < 0.65) {
         if (!state.beastBloodlines[c.speciesId]) {
           state.beastBloodlines[c.speciesId] = {
             speciesId: c.speciesId,
@@ -3496,6 +3552,7 @@
           };
         }
         state.beastBloodlines[c.speciesId].count += 1;
+        state.selectedBloodlineId = c.speciesId;
         extraDrops.push(`1 huyết mạch ${c.name}`);
       }
       sess.foundItems.push(...extraDrops);
@@ -3534,6 +3591,11 @@
       renderAll();
     }
 
+    function selectBloodline(speciesId) {
+      state.selectedBloodlineId = speciesId;
+      renderAll();
+    }
+
     function feedSelectedBeast() {
       const pet = state.tamedBeasts.find(b => b.uid === state.selectedPetUid);
       if (!pet) return;
@@ -3563,30 +3625,53 @@
     }
 
     function getAvailableBloodlineEntries() {
-      return Object.values(state.beastBloodlines).filter(b => b.count > 0);
+      return Object.values(state.beastBloodlines || {}).filter(b => b.count > 0);
+    }
+
+    function calcMutationForecast(pet, bl) {
+      if (!pet || !bl) return null;
+      const isCrossSpecies = bl.speciesId !== pet.speciesId;
+      const baseChance = bl.mutateChance || 0.25;
+      const talentBonus = state.talent?.rank === 'A' ? 0.12 : 0;
+      const sameSpeciesBonus = isCrossSpecies ? 0 : 0.15;
+      const rawChance = (isCrossSpecies ? baseChance * 0.85 : baseChance) + sameSpeciesBonus + talentBonus;
+      const finalChance = Math.min(0.85, Math.max(0.12, rawChance));
+      const targetName = isCrossSpecies ? `${pet.mutateTo} (${bl.speciesName})` : pet.mutateTo;
+      return {
+        isCrossSpecies,
+        finalChance,
+        pct: Math.round(finalChance * 100),
+        targetName
+      };
     }
 
     function mutateSelectedBeastWithSelectedBloodline() {
       const pet = state.tamedBeasts.find(b => b.uid === state.selectedPetUid);
-      if (!pet) return;
+      if (!pet || pet.mutated) return;
       const entries = getAvailableBloodlineEntries();
-      if (!entries.length || pet.mutated) return;
-      const bl = entries.find(e => e.speciesId !== pet.speciesId) || entries[0];
+      if (!entries.length) return;
+      const bl = entries.find(e => e.speciesId === state.selectedBloodlineId) || entries[0];
+      const forecast = calcMutationForecast(pet, bl);
+      if (!forecast) return;
+
       bl.count -= 1;
-      const isCrossSpecies = bl.speciesId !== pet.speciesId;
-      const baseChance = bl.mutateChance || 0.15;
-      const finalChance = Math.min(0.45, Math.max(0.06, isCrossSpecies ? baseChance * 0.75 : baseChance));
-      if (Math.random() < finalChance) {
+      if (bl.count <= 0 && state.selectedBloodlineId === bl.speciesId) {
+        const nextAvail = getAvailableBloodlineEntries()[0];
+        state.selectedBloodlineId = nextAvail ? nextAvail.speciesId : null;
+      }
+
+      if (Math.random() < forecast.finalChance) {
         const oldName = pet.name;
         pet.mutated = true;
-        pet.name = isCrossSpecies ? `${pet.mutateTo} (${bl.speciesName})` : pet.mutateTo;
+        pet.name = forecast.targetName;
         pet.atk = Math.round(pet.atk * 1.45);
         pet.def = Math.round(pet.def * 1.45);
         pet.hp = Math.round(pet.hp * 1.5);
         pet.maxHp = pet.hp;
-        logMsg(`${oldName} đột biến thành ${pet.name}.`);
+        logMsg(`ĐỘT BIẾN THÀNH CÔNG! ${oldName} tiến hóa thành ${pet.name} (+45% Công/Thủ, +50% Máu).`);
       } else {
-        logMsg(`Dùng huyết mạch ${bl.speciesName} cho ${pet.name} (chưa đột biến).`);
+        pet.growthPct = Math.min(99, (pet.growthPct || 0) + 25);
+        logMsg(`Dung hợp huyết mạch ${bl.speciesName} cho ${pet.name} chưa kích hoạt đột biến (+25% tiến độ trưởng thành).`);
       }
       renderAll();
     }
@@ -4198,46 +4283,30 @@
       const locObj = MAP_LOCATIONS.find(m => m.id === state.locationId);
       const locLabel = state.locationId === 'house' ? 'Nhà gỗ' : (locObj ? locObj.name : 'Ngoài đồng');
       const bagWeight = getBagUsedWeight();
-      const maxCap = getMaxBagCapacity();
+      const maxBagCap = getMaxBagCapacity();
 
-      document.getElementById('ui-charname').textContent = state.charName || 'Lâm Dã';
+      document.getElementById('ui-charname').textContent = state.charName;
       document.getElementById('ui-account').textContent = currentAccount ? currentAccount.username : '-';
-      document.getElementById('ui-event-risk').textContent = `${Math.round(getSurvivalEventChance('trip') * 100)}%`;
-      const phasePill = document.getElementById('ui-phase-pill');
-      phasePill.className = isNight ? 'pill pill-night' : 'pill';
-
-      const accPill = document.getElementById('ui-account-pill');
-      const adminBtn = document.getElementById('btn-toggle-admin');
-      const adminBox = document.getElementById('admin-panel');
-      if (state.isAdmin) {
-        accPill.className = 'pill pill-admin';
-        adminBtn.classList.remove('hidden');
-      } else {
-        accPill.className = 'pill';
-        adminBtn.classList.add('hidden');
-        adminBox.classList.add('hidden');
-      }
-
+      document.getElementById('ui-account-pill').className = state.isAdmin ? 'pill pill-admin' : 'pill';
+      document.getElementById('btn-toggle-admin').classList.toggle('hidden', !state.isAdmin);
       document.getElementById('ui-day').textContent = state.day;
       document.getElementById('ui-clock').textContent = formatGameClock();
       document.getElementById('ui-phase').textContent = phase;
+      document.getElementById('ui-phase-pill').className = isNight ? 'pill pill-night' : 'pill';
       document.getElementById('ui-weather').textContent = weather.name;
       document.getElementById('ui-temp').textContent = `${state.temp}°C`;
       document.getElementById('ui-location').textContent = locLabel;
       document.getElementById('ui-house').textContent = state.houseLevel;
-      document.getElementById('ui-talent').textContent = state.talent ? `${state.talent.name} [${state.talent.rank}]` : '-';
+      document.getElementById('ui-event-risk').textContent = `${Math.round(getSurvivalEventChance('trip') * 100)}%`;
+
+      const statusBanner = document.getElementById('cold-warning-banner');
+      statusBanner.className = isNightOutside() ? 'status-strip night-danger' : 'status-strip';
+      document.getElementById('status-env-text').textContent = `${formatGameClock()} (${phase}) • ${weather.name} • ${state.temp}°C • ${locLabel}`;
+      document.getElementById('status-notice-text').textContent = state.lastNotice || 'Đã sẵn sàng.';
+      document.getElementById('hp-danger-banner').classList.toggle('hidden', state.hp >= 40 || state.isDead);
 
       const pCp = getPlayerCombatPower();
       const totCp = getTotalCombatPower();
-
-      const talentDetailEl = document.getElementById('talent-detail-box');
-      if (state.talentDetailOpen && state.talent) {
-        talentDetailEl.classList.remove('hidden');
-        talentDetailEl.innerHTML = `<strong>${state.talent.name} [${state.talent.rank}]:</strong> ${state.talent.desc}`;
-      } else {
-        talentDetailEl.classList.add('hidden');
-      }
-
       document.getElementById('char-hp').textContent = `${state.hp}/${state.maxHp}`;
       document.getElementById('char-atk').textContent = getPlayerStrength();
       document.getElementById('char-power').innerHTML = `${pCp.score} <span class="rank-${pCp.tier}">[${pCp.tier}]</span>`;
@@ -4245,294 +4314,271 @@
       document.getElementById('char-hunger').textContent = `${state.hunger}/${state.maxHunger}`;
       document.getElementById('char-thirst').textContent = `${state.thirst}/${state.maxThirst}`;
       document.getElementById('char-stamina').textContent = `${state.stamina}/${state.maxStamina}`;
-      document.getElementById('char-bag').textContent = `${bagWeight}/${maxCap}`;
+      document.getElementById('char-bag').textContent = `${bagWeight}/${maxBagCap}`;
 
-      const statusStrip = document.getElementById('cold-warning-banner');
-      statusStrip.classList.toggle('night-danger', isNight && state.locationId !== 'house');
-      const nightTag = (isNight && state.locationId !== 'house') ? ' • CẢNH BÁO ĐÊM: QUÁI THÚ TẤN CÔNG CAO' : '';
-      document.getElementById('status-env-text').textContent =
-        `${formatGameClock()} (${phase}) • ${weather.name} • ${state.temp}°C • ${locLabel} • Tổng CL: ${totCp.score} [${totCp.tier}]${nightTag}`;
-      if (state.lastNotice) {
-        document.getElementById('status-notice-text').textContent = state.lastNotice;
+      const talentEl = document.getElementById('ui-talent');
+      const talentBox = document.getElementById('talent-detail-box');
+      if (state.talent) {
+        talentEl.innerHTML = `<span class="rank-${state.talent.rank}">[${state.talent.rank}] ${state.talent.name}</span>`;
+        talentBox.innerHTML = `<strong>${state.talent.name} (Hạng ${state.talent.rank}):</strong> ${state.talent.desc}`;
+      } else {
+        talentEl.textContent = '-';
       }
+      talentBox.classList.toggle('hidden', !state.talentDetailOpen || !state.talent);
 
-      document.getElementById('hp-danger-banner').classList.toggle('hidden', state.hp > 40 || state.isDead);
-
-      const expPackBox = document.getElementById('expedition-pack-box');
-      const expEntries = Object.entries(state.expeditionPack).filter(([k, qty]) => qty > 0 && ITEM_DEFS[k]);
-      if (state.locationId !== 'house' && expEntries.length > 0) {
-        expPackBox.classList.remove('hidden');
-        document.getElementById('exp-pack-chips').innerHTML = expEntries.map(([k, qty]) => {
+      const packBox = document.getElementById('expedition-pack-box');
+      const packEntries = Object.entries(state.expeditionPack || {}).filter(([k, q]) => q > 0 && ITEM_DEFS[k]);
+      packBox.classList.toggle('hidden', state.locationId === 'house' || packEntries.length === 0);
+      if (packEntries.length > 0 && state.locationId !== 'house') {
+        document.getElementById('exp-pack-title').textContent = `Đồ mang theo (${packEntries.length} loại):`;
+        document.getElementById('exp-pack-chips').innerHTML = packEntries.map(([k, q]) => {
           const def = ITEM_DEFS[k];
           return `
             <button type="button" class="chip-btn" onclick="useExpeditionItem('${k}')">
-              <img class="item-thumb" style="width:24px;height:24px;" src="${getItemImageUrl(k)}" alt="${def.name}" />
-              <span>Dùng ${def.name} (${qty})</span>
+              <img style="width:24px; height:24px; border-radius:4px;" src="${getItemImageUrl(k)}" alt="${def.name}" />
+              <span>${def.name} x${q}</span>
             </button>
           `;
         }).join('');
-      } else {
-        expPackBox.classList.add('hidden');
       }
 
       const mapBox = document.getElementById('world-map-box');
+      mapBox.classList.toggle('hidden', !state.mapOpen);
       if (state.mapOpen) {
-        mapBox.classList.remove('hidden');
-        document.getElementById('map-nodes-grid').innerHTML = MAP_LOCATIONS.map(loc => {
-          const isSel = loc.id === state.selectedMapId;
-          const marked = state.markedMonsters[loc.id];
+        const nodesGrid = document.getElementById('map-nodes-grid');
+        nodesGrid.innerHTML = MAP_LOCATIONS.map(loc => {
+          const sel = loc.id === state.selectedMapId ? 'selected' : '';
+          const mk = state.markedMonsters[loc.id];
+          const mkText = mk ? `<div style="color:#fbbf24; margin-top:4px;">Đã đánh dấu: ${mk.name} (Cấp ${mk.lv})</div>` : '';
           return `
-            <button type="button" class="map-node ${isSel ? 'selected' : ''} ${marked ? 'marked' : ''}" onclick="selectMapNode('${loc.id}')">
-              <div><strong>${loc.name}</strong> (${loc.distanceKm}km)</div>
+            <button type="button" class="map-node ${sel} ${mk ? 'marked' : ''}" onclick="selectMapNode('${loc.id}')">
+              <div><strong>${loc.name}</strong></div>
               <div style="color:var(--muted); margin-top:2px;">${loc.desc}</div>
-              ${marked ? `<div style="color:#fbbf24; margin-top:3px;">Đã đánh dấu: ${marked.name} Cấp ${marked.lv}</div>` : ''}
+              ${mkText}
             </button>
           `;
         }).join('');
 
-        document.getElementById('strategy-chips').innerHTML = STRATEGIES.map(st => `
-          <button type="button" class="chip-btn ${st.id === state.selectedStrategyId ? 'active' : ''}" onclick="selectStrategy('${st.id}')">
-            ${st.name} (+${st.minMinutes}p)
-          </button>
-        `).join('');
+        document.getElementById('strategy-chips').innerHTML = STRATEGIES.map(st => {
+          const act = st.id === state.selectedStrategyId ? 'active' : '';
+          return `<button type="button" class="chip-btn ${act}" onclick="selectStrategy('${st.id}')">${st.name}</button>`;
+        }).join('');
 
         const prepPetsEl = document.getElementById('prep-pets-chips');
         if (!state.tamedBeasts.length) {
-          prepPetsEl.innerHTML = `<span style="color:var(--muted);">Chưa có thú</span>`;
+          prepPetsEl.innerHTML = `<span style="color:var(--muted);">Chưa có thú đã thuần phục.</span>`;
         } else {
-          prepPetsEl.innerHTML = state.tamedBeasts.map(p => {
-            const st = STAGES[p.stageIdx];
-            const cp = calcCombatPower(p);
-            const active = state.prepPetUid === p.uid;
+          prepPetsEl.innerHTML = state.tamedBeasts.map(pet => {
+            const canFight = STAGES[pet.stageIdx].canFight;
+            const act = state.prepPetUid === pet.uid ? 'active' : '';
+            const cp = calcCombatPower(pet);
             return `
-              <button type="button" class="chip-btn ${active ? 'active' : ''}" onclick="togglePrepPet('${p.uid}')" ${st.canFight ? '' : 'disabled'}>
-                <img class="item-thumb" style="width:24px;height:24px;" src="${getBeastImageUrl(p)}" alt="${p.name}" />
-                <span>${p.name} (${st.name} • Cấp ${p.lv} • CL ${cp.score} [${cp.tier}])</span>
+              <button type="button" class="chip-btn ${act}" onclick="togglePrepPet('${pet.uid}')" ${canFight ? '' : 'disabled'}>
+                <img style="width:24px; height:24px; border-radius:4px;" src="${getBeastImageUrl(pet)}" alt="${pet.name}" />
+                <span>${pet.name} (Cấp ${pet.lv} • ${STAGES[pet.stageIdx].name} • CL ${cp.score} [${cp.tier}])</span>
               </button>
             `;
           }).join('');
         }
 
-        const usableKeys = Object.keys(ITEM_DEFS).filter(k => (state.inv[k] || 0) > 0 && ITEM_DEFS[k].usable && typeof ITEM_DEFS[k].chestTierIdx !== 'number');
+        const carryableKeys = Object.keys(ITEM_DEFS).filter(k =>
+          (state.inv[k] || 0) > 0 && ITEM_DEFS[k].usable && !ITEM_DEFS[k].unlocksRecipe && typeof ITEM_DEFS[k].chestTierIdx !== 'number'
+        );
         const prepItemsEl = document.getElementById('prep-items-chips');
-        if (!usableKeys.length) {
-          prepItemsEl.innerHTML = `<span style="color:var(--muted);">Chưa có đồ</span>`;
-        } else {
-          prepItemsEl.innerHTML = usableKeys.map(k => {
-            const cur = state.prepItems[k] || 0;
-            return `
-              <span class="chip-btn" style="cursor:default;">
-                <img class="item-thumb" style="width:22px;height:22px;" src="${getItemImageUrl(k)}" alt="${ITEM_DEFS[k].name}" />
-                <span>${ITEM_DEFS[k].name}: ${cur}/${state.inv[k]}</span>
-                <button type="button" style="padding:2px 8px; min-height:28px;" onclick="adjustPrepItem('${k}', -1)">-</button>
-                <button type="button" style="padding:2px 8px; min-height:28px;" onclick="adjustPrepItem('${k}', 1)">+</button>
-              </span>
-            `;
-          }).join('');
-        }
+        prepItemsEl.innerHTML = carryableKeys.length ? carryableKeys.map(k => {
+          const def = ITEM_DEFS[k];
+          const owned = state.inv[k] || 0;
+          const chosen = state.prepItems[k] || 0;
+          return `
+            <span class="chip-btn" style="cursor:default;">
+              <img style="width:24px; height:24px; border-radius:4px;" src="${getItemImageUrl(k)}" alt="${def.name}" />
+              <span>${def.name} (${chosen}/${owned})</span>
+              <button type="button" style="padding:2px 8px; min-height:28px;" onclick="adjustPrepItem('${k}', -1)">-</button>
+              <button type="button" style="padding:2px 8px; min-height:28px;" onclick="adjustPrepItem('${k}', 1)">+</button>
+            </span>
+          `;
+        }).join('') : `<span style="color:var(--muted);">Không có đồ mang theo.</span>`;
 
         const selLoc = MAP_LOCATIONS.find(m => m.id === state.selectedMapId) || MAP_LOCATIONS[0];
         const selStrat = STRATEGIES.find(s => s.id === state.selectedStrategyId) || STRATEGIES[0];
-        const estMins = selLoc.travelMinutes + selStrat.minMinutes;
-        const arriveSec = (state.timeOfDaySec + estMins * 60) % 86400;
-        const arriveHour = Math.floor(arriveSec / 3600);
-        const willBeNight = arriveHour < 6 || arriveHour >= 18;
-        const tripRiskPct = Math.round(getSurvivalEventChance('trip') * 100);
+        const totalMins = selLoc.travelMinutes + selStrat.minMinutes;
+        const usedPrep = getPrepUsedCapacity();
+        document.getElementById('prep-load-info').textContent = `${usedPrep}/${maxBagCap}`;
+        document.getElementById('map-travel-summary').textContent = `${selLoc.name} • ${totalMins} phút • Nguy cơ sự kiện: ${Math.round(getSurvivalEventChance('trip') * 100)}%.`;
 
-        document.getElementById('prep-load-info').textContent = `${getPrepUsedCapacity()}/${maxCap}`;
-        document.getElementById('map-travel-summary').textContent =
-          `${selLoc.name} • Tổng ${estMins} phút • Đánh dấu mất 15p • Tỉ lệ sự kiện chuyến này: ${tripRiskPct}%.`;
+        const arrivalHour = Math.floor(((state.timeOfDaySec + totalMins * 60) % 86400) / 3600);
+        const arrivesAtNight = arrivalHour < 6 || arrivalHour >= 18;
         const nightNoteEl = document.getElementById('map-night-danger-note');
-        if (willBeNight || isNight) {
-          nightNoteEl.classList.remove('hidden');
-          nightNoteEl.textContent = 'Cảnh báo: Đi vào ban đêm cực kỳ nguy hiểm, tỷ lệ bị quái thú tấn công rất cao.';
-        } else {
-          nightNoteEl.classList.add('hidden');
-        }
-      } else {
-        mapBox.classList.add('hidden');
+        nightNoteEl.classList.toggle('hidden', !isNight && !arrivesAtNight);
+        nightNoteEl.textContent = 'Cảnh báo: Chuyến đi rơi vào Ban đêm — tỷ lệ gặp thú dữ rất cao.';
       }
 
-      /* RENDER GIAO DIỆN CHIẾN ĐẤU NÂNG CẤP */
       const combatBox = document.getElementById('explore-combat-box');
-      if (state.activeExploreSession && state.activeExploreSession.combat) {
-        combatBox.classList.remove('hidden');
-        const sess = state.activeExploreSession;
+      const sess = state.activeExploreSession;
+      combatBox.classList.toggle('hidden', !sess || !sess.combat);
+      if (sess && sess.combat) {
         const c = sess.combat;
         const danger = evaluateDangerLevel(c, c.ally);
         const mobCp = calcCombatPower(c);
-        const mobHpPct = Math.max(0, Math.min(100, (c.hp / Math.max(1, c.maxHp)) * 100));
+        const playerCp = getPlayerCombatPower();
+        const allyCp = c.ally ? calcCombatPower(c.ally) : { score: 0 };
+        const totalSideCp = playerCp.score + allyCp.score;
+        const totalSideTier = scoreToRank(totalSideCp);
 
-        const playerCard = document.getElementById('combatant-player-card');
-        const enemyCard = document.getElementById('combatant-enemy-card');
-        playerCard.classList.toggle('combatant-guard', Boolean(c.guardActive));
-        enemyCard.classList.remove('shake-hit');
-        const oldPopup = enemyCard.querySelector('.dmg-popup');
-        if (oldPopup) oldPopup.remove();
+        const sideCurHp = state.hp + (c.ally ? c.ally.hp : 0);
+        const sideMaxHp = state.maxHp + (c.ally ? c.ally.maxHp : 0);
+        const sidePct = Math.max(0, Math.min(100, Math.round((sideCurHp / Math.max(1, sideMaxHp)) * 100)));
+        const enemyPct = Math.max(0, Math.min(100, Math.round((c.hp / Math.max(1, c.maxHp)) * 100)));
 
-        if (c.lastHitFx && c.lastHitFx.target === 'enemy') {
-          void enemyCard.offsetWidth;
-          enemyCard.classList.add('shake-hit');
-          const pop = document.createElement('div');
-          pop.className = 'dmg-popup';
-          pop.textContent = `${c.lastHitFx.crit ? 'CHÍ MẠNG ' : ''}-${c.lastHitFx.dmg} HP`;
-          enemyCard.appendChild(pop);
-          c.lastHitFx = null;
-        }
-
-        document.getElementById('exp-mob-header').textContent = `${sess.locName} — ${c.name} (${c.stageLabel} • Cấp ${c.lv})`;
-        document.getElementById('exp-mob-danger').innerHTML = `Độ nguy hiểm: <span class="${danger.cls}">${danger.label}</span>`;
+        document.getElementById('exp-mob-header').textContent = `${c.name} (${c.stageLabel} • Cấp ${c.lv})`;
+        document.getElementById('exp-mob-danger').innerHTML = `<span class="${danger.cls}">${danger.label}</span>`;
         document.getElementById('exp-mob-turn').textContent = `Lượt ${c.turn || 1}`;
-        document.getElementById('exp-mob-time').textContent = `Thời gian: ${sess.totalMinutes}p`;
+        document.getElementById('exp-mob-time').textContent = `${sess.totalMinutes}p`;
+
+        const pCard = document.getElementById('combatant-player-card');
+        const eCard = document.getElementById('combatant-enemy-card');
+        pCard.classList.toggle('combatant-guard', Boolean(c.guardActive));
+        eCard.classList.remove('shake-hit');
+        const oldDmgTag = eCard.querySelector('.dmg-popup');
+        if (oldDmgTag) oldDmgTag.remove();
+        if (c.lastHitFx && c.lastHitFx.target === 'enemy') {
+          void eCard.offsetWidth;
+          eCard.classList.add('shake-hit');
+          const badge = document.createElement('div');
+          badge.className = 'dmg-popup';
+          badge.textContent = `${c.lastHitFx.crit ? 'CHÍ MẠNG ' : ''}-${c.lastHitFx.dmg}`;
+          eCard.appendChild(badge);
+        }
 
         document.getElementById('combat-player-img').src = c.ally ? getBeastImageUrl(c.ally) : ART_SPRITES.hero;
         document.getElementById('combat-enemy-img').src = getBeastImageUrl(c);
 
-        if (c.ally) {
-          const allyCp = calcCombatPower(c.ally);
-          const allyHpPct = Math.max(0, Math.min(100, (c.ally.hp / Math.max(1, c.ally.maxHp)) * 100));
-          document.getElementById('combat-side-player-title').textContent = `${c.ally.name} (Cấp ${c.ally.lv}) & ${state.charName}`;
-          document.getElementById('combat-side-player-hp').textContent = `Máu thú: ${c.ally.hp}/${c.ally.maxHp} • Bạn: ${state.hp}/${state.maxHp} • TL: ${state.stamina}/${state.maxStamina}`;
-          document.getElementById('combat-bar-player').style.width = `${allyHpPct}%`;
-          document.getElementById('combat-side-player-stats').textContent = `CL thú: ${allyCp.score} [${allyCp.tier}] • Công: ${c.ally.atk} • Thủ: ${c.ally.def}`;
-        } else {
-          const heroHpPct = Math.max(0, Math.min(100, (state.hp / Math.max(1, state.maxHp)) * 100));
-          document.getElementById('combat-side-player-title').textContent = `${state.charName}${c.guardActive ? ' [Đang Phòng Thủ]' : ''}`;
-          document.getElementById('combat-side-player-hp').textContent = `Máu: ${state.hp}/${state.maxHp} • Thể lực: ${state.stamina}/${state.maxStamina}`;
-          document.getElementById('combat-bar-player').style.width = `${heroHpPct}%`;
-          document.getElementById('combat-side-player-stats').textContent = `CL: ${pCp.score} [${pCp.tier}] • Công: ${getPlayerStrength()}`;
-        }
+        document.getElementById('combat-side-player-title').textContent = c.ally ? `${state.charName} + ${c.ally.name}` : state.charName;
+        document.getElementById('combat-side-player-hp').textContent = `Máu ${state.hp}/${state.maxHp}${c.ally ? ` • Thú ${c.ally.hp}/${c.ally.maxHp}` : ''} • TL ${state.stamina}/${state.maxStamina}`;
+        document.getElementById('combat-bar-player').style.width = `${sidePct}%`;
+        document.getElementById('combat-side-player-stats').textContent = `Tổng CL: ${totalSideCp} [${totalSideTier}]${c.guardActive ? ' • Đang Phòng Thủ' : ''}`;
 
-        document.getElementById('combat-side-enemy-title').textContent = `${c.name} (${c.rank} • Cấp ${c.lv})${c.enemyStunned ? ' [CHOÁNG]' : ''}`;
+        document.getElementById('combat-side-enemy-title').textContent = `${c.name} [${c.rank}]`;
         document.getElementById('combat-side-enemy-hp').textContent = `Máu: ${c.hp}/${c.maxHp}`;
-        document.getElementById('combat-bar-enemy').style.width = `${mobHpPct}%`;
+        document.getElementById('combat-bar-enemy').style.width = `${enemyPct}%`;
         document.getElementById('exp-mob-stats').innerHTML = `
-          <span class="mob-badge">CL: <strong>${mobCp.score} [${mobCp.tier}]</strong></span>
-          <span class="mob-badge">Công: <strong>${c.atk}</strong></span>
-          <span class="mob-badge">Thủ: <strong>${c.def}</strong></span>
+          <span class="mob-badge">CL <strong>${mobCp.score} [${mobCp.tier}]</strong></span>
+          <span class="mob-badge">Công <strong>${c.atk}</strong></span>
+          <span class="mob-badge">Thủ <strong>${c.def}</strong></span>
         `;
+
+        const feedEl = document.getElementById('combat-feed-list');
+        feedEl.innerHTML = c.lines.map((ln, idx) => {
+          const isLastDead = c.defeated && idx === c.lines.length - 1;
+          const isCrit = ln.includes('[CHÍ MẠNG]');
+          return `<div class="combat-line ${isLastDead ? 'dead-line' : (isCrit ? 'crit-line' : '')}">${ln}</div>`;
+        }).join('');
+        feedEl.scrollTop = feedEl.scrollHeight;
 
         const btnBox = document.getElementById('combat-action-buttons');
         if (!c.defeated) {
-          const healCandidate = findBestCombatHealItem();
-          const healLabel = healCandidate ? ITEM_DEFS[healCandidate.key].name : 'Hết đồ hồi';
+          const healItem = findBestCombatHealItem();
+          const healLabel = healItem ? ITEM_DEFS[healItem.key].name : 'Hết thuốc/đồ ăn';
           btnBox.innerHTML = `
             <div class="combat-skill-grid">
               <button type="button" class="danger-btn skill-touch-btn" onclick="stepCombatRound('normal')">
-                <strong>⚔️ Đánh thường</strong>
-                <small>10p • Đòn ổn định</small>
+                <strong>Đánh thường</strong>
+                <small>Tốn ${isNight ? 5 : 3} TL • Công chuẩn</small>
               </button>
-              <button type="button" class="primary skill-touch-btn" onclick="stepCombatRound('heavy')" ${state.stamina < 8 ? 'disabled' : ''}>
-                <strong>💥 Chí mạng (1.65x)</strong>
-                <small>10p • -8 TL • Tỉ lệ choáng</small>
+              <button type="button" class="primary skill-touch-btn" onclick="stepCombatRound('heavy')" ${state.stamina >= 8 ? '' : 'disabled'}>
+                <strong>Đòn chí mạng</strong>
+                <small>Tốn 8 TL • 165% sát thương + 35% choáng</small>
               </button>
               <button type="button" class="accent-btn skill-touch-btn" onclick="stepCombatRound('guard')">
-                <strong>🛡️ Phòng thủ & Hồi</strong>
-                <small>10p • -65% ST nhận • +10 TL</small>
+                <strong>Phòng thủ</strong>
+                <small>Hồi +10 TL • Giảm 65% sát thương nhận</small>
               </button>
-              <button type="button" class="success-btn skill-touch-btn" onclick="useQuickCombatHeal()" ${healCandidate ? '' : 'disabled'}>
-                <strong>💊 Hồi phục nhanh</strong>
+              <button type="button" class="success-btn skill-touch-btn" onclick="useQuickCombatHeal()" ${healItem ? '' : 'disabled'}>
+                <strong>Hồi máu nhanh</strong>
                 <small>${healLabel}</small>
               </button>
             </div>
-            <div class="encounter-actions">
-              <button type="button" onclick="markAndLeaveCombat()">🚩 Đánh dấu & rời khỏi trận (15p)</button>
+            <div class="encounter-actions" style="margin-top:8px;">
+              <button type="button" onclick="markAndLeaveCombat()">Đánh dấu & Rời đi</button>
             </div>
           `;
         } else {
           btnBox.innerHTML = `
             <div class="encounter-actions">
-              <button type="button" class="accent-btn" onclick="startTamingAfterCombat()">Thuần phục</button>
-              <button type="button" class="primary" onclick="killBeastAfterCombat()">Hạ luôn (+25 thịt, +6 da, +1 rương)</button>
+              <button type="button" class="accent-btn" onclick="startTamingAfterCombat()">Thuần phục (${c.tameGameHours}h)</button>
+              <button type="button" class="primary" onclick="killBeastAfterCombat()">Hạ luôn (Nhận đồ & Huyết mạch)</button>
             </div>
           `;
         }
-
-        const feedEl = document.getElementById('combat-feed-list');
-        feedEl.innerHTML = c.lines.map(ln => {
-          const isDeadLine = ln.includes('hạ gục');
-          const isCritLine = ln.includes('CHÍ MẠNG') || ln.includes('Hồi nhanh');
-          return `<div class="combat-line ${isDeadLine ? 'dead-line' : (isCritLine ? 'crit-line' : '')}">${ln}</div>`;
-        }).join('');
-        feedEl.scrollTop = feedEl.scrollHeight;
-      } else {
-        combatBox.classList.add('hidden');
       }
 
       const repBox = document.getElementById('explore-report-box');
+      repBox.classList.toggle('hidden', !state.lastExploreReport || Boolean(state.activeExploreSession));
       if (state.lastExploreReport) {
-        repBox.classList.remove('hidden');
-        document.getElementById('exp-rep-title').textContent = `Tổng kết chuyến đi (${state.lastExploreReport.totalMinutes} phút)`;
-        document.getElementById('exp-rep-items').textContent = `Đồ kiếm được: ${state.lastExploreReport.foundItems.join(', ')}.`;
-        document.getElementById('exp-rep-summary').textContent = `Đã làm: ${state.lastExploreReport.deeds.join(' • ')}.`;
-      } else {
-        repBox.classList.add('hidden');
+        document.getElementById('exp-rep-title').textContent = `Tổng kết (${state.lastExploreReport.totalMinutes}p)`;
+        document.getElementById('exp-rep-items').textContent = `Nhặt: ${state.lastExploreReport.foundItems.join(', ')}`;
+        document.getElementById('exp-rep-summary').textContent = state.lastExploreReport.deeds.join(' • ');
       }
 
       document.querySelectorAll('#bag-category-tabs .bag-cat-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === state.bagTab);
       });
 
+      const ownedKeys = Object.keys(ITEM_DEFS).filter(k => (state.inv[k] || 0) > 0);
+      document.getElementById('ui-owned-item-count').textContent = ownedKeys.length;
+      const query = document.getElementById('inv-search-input').value.trim().toLowerCase();
+      const filterMode = document.getElementById('inv-filter-select').value;
       const invGrid = document.getElementById('inventory-grid');
-      const searchQ = (document.getElementById('inv-search-input')?.value || '').trim().toLowerCase();
-      const filterType = document.getElementById('inv-filter-select')?.value || 'all';
       invGrid.innerHTML = '';
 
-      const allOwnedKeys = Object.keys(ITEM_DEFS).filter(k => (state.inv[k] || 0) > 0);
-      document.getElementById('ui-owned-item-count').textContent = allOwnedKeys.length;
-
-      const visibleKeys = allOwnedKeys.filter(key => {
-        const def = ITEM_DEFS[key];
+      const filteredKeys = ownedKeys.filter(k => {
+        const def = ITEM_DEFS[k];
         if (state.bagTab !== 'all' && def.bagTab !== state.bagTab) return false;
-        if (searchQ && !def.name.toLowerCase().includes(searchQ)) return false;
-        if (filterType === 'usable' && !def.usable) return false;
+        if (query && !def.name.toLowerCase().includes(query) && !def.category.toLowerCase().includes(query)) return false;
+        if (filterMode === 'usable' && !def.usable) return false;
         return true;
       });
 
-      if (!visibleKeys.length) {
-        invGrid.innerHTML = `<div style="color:var(--muted); font-size:0.8rem; padding:6px;">Không có món nào trong mục này.</div>`;
+      if (!filteredKeys.length) {
+        invGrid.innerHTML = `<div style="color:var(--muted); font-size:0.82rem; padding:6px;">Chưa có vật phẩm trong mục này.</div>`;
       } else {
-        visibleKeys.forEach((key) => {
-          const def = ITEM_DEFS[key];
-          const qty = state.inv[key] || 0;
-          const isChest = def.bagTab === 'chests';
+        filteredKeys.forEach((k) => {
+          const def = ITEM_DEFS[k];
+          const qty = state.inv[k] || 0;
+          const isChest = typeof def.chestTierIdx === 'number';
           const isSup = def.bagTab === 'supreme';
-          const upgLv = state.toolUpgrades?.[key] || 0;
           const btn = document.createElement('button');
           btn.type = 'button';
-          btn.className = `inv-slot ${isChest ? 'chest-slot' : ''} ${isSup ? 'sup-slot' : ''} ${state.selectedItem === key ? 'selected' : ''}`;
-          btn.onclick = () => selectItem(key);
+          btn.className = `inv-slot ${isChest ? 'chest-slot' : ''} ${isSup ? 'sup-slot' : ''} ${state.selectedItem === k ? 'selected' : ''}`;
           btn.innerHTML = `
-            <img class="item-thumb" src="${getItemImageUrl(key)}" alt="${def.name}" />
+            <img class="item-thumb" src="${getItemImageUrl(k)}" alt="${def.name}" />
             <div style="flex:1; min-width:0;">
-              <div style="display:flex; justify-content:space-between; gap:4px;">
-                <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"><strong>${def.name}${upgLv > 0 ? ` +${upgLv}` : ''}</strong></span>
-                <span style="color:#fbbf24;">x${qty}</span>
-              </div>
-              <div style="color:var(--muted); font-size:0.74rem; margin-top:2px;">${def.gradeRank ? def.gradeRank : def.category}</div>
+              <div><strong>${def.name}</strong> (x${qty})</div>
+              <div style="font-size:0.74rem; color:var(--muted);">Nặng ${def.weight}</div>
             </div>
           `;
+          btn.onclick = () => selectItem(k);
           invGrid.appendChild(btn);
         });
       }
 
       const selDef = ITEM_DEFS[state.selectedItem];
-      const selQty = state.inv[state.selectedItem] || 0;
+      const ownedSel = state.inv[state.selectedItem] || 0;
       const inspImg = document.getElementById('insp-item-img');
-      if (selDef && selQty > 0) {
+      if (selDef && ownedSel > 0) {
         inspImg.src = getItemImageUrl(state.selectedItem);
-        inspImg.classList.remove('hidden');
-        document.getElementById('insp-name').textContent = `${selDef.name} (x${selQty})`;
-        document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category} • Nặng: ${selDef.weight}`;
+        inspImg.style.visibility = 'visible';
+        document.getElementById('insp-name').textContent = `${selDef.name} (x${ownedSel})`;
+        document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category}${selDef.gradeRank ? ` • ${selDef.gradeRank}` : ''} • Nặng: ${selDef.weight}`;
         document.getElementById('insp-desc').textContent = selDef.desc;
         const useBtn = document.getElementById('btn-use-item');
         useBtn.disabled = !selDef.usable;
-        useBtn.textContent = selDef.usable ? (selDef.useLabel || 'Dùng') : 'Dùng';
+        useBtn.textContent = selDef.usable ? (selDef.useLabel || 'Dùng') : 'Không dùng được';
       } else {
-        inspImg.classList.add('hidden');
+        inspImg.style.visibility = 'hidden';
         document.getElementById('insp-name').textContent = 'Chưa chọn vật phẩm';
         document.getElementById('insp-type').textContent = 'Nhóm: -';
-        document.getElementById('insp-desc').textContent = 'Chạm một món đang có trong túi để xem chi tiết.';
+        document.getElementById('insp-desc').textContent = 'Chạm một món đang có trong túi.';
         document.getElementById('btn-use-item').disabled = true;
         document.getElementById('btn-use-item').textContent = 'Dùng';
       }
@@ -4540,7 +4586,7 @@
       document.getElementById('ui-taming-count').textContent = state.tamingQueue.length;
       const tameGrid = document.getElementById('taming-queue-grid');
       if (!state.tamingQueue.length) {
-        tameGrid.innerHTML = `<div style="color:var(--muted); font-size:0.8rem;">Chưa có thú đang thuần phục.</div>`;
+        tameGrid.innerHTML = `<div style="color:var(--muted); font-size:0.81rem;">Chưa có thú đang thuần.</div>`;
       } else {
         tameGrid.innerHTML = state.tamingQueue.map(t => {
           const pct = Math.min(100, Math.round(t.progressPct));
@@ -4548,7 +4594,8 @@
             <div class="inv-slot" style="cursor:default;">
               <img class="pet-thumb" src="${getBeastImageUrl(t)}" alt="${t.name}" />
               <div style="flex:1;">
-                <div><strong>${t.name}</strong> (${pct}%)</div>
+                <div><strong>${t.name}</strong> [${t.rank}]</div>
+                <div style="font-size:0.75rem; color:var(--muted);">Thuần phục: ${pct}%</div>
                 <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
               </div>
             </div>
@@ -4558,21 +4605,49 @@
 
       document.getElementById('ui-tamed-count').textContent = state.tamedBeasts.length;
       const beastGrid = document.getElementById('tamed-beasts-grid');
+      beastGrid.innerHTML = '';
       if (!state.tamedBeasts.length) {
-        beastGrid.innerHTML = `<div style="color:var(--muted); font-size:0.8rem;">Chưa có thú đã thu phục.</div>`;
+        beastGrid.innerHTML = `<div style="color:var(--muted); font-size:0.81rem;">Chưa có thú đã thu phục.</div>`;
       } else {
-        beastGrid.innerHTML = state.tamedBeasts.map(b => {
-          const st = STAGES[b.stageIdx];
-          const cp = calcCombatPower(b);
-          const growPct = Math.min(100, Math.round(b.growthPct || 0));
+        state.tamedBeasts.forEach(pet => {
+          const stName = STAGES[pet.stageIdx]?.name || 'Trẻ';
+          const cp = calcCombatPower(pet);
+          const growthPct = Math.min(100, Math.round(pet.growthPct || 0));
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `inv-slot ${state.selectedPetUid === pet.uid ? 'selected' : ''}`;
+          btn.innerHTML = `
+            <img class="pet-thumb" src="${getBeastImageUrl(pet)}" alt="${pet.name}" />
+            <div style="flex:1;">
+              <div><strong>${pet.name}</strong> ${pet.mutated ? '<span style="color:#e879f9;">[Đột biến]</span>' : ''}</div>
+              <div style="font-size:0.74rem; color:#38bdf8;">${stName} • Cấp ${pet.lv} • CL ${cp.score} [${cp.tier}]</div>
+              <div style="font-size:0.74rem; color:var(--muted);">Máu ${pet.hp}/${pet.maxHp} • Công ${pet.atk} • Thủ ${pet.def}</div>
+              <div class="progress-track"><div class="growth-fill" style="width:${growthPct}%"></div></div>
+            </div>
+          `;
+          btn.onclick = () => selectBeast(pet.uid);
+          beastGrid.appendChild(btn);
+        });
+      }
+
+      // KHO HUYẾT MẠCH ĐỘT BIẾN
+      const blEntries = getAvailableBloodlineEntries();
+      document.getElementById('ui-bloodline-count').textContent = blEntries.length;
+      const blGrid = document.getElementById('bloodline-inventory-grid');
+      if (blEntries.length && (!state.selectedBloodlineId || !blEntries.some(e => e.speciesId === state.selectedBloodlineId))) {
+        state.selectedBloodlineId = blEntries[0].speciesId;
+      }
+      if (!blEntries.length) {
+        blGrid.innerHTML = `<div style="color:var(--muted); font-size:0.81rem;">Chưa có huyết mạch. Hạ gục quái thú ngoài rừng để thu thập huyết mạch đột biến.</div>`;
+      } else {
+        blGrid.innerHTML = blEntries.map(bl => {
+          const sel = state.selectedBloodlineId === bl.speciesId ? 'selected' : '';
           return `
-            <button type="button" class="inv-slot ${state.selectedPetUid === b.uid ? 'selected' : ''}" onclick="selectBeast('${b.uid}')">
-              <img class="pet-thumb" src="${getBeastImageUrl(b)}" alt="${b.name}" />
-              <div style="flex:1;">
-                <div><strong>${b.name}</strong> (${st.name})</div>
-                <div style="color:#fbbf24; font-size:0.75rem;">Cấp ${b.lv} • CL ${cp.score} [${cp.tier}]</div>
-                <div style="color:#86efac; font-size:0.75rem;">Máu ${b.hp}/${b.maxHp} • Công ${b.atk}</div>
-                <div class="progress-track"><div class="growth-fill" style="width:${growPct}%"></div></div>
+            <button type="button" class="inv-slot bl-slot ${sel}" onclick="selectBloodline('${bl.speciesId}')">
+              <img class="item-thumb" src="${ART_SPRITES.blood}" alt="${bl.speciesName}" />
+              <div style="flex:1; min-width:0;">
+                <div><strong style="color:#f472b6;">Huyết mạch ${bl.speciesName}</strong> (x${bl.count})</div>
+                <div style="font-size:0.74rem; color:var(--muted);">Phẩm chất [${bl.rank}] • Dạng gốc: ${bl.mutateTo}</div>
               </div>
             </button>
           `;
@@ -4580,48 +4655,63 @@
       }
 
       const selPet = state.tamedBeasts.find(b => b.uid === state.selectedPetUid);
-      const availBl = getAvailableBloodlineEntries();
-      const mutBtn = document.getElementById('btn-mutate-selected-pet');
-      const inspPetImg = document.getElementById('insp-pet-img');
+      const selBl = blEntries.find(e => e.speciesId === state.selectedBloodlineId) || blEntries[0] || null;
+      const previewTextEl = document.getElementById('mutation-preview-text');
+      const mutateBtn = document.getElementById('btn-mutate-selected-pet');
+      const petImgEl = document.getElementById('insp-pet-img');
+
       if (selPet) {
-        const st = STAGES[selPet.stageIdx];
+        const stName = STAGES[selPet.stageIdx]?.name || 'Trẻ';
         const cp = calcCombatPower(selPet);
-        const healTxt = (selPet.healingRemainingHp || 0) > 0 ? ` • Đang hồi dần +${selPet.healingRemainingHp} Máu` : '';
-        inspPetImg.src = getBeastImageUrl(selPet);
-        inspPetImg.classList.remove('hidden');
-        document.getElementById('pet-insp-name').textContent = `${selPet.name} (${st.name} • Cấp ${selPet.lv} • CL ${cp.score} [${cp.tier}])`;
-        document.getElementById('pet-insp-meta').textContent = `Công ${selPet.atk} • Thủ ${selPet.def} • Máu ${selPet.hp}/${selPet.maxHp}${healTxt}`;
-        document.getElementById('pet-insp-mut').textContent = selPet.mutated ? 'Đã đột biến.' : `Huyết mạch có sẵn: ${availBl.length}`;
-        mutBtn.disabled = selPet.mutated || availBl.length === 0;
+        petImgEl.src = getBeastImageUrl(selPet);
+        petImgEl.style.visibility = 'visible';
+        document.getElementById('pet-insp-name').textContent = `${selPet.name} (${stName} • Cấp ${selPet.lv})`;
+        document.getElementById('pet-insp-meta').textContent = `CL ${cp.score} [${cp.tier}] • Máu ${selPet.hp}/${selPet.maxHp} • Công ${selPet.atk} • Thủ ${selPet.def}`;
+        document.getElementById('pet-insp-mut').textContent = selPet.mutated
+          ? 'Trạng thái: Đã đột biến hoàn chỉnh (tăng mạnh chỉ số).'
+          : `Hình thái tiến hóa gốc: ${selPet.mutateTo} • Trưởng thành: ${Math.min(100, Math.round(selPet.growthPct || 0))}%`;
+
+        if (selPet.mutated) {
+          previewTextEl.innerHTML = `<span style="color:#4ade80;">${selPet.name} đã hoàn thành đột biến huyết mạch.</span>`;
+          mutateBtn.disabled = true;
+        } else if (selBl) {
+          const fc = calcMutationForecast(selPet, selBl);
+          previewTextEl.innerHTML =
+            `Thú chọn: <strong>${selPet.name}</strong> + <strong>Huyết mạch ${selBl.speciesName}</strong> (${fc.isCrossSpecies ? 'Lai khác loài' : 'Thuần chủng cùng loài'})<br/>` +
+            `Tỷ lệ đột biến thành công: <strong style="color:#fbbf24;">${fc.pct}%</strong> → Tiến hóa thành <strong style="color:#e879f9;">${fc.targetName}</strong> (+45% Công/Thủ, +50% Máu).`;
+          mutateBtn.disabled = false;
+        } else {
+          previewTextEl.textContent = `Đã chọn ${selPet.name}, nhưng kho chưa có Huyết Mạch nào để dung hợp.`;
+          mutateBtn.disabled = true;
+        }
       } else {
-        inspPetImg.classList.add('hidden');
+        petImgEl.style.visibility = 'hidden';
         document.getElementById('pet-insp-name').textContent = 'Chưa chọn thú';
         document.getElementById('pet-insp-meta').textContent = '-';
         document.getElementById('pet-insp-mut').textContent = '-';
-        mutBtn.disabled = true;
+        previewTextEl.textContent = 'Chọn 1 thú chưa đột biến và 1 huyết mạch trong kho để xem tỷ lệ thành công.';
+        mutateBtn.disabled = true;
+      }
+
+      const houseCfg = HOUSE_LEVELS[state.houseLevel - 1];
+      const upBtn = document.getElementById('btn-upgrade-house');
+      if (!houseCfg.cost) {
+        upBtn.disabled = true;
+        document.getElementById('house-req').textContent = 'Nhà gỗ đã đạt cấp tối đa (8/8).';
+      } else {
+        const canUp = Object.entries(houseCfg.cost).every(([k, v]) => (state.inv[k] || 0) >= v);
+        upBtn.disabled = !canUp;
+        const costSpans = Object.entries(houseCfg.cost).map(([k, v]) => {
+          const have = state.inv[k] || 0;
+          const cls = have >= v ? 'mat-ok' : 'mat-bad';
+          return `${ITEM_DEFS[k]?.name || k}: <span class="${cls}">${have}/${v}</span>`;
+        }).join(' • ');
+        document.getElementById('house-req').innerHTML = `Cấp ${state.houseLevel + 1} (${HOUSE_LEVELS[state.houseLevel].name}) cần: ${costSpans}`;
       }
 
       renderCraftingPanel();
-
-      const cfg = HOUSE_LEVELS[state.houseLevel - 1];
-      const upBtn = document.getElementById('btn-upgrade-house');
-      const reqEl = document.getElementById('house-req');
-      if (!cfg.cost) {
-        upBtn.disabled = true;
-        reqEl.textContent = `${cfg.name} — Đã cấp 8.`;
-      } else {
-        const canUp = Object.entries(cfg.cost).every(([k, v]) => (state.inv[k] || 0) >= v);
-        upBtn.disabled = !canUp;
-        const costParts = Object.entries(cfg.cost).map(([k, v]) => {
-          const have = state.inv[k] || 0;
-          const cls = have >= v ? 'mat-ok' : 'mat-bad';
-          return `${ITEM_DEFS[k].name}: <span class="${cls}">${have}/${v}</span>`;
-        });
-        reqEl.innerHTML = `Lên cấp ${state.houseLevel + 1}: ${costParts.join(' • ')}`;
-      }
-
-      renderQuests();
       renderEventPanel();
+      renderQuests();
       renderWorldChat();
       renderTrades();
       syncPanelButtonsState();
@@ -4630,18 +4720,20 @@
     initNpcSelect();
     renderAll();
 
+    let autosaveTickCounter = 0;
     setInterval(() => {
-      if (state.talent && !state.isDead && document.getElementById('intro-overlay').classList.contains('hidden')) {
-        advanceGameMinutes(GAME_SECONDS_PER_REAL_SECOND / 60);
-        renderAll();
-      }
-    }, 1000);
-
-    setInterval(() => {
-      if (currentAccount && state.talent && !state.isDead) {
+      if (!state.talent || state.isDead) return;
+      if (!document.getElementById('intro-overlay').classList.contains('hidden')) return;
+      if (state.chestRewardModal) return;
+      if (!document.getElementById('event-popup-overlay').classList.contains('hidden')) return;
+      advanceGameMinutes(GAME_SECONDS_PER_REAL_SECOND / 60);
+      autosaveTickCounter += 1;
+      if (autosaveTickCounter >= 15) {
+        autosaveTickCounter = 0;
         saveGameState(true);
       }
-    }, 30000);
+      renderAll();
+    }, 1000);
   </script>
 </body>
 </html>
