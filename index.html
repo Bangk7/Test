@@ -751,7 +751,7 @@
   </div>
 
   <main class="main-layout">
-    <!-- CỘT TRÁI (MẶC ĐỊNH TẤT CẢ MỤC ĐỀU ẨN) -->
+    <!-- CỘT TRÁI -->
     <div>
       <section class="box admin-box hidden" id="admin-panel">
         <div class="box-header">
@@ -770,7 +770,7 @@
           <button type="button" onclick="adminQuickGive('wood', 50)">+50 Gỗ</button>
           <button type="button" onclick="adminQuickGive('stone', 50)">+50 Đá</button>
           <button type="button" onclick="adminQuickGive('ore', 30)">+30 Quặng</button>
-          <button type="button" onclick="adminQuickGive('meat', 20)">+20 Thịt</button>
+          <button type="button" onclick="adminQuickGive('meat', 20)">+20 Thịt sống</button>
           <button type="button" onclick="adminQuickGive('water', 20)">+20 Nước</button>
           <button type="button" onclick="adminQuickGive('chest_gold', 3)">+3 Rương Vàng</button>
           <button type="button" onclick="adminUnlockAllRecipes()">Mở mọi bản vẽ</button>
@@ -803,7 +803,7 @@
         <div class="camp-actions-bar">
           <button type="button" onclick="campGatherWood()">Chặt gỗ (+4 Gỗ, 15p)</button>
           <button type="button" onclick="campCollectStone()">Nhặt đá (+3 Đá, 15p)</button>
-          <button type="button" class="primary" onclick="campCookMeat()">Nướng cá (2 Cá → 2 Thịt, 15p)</button>
+          <button type="button" class="primary" onclick="campCookMeat()">Nướng cá (2 Cá sống → 2 Thịt chín, 15p)</button>
           <button type="button" class="accent-btn" onclick="campPurifyWater()">Lọc nước (+2 Nước, 15p)</button>
           <button type="button" onclick="campRest()">Nghỉ (+25 TL, +10 Máu, 45p)</button>
         </div>
@@ -901,7 +901,7 @@
         <div id="crafting-container"></div>
       </section>
 
-      <!-- TÚI ĐỒ CÓ TAB RƯƠNG & VẬT PHẨM SIÊU PHÀM -->
+      <!-- TÚI ĐỒ -->
       <section class="box hidden" id="bag-pet-panel">
         <div class="box-header">
           <h2>Túi đồ (<span id="ui-owned-item-count">0</span> món) & Thú</h2>
@@ -972,7 +972,7 @@
       </section>
     </div>
 
-    <!-- CỘT PHẢI (MẶC ĐỊNH TẤT CẢ MỤC ĐỀU ẨN) -->
+    <!-- CỘT PHẢI -->
     <div>
       <section class="box hidden" id="quest-panel">
         <div class="box-header">
@@ -1025,7 +1025,7 @@
 
   <script>
     const GAME_SECONDS_PER_REAL_SECOND = 12;
-    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v4';
+    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v5';
     const CATEGORIES = ['Công cụ', 'Vật phẩm sinh hoạt', 'Vật phẩm y tế', 'Công trình'];
 
     const BAG_TABS = [
@@ -1045,7 +1045,6 @@
       { id: 'mist_storm', name: 'Bão sương', tempMod: -7, lootMult: 1.2, mobMod: 0.08, desc: 'Bão sương mạnh, nhiều đồ rơi nhưng thú dữ hơn.' }
     ];
 
-    /* TĂNG THỜI GIAN ĐI THÁM HIỂM TỪNG KHU VỰC */
     const MAP_LOCATIONS = [
       { id: 'edge_woods', name: 'Rìa Rừng Gần', distanceKm: 2, travelMinutes: 65, mobChance: 0.28, nightMobChance: 0.82, lootMult: 1.0, desc: '2km • 65 phút • Khởi đầu dễ kiếm gỗ.' },
       { id: 'mist_stream', name: 'Suối Sương Mù', distanceKm: 5, travelMinutes: 115, mobChance: 0.34, nightMobChance: 0.86, lootMult: 1.2, desc: '5km • 115 phút • Nhiều đá & quặng.' },
@@ -1054,7 +1053,6 @@
       { id: 'bloodline_rift', name: 'Khe Núi Sương', distanceKm: 20, travelMinutes: 320, mobChance: 0.54, nightMobChance: 0.96, lootMult: 2.05, desc: '20km • 320 phút • Xa nhất, nhiều tài nguyên.' }
     ];
 
-    /* TĂNG THỜI GIAN CHIẾN THUẬT ĐI XA */
     const STRATEGIES = [
       { id: 'cautious', name: 'Đi chậm dò đường', minMinutes: 35, mobMod: -0.06, lootMod: 0.95, desc: 'Giảm nhẹ gặp thú ban ngày, +35 phút.' },
       { id: 'swift', name: 'Đi nhanh nhặt đồ', minMinutes: 25, mobMod: 0.04, lootMod: 1.12, desc: 'Nhặt đồ nhỉnh hơn, +25 phút.' },
@@ -1073,7 +1071,7 @@
       { id: 'iron_axe', name: 'Rìu Sắt', category: 'Công cụ', blueprintKey: 'bp_iron_axe', weight: 4, powerBonus: 16, woodBonus: 5, desc: '+16 Công và +5 gỗ mỗi chuyến đi xa.', cost: { wood: 10, ore: 4 } },
       { id: 'iron_pickaxe', name: 'Cuốc Chim Sắt', category: 'Công cụ', blueprintKey: 'bp_iron_pickaxe', weight: 4, powerBonus: 12, oreBonus: 3, stoneBonus: 4, desc: '+12 Công và thêm đá, quặng khi đi xa.', cost: { wood: 10, stone: 8, ore: 5 } },
       { id: 'bow_arrow', name: 'Cung Tên', category: 'Công cụ', blueprintKey: 'bp_bow_arrow', weight: 3, powerBonus: 22, desc: '+22 Công khi chiến đấu.', cost: { wood: 14, hide: 2, feather: 2 } },
-      { id: 'meat_soup', name: 'Súp Thịt', category: 'Vật phẩm sinh hoạt', blueprintKey: 'bp_meat_soup', weight: 2, grantsItem: { key: 'meat', qty: 2 }, desc: 'Chế tạo ra +2 Thịt.', cost: { meat: 2, water: 1 } },
+      { id: 'meat_soup', name: 'Súp Thịt', category: 'Vật phẩm sinh hoạt', blueprintKey: 'bp_meat_soup', weight: 2, grantsItem: { key: 'cooked_meat', qty: 2 }, desc: 'Chế tạo ra +2 Thịt chín (hồi nhiều độ no).', cost: { meat: 2, water: 1 } },
       { id: 'herbal_bandage', name: 'Băng Thảo Dược', category: 'Vật phẩm y tế', blueprintKey: 'bp_bandage', weight: 1, grantsItem: { key: 'bandage', qty: 1 }, desc: 'Chế tạo ra +1 Băng gạc.', cost: { hide: 1, water: 1 } },
       { id: 'warm_tonic', name: 'Nước Ấm Gừng', category: 'Vật phẩm y tế', blueprintKey: 'bp_tonic', weight: 1, grantsItem: { key: 'tonic', qty: 1 }, desc: 'Chế tạo ra +1 Nước ấm.', cost: { fish: 1, water: 2 } },
       { id: 'watch_hut', name: 'Chòi Canh', category: 'Công trình', blueprintKey: 'bp_watch_hut', uniqueBuild: true, weight: 0, powerBonus: 14, threatReduction: 2, desc: 'Xây 1 lần: +14 Công, giảm sát thương nhận.', cost: { wood: 20, stone: 10 } },
@@ -1092,25 +1090,26 @@
 
     function buildItemCatalog() {
       const items = {
-        axe: { name: 'Rìu', category: 'Dụng cụ', bagTab: 'tools', weight: 2, desc: 'Dụng cụ cơ bản. Dùng để chặt gỗ.', usable: true, useLabel: 'Chặt gỗ (+2 Gỗ, -5 TL)' },
-        wood: { name: 'Gỗ', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Nguyên liệu nâng nhà và chế tạo.', usable: false },
-        stone: { name: 'Đá', category: 'Nguyên liệu', bagTab: 'materials', weight: 3, desc: 'Nguyên liệu xây dựng và chế tạo.', usable: false },
-        ore: { name: 'Quặng', category: 'Nguyên liệu', bagTab: 'materials', weight: 4, desc: 'Quặng thô dùng chế tạo hoặc trao đổi.', usable: false },
-        fish: { name: 'Cá', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Ăn: +20 No, -8 Khát, +5 Máu.', usable: true, useLabel: 'Ăn cá' },
-        water: { name: 'Nước', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Uống: -30 Khát, +8 Máu.', usable: true, useLabel: 'Uống nước' },
-        meat: { name: 'Thịt', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Ăn: +28 No, -6 Khát, +10 Máu.', usable: true, useLabel: 'Ăn thịt' },
-        hide: { name: 'Da thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Da thu được từ thú.', usable: false },
-        feather: { name: 'Lông thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 1, desc: 'Lông thú thu thập được.', usable: false },
-        mist_torch: { name: 'Đuốc', category: 'Dụng cụ', bagTab: 'tools', weight: 2, desc: 'Dùng: +18 Thể lực, -12 Khát, +8 Máu.', usable: true, useLabel: 'Dùng đuốc' },
-        mist_herb: { name: 'Lá thuốc', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Dùng: +30 Máu, -20 Khát, +12 Thể lực.', usable: true, useLabel: 'Dùng lá thuốc' },
-        life_charm: { name: 'Bùa hộ mệnh', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Giữ túi +8 Công; dùng ngay +35 Máu.', usable: true, useLabel: 'Dùng bùa' },
-        chest_bronze: { name: 'Rương Đồng', category: 'Rương', bagTab: 'chests', weight: 3, desc: 'Rương chứa tài nguyên và cơ hội bản vẽ.', usable: true, useLabel: 'Mở rương', chestTierIdx: 0 },
-        chest_silver: { name: 'Rương Bạc', category: 'Rương', bagTab: 'chests', weight: 4, desc: 'Rương bạc chứa tài nguyên khá.', usable: true, useLabel: 'Mở rương', chestTierIdx: 1 },
-        chest_gold: { name: 'Rương Vàng', category: 'Rương', bagTab: 'chests', weight: 5, desc: 'Rương vàng chứa nhiều tài nguyên.', usable: true, useLabel: 'Mở rương', chestTierIdx: 2 },
-        chest_platinum: { name: 'Rương Bạch Ngân', category: 'Rương', bagTab: 'chests', weight: 6, desc: 'Rương bạch ngân chứa tài nguyên tốt.', usable: true, useLabel: 'Mở rương', chestTierIdx: 3 },
-        chest_diamond: { name: 'Rương Kim Cương', category: 'Rương', bagTab: 'chests', weight: 7, desc: 'Rương giá trị cao nhất.', usable: true, useLabel: 'Mở rương', chestTierIdx: 4 },
-        bandage: { name: 'Băng gạc', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Hồi +25 Máu.', usable: true, useLabel: 'Băng bó' },
-        tonic: { name: 'Nước ấm', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Hồi +20 Máu, -20 Khát.', usable: true, useLabel: 'Uống nước ấm' },
+        axe: { name: 'Rìu', category: 'Dụng cụ', bagTab: 'tools', weight: 2, holdAtk: 4, desc: 'Dùng chặt gỗ (+2 Gỗ, -5 TL, 10p); giữ túi +4 Công.', usable: true, useLabel: 'Chặt gỗ (+2 Gỗ)' },
+        wood: { name: 'Gỗ', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Nguyên liệu nâng nhà, chế tạo và trao đổi.', usable: false },
+        stone: { name: 'Đá', category: 'Nguyên liệu', bagTab: 'materials', weight: 3, desc: 'Nguyên liệu nâng nhà, chế tạo và trao đổi.', usable: false },
+        ore: { name: 'Quặng', category: 'Nguyên liệu', bagTab: 'materials', weight: 4, desc: 'Nguyên liệu nâng nhà, chế tạo và trao đổi.', usable: false },
+        fish: { name: 'Cá sống', category: 'Thức ăn', bagTab: 'food', weight: 2, hungerGain: 11, thirstCut: 6, hpGain: 4, desc: 'Cá sống ăn ít no (+11 No, -6 Khát, +4 Máu). Nên nướng chín.', usable: true, useLabel: 'Ăn cá sống' },
+        water: { name: 'Nước', category: 'Thức ăn', bagTab: 'food', weight: 2, thirstCut: 30, hpGain: 8, desc: 'Uống: -30 Khát, +8 Máu; dùng chế tạo & cho thú.', usable: true, useLabel: 'Uống nước' },
+        meat: { name: 'Thịt sống', category: 'Thức ăn', bagTab: 'food', weight: 2, hungerGain: 16, thirstCut: 5, hpGain: 6, desc: 'Thịt sống ăn hồi ít no (+16 No, -5 Khát, +6 Máu).', usable: true, useLabel: 'Ăn thịt sống' },
+        cooked_meat: { name: 'Thịt chín', category: 'Thức ăn', bagTab: 'food', weight: 2, hungerGain: 32, thirstCut: 8, hpGain: 12, desc: 'Thịt đã chế biến: +32 No, -8 Khát, +12 Máu.', usable: true, useLabel: 'Ăn thịt chín' },
+        hide: { name: 'Da thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Nguyên liệu nâng nhà cấp 4–7 và chế tạo.', usable: false },
+        feather: { name: 'Lông thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 1, desc: 'Nguyên liệu chế tạo Cung Tên.', usable: false },
+        mist_torch: { name: 'Đuốc', category: 'Dụng cụ', bagTab: 'tools', weight: 2, holdAtk: 3, staminaGain: 18, thirstCut: 12, hpGain: 8, desc: 'Giữ túi +3 Công; dùng: +18 TL, -12 Khát, +8 Máu.', usable: true, useLabel: 'Dùng đuốc' },
+        mist_herb: { name: 'Lá thuốc', category: 'Thuốc', bagTab: 'medicine', weight: 1, hpGain: 30, thirstCut: 20, staminaGain: 12, desc: 'Dùng: +30 Máu, -20 Khát, +12 Thể lực.', usable: true, useLabel: 'Dùng lá thuốc' },
+        life_charm: { name: 'Bùa hộ mệnh', category: 'Dụng cụ', bagTab: 'tools', weight: 1, holdAtk: 8, hpGain: 35, staminaGain: 15, desc: 'Giữ túi +8 Công; dùng: +35 Máu, +15 Thể lực.', usable: true, useLabel: 'Dùng bùa' },
+        chest_bronze: { name: 'Rương Đồng', category: 'Rương', bagTab: 'chests', weight: 3, desc: 'Mở nhận 8 Gỗ, 5 Đá, 1 Quặng + đồ thưởng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 0 },
+        chest_silver: { name: 'Rương Bạc', category: 'Rương', bagTab: 'chests', weight: 4, desc: 'Mở nhận 14 Gỗ, 10 Đá, 3 Quặng + đồ thưởng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 1 },
+        chest_gold: { name: 'Rương Vàng', category: 'Rương', bagTab: 'chests', weight: 5, desc: 'Mở nhận 22 Gỗ, 15 Đá, 6 Quặng + đồ thưởng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 2 },
+        chest_platinum: { name: 'Rương Bạch Ngân', category: 'Rương', bagTab: 'chests', weight: 6, desc: 'Mở nhận 32 Gỗ, 22 Đá, 10 Quặng + đồ thưởng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 3 },
+        chest_diamond: { name: 'Rương Kim Cương', category: 'Rương', bagTab: 'chests', weight: 7, desc: 'Mở nhận 45 Gỗ, 32 Đá, 16 Quặng + đồ thưởng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 4 },
+        bandage: { name: 'Băng gạc', category: 'Thuốc', bagTab: 'medicine', weight: 1, hpGain: 25, desc: 'Hồi +25 Máu.', usable: true, useLabel: 'Băng bó' },
+        tonic: { name: 'Nước ấm', category: 'Thuốc', bagTab: 'medicine', weight: 1, hpGain: 20, thirstCut: 20, desc: 'Hồi +20 Máu, -20 Khát.', usable: true, useLabel: 'Uống nước ấm' },
 
         sup_mist_dew: {
           name: 'Sương Tinh Tụ [Bậc I]',
@@ -1175,34 +1174,99 @@
         bp_auto_snare: { name: 'Bản vẽ Bẫy Dây Tự Động', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Bẫy Dây Tự Động.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'auto_snare' }
       };
 
-      const extraSpecs = [
-        { cat: 'Nguyên liệu', tab: 'materials', w: 2, usable: false, names: ['Nhựa cây', 'Vỏ cây', 'Dây leo', 'Rễ cây', 'Cành khô', 'Mùn gỗ', 'Vỏ sò', 'Bùn non', 'Đất sét', 'Than củi', 'Tro bếp', 'Sỏi nhỏ', 'Đá vôi', 'Thạch anh', 'Mảnh sắt', 'Dây đồng', 'Đinh gỉ', 'Vải thô', 'Sợi lanh', 'Bông lau', 'Rơm khô', 'Vỏ hạt', 'Nhựa thông', 'Sáp ong', 'Mật rừng', 'Nấm dại', 'Rêu xanh', 'Cỏ khô', 'Vỏ trứng', 'Xương nhỏ', 'Sừng non', 'Móng thú', 'Vảy cá', 'Bọt biển', 'Cát sông', 'Đá mài', 'Keo nhựa', 'Bấc đèn', 'Dầu cá', 'Mỡ thú', 'Bột đá', 'Gạch vỡ', 'Ngói cũ', 'Thanh tre', 'Lá cọ', 'Vỏ quế', 'Củ gừng', 'Tỏi rừng', 'Ớt dại', 'Hạt tiêu', 'Muối mỏ', 'Đá lửa', 'Bùi nhùi', 'Ống tre', 'Gùi mây', 'Thừng gai', 'Móc sắt', 'Khóa đồng', 'Bản lề', 'Vòng sắt'] },
-        { cat: 'Thức ăn', tab: 'food', w: 2, usable: true, label: 'Ăn', names: ['Cá nướng', 'Thịt xiên', 'Bánh ngô', 'Khoai nướng', 'Sắn luộc', 'Cháo gạo', 'Cơm nắm', 'Trứng luộc', 'Nấm xào', 'Măng luộc', 'Đậu hầm', 'Ngô luộc', 'Hạt dẻ rang', 'Dâu rừng', 'Chuối rừng', 'Táo dại', 'Lê dại', 'Ổi rừng', 'Mít non', 'Dừa non', 'Mía khúc', 'Bánh đa', 'Bún khô', 'Mì sợi', 'Chả cá', 'Nem nướng', 'Gà quay', 'Vịt hầm', 'Sườn nướng', 'Canh rau', 'Rau luộc', 'Dưa muối', 'Cà muối', 'Mứt quả', 'Bánh bao', 'Xôi đậu', 'Bánh chưng', 'Chè đỗ', 'Sữa hạt', 'Bơ thực vật'] },
-        { cat: 'Thức ăn', tab: 'food', w: 2, usable: true, label: 'Uống', names: ['Nước suối', 'Nước mưa', 'Nước dừa', 'Trà lá', 'Trà gừng', 'Trà bạc hà', 'Nước mía', 'Nước quả', 'Nước ép táo', 'Nước ép lê', 'Nước chanh', 'Sữa nóng', 'Canh nóng', 'Nước sâm', 'Nước thảo mộc', 'Nước gạo rang', 'Nước vối', 'Nước atiso', 'Nước dâu', 'Nước mơ'] },
-        { cat: 'Thuốc', tab: 'medicine', w: 1, usable: true, label: 'Dùng', names: ['Cao dán', 'Dầu gió', 'Rượu thuốc', 'Thuốc cầm máu', 'Thuốc hạ sốt', 'Thuốc giảm đau', 'Thuốc tiêu hóa', 'Thuốc bổ', 'Gạc sạch', 'Cồn sát trùng', 'Bột cầm máu', 'Nước muối', 'Viên ngậm', 'Dầu xoa bóp', 'Bột thảo dược', 'Cốt thuốc', 'Sáp vết thương', 'Nước rửa', 'Băng thun', 'Lá chườm'] },
-        { cat: 'Dụng cụ', tab: 'tools', w: 3, usable: false, names: ['Dao găm', 'Rìu nhỏ', 'Rìu lớn', 'Cưa tay', 'Đục gỗ', 'Búa sắt', 'Kìm sắt', 'Kéo cắt', 'Lưỡi câu', 'Cần câu', 'Lưới bắt', 'Rổ tre', 'Nón lá', 'Áo mưa', 'Áo khoác', 'Găng tay', 'Ủng cao su', 'Giày đi rừng', 'Thắt lưng', 'Bao tay', 'Mũ vải', 'Khăn quàng', 'Đèn dầu', 'Ống nhòm', 'La bàn', 'Còi báo', 'Dây thừng', 'Cọc lều', 'Bạt che', 'Túi ngủ'] },
-        { cat: 'Nguyên liệu', tab: 'materials', w: 2, usable: false, names: ['Bánh răng', 'Lò xo', 'Trục sắt', 'Vòng bi', 'Tấm thép', 'Ống đồng', 'Dây kẽm', 'Chốt sắt', 'Đai ốc', 'Bu lông', 'Cò bẫy', 'Lưỡi bẫy', 'Ngàm kẹp', 'Tay quay', 'Ròng rọc', 'Khung gỗ', 'Nắp đậy', 'Van nước', 'Ống dẫn', 'Mặt đồng hồ'] },
-        { cat: 'Rương', tab: 'chests', w: 3, usable: true, label: 'Mở rương', names: ['Hộp gỗ nhỏ', 'Hộp thiếc', 'Hộp sắt', 'Hộp đồng', 'Hộp kín', 'Túi đồ cũ', 'Thùng nhỏ', 'Giỏ quà', 'Hộp dụng cụ', 'Hộp y tế', 'Hộp lương khô', 'Hộp hạt giống', 'Hộp linh kiện', 'Hộp cổ vật', 'Hộp bí mật', 'Hộp thợ săn', 'Hộp thợ mỏ', 'Hộp đi rừng', 'Hộp lưu trữ', 'Hộp đặc biệt'] },
-        { cat: 'Dụng cụ', tab: 'tools', w: 1, usable: true, label: 'Xem phác thảo', names: ['Phác lều', 'Phác bếp', 'Phác giếng', 'Phác cầu', 'Phác bè', 'Phác xe đẩy', 'Phác kệ đồ', 'Phác tủ', 'Phác chuồng', 'Phác hàng rào', 'Phác bẫy thú', 'Phác máng nước', 'Phác lò sấy', 'Phác hầm trữ', 'Phác tháp canh', 'Phác cối xay', 'Phác máy bơm', 'Phác đèn hiệu', 'Phác cổng', 'Phác nhà kho'] }
-      ];
+      // THÊM 105 VẬT PHẨM MỚI ĐỀU CÓ CÔNG DỤNG THẬT SỰ
+      const foodNames = [
+        'Cá nướng than', 'Thịt xiên nướng', 'Cháo kê ấm', 'Cơm nắm muối vừng', 'Khoai lang nướng',
+        'Sắn hấp nóng', 'Nấm rừng xào', 'Măng non luộc', 'Đậu hầm thảo mộc', 'Ngô nếp luộc',
+        'Hạt dẻ rang bơ', 'Dâu rừng tươi', 'Chuối rừng chín', 'Táo dại ngọt', 'Lê rừng mát',
+        'Ổi rừng giòn', 'Mít mật dẻo', 'Dừa non giải khát', 'Mía khúc ngọt', 'Bánh đa giòn',
+        'Bún gạo khô', 'Mì sợi dẻo', 'Chả cá chiên', 'Nem nướng thơm', 'Gà rừng quay',
+        'Vịt suối hầm', 'Sườn non nướng', 'Canh rau xanh', 'Rau dại luộc', 'Dưa cải muối',
+        'Cà muối giòn', 'Mứt quả rừng', 'Bánh bao nóng', 'Xôi đậu xanh', 'Bánh chưng nếp',
+        'Chè đậu đỏ', 'Sữa hạt bổ dưỡng', 'Bơ thực vật', 'Nước suối thanh mát', 'Nước mưa lọc',
+        'Nước dừa tươi', 'Trà lá rừng', 'Trà gừng ấm', 'Trà bạc hà mát', 'Nước mía ngọt'
+      ]; // 45 món
 
-      let idx = 1;
-      for (const grp of extraSpecs) {
-        for (const nm of grp.names) {
-          const key = `item_${idx++}`;
-          items[key] = {
-            name: nm,
-            category: grp.cat,
-            bagTab: grp.tab,
-            weight: grp.w,
-            usable: grp.usable,
-            useLabel: grp.label || 'Dùng',
-            desc: grp.usable
-              ? `${nm} (${grp.cat}). Dùng để hồi phục hoặc hỗ trợ sinh tồn.`
-              : `${nm} (${grp.cat}, nặng ${grp.w}). Dùng để chế tạo hoặc trao đổi.`
-          };
-        }
-      }
+      foodNames.forEach((nm, i) => {
+        const key = `new_${i + 1}`;
+        const isDrink = i >= 38;
+        const hGain = isDrink ? 6 : 22;
+        const tCut = isDrink ? 26 : 10;
+        const hpGain = isDrink ? 6 : 8;
+        items[key] = {
+          name: nm,
+          category: 'Thức ăn',
+          bagTab: 'food',
+          weight: 2,
+          hungerGain: hGain,
+          thirstCut: tCut,
+          hpGain,
+          usable: true,
+          useLabel: isDrink ? 'Uống' : 'Ăn',
+          desc: isDrink
+            ? `Thức uống: -${tCut} Khát, +${hGain} No, +${hpGain} Máu.`
+            : `Món ăn: +${hGain} No, -${tCut} Khát, +${hpGain} Máu.`
+        };
+      });
+
+      const toolNames = [
+        'Dao săn bén', 'Rìu đi rừng', 'Rìu bổ củi', 'Cưa tay gỗ', 'Đục gỗ sắc',
+        'Búa rèn sắt', 'Kìm kẹp thép', 'Kéo cắt dây', 'Lưỡi câu cá', 'Cần câu tre',
+        'Lưới bắt cá', 'Rổ tre đựng đồ', 'Nón lá che nắng', 'Áo mưa chống thấm', 'Áo khoác giữ ấm',
+        'Găng tay lao động', 'Ủng chống trơn', 'Giày đi rừng', 'Thắt lưng chịu lực', 'Bao tay bảo hộ',
+        'Mũ vải che sương', 'Khăn giữ cổ', 'Đèn dầu chiếu sáng', 'Ống nhòm dò đường', 'La bàn định hướng',
+        'Còi báo hiệu', 'Dây thừng leo núi', 'Cọc lều chắc', 'Bạt che mưa', 'Túi ngủ giữ nhiệt'
+      ]; // 30 món (new_46 .. new_75)
+
+      toolNames.forEach((nm, i) => {
+        const key = `new_${46 + i}`;
+        const hAtk = i < 12 ? 3 : 1;
+        const hBag = i >= 11 && i <= 19 ? 2 : 0;
+        const stamGain = i >= 12 ? 14 : 8;
+        const hpGain = 6;
+        items[key] = {
+          name: nm,
+          category: 'Dụng cụ',
+          bagTab: 'tools',
+          weight: 2,
+          holdAtk: hAtk,
+          holdBagCap: hBag,
+          staminaGain: stamGain,
+          hpGain,
+          usable: true,
+          useLabel: 'Dùng',
+          desc: `Giữ túi +${hAtk} Công${hBag ? `, +${hBag} sức chứa` : ''}; dùng hồi +${stamGain} Thể lực, +${hpGain} Máu.`
+        };
+      });
+
+      const medNames = [
+        'Cao dán giảm đau', 'Dầu gió xoa bóp', 'Rượu thuốc bổ', 'Thuốc cầm máu', 'Thuốc hạ sốt',
+        'Thuốc giảm đau', 'Thuốc tiêu hóa', 'Thuốc bổ khí', 'Gạc sạch y tế', 'Cồn sát trùng',
+        'Bột cầm máu', 'Nước muối sinh lý', 'Viên ngậm thông họng', 'Dầu xoa cơ', 'Bột thảo dược',
+        'Cốt thuốc hồi sức', 'Sáp liền vết thương', 'Nước rửa vết thương', 'Băng thun quấn', 'Lá chườm mát',
+        'Cao sâm phục lực', 'Viên bổ máu', 'Thuốc giải độc sương', 'Nước sâm giải nhiệt', 'Trà thảo mộc',
+        'Nước gạo rang bổ', 'Nước vối mát gan', 'Nước atiso thanh nhiệt', 'Nước dâu bổ huyết', 'Nước mơ giải khát'
+      ]; // 30 món (new_76 .. new_105)
+
+      medNames.forEach((nm, i) => {
+        const key = `new_${76 + i}`;
+        const hpGain = 22 + (i % 5) * 3;
+        const tCut = 12 + (i % 4) * 4;
+        const stamGain = 8;
+        items[key] = {
+          name: nm,
+          category: 'Thuốc',
+          bagTab: 'medicine',
+          weight: 1,
+          hpGain,
+          thirstCut: tCut,
+          staminaGain: stamGain,
+          usable: true,
+          useLabel: 'Dùng thuốc',
+          desc: `Dùng: +${hpGain} Máu, -${tCut} Khát, +${stamGain} Thể lực.`
+        };
+      });
+
       return items;
     }
 
@@ -1245,7 +1309,6 @@
       { id: 'dragon', name: 'Thằn Lằn Lớn', rank: 'Quý', baseAtk: 52, baseDef: 22, baseHp: 1900, healRatePerMin: 8, tameGameHours: 54, mutateChance: 0.45, mutateTo: 'Rồng Sương Mù', rewardChest: 'chest_diamond' }
     ];
 
-    /* TĂNG YÊU CẦU NGUYÊN LIỆU NÂNG CẤP NHÀ GỖ */
     const HOUSE_LEVELS = [
       { level: 1, name: 'Nhà gỗ nhỏ', cost: { wood: 45, stone: 25, ore: 5 }, unlock: 'Chỗ ở khởi đầu.' },
       { level: 2, name: 'Nhà gỗ chắc hơn', cost: { wood: 90, stone: 55, ore: 15 }, unlock: 'Tăng sức chứa balo.' },
@@ -1259,7 +1322,7 @@
 
     const NPCS = [
       { id: 'linh', name: 'Linh (Đi buôn)', haggleBonus: 0, offer: { give: 'wood', giveQty: 12, get: 'bp_bow_arrow', getQty: 1 }, lines: ['Ban đêm ngoài rừng cực nguy hiểm, nên về sớm.', 'Mình có bản vẽ Cung Tên, đổi 12 gỗ nhé.'] },
-      { id: 'minh', name: 'Minh (Thợ rèn)', haggleBonus: 0, offer: { give: 'ore', giveQty: 5, get: 'bp_iron_pickaxe', getQty: 1 }, lines: ['Nâng nhà giờ tốn nhiều gỗ, đá và quặng hơn.', 'Có cuốc sắt sẽ đào đá và quặng nhanh hơn.'] },
+      { id: 'minh', name: 'Minh (Thợ rèn)', haggleBonus: 0, offer: { give: 'ore', giveQty: 5, get: 'bp_iron_pickaxe', getQty: 1 }, lines: ['Cá sống và thịt sống ăn ít no, nên nấu chín trước khi đi xa.', 'Có cuốc sắt sẽ đào đá và quặng nhanh hơn.'] },
       { id: 'an', name: 'An (Chăm thú)', haggleBonus: 0, offer: { give: 'fish', giveQty: 3, get: 'bp_warming_stove', getQty: 1 }, lines: ['Nhớ cho thú ăn khi bị thương.', 'Thú con nhỏ chưa tham chiến được.'] }
     ];
 
@@ -1282,6 +1345,16 @@
 
     function saveAccountsStore(store) {
       localStorage.setItem(ACCOUNTS_STORAGE_KEY, JSON.stringify(store));
+    }
+
+    function sanitizeInventory(rawInv) {
+      const clean = {};
+      for (const [k, v] of Object.entries(rawInv || {})) {
+        if (ITEM_DEFS[k] && typeof v === 'number' && v > 0) {
+          clean[k] = v;
+        }
+      }
+      return clean;
     }
 
     function calcPetStats(speciesId, stageIdx, lv) {
@@ -1380,17 +1453,17 @@
         inv: { axe: 1 },
         trades: [
           { id: 1, text: '12 Gỗ → 1 Bản vẽ Rìu Sắt', give: 'wood', giveQty: 12, get: 'bp_iron_axe', getQty: 1 },
-          { id: 2, text: '3 Cá → 2 Nước', give: 'fish', giveQty: 3, get: 'water', getQty: 2 },
+          { id: 2, text: '3 Cá sống → 2 Nước', give: 'fish', giveQty: 3, get: 'water', getQty: 2 },
           { id: 3, text: '5 Quặng → 1 Bản vẽ Bếp Sưởi', give: 'ore', giveQty: 5, get: 'bp_warming_stove', getQty: 1 },
           { id: 4, text: '6 Gỗ → 1 Lá thuốc', give: 'wood', giveQty: 6, get: 'mist_herb', getQty: 1 }
         ],
         worldChat: [
-          '[Hệ thống] 1 giờ game = 5 phút thực. Ban đêm ngoài rừng cực kỳ nguy hiểm.',
-          '[Linh] Nhớ về Nhà gỗ trước khi trời tối, ban đêm quái thú rất hung dữ.'
+          '[Hệ thống] Cá sống và thịt sống ăn hồi ít độ no, hãy nướng chín để tiết kiệm hơn.',
+          '[Linh] Ban đêm ngoài rừng cực kỳ nguy hiểm, tỷ lệ bị quái thú tấn công rất cao.'
         ],
         npcChats: {
           linh: ['Linh: Ban đêm ở ngoài rất nguy hiểm, quái thú dễ tấn công bất ngờ.'],
-          minh: ['Minh: Nâng cấp Nhà gỗ giờ tốn nhiều nguyên liệu hơn trước.'],
+          minh: ['Minh: Cá sống và thịt sống ăn ít no, nên nấu chín trước khi đi xa.'],
           an: ['An: Thuần thú xong nhớ cho ăn khi chúng mất máu.']
         }
       };
@@ -1519,6 +1592,7 @@
       if (!rec || !rec.save) return;
       const adminFlag = currentAccount.username === 'admin' && rec.password === '1104';
       state = { ...createInitialState(rec.charName, adminFlag), ...rec.save };
+      state.inv = sanitizeInventory(state.inv);
       state.charName = rec.charName || state.charName || 'Lâm Dã';
       state.isAdmin = adminFlag;
       nightRoamMinutesAcc = 0;
@@ -1562,6 +1636,18 @@
       logMsg(`Thời tiết: ${w.name}.`);
     }
 
+    function getHoldItemBonuses() {
+      let atk = 0;
+      let bagCap = 0;
+      for (const [k, qty] of Object.entries(state.inv || {})) {
+        if (qty > 0 && ITEM_DEFS[k]) {
+          atk += (ITEM_DEFS[k].holdAtk || 0) * qty;
+          bagCap += (ITEM_DEFS[k].holdBagCap || 0) * qty;
+        }
+      }
+      return { atk, bagCap };
+    }
+
     function getBagUsedWeight() {
       let total = 0;
       for (const [k, qty] of Object.entries(state.inv || {})) {
@@ -1574,7 +1660,8 @@
 
     function getMaxBagCapacity() {
       const staminaBonus = Math.round(state.maxStamina * 0.5);
-      return 30 + staminaBonus + (state.houseLevel - 1) * 5 + (state.bonusBagCap || 0);
+      const holdB = getHoldItemBonuses().bagCap;
+      return 30 + staminaBonus + (state.houseLevel - 1) * 5 + (state.bonusBagCap || 0) + holdB;
     }
 
     function getPrepUsedCapacity() {
@@ -1589,11 +1676,9 @@
     }
 
     function getPlayerStrength() {
-      let str = 20 + state.houseLevel * 4 + (state.bonusAtk || 0);
-      if ((state.inv.axe || 0) > 0) str += 4;
+      let str = 20 + state.houseLevel * 4 + (state.bonusAtk || 0) + getHoldItemBonuses().atk;
       if (state.talent?.rank === 'D') str += 5;
       if (state.talent?.rank === 'S') str += 12;
-      if ((state.inv.life_charm || 0) > 0) str += 8;
       for (const r of RECIPES) {
         const cnt = state.craftedCounts[r.id] || 0;
         if (cnt > 0 && r.powerBonus) str += r.powerBonus * cnt;
@@ -1651,13 +1736,13 @@
         return;
       }
       if ((state.inv.fish || 0) < 2) {
-        logMsg('Cần 2 Cá để nướng thành 2 Thịt.');
+        logMsg('Cần 2 Cá sống để nướng thành 2 Thịt chín.');
         return;
       }
       state.inv.fish -= 2;
-      state.inv.meat = (state.inv.meat || 0) + 2;
+      state.inv.cooked_meat = (state.inv.cooked_meat || 0) + 2;
       advanceGameMinutes(15);
-      logMsg('Nướng thành công +2 Thịt (15p).');
+      logMsg('Nướng thành công +2 Thịt chín (15p).');
       renderAll();
     }
 
@@ -1687,7 +1772,6 @@
       renderAll();
     }
 
-    /* ADMIN COMMANDS (CHỈ KHI state.isAdmin === true) */
     function resolveItemKeyByQuery(query) {
       if (!query) return null;
       const q = query.toLowerCase().trim();
@@ -2058,7 +2142,7 @@
         const tot = getTotalCombatPower();
         return `[An] Tổng chiến lực hiện tại của bạn: ${tot.score} [${tot.tier}].`;
       }
-      return `[Linh] ${state.charName} nhớ chuẩn bị đủ nước, thuốc và về sớm trước khi trời tối.`;
+      return `[Linh] ${state.charName} nhớ nấu chín cá và thịt trước khi đi xa để đỡ tốn độ no.`;
     }
 
     function checkPlayerDeath() {
@@ -2216,9 +2300,9 @@
       }
       const returnedList = [];
       for (const [k, qty] of Object.entries(state.expeditionPack)) {
-        if (qty > 0) {
+        if (qty > 0 && ITEM_DEFS[k]) {
           state.inv[k] = (state.inv[k] || 0) + qty;
-          returnedList.push(`${qty} ${ITEM_DEFS[k]?.name || k}`);
+          returnedList.push(`${qty} ${ITEM_DEFS[k].name}`);
         }
       }
       state.expeditionPack = {};
@@ -2237,83 +2321,59 @@
       if (cur <= 0) return;
       state.expeditionPack[itemKey] -= 1;
       if (state.expeditionPack[itemKey] <= 0) delete state.expeditionPack[itemKey];
+      state.inv[itemKey] = (state.inv[itemKey] || 0) + 1;
       applyConsumableEffects(itemKey, true);
       renderAll();
     }
 
     function applyConsumableEffects(key, isOnTrip = false) {
+      const def = ITEM_DEFS[key];
+      if (!def || !def.usable || (state.inv[key] || 0) <= 0) return;
       const place = isOnTrip ? ' (đi xa)' : '';
+
       if (key === 'axe') {
         advanceGameMinutes(10);
         state.stamina = Math.max(0, state.stamina - 5);
         state.inv.wood = (state.inv.wood || 0) + 2;
         logMsg(`Chặt gỗ +2 (-5 Thể lực, 10p)${place}.`);
-      } else if (key === 'fish') {
-        state.inv.fish = Math.max(0, (state.inv.fish || 0) - 1);
-        state.hunger = Math.min(state.maxHunger, state.hunger + 20);
-        state.thirst = Math.max(0, state.thirst - 8);
-        state.hp = Math.min(state.maxHp, state.hp + 5);
-        logMsg(`Ăn cá: +20 No, -8 Khát, +5 Máu${place}.`);
-      } else if (key === 'water') {
-        state.inv.water = Math.max(0, (state.inv.water || 0) - 1);
-        state.thirst = Math.max(0, state.thirst - 30);
-        state.hp = Math.min(state.maxHp, state.hp + 8);
-        logMsg(`Uống nước: -30 Khát, +8 Máu${place}.`);
-      } else if (key === 'meat') {
-        state.inv.meat = Math.max(0, (state.inv.meat || 0) - 1);
-        state.hunger = Math.min(state.maxHunger, state.hunger + 28);
-        state.thirst = Math.max(0, state.thirst - 6);
-        state.hp = Math.min(state.maxHp, state.hp + 10);
-        logMsg(`Ăn thịt: +28 No, -6 Khát, +10 Máu${place}.`);
-      } else if (key === 'bandage') {
-        state.inv.bandage = Math.max(0, (state.inv.bandage || 0) - 1);
-        state.hp = Math.min(state.maxHp, state.hp + 25);
-        logMsg(`Dùng băng gạc: +25 Máu${place}.`);
-      } else if (key === 'tonic') {
-        state.inv.tonic = Math.max(0, (state.inv.tonic || 0) - 1);
-        state.hp = Math.min(state.maxHp, state.hp + 20);
-        state.thirst = Math.max(0, state.thirst - 20);
-        logMsg(`Uống nước ấm: +20 Máu, -20 Khát${place}.`);
-      } else if (key === 'mist_torch') {
-        state.inv.mist_torch = Math.max(0, (state.inv.mist_torch || 0) - 1);
-        state.stamina = Math.min(state.maxStamina, state.stamina + 18);
-        state.thirst = Math.max(0, state.thirst - 12);
-        state.hp = Math.min(state.maxHp, state.hp + 8);
-        logMsg(`Dùng đuốc: +18 Thể lực, -12 Khát, +8 Máu${place}.`);
-      } else if (key === 'mist_herb') {
-        state.inv.mist_herb = Math.max(0, (state.inv.mist_herb || 0) - 1);
-        state.hp = Math.min(state.maxHp, state.hp + 30);
-        state.thirst = Math.max(0, state.thirst - 20);
-        state.stamina = Math.min(state.maxStamina, state.stamina + 12);
-        logMsg(`Dùng lá thuốc: +30 Máu, -20 Khát, +12 Thể lực${place}.`);
-      } else if (key === 'life_charm') {
-        state.inv.life_charm = Math.max(0, (state.inv.life_charm || 0) - 1);
-        state.hp = Math.min(state.maxHp, state.hp + 35);
-        state.stamina = Math.min(state.maxStamina, state.stamina + 15);
-        logMsg(`Dùng bùa hộ mệnh: +35 Máu, +15 Thể lực${place}.`);
-      } else if (key === 'sup_mist_dew') {
-        state.inv.sup_mist_dew = Math.max(0, (state.inv.sup_mist_dew || 0) - 1);
+        return;
+      }
+
+      if (key === 'sup_mist_dew') {
+        state.inv.sup_mist_dew -= 1;
         state.hp = state.maxHp;
         state.stamina = state.maxStamina;
         state.hunger = state.maxHunger;
         state.thirst = 0;
         logMsg(`Sương Tinh Tụ [Bậc I]: Hồi đầy Máu, Thể lực, No và hết Khát${place}.`);
-      } else if (key === 'sup_break_seal') {
-        state.inv.sup_break_seal = Math.max(0, (state.inv.sup_break_seal || 0) - 1);
+        return;
+      }
+
+      if (key === 'sup_break_seal') {
+        state.inv.sup_break_seal -= 1;
         state.bonusAtk = (state.bonusAtk || 0) + 8;
         logMsg(`Ấn Ký Phá Giới [Bậc II]: +8 Công vĩnh viễn${place}.`);
-      } else if (key === 'sup_beast_essence') {
-        state.inv.sup_beast_essence = Math.max(0, (state.inv.sup_beast_essence || 0) - 1);
+        return;
+      }
+
+      if (key === 'sup_beast_essence') {
+        state.inv.sup_beast_essence -= 1;
         for (const t of state.tamingQueue) t.progressPct = Math.min(100, t.progressPct + 35);
         for (const pet of state.tamedBeasts) pet.growthPct = Math.min(99, (pet.growthPct || 0) + 25);
         logMsg(`Chân Dịch Thú Hồn [Bậc III]: +35% thuần thú, +25% tăng trưởng thú${place}.`);
-      } else if (key === 'sup_mist_orb') {
-        state.inv.sup_mist_orb = Math.max(0, (state.inv.sup_mist_orb || 0) - 1);
+        return;
+      }
+
+      if (key === 'sup_mist_orb') {
+        state.inv.sup_mist_orb -= 1;
         state.bonusAtk = (state.bonusAtk || 0) + 12;
         state.bonusBagCap = (state.bonusBagCap || 0) + 10;
         logMsg(`Linh Châu Xua Sương [Bậc IV]: +12 Công, +10 sức chứa balo${place}.`);
-      } else if (key === 'sup_sovereign_core') {
-        state.inv.sup_sovereign_core = Math.max(0, (state.inv.sup_sovereign_core || 0) - 1);
+        return;
+      }
+
+      if (key === 'sup_sovereign_core') {
+        state.inv.sup_sovereign_core -= 1;
         state.maxHp += 20;
         state.maxStamina += 20;
         state.bonusAtk = (state.bonusAtk || 0) + 20;
@@ -2323,21 +2383,28 @@
         state.thirst = 0;
         state.unlockedRecipes = RECIPES.map(r => r.id);
         logMsg(`Thiên Khải Chí Tôn [Bậc V]: Hồi đầy, +20 Công/Máu tối đa/Thể lực tối đa, mở mọi bản vẽ${place}.`);
-      } else {
-        const def = ITEM_DEFS[key];
-        state.inv[key] = Math.max(0, (state.inv[key] || 0) - 1);
-        if (def?.bagTab === 'food') {
-          state.hunger = Math.min(state.maxHunger, state.hunger + 16);
-          state.thirst = Math.max(0, state.thirst - 14);
-          state.hp = Math.min(state.maxHp, state.hp + 4);
-          logMsg(`Dùng ${def.name}: +16 No, -14 Khát, +4 Máu.`);
-        } else if (def?.bagTab === 'medicine') {
-          state.hp = Math.min(state.maxHp, state.hp + 18);
-          logMsg(`Dùng ${def.name}: +18 Máu.`);
-        } else {
-          logMsg(`Đã dùng ${def?.name || key}.`);
-        }
+        return;
       }
+
+      state.inv[key] -= 1;
+      const parts = [];
+      if (def.hungerGain) {
+        state.hunger = Math.min(state.maxHunger, state.hunger + def.hungerGain);
+        parts.push(`+${def.hungerGain} No`);
+      }
+      if (def.thirstCut) {
+        state.thirst = Math.max(0, state.thirst - def.thirstCut);
+        parts.push(`-${def.thirstCut} Khát`);
+      }
+      if (def.hpGain) {
+        state.hp = Math.min(state.maxHp, state.hp + def.hpGain);
+        parts.push(`+${def.hpGain} Máu`);
+      }
+      if (def.staminaGain) {
+        state.stamina = Math.min(state.maxStamina, state.stamina + def.staminaGain);
+        parts.push(`+${def.staminaGain} Thể lực`);
+      }
+      logMsg(`Dùng ${def.name}: ${parts.join(', ') || 'hoàn tất'}${place}.`);
     }
 
     function openWorldMap() {
@@ -2411,15 +2478,14 @@
       return availableBps[Math.floor(Math.random() * availableBps.length)];
     }
 
-    /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM THẤP */
     function pickSupremeItem() {
       const pool = ['sup_mist_dew', 'sup_break_seal', 'sup_beast_essence', 'sup_mist_orb'];
       if (Math.random() < 0.04) pool.push('sup_sovereign_core');
       return pool[Math.floor(Math.random() * pool.length)];
     }
 
-    function pickRandomExtraItem() {
-      const keys = Object.keys(ITEM_DEFS).filter(k => k.startsWith('item_'));
+    function pickRandomNewItem() {
+      const keys = Object.keys(ITEM_DEFS).filter(k => k.startsWith('new_'));
       if (!keys.length) return null;
       return keys[Math.floor(Math.random() * keys.length)];
     }
@@ -2488,11 +2554,10 @@
         broughtList.length ? `Mang: ${broughtList.join(', ')}` : 'Không mang đồ'
       ];
 
-      const extraKey = pickRandomExtraItem();
+      const extraKey = pickRandomNewItem();
       if (extraKey) {
-        const extraQty = Math.random() < 0.35 ? 2 : 1;
-        state.inv[extraKey] = (state.inv[extraKey] || 0) + extraQty;
-        foundItems.push(`${extraQty} ${ITEM_DEFS[extraKey].name}`);
+        state.inv[extraKey] = (state.inv[extraKey] || 0) + 1;
+        foundItems.push(`1 ${ITEM_DEFS[extraKey].name}`);
       }
 
       const bpBonus = state.talent?.rank === 'C' ? 0.04 : 0;
@@ -2695,7 +2760,7 @@
       state.inv[chestKey] = (state.inv[chestKey] || 0) + 1;
       state.stats.beastsDefeated = (state.stats.beastsDefeated || 0) + 1;
 
-      const extraDrops = [`${meatGain} thịt`, `${hideGain} da thú`, `1 ${ITEM_DEFS[chestKey].name}`];
+      const extraDrops = [`${meatGain} thịt sống`, `${hideGain} da thú`, `1 ${ITEM_DEFS[chestKey].name}`];
       if (Math.random() < 0.06) {
         const supKey = pickSupremeItem();
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
@@ -2763,8 +2828,9 @@
       }
 
       const foodOrder = [
-        { key: 'meat', healPool: 120, label: 'Thịt' },
-        { key: 'fish', healPool: 90, label: 'Cá' },
+        { key: 'cooked_meat', healPool: 140, label: 'Thịt chín' },
+        { key: 'meat', healPool: 110, label: 'Thịt sống' },
+        { key: 'fish', healPool: 85, label: 'Cá sống' },
         { key: 'water', healPool: 60, label: 'Nước' },
         { key: 'tonic', healPool: 140, label: 'Nước ấm' }
       ];
@@ -2878,7 +2944,7 @@
         { key: 'ore', name: ITEM_DEFS.ore.name, qty: tier.ore }
       ];
 
-      const extraKey = pickRandomExtraItem();
+      const extraKey = pickRandomNewItem();
       if (extraKey) {
         state.inv[extraKey] = (state.inv[extraKey] || 0) + 1;
         rewards.push({ key: extraKey, name: ITEM_DEFS[extraKey].name, qty: 1 });
@@ -3270,7 +3336,7 @@
       document.getElementById('hp-danger-banner').classList.toggle('hidden', !(state.hp < 40 && !state.isDead));
 
       const expPackBox = document.getElementById('expedition-pack-box');
-      const packEntries = Object.entries(state.expeditionPack).filter(([, q]) => q > 0);
+      const packEntries = Object.entries(state.expeditionPack).filter(([k, q]) => q > 0 && ITEM_DEFS[k]);
       if (state.locationId !== 'house' && packEntries.length > 0) {
         expPackBox.classList.remove('hidden');
         document.getElementById('exp-pack-title').textContent = `Đồ mang theo ở ${locLabel}`;
@@ -3513,7 +3579,7 @@
           document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category}${rankInfo} • Nặng: ${selDef.weight}`;
           document.getElementById('insp-desc').textContent = selDef.desc;
           useBtn.disabled = !selDef.usable || count <= 0 || state.isDead;
-          useBtn.textContent = selDef.usable ? selDef.useLabel : 'Không dùng trực tiếp';
+          useBtn.textContent = selDef.usable ? selDef.useLabel : 'Nguyên liệu';
         } else {
           document.getElementById('insp-name').textContent = 'Chưa chọn vật phẩm';
           document.getElementById('insp-type').textContent = 'Nhóm: -';
