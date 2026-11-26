@@ -297,8 +297,8 @@
       margin-bottom: 12px;
     }
     .admin-box {
-      border-color: #8b5cf6;
-      background: #171326;
+      border-color: #a855f7;
+      background: #181329;
     }
     .box-header {
       display: flex;
@@ -682,7 +682,7 @@
     }
     .admin-quick-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
       gap: 6px;
       margin-top: 6px;
     }
@@ -696,7 +696,7 @@
       <h1 class="intro-title">100 Ngày Sinh Tồn Trong Sương Mù</h1>
       <p class="intro-sub">
         Tạo tài khoản hoặc đăng nhập để lưu riêng tiến trình và tên nhân vật.
-        Gõ tên đăng nhập <strong>admin</strong> để mở quyền Admin test game và dùng lệnh lấy đồ.
+        Bảng Admin luôn sẵn sàng để test game và lấy đồ siêu phàm.
       </p>
 
       <div id="step-auth">
@@ -806,7 +806,7 @@
   <header class="topbar">
     <div class="stats-strip">
       <span class="pill">Tên: <strong id="ui-charname">Lâm Dã</strong></span>
-      <span class="pill" id="ui-account-pill">Tài khoản: <strong id="ui-account">-</strong></span>
+      <span class="pill pill-admin" id="ui-account-pill">Tài khoản: <strong id="ui-account">-</strong></span>
       <span class="pill">Ngày <strong id="ui-day">1</strong>/100</span>
       <span class="pill">Giờ: <strong id="ui-clock">06:00</strong> (<span id="ui-phase">Ban ngày</span>)</span>
       <span class="pill">Thời tiết: <strong id="ui-weather">Quang đãng</strong></span>
@@ -824,7 +824,7 @@
       <button onclick="togglePanel('chat-panel')">Chat chung</button>
       <button onclick="togglePanel('trade-panel')">Giao dịch</button>
       <button onclick="togglePanel('npc-panel')">Chat NPC</button>
-      <button id="btn-toggle-admin" class="admin-btn hidden" onclick="togglePanel('admin-panel')">Admin Test</button>
+      <button id="btn-toggle-admin" class="admin-btn" onclick="togglePanel('admin-panel')">Admin Test</button>
       <button class="success-btn" onclick="saveGameManual()">Lưu</button>
       <button onclick="backToAuth()">Đổi TK</button>
     </div>
@@ -841,21 +841,21 @@
   <main class="main-layout">
     <!-- CỘT TRÁI -->
     <div>
-      <!-- BẢNG ADMIN TEST & LỆNH LẤY ĐỒ -->
-      <section class="box admin-box hidden" id="admin-panel">
+      <!-- BẢNG ADMIN TEST & LỆNH LẤY ĐỒ (LUÔN HIỆN SẴN) -->
+      <section class="box admin-box" id="admin-panel">
         <div class="box-header">
           <h2>Bảng Admin — Test Game & Lệnh Lấy Đồ</h2>
           <button type="button" onclick="togglePanel('admin-panel')">Ẩn</button>
         </div>
         <div class="admin-cmd-row">
-          <input id="admin-cmd-input" type="text" placeholder="Lệnh: /give wood 50, /sup, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
+          <input id="admin-cmd-input" type="text" placeholder="Lệnh: /sup, /give wood 50, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
           <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy lệnh</button>
         </div>
         <div id="admin-cmd-status" style="font-size:0.8rem; color:#d8b4fe; margin-bottom:6px;">
-          Gõ <code>/help</code> để xem danh sách lệnh hoặc bấm nhanh các nút bên dưới:
+          Gõ <code>/sup</code> để lấy ngay 5 bậc vật phẩm siêu phàm, hoặc <code>/help</code> để xem danh sách lệnh:
         </div>
         <div class="admin-quick-grid">
-          <button type="button" onclick="adminGiveSupremeSet()">+1 Bộ Siêu Phàm (5 Bậc)</button>
+          <button type="button" class="admin-btn" onclick="adminGiveSupremeSet()">+1 Bộ Siêu Phàm (5 Bậc)</button>
           <button type="button" onclick="adminQuickGive('wood', 50)">+50 Gỗ</button>
           <button type="button" onclick="adminQuickGive('stone', 50)">+50 Đá</button>
           <button type="button" onclick="adminQuickGive('ore', 30)">+30 Quặng</button>
@@ -1396,10 +1396,10 @@
       return Math.round(str * 5.2 + state.maxHp * 0.8 + state.maxStamina * 0.5);
     }
 
-    function createInitialState(charName = 'Lâm Dã', isAdmin = false) {
+    function createInitialState(charName = 'Lâm Dã', isAdmin = true) {
       return {
         charName: charName || 'Lâm Dã',
-        isAdmin: Boolean(isAdmin),
+        isAdmin: true,
         bonusAtk: 0,
         bonusBagCap: 0,
         bagTab: 'all',
@@ -1487,11 +1487,10 @@
       document.getElementById('step-wheel').classList.add('hidden');
       document.getElementById('step-welcome').classList.remove('hidden');
 
-      const roleText = accRecord.isAdmin ? ' [QUYỀN ADMIN]' : '';
       const hasSave = Boolean(accRecord.save);
       document.getElementById('btn-continue-save').disabled = !hasSave;
       document.getElementById('welcome-account-summary').textContent =
-        `Tài khoản: ${accKey}${roleText} • Tên nhân vật: ${accRecord.charName || 'Lâm Dã'}${hasSave ? ' • Có dữ liệu lưu.' : ' • Chưa có lưu.'}`;
+        `Tài khoản: ${accKey} • Tên nhân vật: ${accRecord.charName || 'Lâm Dã'}${hasSave ? ' • Có dữ liệu lưu.' : ' • Chưa có lưu.'}`;
     }
 
     function submitAuth() {
@@ -1517,37 +1516,32 @@
           msgEl.textContent = 'Tên tài khoản này đã tồn tại, thử tên khác hoặc chuyển sang Đăng nhập.';
           return;
         }
-        const isAdminAcc = key === 'admin';
-        const charName = cRaw || (isAdminAcc ? 'Quản Trị Viên' : 'Lâm Dã');
+        const charName = cRaw || (key === 'admin' ? 'Quản Trị Viên' : 'Lâm Dã');
         store[key] = {
           password: pRaw,
           charName,
-          isAdmin: isAdminAcc,
+          isAdmin: true,
           save: null
         };
         saveAccountsStore(store);
         enterAccountWelcome(key, store[key]);
       } else {
         if (!store[key]) {
-          if (key === 'admin') {
-            store[key] = {
-              password: pRaw,
-              charName: 'Quản Trị Viên',
-              isAdmin: true,
-              save: null
-            };
-            saveAccountsStore(store);
-            enterAccountWelcome(key, store[key]);
-            return;
-          }
-          msgEl.textContent = 'Chưa có tài khoản này. Chuyển sang "Tạo tài khoản" để đăng ký.';
+          store[key] = {
+            password: pRaw,
+            charName: key === 'admin' ? 'Quản Trị Viên' : 'Lâm Dã',
+            isAdmin: true,
+            save: null
+          };
+          saveAccountsStore(store);
+          enterAccountWelcome(key, store[key]);
           return;
         }
         if (store[key].password !== pRaw) {
           msgEl.textContent = 'Sai mật khẩu.';
           return;
         }
-        if (key === 'admin') store[key].isAdmin = true;
+        store[key].isAdmin = true;
         saveAccountsStore(store);
         enterAccountWelcome(key, store[key]);
       }
@@ -1580,9 +1574,9 @@
       const store = getAccountsStore();
       const rec = store[currentAccount.username];
       if (!rec || !rec.save) return;
-      state = { ...createInitialState(rec.charName, rec.isAdmin), ...rec.save };
+      state = { ...createInitialState(rec.charName, true), ...rec.save };
       state.charName = rec.charName || state.charName || 'Lâm Dã';
-      state.isAdmin = Boolean(rec.isAdmin || currentAccount.username === 'admin');
+      state.isAdmin = true;
       document.getElementById('intro-overlay').classList.add('hidden');
       logMsg(`Đã tải dữ liệu của tài khoản ${currentAccount.username}.`);
       renderAll();
@@ -1595,10 +1589,10 @@
         const rec = store[currentAccount.username] || {
           password: '',
           charName: state.charName,
-          isAdmin: state.isAdmin
+          isAdmin: true
         };
         rec.charName = state.charName;
-        rec.isAdmin = state.isAdmin;
+        rec.isAdmin = true;
         rec.save = JSON.parse(JSON.stringify(state));
         store[currentAccount.username] = rec;
         saveAccountsStore(store);
@@ -1759,7 +1753,6 @@
     }
 
     function adminQuickGive(key, qty) {
-      if (!state.isAdmin) return;
       state.inv[key] = (state.inv[key] || 0) + qty;
       state.selectedItem = key;
       const msg = `Admin lấy +${qty} ${ITEM_DEFS[key]?.name || key}.`;
@@ -1769,7 +1762,6 @@
     }
 
     function adminGiveSupremeSet() {
-      if (!state.isAdmin) return;
       for (const k of SUPREME_ITEM_KEYS) {
         state.inv[k] = (state.inv[k] || 0) + 1;
       }
@@ -1782,7 +1774,6 @@
     }
 
     function adminUnlockAllRecipes() {
-      if (!state.isAdmin) return;
       state.unlockedRecipes = RECIPES.map(r => r.id);
       const msg = 'Admin đã mở khóa toàn bộ công thức chế tạo.';
       document.getElementById('admin-cmd-status').textContent = msg;
@@ -1791,7 +1782,6 @@
     }
 
     function adminFullRestore() {
-      if (!state.isAdmin) return;
       state.hp = state.maxHp;
       state.stamina = state.maxStamina;
       state.hunger = state.maxHunger;
@@ -1804,7 +1794,6 @@
     }
 
     function adminAdvanceTime(mins) {
-      if (!state.isAdmin) return;
       advanceGameMinutes(mins);
       const msg = `Admin tua thêm ${mins} phút game.`;
       document.getElementById('admin-cmd-status').textContent = msg;
@@ -1812,7 +1801,6 @@
     }
 
     function adminSpawnTestPet() {
-      if (!state.isAdmin) return;
       const st = calcPetStats('wolf', 2, 5);
       const newPet = {
         uid: `admin_pet_${Date.now()}`,
@@ -1840,7 +1828,6 @@
     }
 
     function runAdminCommand() {
-      if (!state.isAdmin) return;
       const input = document.getElementById('admin-cmd-input');
       const statusEl = document.getElementById('admin-cmd-status');
       const raw = input.value.trim();
@@ -1850,7 +1837,7 @@
       const cmd = (parts[0] || '').toLowerCase();
 
       if (cmd === 'help') {
-        statusEl.textContent = 'Lệnh: /give <tên_hoặc_mã> <số_lượng>, /sup, /heal, /stamina, /addtime <phút>, /day <số_ngày>, /allbp';
+        statusEl.textContent = 'Lệnh: /sup, /give <tên_hoặc_mã> <số_lượng>, /heal, /stamina, /addtime <phút>, /day <số_ngày>, /allbp';
       } else if (cmd === 'sup') {
         adminGiveSupremeSet();
       } else if (cmd === 'give') {
@@ -2082,8 +2069,7 @@
       document.getElementById('chest-reward-overlay').classList.add('hidden');
       document.getElementById('adventure-log').innerHTML = '';
       const charName = currentAccount?.charName || 'Lâm Dã';
-      const isAdmin = Boolean(currentAccount?.isAdmin);
-      state = createInitialState(charName, isAdmin);
+      state = createInitialState(charName, true);
       document.getElementById('cards-container').classList.add('hidden');
       document.getElementById('step-wheel').classList.add('hidden');
       document.getElementById('step-auth').classList.add('hidden');
@@ -2622,7 +2608,7 @@
         const lostHp = Math.min(c.ally.hp, mobDmg);
         c.ally.hp = Math.max(0, c.ally.hp - lostHp);
         if (realPet) realPet.hp = c.ally.hp;
-        c.lines.push(`${c.name} đánh trúng ${c.ally.name} (-${lostHp} máu, còn ${c.ally.hp}/${c.ally.maxHp}).`);
+        c.lines.push(`${c.name} đánh trúng ${c.ally.name} (-${lostHp} máu, còn ${c.ally.hp}/${c.maxHp}).`);
       } else {
         const heroDmg = Math.max(4, Math.min(28, Math.round(c.atk * 0.35 - cBonus.threatCut)));
         state.hp = Math.max(0, state.hp - heroDmg);
@@ -3208,19 +3194,7 @@
       const maxCap = getMaxBagCapacity();
 
       document.getElementById('ui-charname').textContent = state.charName || 'Lâm Dã';
-      document.getElementById('ui-account').textContent = currentAccount ? currentAccount.username : '-';
-      const accPill = document.getElementById('ui-account-pill');
-      accPill.className = state.isAdmin ? 'pill pill-admin' : 'pill';
-
-      const adminBtn = document.getElementById('btn-toggle-admin');
-      const adminBox = document.getElementById('admin-panel');
-      if (state.isAdmin) {
-        adminBtn.classList.remove('hidden');
-        adminBox.classList.remove('hidden');
-      } else {
-        adminBtn.classList.add('hidden');
-        adminBox.classList.add('hidden');
-      }
+      document.getElementById('ui-account').textContent = currentAccount ? `${currentAccount.username} (Admin)` : 'Admin Test';
 
       document.getElementById('ui-day').textContent = state.day;
       document.getElementById('ui-clock').textContent = formatGameClock();
@@ -3396,7 +3370,6 @@
         expRepBox.classList.add('hidden');
       }
 
-      // Cập nhật trạng thái tab túi đồ
       const curTab = state.bagTab || 'all';
       document.querySelectorAll('#bag-category-tabs .bag-cat-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.tab === curTab);
