@@ -86,7 +86,7 @@
       margin-bottom: 24px;
     }
     .fullscreen-inner.admin-box { border-color: #a855f7; background: #181329; }
-    #intro-overlay, #victory-overlay, #gameover-overlay, #craft-block-overlay, #levelup-overlay, #chest-reward-overlay {
+    #intro-overlay, #victory-overlay, #gameover-overlay, #craft-block-overlay, #levelup-overlay, #chest-reward-overlay, #event-popup-overlay {
       position: fixed;
       inset: 0;
       background: rgba(7, 10, 16, 0.94);
@@ -110,6 +110,9 @@
     .levelup-modal { border-color: #38bdf8; }
     .gameover-modal { border-color: #ef4444; }
     .warn-modal { border-color: #f59e0b; }
+    .event-modal-disaster { border-color: #f97316; background: #1f1410; }
+    .event-modal-attack { border-color: #ef4444; background: #211016; }
+    .event-modal-boon { border-color: #22c55e; background: #0f2019; }
     .intro-title { font-size: 1.3rem; color: #fbbf24; margin-bottom: 6px; }
     .intro-sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 14px; }
     .auth-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
@@ -211,6 +214,7 @@
     .pill { background: var(--panel-2); border: 1px solid var(--border); padding: 4px 9px; border-radius: 999px; }
     .pill-night { background: #2b111c; border-color: #ef4444; color: #fca5a5; font-weight: 700; }
     .pill-admin { background: #3b1c6e; border-color: #a78bfa; color: #f3e8ff; font-weight: 700; }
+    .pill-event { background: #2c190c; border-color: #f97316; color: #fdba74; font-weight: 700; }
     .status-strip {
       background: #101a2d;
       border: 1px solid #2b4570;
@@ -452,6 +456,10 @@
     }
     .quest-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; font-size: 0.83rem; }
     .quest-card.done { border-color: #22c55e; background: #10211c; }
+    .event-card { background: var(--panel-2); border: 1px solid var(--border); border-left: 4px solid #f59e0b; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; font-size: 0.83rem; }
+    .event-card.disaster { border-left-color: #f97316; background: #211612; }
+    .event-card.attack { border-left-color: #ef4444; background: #221218; }
+    .event-card.boon { border-left-color: #22c55e; background: #112119; }
     .hidden { display: none !important; }
     .chat-list { background: #0a0e16; border: 1px solid var(--border); border-radius: 8px; height: 220px; overflow-y: auto; padding: 10px; margin-bottom: 8px; font-size: 0.83rem; }
     .chat-row { display: flex; gap: 6px; }
@@ -525,6 +533,20 @@
     </div>
   </div>
 
+  <!-- POPUP SỰ KIỆN ĐỘT NGỘT -->
+  <div id="event-popup-overlay" class="hidden">
+    <div class="fullscreen-modal" id="event-popup-modal">
+      <div id="event-popup-badge" style="font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">SỰ KIỆN SINH TỒN</div>
+      <h2 id="event-popup-title" style="font-size:1.2rem; color:#fbbf24; margin-bottom:8px;"></h2>
+      <p id="event-popup-desc" style="font-size:0.88rem; color:var(--text); margin-bottom:10px;"></p>
+      <p id="event-popup-effect" style="font-size:0.85rem; color:#fde68a; margin-bottom:14px;"></p>
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <button type="button" id="btn-event-popup-action" class="danger-btn hidden" onclick="handleEventPopupPrimaryAction()">Hành động</button>
+        <button type="button" class="primary" onclick="closeEventPopup()">Đã rõ</button>
+      </div>
+    </div>
+  </div>
+
   <!-- BẢNG THƯỞNG MỞ RƯƠNG -->
   <div id="chest-reward-overlay" class="hidden">
     <div class="fullscreen-modal chest-modal">
@@ -584,10 +606,12 @@
       <span class="pill">Thời tiết: <strong id="ui-weather">Quang đãng</strong> (<strong id="ui-temp">18°C</strong>)</span>
       <span class="pill">Vị trí: <strong id="ui-location">Nhà gỗ</strong></span>
       <span class="pill">Nhà: <strong>Cấp <span id="ui-house">1</span>/8</strong></span>
+      <span class="pill pill-event">Nguy cơ SK: <strong id="ui-event-risk">10%</strong></span>
     </div>
     <div class="toggle-bar">
       <button id="btn-toggle-char-panel" onclick="openFullscreenPanel('char-panel')">Nhân vật</button>
       <button id="btn-toggle-explore-panel" onclick="openFullscreenPanel('explore-panel')">Thám hiểm</button>
+      <button id="btn-toggle-event-panel" onclick="openFullscreenPanel('event-panel')">Sự kiện</button>
       <button id="btn-toggle-bag-pet-panel" onclick="openFullscreenPanel('bag-pet-panel')">Balo & Thú</button>
       <button id="btn-toggle-craft-panel" class="primary" onclick="openCraftingPanel()">Chế tạo</button>
       <button id="btn-toggle-house-upgrade-panel" onclick="openFullscreenPanel('house-upgrade-panel')">Nhà gỗ</button>
@@ -614,13 +638,17 @@
     <div class="home-hero">
       <h2 style="font-size:1.1rem; color:#fbbf24; margin-bottom:4px;">Tổng Quan Căn Cứ & Sương Mù</h2>
       <p style="font-size:0.84rem; color:var(--muted);">
-        Mỗi bảng (Nhân vật, Balo & Thú, Thám hiểm, Chế tạo, Nhà gỗ, Nhiệm vụ, Chat, Giao dịch) đều hiển thị toàn màn hình kèm hình ảnh minh họa cho vật phẩm và thú.
+        Thời gian sinh tồn càng kéo dài, xác suất xuất hiện thiên tai, thú tấn công và biến cố sương mù càng cao. Mở bảng <strong>Sự kiện</strong> để theo dõi tỉ lệ hiện tại và nhật ký sự kiện.
       </p>
     </div>
     <div class="home-quick-grid">
       <button type="button" class="home-tile" onclick="openFullscreenPanel('char-panel')">
         <strong style="color:#fbbf24;">Nhân Vật & Chiến Lực</strong>
         <span style="font-size:0.79rem; color:var(--muted);">Chỉ số, thiên phú, chặt gỗ, nướng cá, lọc nước.</span>
+      </button>
+      <button type="button" class="home-tile" onclick="openFullscreenPanel('event-panel')">
+        <strong style="color:#fb923c;">Sự Kiện & Thiên Tai</strong>
+        <span style="font-size:0.79rem; color:var(--muted);">Tỉ lệ tăng theo ngày, thiên tai, thú tấn công, dò sự kiện.</span>
       </button>
       <button type="button" class="home-tile" onclick="openFullscreenPanel('bag-pet-panel')">
         <strong style="color:#38bdf8;">Balo & Thú Cưng</strong>
@@ -637,7 +665,32 @@
     </div>
   </div>
 
-  <!-- CÁC BẢNG TOÀN MÀN HÌNH -->
+  <!-- BẢNG SỰ KIỆN TOÀN MÀN HÌNH -->
+  <section class="fullscreen-panel hidden" id="event-panel">
+    <div class="fullscreen-inner">
+      <div class="box-header">
+        <h2>Sự Kiện Sinh Tồn (Thiên Tai & Thú Tấn Công)</h2>
+        <button type="button" onclick="closeFullscreenPanel('event-panel')">Đóng</button>
+      </div>
+      <div class="char-grid">
+        <div class="char-stat-card">Ngày sinh tồn: <strong id="ev-day-info">Ngày 1/100</strong></div>
+        <div class="char-stat-card">Tỉ lệ sự kiện/chuyến: <strong id="ev-chance-trip" style="color:#fb923c;">-</strong></div>
+        <div class="char-stat-card">Tỉ lệ sự kiện/giờ trôi: <strong id="ev-chance-tick" style="color:#f87171;">-</strong></div>
+        <div class="char-stat-card">Phòng thủ hiện tại: <strong id="ev-defense-info" style="color:#4ade80;">-</strong></div>
+        <div class="char-stat-card">Tổng sự kiện đã gặp: <strong id="ev-total-count">0</strong></div>
+        <div class="char-stat-card">Thiên tai / Thú tấn công: <strong id="ev-breakdown">0 / 0</strong></div>
+      </div>
+      <div class="camp-actions-bar" style="margin-bottom:14px;">
+        <button type="button" class="danger-btn" onclick="triggerManualEventCheck()">Dò & kích hoạt sự kiện ngay (15p)</button>
+        <button type="button" class="primary" onclick="forceSpecificEventType('disaster')">Thử thiên tai</button>
+        <button type="button" class="accent-btn" onclick="forceSpecificEventType('attack')">Thử thú tấn công</button>
+      </div>
+      <div class="craft-cat-title">Nhật Ký Sự Kiện Gần Đây</div>
+      <div id="event-history-list"></div>
+    </div>
+  </section>
+
+  <!-- CÁC BẢNG TOÀN MÀN HÌNH KHÁC -->
   <section class="fullscreen-panel hidden" id="admin-panel">
     <div class="fullscreen-inner admin-box">
       <div class="box-header">
@@ -645,7 +698,7 @@
         <button type="button" onclick="closeFullscreenPanel('admin-panel')">Đóng</button>
       </div>
       <div class="admin-cmd-row">
-        <input id="admin-cmd-input" type="text" placeholder="Lệnh: /sup, /give wood 50, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
+        <input id="admin-cmd-input" type="text" placeholder="Lệnh: /sup, /give wood 50, /heal, /stamina, /addtime 180, /day 5, /allbp, /event" onkeydown="if(event.key==='Enter') runAdminCommand()" />
         <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy</button>
       </div>
       <div id="admin-cmd-status" style="font-size:0.81rem; color:#d8b4fe; margin-bottom:8px;">
@@ -920,7 +973,7 @@
 
   <script>
     const GAME_SECONDS_PER_REAL_SECOND = 12;
-    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v6';
+    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v7';
     const CATEGORIES = ['Công cụ', 'Vật phẩm sinh hoạt', 'Vật phẩm y tế', 'Công trình'];
     const BAG_TABS = [
       { id: 'all', label: 'Tất cả' },
@@ -1010,10 +1063,10 @@
     }
 
     const WEATHER_TYPES = [
-      { id: 'clear', name: 'Quang đãng', tempMod: 0, lootMult: 1.0, mobMod: 0, desc: 'Trời quang, dễ di chuyển.' },
-      { id: 'mist', name: 'Sương mù', tempMod: -2, lootMult: 1.1, mobMod: 0.04, desc: 'Sương mù nhẹ, tăng nhẹ sản lượng nhặt.' },
-      { id: 'cold_rain', name: 'Mưa lạnh', tempMod: -5, lootMult: 0.95, mobMod: 0.03, desc: 'Mưa lạnh, tốn thêm ít thể lực khi đi xa.' },
-      { id: 'mist_storm', name: 'Bão sương', tempMod: -7, lootMult: 1.2, mobMod: 0.08, desc: 'Bão sương mạnh, nhiều đồ rơi nhưng thú dữ hơn.' }
+      { id: 'clear', name: 'Quang đãng', tempMod: 0, lootMult: 1.0, mobMod: 0, eventMod: 0, desc: 'Trời quang, dễ di chuyển.' },
+      { id: 'mist', name: 'Sương mù', tempMod: -2, lootMult: 1.1, mobMod: 0.04, eventMod: 0.04, desc: 'Sương mù nhẹ, tăng nhẹ sản lượng nhặt và sự kiện.' },
+      { id: 'cold_rain', name: 'Mưa lạnh', tempMod: -5, lootMult: 0.95, mobMod: 0.03, eventMod: 0.05, desc: 'Mưa lạnh, tốn thêm ít thể lực khi đi xa.' },
+      { id: 'mist_storm', name: 'Bão sương', tempMod: -7, lootMult: 1.2, mobMod: 0.08, eventMod: 0.09, desc: 'Bão sương mạnh, nhiều đồ rơi nhưng thiên tai & thú dữ tăng.' }
     ];
 
     const MAP_LOCATIONS = [
@@ -1045,9 +1098,9 @@
       { id: 'meat_soup', name: 'Súp Thịt', category: 'Vật phẩm sinh hoạt', blueprintKey: 'bp_meat_soup', weight: 2, grantsItem: { key: 'cooked_meat', qty: 2 }, desc: 'Chế tạo ra +2 Thịt chín (hồi nhiều độ no).', cost: { meat: 2, water: 1 } },
       { id: 'herbal_bandage', name: 'Băng Thảo Dược', category: 'Vật phẩm y tế', blueprintKey: 'bp_bandage', weight: 1, grantsItem: { key: 'bandage', qty: 1 }, desc: 'Chế tạo ra +1 Băng gạc.', cost: { hide: 1, water: 1 } },
       { id: 'warm_tonic', name: 'Nước Ấm Gừng', category: 'Vật phẩm y tế', blueprintKey: 'bp_tonic', weight: 1, grantsItem: { key: 'tonic', qty: 1 }, desc: 'Chế tạo ra +1 Nước ấm.', cost: { fish: 1, water: 2 } },
-      { id: 'watch_hut', name: 'Chòi Canh', category: 'Công trình', blueprintKey: 'bp_watch_hut', uniqueBuild: true, weight: 0, powerBonus: 14, threatReduction: 2, desc: 'Xây 1 lần: +14 Công, giảm sát thương nhận.', cost: { wood: 20, stone: 10 } },
-      { id: 'spike_fence', name: 'Rào Gỗ Nhọn', category: 'Công trình', blueprintKey: 'bp_spike_fence', uniqueBuild: true, weight: 0, powerBonus: 12, threatReduction: 3, desc: 'Xây 1 lần: +12 Công, chắn sát thương.', cost: { wood: 18, stone: 8, hide: 1 } },
-      { id: 'warming_stove', name: 'Bếp Sưởi', category: 'Công trình', blueprintKey: 'bp_warming_stove', uniqueBuild: true, weight: 0, powerBonus: 10, threatReduction: 2, desc: 'Xây 1 lần: +10 Công, giữ ấm căn cứ.', cost: { stone: 16, ore: 3, wood: 12 } },
+      { id: 'watch_hut', name: 'Chòi Canh', category: 'Công trình', blueprintKey: 'bp_watch_hut', uniqueBuild: true, weight: 0, powerBonus: 14, threatReduction: 2, desc: 'Xây 1 lần: +14 Công, giảm sát thương & thiên tai.', cost: { wood: 20, stone: 10 } },
+      { id: 'spike_fence', name: 'Rào Gỗ Nhọn', category: 'Công trình', blueprintKey: 'bp_spike_fence', uniqueBuild: true, weight: 0, powerBonus: 12, threatReduction: 3, desc: 'Xây 1 lần: +12 Công, chắn sát thương thú.', cost: { wood: 18, stone: 8, hide: 1 } },
+      { id: 'warming_stove', name: 'Bếp Sưởi', category: 'Công trình', blueprintKey: 'bp_warming_stove', uniqueBuild: true, weight: 0, powerBonus: 10, threatReduction: 2, desc: 'Xây 1 lần: +10 Công, giảm hại thời tiết/thiên tai.', cost: { stone: 16, ore: 3, wood: 12 } },
       { id: 'auto_snare', name: 'Bẫy Dây Tự Động', category: 'Công trình', blueprintKey: 'bp_auto_snare', uniqueBuild: true, weight: 0, powerBonus: 15, threatReduction: 2, desc: 'Xây 1 lần: +15 Công và thêm tài nguyên đi xa.', cost: { wood: 22, stone: 12, ore: 5 } }
     ];
 
@@ -1313,6 +1366,8 @@
     let authMode = 'login';
     let currentAccount = null;
     let nightRoamMinutesAcc = 0;
+    let eventTickMinutesAcc = 0;
+    let pendingAttackMob = null;
 
     function isValidAdminCredentials(username, password) {
       return username.toLowerCase() === 'admin' && password === '1104';
@@ -1431,6 +1486,8 @@
         craftedCounts: {},
         tamingQueue: [],
         stats: { expeditionsDone: 0, chestsOpened: 0, beastsDefeated: 0 },
+        eventHistory: [],
+        eventStats: { total: 0, disasters: 0, attacks: 0, boons: 0 },
         claimedQuests: [],
         tamedBeasts: [],
         beastBloodlines: {},
@@ -1442,7 +1499,7 @@
           { id: 4, text: '6 Gỗ → 1 Lá thuốc', give: 'wood', giveQty: 6, get: 'mist_herb', getQty: 1 }
         ],
         worldChat: [
-          '[Hệ thống] Cá sống và thịt sống ăn hồi ít độ no, hãy nướng chín để tiết kiệm hơn.',
+          '[Hệ thống] Thời gian sinh tồn càng lâu, tỷ lệ thiên tai và thú tấn công càng tăng.',
           '[Linh] Ban đêm ngoài rừng cực kỳ nguy hiểm, tỷ lệ bị quái thú tấn công rất cao.'
         ],
         npcChats: {
@@ -1456,7 +1513,7 @@
     let state = createInitialState();
 
     const FULLSCREEN_PANEL_IDS = [
-      'admin-panel', 'char-panel', 'explore-panel', 'bag-pet-panel',
+      'admin-panel', 'char-panel', 'explore-panel', 'event-panel', 'bag-pet-panel',
       'craft-panel', 'house-upgrade-panel', 'quest-panel',
       'chat-panel', 'trade-panel', 'npc-panel'
     ];
@@ -1563,11 +1620,20 @@
       const rec = store[currentAccount.username];
       if (!rec || !rec.save) return;
       const adminFlag = currentAccount.username === 'admin' && rec.password === '1104';
-      state = { ...createInitialState(rec.charName, adminFlag), ...rec.save };
+      const base = createInitialState(rec.charName, adminFlag);
+      state = {
+        ...base,
+        ...rec.save,
+        eventHistory: Array.isArray(rec.save.eventHistory) ? rec.save.eventHistory : [],
+        eventStats: { ...base.eventStats, ...(rec.save.eventStats || {}) },
+        stats: { ...base.stats, ...(rec.save.stats || {}) }
+      };
       state.inv = sanitizeInventory(state.inv);
       state.charName = rec.charName || state.charName || 'Lâm Dã';
       state.isAdmin = adminFlag;
       nightRoamMinutesAcc = 0;
+      eventTickMinutesAcc = 0;
+      pendingAttackMob = null;
       hideAllFullscreenPanels();
       document.getElementById('intro-overlay').classList.add('hidden');
       logMsg(`Đã tải dữ liệu của ${currentAccount.username}.`);
@@ -1602,6 +1668,226 @@
       const w = WEATHER_TYPES[Math.floor(Math.random() * WEATHER_TYPES.length)];
       state.weatherId = w.id;
       logMsg(`Thời tiết: ${w.name}.`);
+    }
+
+    function getEventDefenseReduction() {
+      const cb = getCraftBonuses();
+      const houseMitigation = (state.houseLevel - 1) * 1.5;
+      return cb.threatCut + houseMitigation;
+    }
+
+    // Tỷ lệ sự kiện tăng theo thời gian sinh tồn (ngày 1 -> 100, thời điểm trong ngày, thời tiết, vị trí)
+    function getSurvivalEventChance(context = 'tick') {
+      const dayFactor = Math.min(0.45, ((state.day || 1) - 1) * 0.0042);
+      const timeHour = Math.floor((state.timeOfDaySec || 0) / 3600) % 24;
+      const dayProgressFactor = (timeHour / 24) * 0.05;
+      const isNight = timeHour < 6 || timeHour >= 18;
+      const outsideBonus = state.locationId !== 'house' ? 0.08 : 0;
+      const nightBonus = isNight ? 0.12 : 0;
+      const weatherBonus = getWeatherObj().eventMod || 0;
+
+      if (context === 'trip') {
+        const raw = 0.16 + dayFactor + dayProgressFactor + outsideBonus + nightBonus + weatherBonus;
+        return Math.min(0.88, Math.max(0.12, raw));
+      }
+      // Tích lũy mỗi 60 phút sinh tồn
+      const rawTick = 0.08 + dayFactor * 0.75 + dayProgressFactor + outsideBonus * 0.7 + nightBonus * 0.8 + weatherBonus;
+      return Math.min(0.75, Math.max(0.06, rawTick));
+    }
+
+    function recordEventEntry(entry) {
+      state.eventHistory.unshift({
+        id: `ev_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`,
+        day: state.day,
+        clock: formatGameClock(),
+        location: state.locationId === 'house' ? 'Nhà gỗ' : (MAP_LOCATIONS.find(m => m.id === state.locationId)?.name || 'Ngoài rừng'),
+        ...entry
+      });
+      if (state.eventHistory.length > 40) state.eventHistory.length = 40;
+      state.eventStats.total = (state.eventStats.total || 0) + 1;
+      if (entry.type === 'disaster') state.eventStats.disasters = (state.eventStats.disasters || 0) + 1;
+      if (entry.type === 'attack') state.eventStats.attacks = (state.eventStats.attacks || 0) + 1;
+      if (entry.type === 'boon') state.eventStats.boons = (state.eventStats.boons || 0) + 1;
+    }
+
+    function showEventPopup(entry, attackMobObj = null) {
+      pendingAttackMob = attackMobObj;
+      const modal = document.getElementById('event-popup-modal');
+      modal.className = 'fullscreen-modal ' + (
+        entry.type === 'disaster' ? 'event-modal-disaster' :
+        entry.type === 'attack' ? 'event-modal-attack' : 'event-modal-boon'
+      );
+      document.getElementById('event-popup-badge').textContent =
+        entry.type === 'disaster' ? 'THIÊN TAI SƯƠNG MÙ' :
+        entry.type === 'attack' ? 'THÚ TẤN CÔNG' : 'BIẾN CỐ SƯƠNG MÙ';
+      document.getElementById('event-popup-title').textContent = `${entry.title} (Ngày ${entry.day} • ${entry.clock})`;
+      document.getElementById('event-popup-desc').textContent = entry.desc;
+      document.getElementById('event-popup-effect').textContent = `Ảnh hưởng: ${entry.effectText}`;
+
+      const actBtn = document.getElementById('btn-event-popup-action');
+      if (attackMobObj) {
+        actBtn.textContent = `Vào giao chiến với ${attackMobObj.name}`;
+        actBtn.classList.remove('hidden');
+      } else {
+        actBtn.classList.add('hidden');
+      }
+      document.getElementById('event-popup-overlay').classList.remove('hidden');
+    }
+
+    function handleEventPopupPrimaryAction() {
+      const mob = pendingAttackMob;
+      pendingAttackMob = null;
+      document.getElementById('event-popup-overlay').classList.add('hidden');
+      if (!mob || state.isDead) {
+        renderAll();
+        return;
+      }
+      const loc = MAP_LOCATIONS.find(m => m.id === state.locationId) || MAP_LOCATIONS[0];
+      openFullscreenPanel('explore-panel');
+      state.mapOpen = false;
+      const allyPet = state.selectedPetUid
+        ? state.tamedBeasts.find(p => p.uid === state.selectedPetUid && STAGES[p.stageIdx]?.canFight)
+        : null;
+      state.activeExploreSession = {
+        locId: loc.id,
+        locName: state.locationId === 'house' ? 'Rìa Nhà Gỗ' : loc.name,
+        totalMinutes: 0,
+        foundItems: [],
+        deeds: [`Đối đầu sự kiện thú tấn công: ${mob.name}`],
+        combat: { ...mob, ally: allyPet || null }
+      };
+      renderAll();
+    }
+
+    function closeEventPopup() {
+      pendingAttackMob = null;
+      document.getElementById('event-popup-overlay').classList.add('hidden');
+      renderAll();
+    }
+
+    function runSurvivalEvent(forcedType = null, silentPopup = false) {
+      if (state.isDead || !state.talent) return null;
+      const dayScale = 1 + ((state.day || 1) - 1) * 0.04;
+      const defMitigation = getEventDefenseReduction();
+      const isNight = getPhaseLabel() === 'Ban đêm';
+      const loc = MAP_LOCATIONS.find(m => m.id === state.locationId) || MAP_LOCATIONS[0];
+
+      let chosenType = forcedType;
+      if (!chosenType) {
+        const r = Math.random();
+        const attackWeight = isNight ? 0.50 : 0.40;
+        const disasterWeight = 0.42;
+        if (r < attackWeight) chosenType = 'attack';
+        else if (r < attackWeight + disasterWeight) chosenType = 'disaster';
+        else chosenType = 'boon';
+      }
+
+      if (chosenType === 'disaster') {
+        const disasters = [
+          {
+            title: 'Bão Sương Độc Lạnh',
+            desc: 'Sương mù đặc quánh cuốn theo luồng khí lạnh buốt quét qua khu vực.',
+            apply: () => {
+              state.weatherId = 'mist_storm';
+              const hpLoss = Math.max(4, Math.round(12 * dayScale - defMitigation));
+              const stamLoss = Math.max(5, Math.round(14 * Math.min(2, dayScale) - defMitigation * 0.6));
+              const thirstGain = Math.min(state.maxThirst - state.thirst, Math.round(10 * Math.min(1.8, dayScale)));
+              state.hp = Math.max(0, state.hp - hpLoss);
+              state.stamina = Math.max(0, state.stamina - stamLoss);
+              state.thirst = Math.min(state.maxThirst, state.thirst + thirstGain);
+              return `-${hpLoss} Máu, -${stamLoss} Thể lực, +${thirstGain} Khát, chuyển sang Bão sương.`;
+            }
+          },
+          {
+            title: 'Sạt Lở Đá Sương',
+            desc: 'Mặt đất rung chuyển, đá tảng và mảnh sương rơi xuống bất ngờ.',
+            apply: () => {
+              const hpLoss = Math.max(5, Math.round(14 * dayScale - defMitigation));
+              const woodLoss = state.locationId === 'house' && (state.inv.wood || 0) > 2 && state.houseLevel < 4 ? 2 : 0;
+              if (woodLoss > 0) state.inv.wood -= woodLoss;
+              state.hp = Math.max(0, state.hp - hpLoss);
+              return `-${hpLoss} Máu${woodLoss ? `, -${woodLoss} Gỗ do sạt lở` : ''}.`;
+            }
+          },
+          {
+            title: 'Sương Mù Hút Sinh Lực',
+            desc: 'Làn sương dày đặc làm cơ thể mệt mỏi và nhanh đói hơn.',
+            apply: () => {
+              const hungerLoss = Math.min(state.hunger, Math.round(12 * Math.min(1.8, dayScale)));
+              const stamLoss = Math.max(4, Math.round(12 * Math.min(1.8, dayScale) - defMitigation * 0.5));
+              state.hunger = Math.max(0, state.hunger - hungerLoss);
+              state.stamina = Math.max(0, state.stamina - stamLoss);
+              return `-${hungerLoss} Độ no, -${stamLoss} Thể lực.`;
+            }
+          }
+        ];
+        const pick = disasters[Math.floor(Math.random() * disasters.length)];
+        const effectText = pick.apply();
+        const entry = { type: 'disaster', title: pick.title, desc: pick.desc, effectText };
+        recordEventEntry(entry);
+        logMsg(`THIÊN TAI — ${pick.title}: ${effectText}`);
+        checkPlayerDeath();
+        if (!state.isDead && !silentPopup) showEventPopup(entry, null);
+        return entry;
+      }
+
+      if (chosenType === 'attack') {
+        const mob = createEnemyEncounter(loc, isNight);
+        const scaleMult = Math.min(2.2, 1 + ((state.day || 1) - 1) * 0.025);
+        mob.atk = Math.max(10, Math.round(mob.atk * scaleMult));
+        mob.maxHp = Math.max(180, Math.round(mob.maxHp * scaleMult));
+        mob.hp = mob.maxHp;
+        const cp = calcCombatPower(mob);
+
+        const entry = {
+          type: 'attack',
+          title: `${mob.name} Cấp ${mob.lv} Tấn Công`,
+          desc: `Một con ${mob.name} (${mob.stageLabel}, CL ${cp.score} [${cp.tier}]) bất ngờ lao tới tấn công!`,
+          effectText: `Địch Công ${mob.atk} • Thủ ${mob.def} • Máu ${mob.maxHp}. Bạn có thể vào giao chiến ngay.`
+        };
+        recordEventEntry(entry);
+        logMsg(`THÚ TẤN CÔNG — ${mob.name} Cấp ${mob.lv} (CL ${cp.score} [${cp.tier}]) xuất hiện!`);
+        if (!silentPopup) showEventPopup(entry, mob);
+        return entry;
+      }
+
+      // Boon event
+      const woodGain = Math.max(3, Math.round(5 * Math.min(2.2, dayScale)));
+      const stoneGain = Math.max(2, Math.round(4 * Math.min(2.2, dayScale)));
+      state.inv.wood = (state.inv.wood || 0) + woodGain;
+      state.inv.stone = (state.inv.stone || 0) + stoneGain;
+      let extraText = '';
+      if (Math.random() < 0.35) {
+        state.inv.mist_herb = (state.inv.mist_herb || 0) + 1;
+        extraText = ', +1 Lá thuốc';
+      }
+      const entry = {
+        type: 'boon',
+        title: 'Khoáng Vật Lộ Diện Trong Sương',
+        desc: 'Làn sương tan nhẹ để lộ điểm tài nguyên an toàn quanh khu vực.',
+        effectText: `+${woodGain} Gỗ, +${stoneGain} Đá${extraText}.`
+      };
+      recordEventEntry(entry);
+      logMsg(`SỰ KIỆN — ${entry.title}: ${entry.effectText}`);
+      if (!silentPopup) showEventPopup(entry, null);
+      return entry;
+    }
+
+    function triggerManualEventCheck() {
+      if (state.isDead) return;
+      advanceGameMinutes(15);
+      if (state.activeExploreSession || !document.getElementById('event-popup-overlay').classList.contains('hidden')) {
+        renderAll();
+        return;
+      }
+      runSurvivalEvent(null, false);
+      renderAll();
+    }
+
+    function forceSpecificEventType(evType) {
+      if (state.isDead) return;
+      runSurvivalEvent(evType, false);
+      renderAll();
     }
 
     function getHoldItemBonuses() {
@@ -1825,9 +2111,15 @@
       const parts = raw.replace(/^\//, '').split(/\s+/);
       const cmd = (parts[0] || '').toLowerCase();
       if (cmd === 'help') {
-        statusEl.textContent = '/sup | /give <tên> <sl> | /heal | /stamina | /addtime <phút> | /day <ngày> | /allbp';
+        statusEl.textContent = '/sup | /give <tên> <sl> | /heal | /stamina | /addtime <phút> | /day <ngày> | /allbp | /event [disaster|attack|boon]';
       } else if (cmd === 'sup') {
         adminGiveSupremeSet();
+      } else if (cmd === 'event') {
+        const sub = (parts[1] || '').toLowerCase();
+        const valid = ['disaster', 'attack', 'boon'].includes(sub) ? sub : null;
+        runSurvivalEvent(valid, false);
+        statusEl.textContent = `Đã kích hoạt sự kiện (${valid || 'ngẫu nhiên'}).`;
+        renderAll();
       } else if (cmd === 'give') {
         const itemQuery = parts.slice(1, parts.length - 1).join(' ') || parts[1];
         const qtyVal = parseInt(parts[parts.length - 1], 10);
@@ -1975,6 +2267,18 @@
       }
     }
 
+    function checkPeriodicSurvivalEvent(minutesPassed) {
+      if (state.isDead || !state.talent || state.activeExploreSession) return;
+      if (!document.getElementById('event-popup-overlay').classList.contains('hidden')) return;
+      eventTickMinutesAcc += minutesPassed;
+      if (eventTickMinutesAcc < 60) return;
+      eventTickMinutesAcc = 0;
+      const chance = getSurvivalEventChance('tick');
+      if (Math.random() < chance) {
+        runSurvivalEvent(null, false);
+      }
+    }
+
     function advanceGameMinutes(minutes) {
       if (minutes <= 0) return;
       const deltaGameSec = minutes * 60;
@@ -1988,7 +2292,7 @@
           state.thirst = Math.min(state.maxThirst, state.thirst + 15);
           state.hp = Math.min(state.maxHp, state.hp + 8);
           rollWeather();
-          logMsg(`Sang ngày ${state.day}.`);
+          logMsg(`Sang ngày ${state.day} (tỉ lệ sự kiện tăng theo ngày sinh tồn).`);
         }
       }
       const tameSpeedMult = state.talent?.rank === 'B' ? 1.25 : 1.0;
@@ -2045,6 +2349,7 @@
         }
       }
       triggerNightAmbushIfOutside(minutes);
+      checkPeriodicSurvivalEvent(minutes);
     }
 
     function logMsg(text) {
@@ -2068,6 +2373,10 @@
     function generateNpcWorldAiReply(userMsg) {
       const q = userMsg.toLowerCase();
       const w = getWeatherObj();
+      if (q.includes('sự kiện') || q.includes('thiên tai')) {
+        const pct = Math.round(getSurvivalEventChance('trip') * 100);
+        return `[Linh] Ngày ${state.day} rồi, tỉ lệ sự kiện chuyến đi khoảng ${pct}%. Xây Chòi Canh hoặc Bếp Sưởi để giảm hại.`;
+      }
       if (q.includes('đêm') || q.includes('tối') || q.includes('quái')) {
         return `[Linh] Ban đêm ngoài rừng cực kỳ nguy hiểm, tỷ lệ bị quái thú tấn công rất cao.`;
       }
@@ -2092,7 +2401,7 @@
           `Nhân vật: ${state.charName}`,
           `Ngày sống sót: ${state.day}/100 (${formatGameClock()})`,
           `CL nhân vật: ${pCp.score} [${pCp.tier}] • Tổng CL: ${totCp.score} [${totCp.tier}]`,
-          `Nhà gỗ: Cấp ${state.houseLevel}/8`,
+          `Nhà gỗ: Cấp ${state.houseLevel}/8 • Sự kiện gặp: ${state.eventStats?.total || 0}`,
           `Thú: ${petNames}`,
           `Bản vẽ đã mở: ${state.unlockedRecipes.length}/${RECIPES.length}`
         ].join('\n');
@@ -2107,8 +2416,11 @@
       document.getElementById('levelup-overlay').classList.add('hidden');
       document.getElementById('craft-block-overlay').classList.add('hidden');
       document.getElementById('chest-reward-overlay').classList.add('hidden');
+      document.getElementById('event-popup-overlay').classList.add('hidden');
       document.getElementById('adventure-log').innerHTML = '';
       nightRoamMinutesAcc = 0;
+      eventTickMinutesAcc = 0;
+      pendingAttackMob = null;
       hideAllFullscreenPanels();
       const charName = currentAccount?.charName || 'Lâm Dã';
       state = createInitialState(charName, Boolean(currentAccount?.isAdmin));
@@ -2502,6 +2814,14 @@
         const supKey = pickSupremeItem();
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
         foundItems.push(`1 ${ITEM_DEFS[supKey].name}`);
+      }
+
+      // Kiểm tra sự kiện sinh tồn khi chuyến đi kết thúc (tỉ lệ tăng theo ngày sinh tồn)
+      const tripEvChance = getSurvivalEventChance('trip');
+      if (Math.random() < tripEvChance) {
+        const evRes = runSurvivalEvent(null, false);
+        if (evRes) deeds.push(`Sự kiện: ${evRes.title}`);
+        if (state.isDead) return;
       }
 
       let encounterObj = null;
@@ -2962,10 +3282,43 @@
       }).join('');
     }
 
+    function renderEventPanel() {
+      const tripPct = Math.round(getSurvivalEventChance('trip') * 100);
+      const tickPct = Math.round(getSurvivalEventChance('tick') * 100);
+      const defRed = getEventDefenseReduction().toFixed(1);
+      document.getElementById('ev-day-info').textContent = `Ngày ${state.day}/100`;
+      document.getElementById('ev-chance-trip').textContent = `${tripPct}%`;
+      document.getElementById('ev-chance-tick').textContent = `${tickPct}% / giờ`;
+      document.getElementById('ev-defense-info').textContent = `-${defRed} sát thương`;
+      document.getElementById('ev-total-count').textContent = state.eventStats?.total || 0;
+      document.getElementById('ev-breakdown').textContent =
+        `${state.eventStats?.disasters || 0} / ${state.eventStats?.attacks || 0}`;
+
+      const listEl = document.getElementById('event-history-list');
+      if (!state.eventHistory || !state.eventHistory.length) {
+        listEl.innerHTML = `<div class="event-card" style="color:var(--muted);">Chưa có sự kiện nào xảy ra. Tỉ lệ sẽ tăng dần theo từng ngày sinh tồn.</div>`;
+        return;
+      }
+      listEl.innerHTML = state.eventHistory.map(ev => {
+        const typeLabel = ev.type === 'disaster' ? 'Thiên tai' : (ev.type === 'attack' ? 'Thú tấn công' : 'Biến cố');
+        return `
+          <div class="event-card ${ev.type || ''}">
+            <div style="display:flex; justify-content:space-between; gap:8px;">
+              <strong>[${typeLabel}] ${ev.title}</strong>
+              <span style="color:var(--muted); font-size:0.76rem;">Ngày ${ev.day} • ${ev.clock} • ${ev.location}</span>
+            </div>
+            <div style="font-size:0.8rem; color:#cbd5e1; margin-top:3px;">${ev.desc}</div>
+            <div style="font-size:0.8rem; color:#fde68a; margin-top:3px;">Kết quả: ${ev.effectText}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
     function syncPanelButtonsState() {
       const mapBtnToPanel = [
         ['btn-toggle-char-panel', 'char-panel'],
         ['btn-toggle-explore-panel', 'explore-panel'],
+        ['btn-toggle-event-panel', 'event-panel'],
         ['btn-toggle-bag-pet-panel', 'bag-pet-panel'],
         ['btn-toggle-craft-panel', 'craft-panel'],
         ['btn-toggle-house-upgrade-panel', 'house-upgrade-panel'],
@@ -3130,6 +3483,7 @@
 
       document.getElementById('ui-charname').textContent = state.charName || 'Lâm Dã';
       document.getElementById('ui-account').textContent = currentAccount ? currentAccount.username : '-';
+      document.getElementById('ui-event-risk').textContent = `${Math.round(getSurvivalEventChance('trip') * 100)}%`;
       const phasePill = document.getElementById('ui-phase-pill');
       phasePill.className = isNight ? 'pill pill-night' : 'pill';
 
@@ -3262,9 +3616,10 @@
         const arriveSec = (state.timeOfDaySec + totalEstMins * 60) % 86400;
         const arriveHour = Math.floor(arriveSec / 3600);
         const willBeNight = arriveHour < 6 || arriveHour >= 18;
+        const tripEvPct = Math.round(getSurvivalEventChance('trip') * 100);
         document.getElementById('prep-load-info').textContent = `${getPrepUsedCapacity()}/${maxCap}`;
         document.getElementById('map-travel-summary').textContent =
-          `${curLoc.name} (${curLoc.distanceKm}km) • ${curStrat.name} • ${totalEstMins} phút.`;
+          `${curLoc.name} (${curLoc.distanceKm}km) • ${curStrat.name} • ${totalEstMins} phút • Nguy cơ sự kiện: ${tripEvPct}%.`;
         const nightNoteEl = document.getElementById('map-night-danger-note');
         if (willBeNight || isNight) {
           nightNoteEl.classList.remove('hidden');
@@ -3533,6 +3888,7 @@
       }
 
       renderCraftingPanel();
+      renderEventPanel();
       renderQuests();
       renderTrades();
       renderWorldChat();
