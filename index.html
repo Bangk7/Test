@@ -6,13 +6,19 @@
   <title>100 Ngày Sinh Tồn Trong Sương Mù</title>
   <style>
     :root {
-      --bg: #0b0f17;
-      --panel: #131a24;
-      --panel-2: #1b2432;
-      --border: #2a374c;
-      --text: #e6edf7;
+      --bg: #080c14;
+      --bg-grad: radial-gradient(circle at 20% 0%, rgba(56, 189, 248, 0.08), transparent 45%),
+                 radial-gradient(circle at 85% 15%, rgba(245, 158, 11, 0.07), transparent 45%),
+                 #080c14;
+      --panel: rgba(16, 23, 35, 0.94);
+      --panel-2: rgba(24, 34, 50, 0.92);
+      --panel-hover: rgba(33, 47, 68, 0.96);
+      --border: #28364b;
+      --border-soft: #1d2838;
+      --text: #edf2f9;
       --muted: #94a3b8;
       --accent: #f59e0b;
+      --accent-2: #38bdf8;
       --ok: #22c55e;
       --bad: #ef4444;
       --rank-F: #cbd5e1;
@@ -22,347 +28,132 @@
       --rank-B: #c084fc;
       --rank-A: #fb923c;
       --rank-S: #f43f5e;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    <script>
-/* ====== BỘ HÌNH ẢNH MỚI (SVG) — dán trong <script> riêng, ngay SAU script chính, trước </body> ====== */
-(function () {
-  const E = (x, y, c = '#111', r = 2.6) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}"/>`;
-  const G = {
-    // --- nguyên liệu / dụng cụ cơ bản ---
-    axe: (a) => `<g transform="rotate(25 32 32)"><rect x="29" y="10" width="6" height="46" rx="2" fill="#92400e"/><path d="M35 10q16 2 16 14-9 4-16 2z" fill="${a}"/></g>`,
-    pickaxe: (a) => `<path d="M12 26Q32 6 52 26" stroke="${a}" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="29" y="20" width="6" height="36" rx="2" fill="#92400e"/>`,
-    bow: (a) => `<path d="M18 8Q48 32 18 56" stroke="${a}" stroke-width="4" fill="none"/><path d="M18 8V56" stroke="#e2e8f0" stroke-width="1.5"/><path d="M8 32h42" stroke="#d6b27a" stroke-width="2.5"/><path d="M52 32l-8-5v10z" fill="#e2e8f0"/>`,
-    logs: (a, b) => `<rect x="8" y="16" width="44" height="14" rx="7" fill="${a}"/><rect x="12" y="34" width="44" height="14" rx="7" fill="${b}"/><circle cx="48" cy="23" r="5" fill="#f1d9a8"/><circle cx="52" cy="41" r="5" fill="#f1d9a8"/>`,
-    rock: (a, b) => `<path d="M8 48l8-22 16-10 16 10 8 22z" fill="${a}"/><path d="M16 26l16 8 16-8M32 34l-4 14" stroke="${b}" stroke-width="2.5" fill="none"/>`,
-    crystal: (a, b) => `<path d="M32 6l12 16-4 32H24l-4-32z" fill="${a}"/><path d="M14 30l8-6 2 28-10-4zM50 30l-8-6-2 28 10-4z" fill="${b}"/><path d="M32 6v48" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>`,
-    hide: (a) => `<path d="M12 12l12 4 8-4 8 4 12-4 4 16-8 8 4 14-14-4-6 6-6-6-14 4 4-14-8-8z" fill="${a}"/><circle cx="26" cy="30" r="2" fill="#0003"/><circle cx="38" cy="36" r="2" fill="#0003"/>`,
-    feather: (a, b) => `<path d="M52 8C20 10 10 34 12 54c10-4 30-8 40-46z" fill="${a}"/><path d="M12 54L44 18" stroke="${b}" stroke-width="2.5"/>`,
-    torch: (a) => `<rect x="28" y="28" width="8" height="28" rx="2" fill="#92400e"/><path d="M32 6c14 14 12 22 0 22S18 20 32 6z" fill="${a}"/><path d="M32 16c6 6 5 10 0 10s-6-4 0-10z" fill="#fde047"/>`,
-    heart: (a) => `<path d="M32 56C6 38 12 10 32 24c20-14 26 14 0 32z" fill="${a}"/><ellipse cx="22" cy="24" rx="4" ry="6" fill="#fff" opacity=".35"/>`,
-    leaf: (a, b) => `<path d="M32 56C10 44 10 20 32 6c22 14 22 38 0 50z" fill="${a}"/><path d="M32 56V14M32 30l-9-7M32 42l10-8" stroke="${b}" stroke-width="2.5" fill="none"/>`,
-    gauze: (a, b) => `<rect x="8" y="20" width="44" height="24" rx="5" fill="${a}"/><circle cx="46" cy="32" r="12" fill="${a}" stroke="#0002" stroke-width="2"/><path d="M14 32h22M28 26v12M22 26v12" stroke="${b}" stroke-width="3"/>`,
-    cup: (a, b) => `<path d="M12 16h32l-4 38H16z" fill="${a}"/><path d="M44 22h6a6 6 0 010 14h-9" stroke="${a}" stroke-width="4" fill="none"/><rect x="13" y="16" width="30" height="7" fill="${b}"/>`,
-    drop: (a) => `<path d="M32 6C46 26 50 32 50 40a18 18 0 01-36 0c0-8 4-14 18-34z" fill="${a}"/><ellipse cx="24" cy="40" rx="3.5" ry="7" fill="#fff" opacity=".45"/>`,
-    steak: (a, b) => `<path d="M10 32c0-14 22-22 34-12s6 28-10 30S10 46 10 32z" fill="${a}"/><circle cx="32" cy="34" r="7" fill="${b}"/><path d="M20 26l22 18M24 40l16-16" stroke="#0003" stroke-width="2"/>`,
-    fish: (a, b) => `<ellipse cx="28" cy="32" rx="18" ry="10" fill="${a}"/><path d="M44 32l14-11v22z" fill="${b}"/>${E(18, 29)}<path d="M26 24q4 8 0 16" stroke="${b}" stroke-width="2" fill="none"/>`,
-    // --- thức ăn ---
-    skewer: (a, b) => `<path d="M8 56L56 8" stroke="#d6b27a" stroke-width="3"/><circle cx="20" cy="44" r="8" fill="${a}"/><circle cx="32" cy="32" r="8" fill="${b}"/><circle cx="44" cy="20" r="8" fill="${a}"/>`,
-    bowl: (a, b) => `<path d="M6 30h52a26 24 0 01-52 0z" fill="${a}"/><path d="M12 30q20-20 40 0z" fill="${b}"/><path d="M24 14q-4-6 0-10M34 14q-4-6 0-10" stroke="#fff" stroke-opacity=".5" stroke-width="2" fill="none"/>`,
-    onigiri: (a) => `<path d="M32 8L56 52H8z" fill="#f8fafc"/><rect x="22" y="38" width="20" height="14" fill="#1f2937"/><circle cx="32" cy="28" r="2" fill="${a}"/><circle cx="26" cy="34" r="2" fill="${a}"/>`,
-    potato: (a, b) => `<ellipse cx="32" cy="34" rx="24" ry="14" fill="${a}" transform="rotate(-20 32 34)"/><circle cx="24" cy="32" r="2.5" fill="${b}"/><circle cx="38" cy="38" r="2.5" fill="${b}"/><circle cx="42" cy="28" r="2" fill="${b}"/>`,
-    mushroom: (a, b) => `<path d="M8 36a24 20 0 0148 0z" fill="${a}"/><rect x="24" y="36" width="16" height="18" rx="5" fill="#f1e8d8"/><circle cx="22" cy="28" r="4" fill="${b}"/><circle cx="38" cy="24" r="3" fill="${b}"/><circle cx="46" cy="32" r="2.5" fill="${b}"/>`,
-    shoot: (a, b) => `<path d="M32 6c12 10 16 28 16 46H16c0-18 4-36 16-46z" fill="${a}"/><path d="M20 30h24M18 42h28" stroke="${b}" stroke-width="2.5"/>`,
-    corn: (a, b) => `<ellipse cx="32" cy="28" rx="11" ry="22" fill="${a}"/><path d="M32 8v40M25 14v28M39 14v28M20 28h24" stroke="#0002" stroke-width="1.5"/><path d="M16 58c8-14 10-24 16-28-1 12 3 20 16 28z" fill="${b}"/>`,
-    nut: (a, b) => `<path d="M12 28Q32 6 52 28l-4 22q-16 10-32 0z" fill="${a}"/><path d="M12 28q20 10 40 0" stroke="${b}" stroke-width="4" fill="none"/>`,
-    berries: (a, b) => `<circle cx="22" cy="38" r="11" fill="${a}"/><circle cx="42" cy="38" r="11" fill="${a}"/><circle cx="32" cy="24" r="11" fill="${a}"/><path d="M32 14c0-6 6-8 10-8-1 6-4 8-10 8z" fill="${b}"/><circle cx="19" cy="35" r="2" fill="#fff" opacity=".5"/>`,
-    fruit: (a, b) => `<circle cx="32" cy="36" r="20" fill="${a}"/><path d="M32 16c0-8 6-11 10-11-1 6-4 10-10 11z" fill="${b}"/><path d="M32 16v6" stroke="#5b3a1e" stroke-width="3"/><ellipse cx="24" cy="30" rx="4" ry="7" fill="#fff" opacity=".3"/>`,
-    banana: (a, b) => `<path d="M10 16c4 26 26 38 46 28-18 4-32-6-36-30z" fill="${a}"/><path d="M10 16l5-4" stroke="${b}" stroke-width="4"/>`,
-    pear: (a, b) => `<path d="M32 10c9 0 9 14 14 22 5 12-3 24-14 24S13 44 18 32c5-8 5-22 14-22z" fill="${a}"/><path d="M32 10V4" stroke="${b}" stroke-width="3"/><ellipse cx="25" cy="38" rx="3" ry="6" fill="#fff" opacity=".3"/>`,
-    coconut: (a) => `<circle cx="32" cy="34" r="22" fill="#5b3a1e"/><path d="M14 28a20 14 0 0136 0" fill="${a}" opacity=".6"/>${E(25, 32, '#1c1208', 3)}${E(39, 32, '#1c1208', 3)}${E(32, 42, '#1c1208', 3)}`,
-    cane: (a, b) => `<rect x="24" y="4" width="16" height="56" rx="4" fill="${a}"/><path d="M24 20h16M24 38h16" stroke="${b}" stroke-width="4"/>`,
-    disc: (a, b) => `<circle cx="32" cy="32" r="24" fill="${a}"/><circle cx="22" cy="26" r="3" fill="${b}"/><circle cx="38" cy="22" r="3" fill="${b}"/><circle cx="40" cy="38" r="3" fill="${b}"/><circle cx="24" cy="42" r="3" fill="${b}"/>`,
-    noodles: (a, b) => `<path d="M6 34h52a26 22 0 01-52 0z" fill="${b}"/><path d="M10 34q6-18 12 0t12 0 12 0 8 0" stroke="${a}" stroke-width="4" fill="none"/><path d="M20 28q4-14 12-18" stroke="${a}" stroke-width="3" fill="none"/>`,
-    drum: (a) => `<ellipse cx="38" cy="24" rx="18" ry="14" fill="${a}"/><path d="M28 34L12 50" stroke="#f1e8d8" stroke-width="6" stroke-linecap="round"/><circle cx="10" cy="52" r="5" fill="#f1e8d8"/><ellipse cx="32" cy="18" rx="5" ry="3" fill="#fff" opacity=".3"/>`,
-    ribs: (a, b) => `<rect x="8" y="14" width="48" height="36" rx="8" fill="${a}"/><path d="M22 14v36M32 14v36M42 14v36" stroke="${b}" stroke-width="4"/>`,
-    jar: (a, b) => `<rect x="14" y="18" width="36" height="40" rx="10" fill="${a}" opacity=".9"/><rect x="18" y="8" width="28" height="10" rx="3" fill="${b}"/><rect x="20" y="30" width="24" height="14" rx="3" fill="#fff" opacity=".4"/>`,
-    bun: (a, b) => `<path d="M6 46a26 26 0 0152 0z" fill="${a}"/><path d="M32 20v26M20 26l4 20M44 26l-4 20" stroke="${b}" stroke-width="2"/><rect x="8" y="46" width="48" height="6" rx="3" fill="${b}"/>`,
-    square: (a, b) => `<rect x="10" y="10" width="44" height="44" rx="4" fill="${a}"/><path d="M10 32h44M32 10v44" stroke="${b}" stroke-width="4"/><rect x="28" y="28" width="8" height="8" fill="#92400e"/>`,
-    carton: (a, b) => `<path d="M14 20l18-12 18 12v38H14z" fill="${a}"/><rect x="22" y="32" width="20" height="16" rx="2" fill="${b}"/>`,
-    bottle: (a, b) => `<rect x="25" y="4" width="14" height="12" rx="2" fill="${b}"/><path d="M25 16h14l10 14v24a4 4 0 01-4 4H19a4 4 0 01-4-4V30z" fill="${a}"/><rect x="22" y="34" width="20" height="14" rx="2" fill="#fff" opacity=".55"/>`,
-    // --- dụng cụ / đồ mặc ---
-    knife: (a, b) => `<path d="M10 54L42 10l8 8-34 38z" fill="${a}"/><path d="M40 8l16 16-6 4-14-14z" fill="${b}"/>`,
-    saw: (a, b) => `<rect x="6" y="20" width="52" height="14" rx="3" fill="${a}"/><path d="M6 34l5 9 5-9 5 9 5-9 5 9 5-9 5 9 5-9 5 9 5-9z" fill="${b}"/><rect x="44" y="14" width="14" height="10" rx="3" fill="#92400e"/>`,
-    hammer: (a) => `<rect x="28" y="20" width="8" height="38" rx="2" fill="#92400e"/><rect x="10" y="8" width="44" height="18" rx="4" fill="${a}"/>`,
-    pliers: (a, b) => `<path d="M20 8l24 40M44 8L20 48" stroke="${a}" stroke-width="7" stroke-linecap="round"/><circle cx="32" cy="28" r="4" fill="${b}"/><path d="M16 50l8 8M48 50l-8 8" stroke="${b}" stroke-width="6" stroke-linecap="round"/>`,
-    scissors: (a, b) => `<path d="M24 8l22 34M40 8L18 42" stroke="${a}" stroke-width="5" stroke-linecap="round"/><circle cx="18" cy="50" r="7" fill="none" stroke="${b}" stroke-width="4"/><circle cx="46" cy="50" r="7" fill="none" stroke="${b}" stroke-width="4"/>`,
-    hook: (a, b) => `<path d="M32 6v34a12 12 0 01-24 0" stroke="${a}" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M8 40l-4-8" stroke="${b}" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="8" r="4" fill="${b}"/>`,
-    rod: (a, b) => `<path d="M8 56L52 8" stroke="${a}" stroke-width="4.5" stroke-linecap="round"/><path d="M52 8q10 22-6 38" stroke="${b}" stroke-width="1.8" fill="none"/><circle cx="46" cy="48" r="4" fill="${b}"/>`,
-    net: (a, b) => `<circle cx="32" cy="26" r="20" fill="${b}" fill-opacity=".25" stroke="${a}" stroke-width="4"/><path d="M12 26h40M32 6v40M18 12l28 28M46 12L18 40" stroke="${a}" stroke-width="1.6"/><path d="M32 46v14" stroke="#92400e" stroke-width="5"/>`,
-    basket: (a, b) => `<path d="M8 28h48l-6 28H14z" fill="${a}"/><path d="M12 28a20 20 0 0140 0" stroke="${b}" stroke-width="4.5" fill="none"/><path d="M20 34v18M32 34v18M44 34v18" stroke="${b}" stroke-width="2.5"/>`,
-    hat: (a, b) => `<path d="M4 46L32 10l28 36z" fill="${a}"/><path d="M4 46h56" stroke="${b}" stroke-width="4"/><path d="M20 46q12-18 24 0" stroke="${b}" stroke-width="1.5" fill="none"/>`,
-    coat: (a, b) => `<path d="M20 8L6 20l8 12 6-4v28h24V28l6 4 8-12L44 8l-6 6h-12z" fill="${a}"/><path d="M32 14v42" stroke="${b}" stroke-width="2.5"/><circle cx="35" cy="30" r="1.8" fill="${b}"/><circle cx="35" cy="40" r="1.8" fill="${b}"/>`,
-    gloves: (a) => `<path d="M16 58V32l-6-10 4-3 6 8V10h6v20V8h6v22V10h6v22V14h6v28l-8 16z" fill="${a}"/><path d="M16 50h28" stroke="#0003" stroke-width="3"/>`,
-    boots: (a, b) => `<path d="M20 6h20v30l16 8v12H12V6z" fill="${a}"/><rect x="12" y="50" width="44" height="7" rx="2" fill="${b}"/><rect x="20" y="6" width="20" height="8" fill="${b}"/>`,
-    shoe: (a, b) => `<path d="M6 42c12 0 14-14 20-14 8 10 22 8 32 16v8H6z" fill="${a}"/><rect x="6" y="50" width="52" height="6" rx="3" fill="${b}"/><path d="M26 28l4 8M32 32l4 7" stroke="${b}" stroke-width="2.5"/>`,
-    belt: (a, b) => `<rect x="4" y="24" width="56" height="16" rx="4" fill="${a}"/><rect x="24" y="20" width="16" height="24" rx="3" fill="none" stroke="${b}" stroke-width="4"/><path d="M8 32h12M44 32h12" stroke="#0003" stroke-width="2" stroke-dasharray="3 3"/>`,
-    cap: (a, b) => `<path d="M10 42a22 24 0 0144 0z" fill="${a}"/><rect x="8" y="42" width="48" height="10" rx="4" fill="${b}"/><circle cx="32" cy="12" r="5" fill="${b}"/>`,
-    scarf: (a, b) => `<path d="M8 14h48v16H8z" fill="${a}"/><path d="M38 30h14v28H38z" fill="${b}"/><path d="M42 30v28M46 30v28" stroke="#0002" stroke-width="2"/>`,
-    lamp: (a, b) => `<rect x="20" y="24" width="24" height="28" rx="6" fill="${a}" opacity=".85"/><rect x="18" y="50" width="28" height="8" rx="3" fill="${b}"/><rect x="24" y="14" width="16" height="10" rx="2" fill="${b}"/><path d="M32 28c8 6 6 14 0 14s-8-8 0-14z" fill="#fde047"/>`,
-    binoc: (a, b) => `<rect x="6" y="20" width="22" height="32" rx="6" fill="${a}"/><rect x="36" y="20" width="22" height="32" rx="6" fill="${a}"/><rect x="26" y="30" width="12" height="10" fill="${b}"/><circle cx="17" cy="48" r="5" fill="#60a5fa"/><circle cx="47" cy="48" r="5" fill="#60a5fa"/>`,
-    compass: (a, b) => `<circle cx="32" cy="32" r="25" fill="${a}"/><circle cx="32" cy="32" r="19" fill="#0f172a"/><path d="M32 14l6 18-6 18-6-18z" fill="${b}"/><path d="M32 14l6 18H26z" fill="#fff"/>`,
-    whistle: (a, b) => `<path d="M6 24h34a18 18 0 11-18 18V24z" fill="${a}"/><circle cx="40" cy="42" r="6" fill="#0f172a"/><rect x="8" y="22" width="14" height="6" fill="${b}"/>`,
-    rope: (a, b) => `<circle cx="32" cy="32" r="22" fill="none" stroke="${a}" stroke-width="9"/><circle cx="32" cy="32" r="22" fill="none" stroke="${b}" stroke-width="9" stroke-dasharray="4 7"/><circle cx="32" cy="32" r="9" fill="none" stroke="${a}" stroke-width="5"/>`,
-    stakes: (a) => `<path d="M10 6h12v34l-6 14-6-14zM26 12h12v34l-6 12-6-12zM42 6h12v34l-6 14-6-14z" fill="${a}"/><path d="M6 56h52" stroke="#6b4423" stroke-width="3"/>`,
-    tarp: (a, b) => `<path d="M4 52L32 10l28 42z" fill="${a}"/><path d="M32 10v42" stroke="${b}" stroke-width="3"/><path d="M4 52h56" stroke="${b}" stroke-width="3"/>`,
-    sleep: (a, b) => `<rect x="4" y="18" width="56" height="26" rx="13" fill="${a}"/><rect x="40" y="18" width="20" height="26" rx="13" fill="${b}"/><path d="M14 22v18M24 22v18" stroke="#0002" stroke-width="2"/>`,
-    // --- thuốc ---
-    patch: (a, b) => `<g transform="rotate(-25 32 32)"><rect x="4" y="20" width="56" height="24" rx="12" fill="${a}"/><rect x="22" y="24" width="20" height="16" rx="3" fill="${b}"/></g>`,
-    pills: (a, b) => `<g transform="rotate(-35 26 32)"><rect x="6" y="22" width="40" height="18" rx="9" fill="${a}"/><rect x="26" y="22" width="20" height="18" rx="9" fill="${b}"/></g><circle cx="46" cy="46" r="10" fill="${b}"/><path d="M40 46h12" stroke="#0003" stroke-width="2"/>`,
-    pouch: (a, b) => `<path d="M14 20h36l6 38H8z" fill="${a}"/><rect x="12" y="12" width="40" height="10" rx="3" fill="${b}"/><circle cx="32" cy="40" r="8" fill="#fff" opacity=".4"/>`,
-    tube: (a, b) => `<path d="M6 22h38l12 10-12 10H6z" fill="${a}"/><rect x="44" y="20" width="12" height="24" rx="3" fill="${b}"/><path d="M12 28v8M18 28v8" stroke="#0003" stroke-width="2"/>`,
-    ginseng: (a, b) => `<path d="M32 14c-10 10-4 20-2 24-10 4-12 12-12 20M32 38c6 6 12 8 14 18M32 16c8 4 12 8 14 18" stroke="${a}" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M32 14c-3-8-10-8-14-4 6-1 10 0 14 4zM32 14c3-8 10-8 14-4-6-1-10 0-14 4z" fill="${b}"/>`,
-    // --- công trình & rương & siêu phàm ---
-    tower: (a, b) => `<path d="M18 58V30h28v28z" fill="${a}"/><path d="M12 30l20-18 20 18z" fill="${b}"/><rect x="28" y="38" width="8" height="12" fill="#0003"/>`,
-    stove: (a, b) => `<rect x="8" y="24" width="48" height="32" rx="5" fill="${a}"/><path d="M32 28c10 8 8 16 0 16s-10-8 0-16z" fill="${b}"/><rect x="20" y="12" width="24" height="12" fill="${a}"/>`,
-    chest: (a, b) => `<path d="M8 28a24 18 0 0148 0z" fill="${a}"/><rect x="8" y="28" width="48" height="26" rx="4" fill="${a}"/><path d="M8 28h48M18 14v40M46 14v40" stroke="${b}" stroke-width="4"/><rect x="26" y="26" width="12" height="12" rx="3" fill="${b}"/><circle cx="32" cy="32" r="2.5" fill="#1c1208"/>`,
-    scroll: (a, b, c) => `<rect x="12" y="8" width="40" height="48" rx="5" fill="#ecdcae"/><path d="M18 16h28" stroke="${a}" stroke-width="3"/><circle cx="12" cy="10" r="5" fill="${a}"/><circle cx="12" cy="54" r="5" fill="${a}"/><g transform="translate(18 20) scale(.45)">${G[b](c, '#fbbf24')}</g>`,
-    seal: (a, b) => `<path d="M32 4l8 6 10-2 2 10 8 6-6 8 2 10-10 2-6 8-8-6-10 2-2-10-8-6 6-8-2-10 10-2z" fill="${a}"/><circle cx="32" cy="32" r="14" fill="none" stroke="${b}" stroke-width="3"/><path d="M32 22v20M22 32h20" stroke="${b}" stroke-width="3"/>`,
-    orb: (a, b) => `<circle cx="32" cy="32" r="22" fill="${a}"/><circle cx="32" cy="32" r="22" fill="none" stroke="${b}" stroke-width="3"/><ellipse cx="32" cy="32" rx="28" ry="8" fill="none" stroke="${b}" stroke-width="2" transform="rotate(-30 32 32)"/><circle cx="24" cy="24" r="5" fill="#fff" opacity=".7"/>`,
-    burst: (a, b) => `<path d="M32 2l7 18 19-4-12 15 12 15-19-4-7 18-7-18-19 4 12-15L6 16l19 4z" fill="${a}"/><circle cx="32" cy="32" r="10" fill="${b}"/><circle cx="32" cy="32" r="4" fill="#fff"/>`,
-    sparkle: (a) => `<path d="M32 6l4 16 16 4-16 4-4 16-4-16-16-4 16-4z" fill="${a}"/>`
-  };
 
-  const TAB_BG = { tools: ['#1d3a5f', '#0a1220'], food: ['#5a2f0d', '#170e06'], materials: ['#3d2f1a', '#120e08'], medicine: ['#0d4a3a', '#07140f'], chests: ['#4d3508', '#150f04'], supreme: ['#5b21b6', '#10061f'], bp: ['#4a3a12', '#140f06'] };
-  const GLOW = { tools: '#60a5fa', food: '#fb923c', materials: '#d6b27a', medicine: '#34d399', chests: '#fbbf24', supreme: '#e879f9', bp: '#facc15' };
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #0a0f18; }
+    ::-webkit-scrollbar-thumb { background: #263449; border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3b506e; }
 
-  function art(inner, tab, glow) {
-    const bg = TAB_BG[tab] || TAB_BG.tools, gl = glow || GLOW[tab] || '#fff';
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${bg[0]}"/><stop offset="1" stop-color="${bg[1]}"/></linearGradient><radialGradient id="r"><stop offset="0" stop-color="${gl}" stop-opacity=".35"/><stop offset="1" stop-color="${gl}" stop-opacity="0"/></radialGradient></defs><rect width="64" height="64" rx="11" fill="url(#g)"/><circle cx="32" cy="32" r="31" fill="url(#r)"/><g transform="translate(6 6) scale(.81)">${inner}</g><rect x=".75" y=".75" width="62.5" height="62.5" rx="10" fill="none" stroke="#fff" stroke-opacity=".14"/></svg>`;
-    return 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
-  }
-
-  // ---- bảng tra: khóa vật phẩm -> [hình, màu chính, màu phụ] ----
-  const S = {
-    axe: ['axe', '#cbd5e1'], wood: ['logs', '#a16207', '#854d0e'], stone: ['rock', '#94a3b8', '#475569'], ore: ['crystal', '#818cf8', '#4338ca'],
-    fish: ['fish', '#38bdf8', '#0369a1'], water: ['drop', '#38bdf8'], meat: ['steak', '#ef4444', '#fecaca'], cooked_meat: ['steak', '#92400e', '#fbbf24'],
-    hide: ['hide', '#b45309'], feather: ['feather', '#e2e8f0', '#64748b'], mist_torch: ['torch', '#fb923c'], mist_herb: ['leaf', '#22c55e', '#166534'],
-    life_charm: ['heart', '#f43f5e'], bandage: ['gauze', '#f8fafc', '#ef4444'], tonic: ['cup', '#f59e0b', '#fde68a'],
-    chest_bronze: ['chest', '#92400e', '#d97706'], chest_silver: ['chest', '#64748b', '#e2e8f0'], chest_gold: ['chest', '#a16207', '#facc15'],
-    chest_platinum: ['chest', '#475569', '#7dd3fc'], chest_diamond: ['chest', '#0e7490', '#67e8f9'],
-    sup_mist_dew: ['drop', '#67e8f9'], sup_break_seal: ['seal', '#a855f7', '#f5d0fe'], sup_beast_essence: ['bottle', '#f472b6', '#fbcfe8'],
-    sup_mist_orb: ['orb', '#6366f1', '#c7d2fe'], sup_sovereign_core: ['burst', '#fbbf24', '#ef4444'],
-    bp_iron_axe: ['scroll', '#b45309', 'axe', '#cbd5e1'], bp_iron_pickaxe: ['scroll', '#475569', 'pickaxe', '#94a3b8'], bp_bow_arrow: ['scroll', '#15803d', 'bow', '#d6b27a'],
-    bp_meat_soup: ['scroll', '#b91c1c', 'bowl', '#92400e'], bp_bandage: ['scroll', '#be123c', 'gauze', '#f8fafc'], bp_tonic: ['scroll', '#d97706', 'cup', '#f59e0b'],
-    bp_watch_hut: ['scroll', '#0369a1', 'tower', '#a16207'], bp_spike_fence: ['scroll', '#65a30d', 'stakes', '#a16207'], bp_warming_stove: ['scroll', '#ea580c', 'stove', '#78716c'],
-    bp_auto_snare: ['scroll', '#7c3aed', 'net', '#38bdf8']
-  };
-  const L = (start, str) => str.trim().split('\n').forEach((ln, i) => { S['new_' + (start + i)] = ln.trim().split(' '); });
-  L(1, `fish #b45309 #78350f
-skewer #b91c1c #f59e0b
-bowl #fbbf24 #fef3c7
-onigiri #16a34a
-potato #a855f7 #6b21a8
-potato #d6c9a8 #a8a29e
-mushroom #b45309 #fde68a
-shoot #bef264 #65a30d
-bowl #92400e #22c55e
-corn #fde047 #65a30d
-nut #92400e #fbbf24
-berries #ef4444 #166534
-banana #facc15 #854d0e
-fruit #ef4444 #22c55e
-pear #bef264 #65a30d
-fruit #86efac #16a34a
-fruit #facc15 #166534
-coconut #86efac
-cane #a78bfa #6d28d9
-disc #d6b27a #92400e
-noodles #f8fafc #cbd5e1
-noodles #fde68a #f59e0b
-fish #d97706 #92400e
-skewer #dc2626 #fbbf24
-drum #d97706
-bowl #78350f #fbbf24
-ribs #b45309 #fde68a
-bowl #22c55e #bbf7d0
-leaf #22c55e #14532d
-jar #84cc16 #365314
-jar #a78bfa #4c1d95
-jar #dc2626 #fecaca
-bun #f8fafc #cbd5e1
-bowl #fde047 #86efac
-square #16a34a #bbf7d0
-cup #b91c1c #fecaca
-carton #f8fafc #60a5fa
-carton #fde047 #f59e0b
-bottle #38bdf8 #e0f2fe
-drop #7dd3fc
-coconut #4ade80
-cup #65a30d #bef264
-cup #f59e0b #fde68a
-cup #34d399 #d1fae5
-bottle #bef264 #65a30d`);
-  L(46, `knife #cbd5e1 #92400e
-axe #94a3b8
-axe #e2e8f0
-saw #cbd5e1 #94a3b8
-knife #94a3b8 #a16207
-hammer #94a3b8
-pliers #ef4444 #fca5a5
-scissors #cbd5e1 #ef4444
-hook #cbd5e1 #94a3b8
-rod #a16207 #38bdf8
-net #38bdf8 #e0f2fe
-basket #d6b27a #a16207
-hat #fde68a #b45309
-coat #facc15 #a16207
-coat #3b82f6 #1e3a8a
-gloves #f59e0b
-boots #16a34a #14532d
-shoe #b45309 #fde68a
-belt #92400e #facc15
-gloves #94a3b8
-cap #64748b #cbd5e1
-scarf #dc2626 #fca5a5
-lamp #fcd34d #92400e
-binoc #334155 #94a3b8
-compass #fbbf24 #ef4444
-whistle #94a3b8 #ef4444
-rope #d6b27a #a16207
-stakes #a16207
-tarp #22c55e #14532d
-sleep #6366f1 #a5b4fc`);
-  L(76, `patch #fcd9b6 #f87171
-bottle #16a34a #bbf7d0
-bottle #92400e #fbbf24
-pills #ef4444 #fecaca
-pills #38bdf8 #e0f2fe
-pills #f8fafc #a78bfa
-pills #22c55e #bbf7d0
-pills #f59e0b #fde68a
-gauze #f8fafc #ef4444
-bottle #e0f2fe #38bdf8
-pouch #dc2626 #fecaca
-bottle #bae6fd #0ea5e9
-pills #fb923c #fed7aa
-bottle #f97316 #fed7aa
-pouch #22c55e #bbf7d0
-bottle #7c3aed #ddd6fe
-tube #fbbf24 #92400e
-bottle #67e8f9 #0e7490
-gauze #fcd9b6 #f87171
-leaf #4ade80 #166534
-ginseng #d6b27a #22c55e
-pills #b91c1c #fecaca
-bottle #84cc16 #365314
-cup #fb923c #fed7aa
-cup #65a30d #d9f99d
-cup #d6b27a #fde68a
-cup #92400e #fcd34d
-cup #84cc16 #ecfccb
-bottle #be123c #fecdd3
-cup #f59e0b #fef3c7`);
-
-  const cache = {};
-  function itemArt(key) {
-    if (cache[key]) return cache[key];
-    const def = (typeof ITEM_DEFS !== 'undefined' && ITEM_DEFS[key]) || {};
-    const sp = S[key] || ['crystal', '#94a3b8', '#475569'];
-    const tab = key.startsWith('bp_') ? 'bp' : (def.bagTab || 'tools');
-    const inner = G[sp[0]](sp[1], sp[2], sp[3]);
-    return (cache[key] = art(inner, tab, tab === 'chests' ? sp[2] : null));
-  }
-
-  // ---- thú ----
-  const B = {
-    cub_fox: `<path d="M8 8l16 12h16l16-12 4 28-28 22L4 36z" fill="#f97316"/><path d="M18 38l14 20 14-20-14 5z" fill="#fff7ed"/><path d="M12 14l8 8-10 4zM52 14l-8 8 10 4z" fill="#7c2d12"/>${E(23, 34)}${E(41, 34)}${E(32, 50, '#111', 3)}`,
-    wild_cat: `<path d="M8 8l14 14h20L56 8v32a24 20 0 01-48 0z" fill="#a8a29e"/><path d="M26 20v8M32 18v10M38 20v8" stroke="#44403c" stroke-width="3"/><path d="M20 38q4-4 8 0M36 38q4-4 8 0" stroke="#16a34a" stroke-width="4" fill="none"/><path d="M29 46h6l-3 4z" fill="#f9a8d4"/><path d="M6 44h14M44 44h14" stroke="#e7e5e4" stroke-width="2"/>`,
-    spotted_deer: `<path d="M16 22L10 4M13 12L4 10M48 22l6-18M51 12l9-2" stroke="#e7c58a" stroke-width="4" stroke-linecap="round"/><ellipse cx="32" cy="38" rx="16" ry="20" fill="#c2884d"/><ellipse cx="32" cy="50" rx="8" ry="6" fill="#f1dcc0"/><circle cx="22" cy="28" r="2.5" fill="#fff7ed"/><circle cx="42" cy="30" r="2.5" fill="#fff7ed"/><circle cx="32" cy="24" r="2" fill="#fff7ed"/>${E(24, 38)}${E(40, 38)}${E(32, 50, '#111', 3)}`,
-    night_owl: `<path d="M8 10l12 10h24l12-10v34a24 16 0 01-48 0z" fill="#6d5a8a"/><circle cx="22" cy="32" r="10" fill="#fef3c7"/><circle cx="42" cy="32" r="10" fill="#fef3c7"/>${E(22, 32, '#111', 5)}${E(42, 32, '#111', 5)}<path d="M28 40h8l-4 10z" fill="#f59e0b"/><path d="M20 54q12 6 24 0" stroke="#a78bfa" stroke-width="3" fill="none"/>`,
-    wolf: `<path d="M6 6l16 12h20L58 6l2 32-18 22H22L4 38z" fill="#94a3b8"/><path d="M20 44h24l-12 16z" fill="#e2e8f0"/><path d="M10 14l8 8-8 6zM54 14l-8 8 8 6z" fill="#475569"/>${E(22, 32, '#fde047', 3.5)}${E(42, 32, '#fde047', 3.5)}${E(22, 32, '#111', 1.5)}${E(42, 32, '#111', 1.5)}<path d="M28 48h8l-4 6z" fill="#111"/>`,
-    boar: `<ellipse cx="32" cy="34" rx="26" ry="22" fill="#78350f"/><path d="M10 18l8 8M54 18l-8 8" stroke="#451a03" stroke-width="7" stroke-linecap="round"/><ellipse cx="32" cy="44" rx="13" ry="10" fill="#f9a8d4"/>${E(27, 44, '#831843', 2.5)}${E(37, 44, '#831843', 2.5)}<path d="M18 52l-6-14M46 52l6-14" stroke="#fff7ed" stroke-width="5" stroke-linecap="round"/>${E(20, 28)}${E(44, 28)}`,
-    brown_bear: `<circle cx="14" cy="16" r="9" fill="#6b3f1d"/><circle cx="50" cy="16" r="9" fill="#6b3f1d"/><circle cx="32" cy="36" r="24" fill="#8b5a2b"/><ellipse cx="32" cy="44" rx="11" ry="9" fill="#d6b27a"/>${E(22, 30)}${E(42, 30)}<path d="M28 40h8l-4 5z" fill="#111"/>`,
-    snake: `<path d="M32 4l16 12v12c0 12-6 24-16 30C22 52 16 40 16 28V16z" fill="#65a30d"/><path d="M24 18l8 8 8-8M24 30l8 8 8-8" stroke="#3f6212" stroke-width="3" fill="none"/>${E(25, 24, '#ef4444', 3)}${E(39, 24, '#ef4444', 3)}<path d="M32 56v6l-4 2M32 62l4 2" stroke="#dc2626" stroke-width="2.5" fill="none"/>`,
-    mist_leopard: `<circle cx="14" cy="16" r="8" fill="#f59e0b"/><circle cx="50" cy="16" r="8" fill="#f59e0b"/><circle cx="32" cy="36" r="24" fill="#fbbf24"/><ellipse cx="32" cy="46" rx="11" ry="8" fill="#fef3c7"/><circle cx="20" cy="24" r="3" fill="#78350f"/><circle cx="44" cy="22" r="3" fill="#78350f"/><circle cx="32" cy="16" r="3" fill="#78350f"/><circle cx="14" cy="38" r="3" fill="#78350f"/><circle cx="50" cy="38" r="3" fill="#78350f"/>${E(23, 33, '#0f766e', 3.5)}${E(41, 33, '#0f766e', 3.5)}${E(23, 33, '#111', 1.5)}${E(41, 33, '#111', 1.5)}<path d="M29 42h6l-3 4z" fill="#111"/>`,
-    tiger: `<circle cx="14" cy="16" r="8" fill="#ea580c"/><circle cx="50" cy="16" r="8" fill="#ea580c"/><circle cx="32" cy="36" r="24" fill="#f97316"/><path d="M32 14v12M22 16l4 10M42 16l-4 10M10 32h10M10 40h8M54 32H44M54 40h-8" stroke="#1c1917" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="32" cy="46" rx="12" ry="9" fill="#fff7ed"/>${E(23, 34, '#fde047', 3)}${E(41, 34, '#fde047', 3)}${E(23, 34, '#111', 1.4)}${E(41, 34, '#111', 1.4)}<path d="M29 42h6l-3 4z" fill="#111"/>`,
-    mist_unicorn: `<path d="M32 -2l5 20h-10z" fill="#fde047" stroke="#f59e0b" stroke-width="1.5"/><path d="M14 20l-4-12 12 8zM50 20l4-12-12 8z" fill="#e0f2fe"/><ellipse cx="32" cy="38" rx="17" ry="20" fill="#f8fafc"/><path d="M12 22q-6 16 4 34M52 22q6 16-4 34" stroke="#38bdf8" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="32" cy="50" rx="9" ry="6" fill="#fbcfe8"/>${E(24, 36, '#6366f1', 3.2)}${E(40, 36, '#6366f1', 3.2)}`,
-    dragon: `<path d="M8 20l8-14 6 12 10-8 10 8 6-12 8 14v24L40 58H24L8 44z" fill="#16a34a"/><path d="M20 44h24l-6 14H26z" fill="#bbf7d0"/><path d="M26 16l6 10 6-10" stroke="#fde047" stroke-width="3" fill="none"/>${E(22, 34, '#fde047', 4)}${E(42, 34, '#fde047', 4)}<path d="M20 34h4M40 34h4" stroke="#111" stroke-width="2.5"/>${E(28, 46, '#14532d', 1.8)}${E(36, 46, '#14532d', 1.8)}`
-  };
-  const RANK_BG = { 'Thường': ['#334155', '#0b1220'], 'Khá': ['#0f766e', '#04140f'], 'Hiếm': ['#6d28d9', '#0f0620'], 'Quý': ['#b45309', '#1a0e02'] };
-  const RANK_GLOW = { 'Thường': '#94a3b8', 'Khá': '#2dd4bf', 'Hiếm': '#c084fc', 'Quý': '#fbbf24' };
-
-  function beastArt(p) {
-    if (!p) p = { speciesId: 'wolf' };
-    const id = p.speciesId || p.id || 'wolf', rank = p.rank || 'Thường', mut = Boolean(p.mutated);
-    const k = `b_${id}_${rank}_${mut}`;
-    if (cache[k]) return cache[k];
-    TAB_BG.beast = RANK_BG[rank] || RANK_BG['Thường'];
-    let inner = B[id] || B.wolf;
-    if (mut) inner += `<g transform="translate(40 -4) scale(.4)">${G.sparkle('#fde047')}</g><g transform="translate(-4 30) scale(.3)">${G.sparkle('#f0abfc')}</g>`;
-    return (cache[k] = art(inner, 'beast', mut ? '#f0abfc' : (RANK_GLOW[rank] || '#94a3b8')));
-  }
-
-  // ---- ghi đè hệ thống hình cũ ----
-  window.getItemImageUrl = itemArt;
-  window.getBeastImageUrl = beastArt;
-  Object.assign(ART_SPRITES, {
-    hero: art(`<circle cx="32" cy="22" r="12" fill="#fcd9b6"/><path d="M18 20a14 14 0 0128 0z" fill="#14532d"/><path d="M12 62c0-18 8-26 20-26s20 8 20 26z" fill="#16a34a"/><path d="M26 40l6 8 6-8" stroke="#bbf7d0" stroke-width="3" fill="none"/>${E(27, 24, '#111', 1.8)}${E(37, 24, '#111', 1.8)}`, 'tools', '#4ade80'),
-    orb: art(G.drop('#ef4444') + `<g transform="translate(34 4) scale(.35)">${G.sparkle('#fecaca')}</g>`, 'supreme', '#f87171'),
-    mat: itemArt('wood'),
-    beast_mid: beastArt({ speciesId: 'wolf' })
-  });
-  // vẽ lại toàn bộ giao diện với hình mới
-  if (typeof renderAll === 'function') renderAll();
-})();
-
-</script>
     body {
-      background: var(--bg);
+      background: var(--bg-grad);
+      background-color: var(--bg);
       color: var(--text);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       min-height: 100vh;
-      line-height: 1.45;
+      line-height: 1.48;
+      -webkit-font-smoothing: antialiased;
     }
+
     button {
       cursor: pointer;
       border: 1px solid var(--border);
       background: var(--panel-2);
       color: var(--text);
-      padding: 7px 11px;
-      border-radius: 8px;
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
       font-weight: 600;
-      font-size: 0.83rem;
-      transition: background 0.14s ease, border-color 0.14s ease, transform 0.08s ease;
+      font-size: 0.82rem;
+      letter-spacing: 0.01em;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.08s ease, box-shadow 0.15s ease;
     }
-    button:hover:not(:disabled) { background: #233044; border-color: #4b6388; }
+    button:hover:not(:disabled) {
+      background: var(--panel-hover);
+      border-color: #4b658a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
     button:active:not(:disabled) { transform: scale(0.98); }
-    button:disabled { opacity: 0.42; cursor: not-allowed; }
-    button.primary { background: #b45309; border-color: #d97706; color: #fff; }
-    button.primary:hover:not(:disabled) { background: #c25e0c; }
-    button.accent-btn { background: #1d4ed8; border-color: #3b82f6; color: #fff; }
-    button.accent-btn:hover:not(:disabled) { background: #2563eb; }
-    button.danger-btn { background: #991b1b; border-color: #dc2626; color: #fff; }
-    button.danger-btn:hover:not(:disabled) { background: #b91c1c; }
-    button.success-btn { background: #15803d; border-color: #22c55e; color: #fff; }
-    button.admin-btn { background: #6d28d9; border-color: #8b5cf6; color: #fff; }
-    button.admin-btn:hover:not(:disabled) { background: #7c3aed; }
+    button:disabled { opacity: 0.42; cursor: not-allowed; box-shadow: none; }
+
+    button.primary {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      border-color: #f59e0b;
+      color: #fff;
+    }
+    button.primary:hover:not(:disabled) { background: linear-gradient(135deg, #f59e0b, #c25e0c); }
+
+    button.accent-btn {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-color: #60a5fa;
+      color: #fff;
+    }
+    button.accent-btn:hover:not(:disabled) { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+
+    button.danger-btn {
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      border-color: #f87171;
+      color: #fff;
+    }
+    button.danger-btn:hover:not(:disabled) { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+
+    button.success-btn {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      border-color: #4ade80;
+      color: #fff;
+    }
+    button.success-btn:hover:not(:disabled) { background: linear-gradient(135deg, #22c55e, #16a34a); }
+
+    button.admin-btn {
+      background: linear-gradient(135deg, #7c3aed, #5b21b6);
+      border-color: #a78bfa;
+      color: #fff;
+    }
+    button.admin-btn:hover:not(:disabled) { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+
     input, select {
-      background: #090d14;
+      background: #090e17;
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 7px 9px;
+      border-radius: var(--radius-sm);
+      padding: 7px 10px;
       font-size: 0.83rem;
+      outline: none;
+      transition: border-color 0.15s ease;
     }
+    input:focus, select:focus { border-color: var(--accent-2); }
+
     .mat-ok { color: var(--ok); font-weight: 700; }
     .mat-bad { color: var(--bad); font-weight: 700; }
+
     .fullscreen-panel {
       position: fixed;
       inset: 0;
       z-index: 45;
-      background: var(--bg);
+      background: rgba(6, 9, 15, 0.88);
+      backdrop-filter: blur(6px);
       overflow-y: auto;
-      padding: 20px;
+      padding: 20px 14px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
     }
+
     .fullscreen-inner {
       width: 100%;
       max-width: 1220px;
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.72);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow);
       margin-bottom: 24px;
     }
-    .fullscreen-inner.admin-box { border-color: #a855f7; background: #181329; }
-    #intro-overlay, #victory-overlay, #gameover-overlay, #craft-block-overlay, #levelup-overlay, #chest-reward-overlay, #event-popup-overlay {
+    .fullscreen-inner.admin-box {
+      border-color: #a855f7;
+      background: linear-gradient(180deg, rgba(31, 20, 56, 0.96), rgba(18, 14, 34, 0.96));
+    }
+
+    #intro-overlay, #victory-overlay, #gameover-overlay, #craft-block-overlay,
+    #levelup-overlay, #chest-reward-overlay, #event-popup-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(7, 10, 16, 0.94);
+      background: rgba(5, 8, 14, 0.92);
+      backdrop-filter: blur(5px);
       z-index: 65;
       display: flex;
       align-items: center;
@@ -370,69 +161,76 @@ cup #f59e0b #fef3c7`);
       padding: 16px;
       overflow-y: auto;
     }
+
     .intro-card, .fullscreen-modal {
       width: 100%;
       max-width: 780px;
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
     }
+
     .victory-modal, .chest-modal { border-color: #d97706; }
     .levelup-modal { border-color: #38bdf8; }
     .gameover-modal { border-color: #ef4444; }
     .warn-modal { border-color: #f59e0b; }
-    .event-modal-disaster { border-color: #f97316; background: #1f1410; }
-    .event-modal-attack { border-color: #ef4444; background: #211016; }
-    .event-modal-boon { border-color: #22c55e; background: #0f2019; }
-    .intro-title { font-size: 1.3rem; color: #fbbf24; margin-bottom: 6px; }
+    .event-modal-disaster { border-color: #f97316; background: #1e130f; }
+    .event-modal-attack { border-color: #ef4444; background: #201016; }
+    .event-modal-boon { border-color: #22c55e; background: #0e1f18; }
+
+    .intro-title { font-size: 1.38rem; color: #fbbf24; margin-bottom: 6px; font-weight: 800; }
     .intro-sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 14px; }
-    .auth-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
-    .auth-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 12px; }
-    .auth-field label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; }
+    .auth-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+    .auth-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px; }
+    .auth-field label { display: block; font-size: 0.79rem; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
     .auth-field input { width: 100%; }
     .auth-msg { font-size: 0.84rem; color: #fca5a5; min-height: 20px; margin-bottom: 10px; }
+
     .chest-loot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 8px; margin: 12px 0; }
     .chest-loot-btn {
-      background: #0d131d;
+      background: #0b111b;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       padding: 9px;
       text-align: left;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
     }
-    .chest-loot-btn.active { border-color: #fbbf24; background: #222838; }
+    .chest-loot-btn.active { border-color: #fbbf24; background: #21293b; }
+
     .chest-item-detail {
-      background: #0a0e16;
+      background: #090e16;
       border: 1px solid #38bdf8;
-      border-radius: 8px;
-      padding: 11px;
+      border-radius: var(--radius-sm);
+      padding: 12px;
       margin-bottom: 14px;
       font-size: 0.86rem;
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .wheel-stage { display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 12px 0 18px; }
+
+    .wheel-stage { display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 14px 0 18px; }
     .wheel-ring {
-      width: 104px;
-      height: 104px;
+      width: 108px;
+      height: 108px;
       border-radius: 50%;
       border: 4px dashed #fbbf24;
       background: conic-gradient(from 0deg, #cbd5e1, #22c55e, #38bdf8, #c084fc, #fb923c, #f43f5e, #cbd5e1);
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 24px rgba(251, 191, 36, 0.22);
     }
     .wheel-core {
-      width: 76px;
-      height: 76px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      background: #0e1520;
+      background: #0c121c;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -444,19 +242,23 @@ cup #f59e0b #fef3c7`);
     }
     .spinning { animation: spinWheel 0.95s cubic-bezier(0.2, 0.85, 0.25, 1); }
     @keyframes spinWheel { from { transform: rotate(0deg); } to { transform: rotate(720deg); } }
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 12px; margin-top: 10px; }
+
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 10px; }
     .talent-card {
-      min-height: 150px;
-      border-radius: 10px;
+      min-height: 152px;
+      border-radius: var(--radius);
       padding: 14px;
-      background: #0d131e;
+      background: #0c121d;
       border: 1.5px solid var(--border);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
-    .talent-card.face-down { align-items: center; justify-content: center; text-align: center; background: #111926; }
+    .talent-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4); }
+    .talent-card.face-down { align-items: center; justify-content: center; text-align: center; background: #101826; }
+
     .glow-F { border-color: var(--rank-F); }
     .glow-D { border-color: var(--rank-D); }
     .glow-C { border-color: var(--rank-C); }
@@ -470,84 +272,110 @@ cup #f59e0b #fef3c7`);
     .rank-B { color: var(--rank-B); font-weight: 700; }
     .rank-A { color: var(--rank-A); font-weight: 700; }
     .rank-S { color: var(--rank-S); font-weight: 700; }
+
     header.topbar {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      padding: 10px 14px;
-      background: var(--panel);
+      gap: 10px;
+      padding: 10px 16px;
+      background: rgba(13, 19, 30, 0.92);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 20;
     }
-    .stats-strip { display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.8rem; }
-    .pill { background: var(--panel-2); border: 1px solid var(--border); padding: 4px 9px; border-radius: 999px; }
-    .pill-night { background: #2b111c; border-color: #ef4444; color: #fca5a5; font-weight: 700; }
-    .pill-admin { background: #3b1c6e; border-color: #a78bfa; color: #f3e8ff; font-weight: 700; }
-    .pill-event { background: #2c190c; border-color: #f97316; color: #fdba74; font-weight: 700; }
+
+    .stats-strip { display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.79rem; }
+    .pill {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pill-night { background: #2c101b; border-color: #ef4444; color: #fca5a5; font-weight: 700; }
+    .pill-admin { background: #371968; border-color: #a78bfa; color: #f3e8ff; font-weight: 700; }
+    .pill-event { background: #2b180b; border-color: #f97316; color: #fdba74; font-weight: 700; }
+
     .status-strip {
-      background: #101a2d;
-      border: 1px solid #2b4570;
+      background: rgba(16, 27, 46, 0.9);
+      border: 1px solid #28426e;
       color: #dbeafe;
-      border-radius: 8px;
-      padding: 8px 12px;
-      margin: 10px 14px 0;
-      font-size: 0.84rem;
+      border-radius: var(--radius-sm);
+      padding: 9px 14px;
+      margin: 12px 16px 0;
+      font-size: 0.83rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      align-items: center;
       gap: 8px;
     }
-    .status-strip.night-danger { background: #2e0d14; border-color: #dc2626; color: #fecaca; }
+    .status-strip.night-danger {
+      background: rgba(46, 13, 20, 0.92);
+      border-color: #dc2626;
+      color: #fecaca;
+    }
+
     .hp-low-alert {
-      background: #3b0d11;
+      background: rgba(59, 13, 17, 0.94);
       border: 1px solid #ef4444;
       color: #fecaca;
-      border-radius: 8px;
-      padding: 8px 12px;
-      margin: 8px 14px 0;
-      font-size: 0.84rem;
+      border-radius: var(--radius-sm);
+      padding: 9px 14px;
+      margin: 8px 16px 0;
+      font-size: 0.83rem;
       font-weight: 700;
     }
+
     .toggle-bar { display: flex; flex-wrap: wrap; gap: 6px; }
-    .toggle-bar button.active-panel { border-color: #fbbf24; background: #252f42; color: #fde68a; }
-    .home-hub { max-width: 1220px; margin: 16px auto 28px; padding: 0 14px; }
+    .toggle-bar button.active-panel {
+      border-color: #fbbf24;
+      background: #283449;
+      color: #fde68a;
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.25);
+    }
+
+    .home-hub { max-width: 1240px; margin: 16px auto 32px; padding: 0 16px; }
     .home-hero {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px;
+      border-radius: var(--radius);
+      padding: 20px;
       margin-bottom: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
-    .home-quick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+    .home-quick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
     .home-tile {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: var(--radius);
+      padding: 16px;
       text-align: left;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
     }
-    .home-tile:hover { border-color: #fbbf24; background: #192334; }
+    .home-tile:hover { border-color: #fbbf24; background: #192436; transform: translateY(-2px); }
+
     .box-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #222e42;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-soft);
     }
-    .box-header h2 { font-size: 1.15rem; color: #fbbf24; margin: 0; }
+    .box-header h2 { font-size: 1.18rem; color: #fbbf24; margin: 0; font-weight: 800; }
+
     .item-thumb {
       width: 44px;
       height: 44px;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       object-fit: cover;
       border: 1px solid var(--border);
       background: #090d14;
@@ -571,60 +399,98 @@ cup #f59e0b #fef3c7`);
       background: #090d14;
       flex-shrink: 0;
     }
+
     .char-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 10px; margin-bottom: 14px; }
-    .char-stat-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 0.86rem; }
-    .talent-clickable { border-color: #d97706; cursor: pointer; background: #222634; }
+    .char-stat-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 13px;
+      font-size: 0.85rem;
+    }
+    .talent-clickable { border-color: #d97706; cursor: pointer; background: #232736; }
     .talent-detail-box {
-      background: #0d1320;
+      background: #0d1422;
       border: 1px solid #d97706;
-      border-radius: 8px;
-      padding: 11px;
+      border-radius: var(--radius-sm);
+      padding: 12px;
       margin-bottom: 14px;
       font-size: 0.85rem;
       color: #fde68a;
     }
+
     .camp-actions-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      padding: 10px;
-      background: #0d131d;
+      padding: 11px;
+      background: #0b111b;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
     }
-    .map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 8px; margin-top: 8px; }
-    .map-node { background: #0d1420; border: 1px solid var(--border); border-radius: 8px; padding: 10px; text-align: left; font-size: 0.82rem; }
-    .map-node.selected { border-color: #38bdf8; background: #15253c; }
-    .map-node.marked { border-color: #f59e0b; }
-    .prep-section {
-      background: #0d131d;
+
+    .map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 9px; margin-top: 9px; }
+    .map-node {
+      background: #0c131f;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 8px;
+      border-radius: var(--radius-sm);
+      padding: 11px;
+      text-align: left;
       font-size: 0.82rem;
     }
-    .prep-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-    .chip-btn { font-size: 0.78rem; padding: 5px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; }
+    .map-node.selected { border-color: #38bdf8; background: #14253d; }
+    .map-node.marked { border-color: #f59e0b; }
+
+    .prep-section {
+      background: #0b111b;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px;
+      margin-top: 9px;
+      font-size: 0.82rem;
+    }
+    .prep-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+    .chip-btn {
+      font-size: 0.78rem;
+      padding: 5px 9px;
+      border-radius: 7px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
     .chip-btn.active { background: #1d4ed8; border-color: #93c5fd; color: #fff; }
+
     .action-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-    .modal-card { background: #131e30; border: 1px solid #3b82f6; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
-    .combat-card { background: #191018; border: 1.5px solid #ef4444; border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+    .modal-card {
+      background: #121d2f;
+      border: 1px solid #3b82f6;
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .combat-card {
+      background: #191018;
+      border: 1.5px solid #ef4444;
+      border-radius: var(--radius);
+      padding: 15px;
+      margin-bottom: 12px;
+    }
     .combat-top-bar {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 8px;
-      padding-bottom: 8px;
+      padding-bottom: 9px;
       border-bottom: 1px solid #3b1d28;
     }
-    .combat-vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px; }
+    .combat-vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
     @media (max-width: 680px) { .combat-vs-grid { grid-template-columns: 1fr; } }
+
     .combatant-box {
       background: #101622;
       border: 1px solid #2b3950;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       padding: 10px;
       font-size: 0.82rem;
       display: flex;
@@ -632,48 +498,71 @@ cup #f59e0b #fef3c7`);
       align-items: flex-start;
     }
     .combatant-enemy { background: #231118; border-color: #7f1d1d; }
-    .hp-bar-track { width: 100%; height: 7px; background: #080c13; border-radius: 999px; overflow: hidden; margin-top: 5px; }
-    .hp-bar-player { height: 100%; background: #22c55e; }
-    .hp-bar-enemy { height: 100%; background: #ef4444; }
+
+    .hp-bar-track { width: 100%; height: 7px; background: #080c13; border-radius: 999px; overflow: hidden; margin-top: 6px; }
+    .hp-bar-player { height: 100%; background: #22c55e; transition: width 0.2s ease; }
+    .hp-bar-enemy { height: 100%; background: #ef4444; transition: width 0.2s ease; }
+
     .mob-stat-strip { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; font-size: 0.77rem; }
     .mob-badge { background: #0c111b; border: 1px solid #334155; border-radius: 6px; padding: 2px 7px; }
+
     .danger-low { color: #4ade80; font-weight: 700; }
     .danger-med { color: #facc15; font-weight: 700; }
     .danger-high { color: #fb923c; font-weight: 700; }
     .danger-extreme { color: #f87171; font-weight: 700; }
+
     .combat-feed {
       background: #090d14;
       border: 1px solid #4c1d24;
-      border-radius: 8px;
-      padding: 8px 10px;
-      margin-top: 8px;
-      max-height: 175px;
+      border-radius: var(--radius-sm);
+      padding: 9px 11px;
+      margin-top: 9px;
+      max-height: 180px;
       overflow-y: auto;
       font-size: 0.81rem;
     }
     .combat-line { padding: 3px 0; border-bottom: 1px dashed #241922; color: #f1f5f9; }
     .combat-line:last-child { border-bottom: none; }
     .combat-line.dead-line { color: #fbbf24; font-weight: 700; }
-    .report-card { background: #0e1f1a; border: 1px solid #22c55e; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
-    .warn-line { color: #fbbf24; font-size: 0.82rem; margin-top: 6px; }
+
+    .report-card {
+      background: #0e1f1a;
+      border: 1px solid #22c55e;
+      border-radius: var(--radius-sm);
+      padding: 13px;
+      margin-bottom: 12px;
+    }
+    .warn-line { color: #fbbf24; font-size: 0.82rem; margin-top: 7px; }
     .danger-line { color: #f87171; font-weight: 700; font-size: 0.82rem; margin-top: 4px; }
-    .encounter-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
-    .log-box { background: #0a0e16; border: 1px solid var(--border); border-radius: 8px; padding: 10px; height: 170px; overflow-y: auto; font-size: 0.82rem; }
-    .log-item { padding: 3px 0; border-bottom: 1px dashed #1e293b; }
+    .encounter-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+    .log-box {
+      background: #090e16;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      height: 180px;
+      overflow-y: auto;
+      font-size: 0.82rem;
+    }
+    .log-item { padding: 4px 0; border-bottom: 1px dashed #1c2738; }
     .log-item:last-child { border-bottom: none; }
+
     .bag-cat-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-    .bag-cat-btn { font-size: 0.78rem; padding: 6px 11px; border-radius: 999px; }
+    .bag-cat-btn { font-size: 0.78rem; padding: 6px 12px; border-radius: 999px; }
     .bag-cat-btn.active { background: #b45309; border-color: #fbbf24; color: #fff; }
     .bag-cat-btn.chest-tab.active { background: #0369a1; border-color: #38bdf8; color: #fff; }
     .bag-cat-btn.sup-tab.active { background: #7e22ce; border-color: #e879f9; color: #fff; }
+
     .inv-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; align-items: center; }
     .inv-toolbar input { flex: 1; min-width: 180px; }
-    .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 9px; max-height: 360px; overflow-y: auto; padding-right: 3px; }
+    .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 9px; max-height: 365px; overflow-y: auto; padding-right: 3px; }
+
     .inv-slot {
       background: var(--panel-2);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      padding: 9px 10px;
       font-size: 0.82rem;
       text-align: left;
       display: flex;
@@ -682,11 +571,12 @@ cup #f59e0b #fef3c7`);
     }
     .inv-slot.chest-slot { border-color: #0ea5e9; background: #102233; }
     .inv-slot.sup-slot { border-color: #a855f7; background: #201533; }
-    .inv-slot.selected { border-color: #fbbf24; background: #232f44; }
+    .inv-slot.selected { border-color: #fbbf24; background: #243147; }
+
     .progress-track {
       width: 100%;
       height: 6px;
-      background: #0a0e16;
+      background: #090e16;
       border: 1px solid var(--border);
       border-radius: 999px;
       overflow: hidden;
@@ -694,11 +584,12 @@ cup #f59e0b #fef3c7`);
     }
     .progress-fill { height: 100%; background: #22c55e; }
     .growth-fill { height: 100%; background: #f59e0b; }
+
     .inspector-box {
       margin-top: 12px;
-      background: #0a0e16;
+      background: #090e16;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       padding: 12px;
       display: flex;
       flex-wrap: wrap;
@@ -706,19 +597,20 @@ cup #f59e0b #fef3c7`);
       justify-content: space-between;
       gap: 12px;
     }
+
     .craft-cat-title {
       font-size: 0.92rem;
       font-weight: 700;
       color: #fbbf24;
-      margin: 12px 0 6px;
+      margin: 14px 0 8px;
       border-bottom: 1px solid var(--border);
       padding-bottom: 4px;
     }
     .build-card {
       background: var(--panel-2);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px;
+      border-radius: var(--radius-sm);
+      padding: 11px;
       margin-bottom: 8px;
       display: flex;
       flex-wrap: wrap;
@@ -727,16 +619,45 @@ cup #f59e0b #fef3c7`);
       gap: 10px;
       font-size: 0.82rem;
     }
-    .quest-card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; font-size: 0.83rem; }
+
+    .quest-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 13px;
+      margin-bottom: 8px;
+      font-size: 0.83rem;
+    }
     .quest-card.done { border-color: #22c55e; background: #10211c; }
-    .event-card { background: var(--panel-2); border: 1px solid var(--border); border-left: 4px solid #f59e0b; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; font-size: 0.83rem; }
+
+    .event-card {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-left: 4px solid #f59e0b;
+      border-radius: var(--radius-sm);
+      padding: 11px 13px;
+      margin-bottom: 8px;
+      font-size: 0.83rem;
+    }
     .event-card.disaster { border-left-color: #f97316; background: #211612; }
     .event-card.attack { border-left-color: #ef4444; background: #221218; }
     .event-card.boon { border-left-color: #22c55e; background: #112119; }
+
     .hidden { display: none !important; }
-    .chat-list { background: #0a0e16; border: 1px solid var(--border); border-radius: 8px; height: 220px; overflow-y: auto; padding: 10px; margin-bottom: 8px; font-size: 0.83rem; }
-    .chat-row { display: flex; gap: 6px; }
+
+    .chat-list {
+      background: #090e16;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      height: 230px;
+      overflow-y: auto;
+      padding: 10px 12px;
+      margin-bottom: 9px;
+      font-size: 0.83rem;
+    }
+    .chat-row { display: flex; gap: 7px; }
     .chat-row input, .chat-row select { flex: 1; }
+
     .trade-item {
       display: flex;
       justify-content: space-between;
@@ -744,14 +665,15 @@ cup #f59e0b #fef3c7`);
       gap: 10px;
       background: var(--panel-2);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 9px 11px;
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
       margin-bottom: 8px;
       font-size: 0.82rem;
     }
-    .admin-cmd-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+
+    .admin-cmd-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 9px; }
     .admin-cmd-row input { flex: 1; min-width: 210px; }
-    .admin-quick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 7px; margin-top: 6px; }
+    .admin-quick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; margin-top: 8px; }
   </style>
 </head>
 <body>
@@ -909,7 +831,7 @@ cup #f59e0b #fef3c7`);
   <!-- TRUNG TÂM ĐIỀU KHIỂN KHI ĐÓNG CÁC BẢNG TOÀN MÀN HÌNH -->
   <div class="home-hub" id="home-hub">
     <div class="home-hero">
-      <h2 style="font-size:1.1rem; color:#fbbf24; margin-bottom:4px;">Tổng Quan Căn Cứ & Sương Mù</h2>
+      <h2 style="font-size:1.12rem; color:#fbbf24; margin-bottom:4px;">Tổng Quan Căn Cứ & Sương Mù</h2>
       <p style="font-size:0.84rem; color:var(--muted);">
         Thời gian sinh tồn càng kéo dài, xác suất xuất hiện thiên tai, thú tấn công và biến cố sương mù càng cao. Mở bảng <strong>Sự kiện</strong> để theo dõi tỉ lệ hiện tại và nhật ký sự kiện.
       </p>
@@ -1949,7 +1871,6 @@ cup #f59e0b #fef3c7`);
       return cb.threatCut + houseMitigation;
     }
 
-    // Tỷ lệ sự kiện tăng theo thời gian sinh tồn (ngày 1 -> 100, thời điểm trong ngày, thời tiết, vị trí)
     function getSurvivalEventChance(context = 'tick') {
       const dayFactor = Math.min(0.45, ((state.day || 1) - 1) * 0.0042);
       const timeHour = Math.floor((state.timeOfDaySec || 0) / 3600) % 24;
@@ -1963,7 +1884,6 @@ cup #f59e0b #fef3c7`);
         const raw = 0.16 + dayFactor + dayProgressFactor + outsideBonus + nightBonus + weatherBonus;
         return Math.min(0.88, Math.max(0.12, raw));
       }
-      // Tích lũy mỗi 60 phút sinh tồn
       const rawTick = 0.08 + dayFactor * 0.75 + dayProgressFactor + outsideBonus * 0.7 + nightBonus * 0.8 + weatherBonus;
       return Math.min(0.75, Math.max(0.06, rawTick));
     }
@@ -2124,7 +2044,6 @@ cup #f59e0b #fef3c7`);
         return entry;
       }
 
-      // Boon event
       const woodGain = Math.max(3, Math.round(5 * Math.min(2.2, dayScale)));
       const stoneGain = Math.max(2, Math.round(4 * Math.min(2.2, dayScale)));
       state.inv.wood = (state.inv.wood || 0) + woodGain;
@@ -3089,7 +3008,6 @@ cup #f59e0b #fef3c7`);
         foundItems.push(`1 ${ITEM_DEFS[supKey].name}`);
       }
 
-      // Kiểm tra sự kiện sinh tồn khi chuyến đi kết thúc (tỉ lệ tăng theo ngày sinh tồn)
       const tripEvChance = getSurvivalEventChance('trip');
       if (Math.random() < tripEvChance) {
         const evRes = runSurvivalEvent(null, false);
@@ -4200,5 +4118,6 @@ cup #f59e0b #fef3c7`);
     initNpcSelect();
     renderAll();
   </script>
-</body>
-</html>
+
+  <script>
+    /* ====== BỘ HÌNH ẢNH MỚI (SVG) ======
