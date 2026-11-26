@@ -41,7 +41,7 @@
       padding: 7px 11px;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       transition: background 0.14s ease, border-color 0.14s ease, transform 0.1s ease;
     }
     button:hover:not(:disabled) { background: #243146; border-color: #4c648a; }
@@ -54,6 +54,17 @@
     button.danger-btn { background: #991b1b; border-color: #dc2626; color: #fff; }
     button.danger-btn:hover:not(:disabled) { background: #b91c1c; }
     button.success-btn { background: #15803d; border-color: #22c55e; color: #fff; }
+    button.admin-btn { background: #6d28d9; border-color: #8b5cf6; color: #fff; }
+    button.admin-btn:hover:not(:disabled) { background: #7c3aed; }
+
+    input, select {
+      background: #0b0f17;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 7px 9px;
+      font-size: 0.84rem;
+    }
 
     .mat-ok { color: var(--ok); font-weight: 700; }
     .mat-bad { color: var(--bad); font-weight: 700; }
@@ -61,7 +72,7 @@
     #intro-overlay, #victory-overlay, #gameover-overlay, #craft-block-overlay, #levelup-overlay, #chest-reward-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(8, 11, 18, 0.9);
+      background: rgba(8, 11, 18, 0.92);
       z-index: 65;
       display: flex;
       align-items: center;
@@ -82,8 +93,35 @@
     .levelup-modal { border-color: #38bdf8; }
     .gameover-modal { border-color: #ef4444; }
     .warn-modal { border-color: #f59e0b; }
-    .intro-title { font-size: 1.35rem; color: #fbbf24; margin-bottom: 6px; }
-    .intro-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 16px; }
+    .intro-title { font-size: 1.32rem; color: #fbbf24; margin-bottom: 6px; }
+    .intro-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 14px; }
+
+    .auth-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .auth-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .auth-field label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .auth-field input {
+      width: 100%;
+    }
+    .auth-msg {
+      font-size: 0.84rem;
+      color: #fca5a5;
+      min-height: 20px;
+      margin-bottom: 10px;
+    }
 
     .chest-loot-grid {
       display: grid;
@@ -156,7 +194,7 @@
       margin-top: 10px;
     }
     .talent-card {
-      min-height: 160px;
+      min-height: 155px;
       border-radius: 10px;
       padding: 14px;
       background: #0e141f;
@@ -192,7 +230,7 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       padding: 10px 14px;
       background: var(--panel);
       border-bottom: 1px solid var(--border);
@@ -204,7 +242,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
     }
     .pill {
       background: var(--panel-2);
@@ -212,23 +250,29 @@
       padding: 4px 9px;
       border-radius: 999px;
     }
+    .pill-admin {
+      background: #3b1c6e;
+      border-color: #a78bfa;
+      color: #f3e8ff;
+      font-weight: 700;
+    }
     .cold-alert {
       background: #121e38;
       border: 1px solid #3b82f6;
       color: #dbeafe;
       border-radius: 8px;
-      padding: 8px 12px;
-      margin: 12px 14px 0;
-      font-size: 0.86rem;
+      padding: 7px 12px;
+      margin: 10px 14px 0;
+      font-size: 0.84rem;
     }
     .hp-low-alert {
       background: #3b0d11;
       border: 1px solid #ef4444;
       color: #fecaca;
       border-radius: 8px;
-      padding: 8px 12px;
+      padding: 7px 12px;
       margin: 8px 14px 0;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
     }
     .toggle-bar { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -252,6 +296,10 @@
       padding: 12px;
       margin-bottom: 12px;
     }
+    .admin-box {
+      border-color: #8b5cf6;
+      background: #171326;
+    }
     .box-header {
       display: flex;
       align-items: center;
@@ -261,11 +309,11 @@
       padding-bottom: 6px;
       border-bottom: 1px solid #222e42;
     }
-    .box h2 { font-size: 1rem; color: #f8fafc; margin: 0; }
+    .box h2 { font-size: 0.98rem; color: #f8fafc; margin: 0; }
 
     .char-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 7px;
       margin-bottom: 9px;
     }
@@ -274,7 +322,7 @@
       border: 1px solid var(--border);
       border-radius: 7px;
       padding: 7px 9px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
     }
     .talent-clickable {
       border-color: #d97706;
@@ -287,7 +335,7 @@
       border-radius: 7px;
       padding: 9px;
       margin-bottom: 9px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       color: #fde68a;
     }
 
@@ -303,7 +351,7 @@
 
     .map-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 7px;
       margin-top: 8px;
     }
@@ -329,7 +377,7 @@
       border-radius: 8px;
       padding: 9px;
       margin-top: 8px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
     }
     .prep-chips {
       display: flex;
@@ -338,7 +386,7 @@
       margin-top: 6px;
     }
     .chip-btn {
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       padding: 5px 8px;
       border-radius: 6px;
     }
@@ -350,7 +398,7 @@
 
     .action-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
       gap: 8px;
       margin-bottom: 10px;
     }
@@ -362,25 +410,66 @@
       padding: 11px;
       margin-bottom: 10px;
     }
+
+    /* GIAO DIỆN CHIẾN ĐẤU TỐI ƯU */
     .combat-card {
-      background: #21131a;
-      border: 1px solid #ef4444;
-      border-radius: 8px;
-      padding: 11px;
+      background: #1a1118;
+      border: 1.5px solid #ef4444;
+      border-radius: 10px;
+      padding: 12px;
       margin-bottom: 10px;
     }
+    .combat-top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #3b1d28;
+    }
+    .combat-vs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    @media (max-width: 680px) {
+      .combat-vs-grid { grid-template-columns: 1fr; }
+    }
+    .combatant-box {
+      background: #111724;
+      border: 1px solid #2b3950;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+    }
+    .combatant-enemy {
+      background: #241219;
+      border-color: #7f1d1d;
+    }
+    .hp-bar-track {
+      width: 100%;
+      height: 7px;
+      background: #090d14;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 5px;
+    }
+    .hp-bar-player { height: 100%; background: #22c55e; }
+    .hp-bar-enemy { height: 100%; background: #ef4444; }
     .mob-stat-strip {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
       margin-top: 6px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
     }
     .mob-badge {
-      background: #131926;
-      border: 1px solid #3b4b68;
+      background: #0d121d;
+      border: 1px solid #334155;
       border-radius: 6px;
-      padding: 3px 7px;
+      padding: 2px 7px;
     }
     .danger-low { color: #4ade80; font-weight: 700; }
     .danger-med { color: #facc15; font-weight: 700; }
@@ -388,19 +477,19 @@
     .danger-extreme { color: #f87171; font-weight: 700; }
 
     .combat-feed {
-      background: #0b0f17;
-      border: 1px solid #7f1d1d;
-      border-radius: 7px;
-      padding: 9px;
+      background: #0a0e15;
+      border: 1px solid #4c1d24;
+      border-radius: 8px;
+      padding: 8px 10px;
       margin-top: 8px;
-      max-height: 190px;
+      max-height: 175px;
       overflow-y: auto;
-      font-size: 0.84rem;
+      font-size: 0.82rem;
     }
     .combat-line {
       padding: 3px 0;
-      border-bottom: 1px dashed #271b24;
-      color: #fecaca;
+      border-bottom: 1px dashed #241922;
+      color: #f1f5f9;
     }
     .combat-line:last-child { border-bottom: none; }
     .combat-line.dead-line { color: #fbbf24; font-weight: 700; }
@@ -414,7 +503,7 @@
     }
     .warn-line {
       color: #fbbf24;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       margin-top: 6px;
     }
     .encounter-actions {
@@ -429,9 +518,9 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 9px;
-      height: 165px;
+      height: 155px;
       overflow-y: auto;
-      font-size: 0.85rem;
+      font-size: 0.83rem;
     }
     .log-item { padding: 3px 0; border-bottom: 1px dashed #1e293b; }
     .log-item:last-child { border-bottom: none; }
@@ -443,21 +532,13 @@
       margin-bottom: 8px;
       align-items: center;
     }
-    .inv-toolbar input, .inv-toolbar select {
-      background: #0b0f17;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 6px 9px;
-      font-size: 0.83rem;
-    }
     .inv-toolbar input { flex: 1; min-width: 150px; }
 
     .inv-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
       gap: 7px;
-      max-height: 290px;
+      max-height: 270px;
       overflow-y: auto;
       padding-right: 2px;
     }
@@ -483,14 +564,8 @@
       overflow: hidden;
       margin-top: 4px;
     }
-    .progress-fill {
-      height: 100%;
-      background: #22c55e;
-    }
-    .growth-fill {
-      height: 100%;
-      background: #f59e0b;
-    }
+    .progress-fill { height: 100%; background: #22c55e; }
+    .growth-fill { height: 100%; background: #f59e0b; }
 
     .inspector-box {
       margin-top: 9px;
@@ -525,7 +600,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
     }
 
     .quest-card {
@@ -547,22 +622,14 @@
       background: #0b0f17;
       border: 1px solid var(--border);
       border-radius: 7px;
-      height: 150px;
+      height: 145px;
       overflow-y: auto;
       padding: 8px;
       margin-bottom: 7px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
     }
     .chat-row { display: flex; gap: 6px; }
-    .chat-row input, select {
-      flex: 1;
-      background: #0b0f17;
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: 7px 9px;
-      font-size: 0.84rem;
-    }
+    .chat-row input, .chat-row select { flex: 1; }
 
     .trade-item {
       display: flex;
@@ -574,24 +641,74 @@
       border-radius: 7px;
       padding: 7px 9px;
       margin-bottom: 7px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
+    }
+
+    .admin-cmd-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .admin-cmd-row input {
+      flex: 1;
+      min-width: 210px;
+    }
+    .admin-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 6px;
+      margin-top: 6px;
     }
   </style>
 </head>
 <body>
 
-  <!-- MÀN CHÀO & RÚT 3 THẺ THIÊN PHÚ -->
+  <!-- ĐĂNG KÝ / ĐĂNG NHẬP / ĐẶT TÊN NHÂN VẬT & RÚT THIÊN PHÚ -->
   <div id="intro-overlay">
     <div class="intro-card">
       <h1 class="intro-title">100 Ngày Sinh Tồn Trong Sương Mù</h1>
       <p class="intro-sub">
-        Vào game bạn chỉ có đúng <strong>1 cây Rìu</strong> trong balo, không có vật phẩm có sẵn.
-        Hệ thống hiện có hơn 200 vật phẩm, thời tiết thay đổi theo ngày/canh giờ, thú lên cấp chậm (~1–2 ngày/cấp) và tự động lưu tiến trình.
+        Tạo tài khoản hoặc đăng nhập để lưu riêng tiến trình và tên nhân vật.
+        Gõ tên đăng nhập <strong>admin</strong> để mở quyền Admin test game và dùng lệnh lấy đồ.
       </p>
 
-      <div id="step-welcome" style="display:flex; flex-wrap:wrap; gap:8px;">
-        <button class="primary" onclick="startWheel()">Quay chọn Thiên Phú</button>
-        <button class="accent-btn" id="btn-continue-save" onclick="loadSavedGame()" disabled>Mở bản lưu cũ</button>
+      <div id="step-auth">
+        <div class="auth-tabs">
+          <button type="button" id="tab-login" class="accent-btn" onclick="switchAuthMode('login')">Đăng nhập</button>
+          <button type="button" id="tab-register" onclick="switchAuthMode('register')">Tạo tài khoản</button>
+        </div>
+
+        <div class="auth-form-grid">
+          <div class="auth-field">
+            <label for="auth-username">Tên tài khoản</label>
+            <input id="auth-username" type="text" placeholder="Ví dụ: nguoichoi1 hoặc admin" onkeydown="if(event.key==='Enter') submitAuth()" />
+          </div>
+          <div class="auth-field">
+            <label for="auth-password">Mật khẩu</label>
+            <input id="auth-password" type="password" placeholder="Nhập mật khẩu" onkeydown="if(event.key==='Enter') submitAuth()" />
+          </div>
+          <div class="auth-field" id="auth-charname-wrap">
+            <label for="auth-charname">Tên nhân vật</label>
+            <input id="auth-charname" type="text" placeholder="Mặc định: Lâm Dã" onkeydown="if(event.key==='Enter') submitAuth()" />
+          </div>
+        </div>
+
+        <div id="auth-message" class="auth-msg"></div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <button type="button" id="btn-auth-submit" class="primary" onclick="submitAuth()">Đăng nhập</button>
+          <button type="button" class="admin-btn" onclick="quickAdminLogin()">Vào nhanh tài khoản Admin</button>
+        </div>
+      </div>
+
+      <div id="step-welcome" class="hidden">
+        <p id="welcome-account-summary" class="intro-sub"></p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <button class="primary" onclick="startWheel()">Quay chọn Thiên Phú (Ván mới)</button>
+          <button class="accent-btn" id="btn-continue-save" onclick="loadAccountSave()" disabled>Tiếp tục lưu của tài khoản</button>
+          <button onclick="backToAuth()">Đổi tài khoản</button>
+        </div>
       </div>
 
       <div id="step-wheel" class="hidden">
@@ -606,12 +723,12 @@
     </div>
   </div>
 
-  <!-- BẢNG THƯỞNG MỞ RƯƠNG TOÀN MÀN HÌNH -->
+  <!-- BẢNG THƯỞNG MỞ RƯƠNG -->
   <div id="chest-reward-overlay" class="hidden">
     <div class="fullscreen-modal chest-modal">
-      <h2 id="chest-reward-title" style="font-size:1.3rem; color:#fbbf24; margin-bottom:6px;">PHẦN THƯỞNG MỞ RƯƠNG</h2>
-      <p style="font-size:0.86rem; color:var(--muted); margin-bottom:8px;">
-        Bấm vào từng vật phẩm để xem nhóm, cân nặng và cách dùng ngay tại đây:
+      <h2 id="chest-reward-title" style="font-size:1.25rem; color:#fbbf24; margin-bottom:6px;">ĐỒ TRONG RƯƠNG</h2>
+      <p style="font-size:0.84rem; color:var(--muted); margin-bottom:8px;">
+        Bấm vào từng món để xem nhóm, cân nặng và công dụng:
       </p>
       <div id="chest-reward-grid" class="chest-loot-grid"></div>
       <div id="chest-reward-detail" class="chest-item-detail"></div>
@@ -619,12 +736,12 @@
     </div>
   </div>
 
-  <!-- THÔNG BÁO KHI BẤM CHẾ TẠO LÚC ĐANG Ở NGOÀI -->
+  <!-- THÔNG BÁO CHẾ TẠO KHI ĐANG Ở NGOÀI -->
   <div id="craft-block-overlay" class="hidden">
     <div class="fullscreen-modal warn-modal">
-      <h2 style="font-size:1.25rem; color:#fbbf24; margin-bottom:8px;">CHỈ CHẾ TẠO ĐƯỢC Ở NHÀ GỖ</h2>
-      <p style="font-size:0.9rem; color:#fde68a; margin-bottom:14px;">
-        Bạn đang ở ngoài chuyến đi nên chưa chế tạo được. Quay về Nhà gỗ rồi mở bảng Chế tạo sau nhé.
+      <h2 style="font-size:1.2rem; color:#fbbf24; margin-bottom:8px;">CHỈ CHẾ TẠO ĐƯỢC Ở NHÀ GỖ</h2>
+      <p style="font-size:0.88rem; color:#fde68a; margin-bottom:14px;">
+        Quay về Nhà gỗ rồi mở bảng Chế tạo sau nhé.
       </p>
       <button class="primary" onclick="closeCraftBlockModal()">Đã rõ</button>
     </div>
@@ -633,35 +750,37 @@
   <!-- THÔNG BÁO THÚ LÊN CẤP -->
   <div id="levelup-overlay" class="hidden">
     <div class="fullscreen-modal levelup-modal">
-      <h2 style="font-size:1.3rem; color:#38bdf8; margin-bottom:8px;">THÚ LÊN CẤP</h2>
-      <p id="levelup-main-text" style="font-size:1rem; color:#e0f2fe; font-weight:700; margin-bottom:6px;"></p>
-      <p id="levelup-stats-text" style="font-size:0.88rem; color:#86efac; margin-bottom:14px; white-space:pre-line;"></p>
+      <h2 style="font-size:1.25rem; color:#38bdf8; margin-bottom:8px;">THÚ LÊN CẤP</h2>
+      <p id="levelup-main-text" style="font-size:0.98rem; color:#e0f2fe; font-weight:700; margin-bottom:6px;"></p>
+      <p id="levelup-stats-text" style="font-size:0.86rem; color:#86efac; margin-bottom:14px; white-space:pre-line;"></p>
       <button class="accent-btn" onclick="closeLevelUpModal()">Tiếp tục</button>
     </div>
   </div>
 
-  <!-- THÔNG BÁO HẠ QUÁI THÚ -->
+  <!-- THÔNG BÁO HẠ THÚ -->
   <div id="victory-overlay" class="hidden">
     <div class="fullscreen-modal victory-modal">
-      <h2 style="font-size:1.3rem; color:#fbbf24; margin-bottom:8px;">HẠ THÚ THÀNH CÔNG</h2>
-      <p id="victory-main-text" style="font-size:0.98rem; color:#fde68a; font-weight:700; margin-bottom:8px;"></p>
-      <p id="victory-loot-text" style="font-size:0.9rem; color:#86efac; margin-bottom:14px;"></p>
+      <h2 style="font-size:1.25rem; color:#fbbf24; margin-bottom:8px;">HẠ THÚ THÀNH CÔNG</h2>
+      <p id="victory-main-text" style="font-size:0.96rem; color:#fde68a; font-weight:700; margin-bottom:8px;"></p>
+      <p id="victory-loot-text" style="font-size:0.88rem; color:#86efac; margin-bottom:14px;"></p>
       <button class="primary" onclick="closeVictoryModal()">Tiếp tục</button>
     </div>
   </div>
 
-  <!-- TỔNG KẾT KHI HP = 0 -->
+  <!-- TỔNG KẾT TỬ TRẬN -->
   <div id="gameover-overlay" class="hidden">
     <div class="fullscreen-modal gameover-modal">
-      <h2 style="font-size:1.3rem; color:#f87171; margin-bottom:8px;">BẠN ĐÃ TỬ TRẬN</h2>
-      <p id="gameover-summary" style="font-size:0.9rem; color:var(--text); margin-bottom:14px; white-space:pre-line;"></p>
-      <button class="danger-btn" onclick="restartGame()">Chơi lại từ đầu</button>
+      <h2 style="font-size:1.25rem; color:#f87171; margin-bottom:8px;">NHÂN VẬT ĐÃ TỬ TRẬN</h2>
+      <p id="gameover-summary" style="font-size:0.88rem; color:var(--text); margin-bottom:14px; white-space:pre-line;"></p>
+      <button class="danger-btn" onclick="restartGame()">Chơi lại ván mới</button>
     </div>
   </div>
 
   <!-- THANH TRẠNG THÁI TRÊN CÙNG -->
   <header class="topbar">
     <div class="stats-strip">
+      <span class="pill">Tên: <strong id="ui-charname">Lâm Dã</strong></span>
+      <span class="pill" id="ui-account-pill">Tài khoản: <strong id="ui-account">-</strong></span>
       <span class="pill">Ngày <strong id="ui-day">1</strong>/100</span>
       <span class="pill">Giờ: <strong id="ui-clock">06:00</strong> (<span id="ui-phase">Ban ngày</span>)</span>
       <span class="pill">Thời tiết: <strong id="ui-weather">Quang đãng</strong></span>
@@ -679,8 +798,9 @@
       <button onclick="togglePanel('chat-panel')">Chat chung</button>
       <button onclick="togglePanel('trade-panel')">Giao dịch</button>
       <button onclick="togglePanel('npc-panel')">Chat NPC</button>
+      <button id="btn-toggle-admin" class="admin-btn hidden" onclick="togglePanel('admin-panel')">Admin Test</button>
       <button class="success-btn" onclick="saveGameManual()">Lưu</button>
-      <button class="danger-btn" onclick="clearSaveData()">Xóa lưu</button>
+      <button onclick="backToAuth()">Đổi TK</button>
     </div>
   </header>
 
@@ -689,15 +809,42 @@
   </div>
 
   <div class="hp-low-alert hidden" id="hp-danger-banner">
-    Máu đang dưới 40, chú ý hồi máu hoặc quay về nghỉ ngơi.
+    Máu đang dưới 40, chú ý hồi máu hoặc nghỉ ngơi.
   </div>
 
   <main class="main-layout">
     <!-- CỘT TRÁI -->
     <div>
+      <!-- BẢNG ADMIN TEST & LỆNH LẤY ĐỒ (CHỈ HIỆN KHI LÀ ADMIN) -->
+      <section class="box admin-box hidden" id="admin-panel">
+        <div class="box-header">
+          <h2>Bảng Admin — Test Game & Lệnh Lấy Đồ</h2>
+          <button type="button" onclick="togglePanel('admin-panel')">Ẩn</button>
+        </div>
+        <div class="admin-cmd-row">
+          <input id="admin-cmd-input" type="text" placeholder="Lệnh: /give wood 50, /give axe 1, /give chest_gold 2, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
+          <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy lệnh</button>
+        </div>
+        <div id="admin-cmd-status" style="font-size:0.8rem; color:#d8b4fe; margin-bottom:6px;">
+          Gõ <code>/help</code> để xem danh sách lệnh hoặc bấm nhanh các nút bên dưới:
+        </div>
+        <div class="admin-quick-grid">
+          <button type="button" onclick="adminQuickGive('wood', 50)">+50 Gỗ</button>
+          <button type="button" onclick="adminQuickGive('stone', 50)">+50 Đá</button>
+          <button type="button" onclick="adminQuickGive('ore', 30)">+30 Quặng</button>
+          <button type="button" onclick="adminQuickGive('meat', 20)">+20 Thịt</button>
+          <button type="button" onclick="adminQuickGive('water', 20)">+20 Nước</button>
+          <button type="button" onclick="adminQuickGive('chest_gold', 3)">+3 Rương Vàng</button>
+          <button type="button" onclick="adminUnlockAllRecipes()">Mở mọi bản vẽ</button>
+          <button type="button" onclick="adminFullRestore()">Hồi đầy Máu & TL</button>
+          <button type="button" onclick="adminAdvanceTime(180)">Tua +180 phút</button>
+          <button type="button" onclick="adminSpawnTestPet()">Thêm 1 Sói Lớn</button>
+        </div>
+      </section>
+
       <section class="box" id="char-panel">
         <div class="box-header">
-          <h2>Nhân Vật & Sinh Hoạt Căn Cứ</h2>
+          <h2>Nhân Vật & Sinh Hoạt</h2>
           <button type="button" onclick="togglePanel('char-panel')">Ẩn</button>
         </div>
         <div class="char-grid">
@@ -715,11 +862,11 @@
         <div class="talent-detail-box hidden" id="talent-detail-box"></div>
 
         <div class="camp-actions-bar">
-          <button type="button" onclick="campGatherWood()">Chặt gỗ quanh nhà (+4 Gỗ, 15p)</button>
-          <button type="button" onclick="campCollectStone()">Nhặt đá ven suối (+3 Đá, 15p)</button>
-          <button type="button" class="primary" onclick="campCookMeat()">Nướng cá thành thịt (2 Cá → 2 Thịt, 15p)</button>
+          <button type="button" onclick="campGatherWood()">Chặt gỗ (+4 Gỗ, 15p)</button>
+          <button type="button" onclick="campCollectStone()">Nhặt đá (+3 Đá, 15p)</button>
+          <button type="button" class="primary" onclick="campCookMeat()">Nướng cá (2 Cá → 2 Thịt, 15p)</button>
           <button type="button" class="accent-btn" onclick="campPurifyWater()">Lọc nước (+2 Nước, 15p)</button>
-          <button type="button" onclick="campRest()">Nghỉ ngơi (+25 TL, +10 Máu, 45p)</button>
+          <button type="button" onclick="campRest()">Nghỉ (+25 TL, +10 Máu, 45p)</button>
         </div>
       </section>
 
@@ -736,7 +883,7 @@
         <div class="modal-card hidden" id="expedition-pack-box">
           <div style="font-weight:700; color:#38bdf8;" id="exp-pack-title">Đồ mang theo chuyến này</div>
           <div style="font-size:0.78rem; color:var(--muted); margin-top:2px;">
-            Đồ chưa dùng hết sẽ mang về lại Nhà gỗ khi kết thúc.
+            Đồ chưa dùng sẽ được mang về lại Nhà gỗ.
           </div>
           <div class="prep-chips" id="exp-pack-chips" style="margin-top:8px;"></div>
         </div>
@@ -751,7 +898,7 @@
           </div>
 
           <div class="prep-section">
-            <div><strong>Thú đi cùng (chỉ Niên thú hoặc Trưởng thành mới đánh được):</strong></div>
+            <div><strong>Thú đi cùng (chỉ thú Trẻ hoặc Lớn mới đánh được):</strong></div>
             <div class="prep-chips" id="prep-pets-chips"></div>
           </div>
 
@@ -767,14 +914,32 @@
           </div>
         </div>
 
+        <!-- GIAO DIỆN CHIẾN ĐẤU TỐI ƯU -->
         <div class="combat-card hidden" id="explore-combat-box">
-          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:6px;">
-            <div style="font-weight:700; color:#fca5a5;" id="exp-mob-header">Gặp thú</div>
-            <div id="exp-mob-danger"></div>
+          <div class="combat-top-bar">
+            <div style="font-weight:700; color:#fca5a5; font-size:0.95rem;" id="exp-mob-header">Đang giao chiến</div>
+            <div style="display:flex; gap:10px; align-items:center; font-size:0.82rem;">
+              <span id="exp-mob-danger"></span>
+              <span id="exp-mob-time" style="color:#fbbf24;"></span>
+            </div>
           </div>
-          <div class="mob-stat-strip" id="exp-mob-stats"></div>
-          <p style="font-size:0.84rem; margin-top:6px; color:#e2e8f0;" id="exp-mob-sub"></p>
-          <p class="warn-line" id="exp-mob-time"></p>
+
+          <div class="combat-vs-grid">
+            <div class="combatant-box">
+              <div style="font-weight:700; color:#86efac;" id="combat-side-player-title">Phe bạn</div>
+              <div id="combat-side-player-hp" style="font-size:0.8rem; margin-top:2px;"></div>
+              <div class="hp-bar-track"><div id="combat-bar-player" class="hp-bar-player" style="width:100%"></div></div>
+              <div id="combat-side-player-stats" style="font-size:0.78rem; color:var(--muted); margin-top:4px;"></div>
+            </div>
+
+            <div class="combatant-box combatant-enemy">
+              <div style="font-weight:700; color:#fca5a5;" id="combat-side-enemy-title">Đối thủ</div>
+              <div id="combat-side-enemy-hp" style="font-size:0.8rem; margin-top:2px;"></div>
+              <div class="hp-bar-track"><div id="combat-bar-enemy" class="hp-bar-enemy" style="width:100%"></div></div>
+              <div class="mob-stat-strip" id="exp-mob-stats"></div>
+            </div>
+          </div>
+
           <div class="encounter-actions" id="combat-action-buttons"></div>
           <div class="combat-feed" id="combat-feed-list"></div>
         </div>
@@ -799,18 +964,18 @@
         <div id="crafting-container"></div>
       </section>
 
+      <!-- BALO CHỈ HIỂN THỊ VẬT PHẨM ĐANG CÓ (> 0) -->
       <section class="box" id="bag-pet-panel">
         <div class="box-header">
-          <h2>Balo & Thú Nuôi (<span id="ui-total-item-types">0</span> loại vật phẩm)</h2>
+          <h2>Balo (<span id="ui-owned-item-count">0</span> món đang có) & Thú</h2>
           <button type="button" onclick="togglePanel('bag-pet-panel')">Ẩn</button>
         </div>
 
         <div class="inv-toolbar">
-          <input id="inv-search-input" type="text" placeholder="Tìm tên vật phẩm trong hơn 200 món..." oninput="renderAll()" />
+          <input id="inv-search-input" type="text" placeholder="Tìm món đang có trong balo..." oninput="renderAll()" />
           <select id="inv-filter-select" onchange="renderAll()">
-            <option value="all">Tất cả</option>
-            <option value="owned">Đang có (&gt; 0)</option>
-            <option value="usable">Dùng được</option>
+            <option value="all">Tất cả món có</option>
+            <option value="usable">Chỉ món dùng được</option>
           </select>
         </div>
 
@@ -820,7 +985,7 @@
           <div>
             <div style="font-weight:700; color:#fbbf24;" id="insp-name">Chưa chọn vật phẩm</div>
             <div style="font-size:0.78rem; color:var(--muted);" id="insp-type">Nhóm: -</div>
-            <div style="font-size:0.84rem; margin-top:3px;" id="insp-desc">Bấm vào một vật phẩm để xem chi tiết.</div>
+            <div style="font-size:0.84rem; margin-top:3px;" id="insp-desc">Bấm vào một món trong balo để xem chi tiết.</div>
           </div>
           <button class="primary" id="btn-use-item" onclick="useSelectedItem()" disabled>Dùng</button>
         </div>
@@ -913,7 +1078,7 @@
 
   <script>
     const GAME_SECONDS_PER_REAL_SECOND = 12;
-    const SAVE_STORAGE_KEY = 'mist_100_days_save_v2';
+    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v1';
     const CATEGORIES = ['Công cụ', 'Vật phẩm sinh hoạt', 'Vật phẩm y tế', 'Công trình'];
 
     const WEATHER_TYPES = [
@@ -923,7 +1088,6 @@
       { id: 'mist_storm', name: 'Bão sương', tempMod: -7, lootMult: 1.25, mobMod: 0.08, desc: 'Gió sương lạnh, nhiều đồ rơi nhưng thú hung hơn.' }
     ];
 
-    // Giảm phân bố thú trên bản đồ so với trước
     const MAP_LOCATIONS = [
       { id: 'edge_woods', name: 'Rìa Rừng Gần', distanceKm: 2, travelMinutes: 35, mobChance: 0.20, lootMult: 1.0, desc: '2km • 35 phút • Ít thú, dễ kiếm gỗ.' },
       { id: 'mist_stream', name: 'Suối Sương Mù', distanceKm: 5, travelMinutes: 65, mobChance: 0.25, lootMult: 1.2, desc: '5km • 65 phút • Nhiều đá & quặng.' },
@@ -961,25 +1125,25 @@
 
     function buildItemCatalog() {
       const items = {
-        axe: { name: 'Rìu', category: 'Dụng cụ', weight: 2, desc: 'Cây rìu mang theo từ đầu. Dùng để chặt gỗ và tự vệ.', usable: true, useLabel: 'Chặt nhẹ (+2 Gỗ, -5 TL)' },
-        wood: { name: 'Gỗ', category: 'Vật liệu', weight: 2, desc: 'Gỗ rừng, dùng để sửa nhà, nâng nhà và chế đồ.', usable: false },
-        stone: { name: 'Đá', category: 'Vật liệu', weight: 3, desc: 'Đá tảng hoặc đá cuội, dùng làm vật liệu xây dựng.', usable: false },
-        ore: { name: 'Quặng', category: 'Vật liệu', weight: 4, desc: 'Quặng thô, dùng rèn đồ hoặc đổi chác.', usable: false },
+        axe: { name: 'Rìu', category: 'Dụng cụ', weight: 2, desc: 'Cây rìu mang theo từ đầu. Dùng để chặt gỗ.', usable: true, useLabel: 'Chặt nhẹ (+2 Gỗ, -5 TL)' },
+        wood: { name: 'Gỗ', category: 'Vật liệu', weight: 2, desc: 'Gỗ rừng, dùng nâng nhà và chế đồ.', usable: false },
+        stone: { name: 'Đá', category: 'Vật liệu', weight: 3, desc: 'Đá làm vật liệu xây dựng.', usable: false },
+        ore: { name: 'Quặng', category: 'Vật liệu', weight: 4, desc: 'Quặng thô, dùng rèn đồ hoặc đổi đồ.', usable: false },
         fish: { name: 'Cá', category: 'Đồ ăn', weight: 2, desc: 'Ăn đỡ đói (+20 no, -8 khát, +5 máu).', usable: true, useLabel: 'Ăn cá' },
         water: { name: 'Nước', category: 'Đồ uống', weight: 2, desc: 'Uống giải khát (-30 khát, +8 máu).', usable: true, useLabel: 'Uống nước' },
         meat: { name: 'Thịt', category: 'Đồ ăn', weight: 2, desc: 'Ăn no bụng (+28 no, -6 khát, +10 máu).', usable: true, useLabel: 'Ăn thịt' },
-        hide: { name: 'Da thú', category: 'Vật liệu', weight: 2, desc: 'Da lấy từ thú, dùng làm đồ hoặc rào chắn.', usable: false },
-        feather: { name: 'Lông thú', category: 'Vật liệu', weight: 1, desc: 'Lông vũ/lông thú nhặt được.', usable: false },
-        mist_torch: { name: 'Đuốc', category: 'Đồ sinh hoạt', weight: 2, desc: 'Thắp sáng đỡ mệt (+18 thể lực, -12 khát, +8 máu).', usable: true, useLabel: 'Thắp đuốc' },
-        mist_herb: { name: 'Lá thuốc', category: 'Y tế', weight: 1, desc: 'Lá thuốc hái được (+30 máu, -20 khát, +12 thể lực).', usable: true, useLabel: 'Đắp/uống lá thuốc' },
-        life_charm: { name: 'Bùa hộ mệnh', category: 'Đồ sinh hoạt', weight: 1, desc: 'Giữ bên mình thêm +8 công; dùng ngay hồi +35 máu.', usable: true, useLabel: 'Dùng bùa' },
-        chest_bronze: { name: 'Rương Đồng', category: 'Rương', weight: 3, desc: 'Mở ra có gỗ, đá, quặng và đôi khi có bản vẽ.', usable: true, useLabel: 'Mở rương', chestTierIdx: 0 },
-        chest_silver: { name: 'Rương Bạc', category: 'Rương', weight: 4, desc: 'Mở ra nhiều gỗ, đá, quặng hơn rương đồng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 1 },
-        chest_gold: { name: 'Rương Vàng', category: 'Rương', weight: 5, desc: 'Mở ra khá nhiều nguyên liệu và cơ hội bản vẽ.', usable: true, useLabel: 'Mở rương', chestTierIdx: 2 },
+        hide: { name: 'Da thú', category: 'Vật liệu', weight: 2, desc: 'Da lấy từ thú.', usable: false },
+        feather: { name: 'Lông thú', category: 'Vật liệu', weight: 1, desc: 'Lông nhặt được.', usable: false },
+        mist_torch: { name: 'Đuốc', category: 'Đồ sinh hoạt', weight: 2, desc: 'Thắp sáng đỡ mệt (+18 thể lực, -12 khát, +8 máu).', usable: true, useLabel: 'Dùng đuốc' },
+        mist_herb: { name: 'Lá thuốc', category: 'Y tế', weight: 1, desc: 'Lá thuốc (+30 máu, -20 khát, +12 thể lực).', usable: true, useLabel: 'Dùng lá thuốc' },
+        life_charm: { name: 'Bùa hộ mệnh', category: 'Đồ sinh hoạt', weight: 1, desc: 'Giữ bên mình +8 công; dùng ngay +35 máu.', usable: true, useLabel: 'Dùng bùa' },
+        chest_bronze: { name: 'Rương Đồng', category: 'Rương', weight: 3, desc: 'Mở ra có gỗ, đá, quặng và cơ hội bản vẽ.', usable: true, useLabel: 'Mở rương', chestTierIdx: 0 },
+        chest_silver: { name: 'Rương Bạc', category: 'Rương', weight: 4, desc: 'Mở ra nhiều nguyên liệu hơn rương đồng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 1 },
+        chest_gold: { name: 'Rương Vàng', category: 'Rương', weight: 5, desc: 'Rương khá nhiều tài nguyên.', usable: true, useLabel: 'Mở rương', chestTierIdx: 2 },
         chest_platinum: { name: 'Rương Bạch Ngân', category: 'Rương', weight: 6, desc: 'Rương nhiều nguyên liệu tốt.', usable: true, useLabel: 'Mở rương', chestTierIdx: 3 },
-        chest_diamond: { name: 'Rương Kim Cương', category: 'Rương', weight: 7, desc: 'Rương lớn nhất với nhiều tài nguyên.', usable: true, useLabel: 'Mở rương', chestTierIdx: 4 },
+        chest_diamond: { name: 'Rương Kim Cương', category: 'Rương', weight: 7, desc: 'Rương lớn nhất.', usable: true, useLabel: 'Mở rương', chestTierIdx: 4 },
         bandage: { name: 'Băng gạc', category: 'Y tế', weight: 1, desc: 'Băng vết thương, hồi +25 máu.', usable: true, useLabel: 'Băng bó' },
-        tonic: { name: 'Nước ấm', category: 'Y tế', weight: 1, desc: 'Uống cho ấm người, hồi +20 máu và giảm 20 khát.', usable: true, useLabel: 'Uống nước ấm' },
+        tonic: { name: 'Nước ấm', category: 'Y tế', weight: 1, desc: 'Uống cho ấm người, +20 máu, -20 khát.', usable: true, useLabel: 'Uống nước ấm' },
         bp_iron_axe: { name: 'Bản vẽ Rìu Sắt', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Rìu Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_axe' },
         bp_iron_pickaxe: { name: 'Bản vẽ Cuốc Chim Sắt', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Cuốc Chim Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_pickaxe' },
         bp_bow_arrow: { name: 'Bản vẽ Cung Tên', category: 'Bản vẽ', weight: 1, desc: 'Học cách làm Cung Tên.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'bow_arrow' },
@@ -993,14 +1157,14 @@
       };
 
       const extraSpecs = [
-        { prefix: 'Vật liệu', cat: 'Vật liệu', w: 2, usable: false, names: ['Nhựa cây', 'Vỏ cây', 'Dây leo', 'Rễ cây', 'Cành khô', 'Mùn gỗ', 'Vỏ sò', 'Bùn non', 'Đất sét', 'Than củi', 'Tro bếp', 'Sỏi nhỏ', 'Đá vôi', 'Thạch anh', 'Mảnh sắt', 'Dây đồng', 'Đinh gỉ', 'Vải thô', 'Sợi lanh', 'Bông lau', 'Rơm khô', 'Vỏ hạt', 'Nhựa thông', 'Sáp ong', 'Mật rừng', 'Nấm dại', 'Rêu xanh', 'Cỏ khô', 'Vỏ trứng', 'Xương nhỏ', 'Sừng non', 'Móng thú', 'Vảy cá', 'Bọt biển', 'Cát sông', 'Đá mài', 'Keo nhựa', 'Bấc đèn', 'Dầu cá', 'Mỡ thú', 'Bột đá', 'Gạch vỡ', 'Ngói cũ', 'Thanh tre', 'Lá cọ', 'Vỏ quế', 'Củ gừng', 'Tỏi rừng', 'Ớt dại', 'Hạt tiêu', 'Muối mỏ', 'Đá lửa', 'Bùi nhùi', 'Ống tre', 'Gùi mây', 'Thừng gai', 'Móc sắt', 'Khóa đồng', 'Bản lề', 'Vòng sắt'] },
-        { prefix: 'Thực phẩm', cat: 'Đồ ăn', w: 2, usable: true, label: 'Ăn', names: ['Cá nướng', 'Thịt xiên', 'Bánh ngô', 'Khoai nướng', 'Sắn luộc', 'Cháo gạo', 'Cơm nắm', 'Trứng luộc', 'Nấm xào', 'Măng luộc', 'Đậu hầm', 'Ngô luộc', 'Hạt dẻ rang', 'Dâu rừng', 'Chuối rừng', 'Táo dại', 'Lê dại', 'Ổi rừng', 'Mít non', 'Dừa non', 'Mía khúc', 'Bánh đa', 'Bún khô', 'Mì sợi', 'Chả cá', 'Nem nướng', 'Gà quay', 'Vịt hầm', 'Sườn nướng', 'Canh rau', 'Rau luộc', 'Dưa muối', 'Cà muối', 'Mứt quả', 'Bánh bao', 'Xôi đậu', 'Bánh chưng', 'Chè đỗ', 'Sữa hạt', 'Bơ thực vật'] },
-        { prefix: 'Đồ uống', cat: 'Đồ uống', w: 2, usable: true, label: 'Uống', names: ['Nước suối', 'Nước mưa', 'Nước dừa', 'Trà lá', 'Trà gừng', 'Trà bạc hà', 'Nước mía', 'Nước quả', 'Nước ép táo', 'Nước ép lê', 'Nước chanh', 'Sữa nóng', 'Canh nóng', 'Nước sâm', 'Nước thảo mộc', 'Nước gạo rang', 'Nước vối', 'Nước atiso', 'Nước dâu', 'Nước mơ'] },
-        { prefix: 'Y tế', cat: 'Y tế', w: 1, usable: true, label: 'Dùng', names: ['Cao dán', 'Dầu gió', 'Rượu thuốc', 'Thuốc cầm máu', 'Thuốc hạ sốt', 'Thuốc giảm đau', 'Thuốc tiêu hóa', 'Thuốc bổ', 'Gạc sạch', 'Cồn sát trùng', 'Bột cầm máu', 'Nước muối', 'Viên ngậm', 'Dầu xoa bóp', 'Bột thảo dược', 'Cốt thuốc', 'Sáp vết thương', 'Nước rửa', 'Băng thun', 'Lá chườm'] },
-        { prefix: 'Trang bị', cat: 'Dụng cụ', w: 3, usable: false, names: ['Dao găm', 'Rìu nhỏ', 'Rìu lớn', 'Cưa tay', 'Đục gỗ', 'Búa sắt', 'Kìm sắt', 'Kéo cắt', 'Lưỡi câu', 'Cần câu', 'Lưới bắt', 'Rổ tre', 'Nón lá', 'Áo mưa', 'Áo khoác', 'Găng tay', 'Ủng cao su', 'Giày đi rừng', 'Thắt lưng', 'Bao tay', 'Mũ vải', 'Khăn quàng', 'Đèn dầu', 'Ống nhòm', 'La bàn', 'Còi báo', 'Dây thừng', 'Cọc lều', 'Bạt che', 'Túi ngủ'] },
-        { prefix: 'Linh kiện', cat: 'Vật liệu', w: 2, usable: false, names: ['Bánh răng', 'Lò xo', 'Trục sắt', 'Vòng bi', 'Tấm thép', 'Ống đồng', 'Dây kẽm', 'Chốt sắt', 'Đai ốc', 'Bu lông', 'Cò bẫy', 'Lưỡi bẫy', 'Ngàm kẹp', 'Tay quay', 'Ròng rọc', 'Khung gỗ', 'Nắp đậy', 'Van nước', 'Ống dẫn', 'Mặt đồng hồ'] },
-        { prefix: 'Hộp đồ', cat: 'Rương', w: 3, usable: true, label: 'Mở hộp', names: ['Hộp gỗ nhỏ', 'Hộp thiếc', 'Hộp sắt', 'Hộp đồng', 'Hộp kín', 'Túi đồ cũ', 'Thùng nhỏ', 'Giỏ quà', 'Hộp dụng cụ', 'Hộp y tế', 'Hộp lương khô', 'Hộp hạt giống', 'Hộp linh kiện', 'Hộp cổ vật', 'Hộp bí mật', 'Hộp thợ săn', 'Hộp thợ mỏ', 'Hộp đi rừng', 'Hộp lưu trữ', 'Hộp đặc biệt'] },
-        { prefix: 'Bản phác', cat: 'Bản vẽ', w: 1, usable: true, label: 'Xem phác thảo', names: ['Phác lều', 'Phác bếp', 'Phác giếng', 'Phác cầu', 'Phác bè', 'Phác xe đẩy', 'Phác kệ đồ', 'Phác tủ', 'Phác chuồng', 'Phác hàng rào', 'Phác bẫy thú', 'Phác máng nước', 'Phác lò sấy', 'Phác hầm trữ', 'Phác tháp canh', 'Phác cối xay', 'Phác máy bơm', 'Phác đèn hiệu', 'Phác cổng', 'Phác nhà kho'] }
+        { cat: 'Vật liệu', w: 2, usable: false, names: ['Nhựa cây', 'Vỏ cây', 'Dây leo', 'Rễ cây', 'Cành khô', 'Mùn gỗ', 'Vỏ sò', 'Bùn non', 'Đất sét', 'Than củi', 'Tro bếp', 'Sỏi nhỏ', 'Đá vôi', 'Thạch anh', 'Mảnh sắt', 'Dây đồng', 'Đinh gỉ', 'Vải thô', 'Sợi lanh', 'Bông lau', 'Rơm khô', 'Vỏ hạt', 'Nhựa thông', 'Sáp ong', 'Mật rừng', 'Nấm dại', 'Rêu xanh', 'Cỏ khô', 'Vỏ trứng', 'Xương nhỏ', 'Sừng non', 'Móng thú', 'Vảy cá', 'Bọt biển', 'Cát sông', 'Đá mài', 'Keo nhựa', 'Bấc đèn', 'Dầu cá', 'Mỡ thú', 'Bột đá', 'Gạch vỡ', 'Ngói cũ', 'Thanh tre', 'Lá cọ', 'Vỏ quế', 'Củ gừng', 'Tỏi rừng', 'Ớt dại', 'Hạt tiêu', 'Muối mỏ', 'Đá lửa', 'Bùi nhùi', 'Ống tre', 'Gùi mây', 'Thừng gai', 'Móc sắt', 'Khóa đồng', 'Bản lề', 'Vòng sắt'] },
+        { cat: 'Đồ ăn', w: 2, usable: true, label: 'Ăn', names: ['Cá nướng', 'Thịt xiên', 'Bánh ngô', 'Khoai nướng', 'Sắn luộc', 'Cháo gạo', 'Cơm nắm', 'Trứng luộc', 'Nấm xào', 'Măng luộc', 'Đậu hầm', 'Ngô luộc', 'Hạt dẻ rang', 'Dâu rừng', 'Chuối rừng', 'Táo dại', 'Lê dại', 'Ổi rừng', 'Mít non', 'Dừa non', 'Mía khúc', 'Bánh đa', 'Bún khô', 'Mì sợi', 'Chả cá', 'Nem nướng', 'Gà quay', 'Vịt hầm', 'Sườn nướng', 'Canh rau', 'Rau luộc', 'Dưa muối', 'Cà muối', 'Mứt quả', 'Bánh bao', 'Xôi đậu', 'Bánh chưng', 'Chè đỗ', 'Sữa hạt', 'Bơ thực vật'] },
+        { cat: 'Đồ uống', w: 2, usable: true, label: 'Uống', names: ['Nước suối', 'Nước mưa', 'Nước dừa', 'Trà lá', 'Trà gừng', 'Trà bạc hà', 'Nước mía', 'Nước quả', 'Nước ép táo', 'Nước ép lê', 'Nước chanh', 'Sữa nóng', 'Canh nóng', 'Nước sâm', 'Nước thảo mộc', 'Nước gạo rang', 'Nước vối', 'Nước atiso', 'Nước dâu', 'Nước mơ'] },
+        { cat: 'Y tế', w: 1, usable: true, label: 'Dùng', names: ['Cao dán', 'Dầu gió', 'Rượu thuốc', 'Thuốc cầm máu', 'Thuốc hạ sốt', 'Thuốc giảm đau', 'Thuốc tiêu hóa', 'Thuốc bổ', 'Gạc sạch', 'Cồn sát trùng', 'Bột cầm máu', 'Nước muối', 'Viên ngậm', 'Dầu xoa bóp', 'Bột thảo dược', 'Cốt thuốc', 'Sáp vết thương', 'Nước rửa', 'Băng thun', 'Lá chườm'] },
+        { cat: 'Dụng cụ', w: 3, usable: false, names: ['Dao găm', 'Rìu nhỏ', 'Rìu lớn', 'Cưa tay', 'Đục gỗ', 'Búa sắt', 'Kìm sắt', 'Kéo cắt', 'Lưỡi câu', 'Cần câu', 'Lưới bắt', 'Rổ tre', 'Nón lá', 'Áo mưa', 'Áo khoác', 'Găng tay', 'Ủng cao su', 'Giày đi rừng', 'Thắt lưng', 'Bao tay', 'Mũ vải', 'Khăn quàng', 'Đèn dầu', 'Ống nhòm', 'La bàn', 'Còi báo', 'Dây thừng', 'Cọc lều', 'Bạt che', 'Túi ngủ'] },
+        { cat: 'Vật liệu', w: 2, usable: false, names: ['Bánh răng', 'Lò xo', 'Trục sắt', 'Vòng bi', 'Tấm thép', 'Ống đồng', 'Dây kẽm', 'Chốt sắt', 'Đai ốc', 'Bu lông', 'Cò bẫy', 'Lưỡi bẫy', 'Ngàm kẹp', 'Tay quay', 'Ròng rọc', 'Khung gỗ', 'Nắp đậy', 'Van nước', 'Ống dẫn', 'Mặt đồng hồ'] },
+        { cat: 'Rương', w: 3, usable: true, label: 'Mở hộp', names: ['Hộp gỗ nhỏ', 'Hộp thiếc', 'Hộp sắt', 'Hộp đồng', 'Hộp kín', 'Túi đồ cũ', 'Thùng nhỏ', 'Giỏ quà', 'Hộp dụng cụ', 'Hộp y tế', 'Hộp lương khô', 'Hộp hạt giống', 'Hộp linh kiện', 'Hộp cổ vật', 'Hộp bí mật', 'Hộp thợ săn', 'Hộp thợ mỏ', 'Hộp đi rừng', 'Hộp lưu trữ', 'Hộp đặc biệt'] },
+        { cat: 'Bản vẽ', w: 1, usable: true, label: 'Xem phác thảo', names: ['Phác lều', 'Phác bếp', 'Phác giếng', 'Phác cầu', 'Phác bè', 'Phác xe đẩy', 'Phác kệ đồ', 'Phác tủ', 'Phác chuồng', 'Phác hàng rào', 'Phác bẫy thú', 'Phác máng nước', 'Phác lò sấy', 'Phác hầm trữ', 'Phác tháp canh', 'Phác cối xay', 'Phác máy bơm', 'Phác đèn hiệu', 'Phác cổng', 'Phác nhà kho'] }
       ];
 
       let idx = 1;
@@ -1014,7 +1178,7 @@
             usable: grp.usable,
             useLabel: grp.label || 'Dùng',
             desc: grp.usable
-              ? `${nm} (${grp.cat}). Dùng để hồi sức hoặc đỡ đói khát khi cần.`
+              ? `${nm} (${grp.cat}). Dùng để hồi sức hoặc đỡ đói khát.`
               : `${nm} (${grp.cat}, nặng ${grp.w}). Dùng để chế đồ hoặc trao đổi.`
           };
         }
@@ -1078,6 +1242,22 @@
       { id: 'an', name: 'An (Chăm thú)', haggleBonus: 0, offer: { give: 'fish', giveQty: 3, get: 'bp_warming_stove', getQty: 1 }, lines: ['Thú lớn cấp cao lên cấp chậm lắm, cứ kiên nhẫn nuôi.', 'Thú con nhỏ chưa đánh được đâu, để lớn thêm đã.'] }
     ];
 
+    let authMode = 'login';
+    let currentAccount = null;
+
+    function getAccountsStore() {
+      try {
+        const raw = localStorage.getItem(ACCOUNTS_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveAccountsStore(store) {
+      localStorage.setItem(ACCOUNTS_STORAGE_KEY, JSON.stringify(store));
+    }
+
     function calcPetStats(speciesId, stageIdx, lv) {
       const sp = BEAST_SPECIES.find(s => s.id === speciesId) || BEAST_SPECIES[4];
       const st = STAGES[stageIdx] || STAGES[1];
@@ -1109,8 +1289,10 @@
       return Math.round(str * 5.2 + state.maxHp * 0.8 + state.maxStamina * 0.5);
     }
 
-    function createInitialState() {
+    function createInitialState(charName = 'Lâm Dã', isAdmin = false) {
       return {
+        charName: charName || 'Lâm Dã',
+        isAdmin: Boolean(isAdmin),
         day: 1,
         timeOfDaySec: 6 * 3600,
         weatherId: 'clear',
@@ -1152,7 +1334,6 @@
         claimedQuests: [],
         tamedBeasts: [],
         beastBloodlines: {},
-        // Đầu game chỉ có đúng 1 cây rìu, không có vật phẩm khác trong balo
         inv: {
           axe: 1
         },
@@ -1176,6 +1357,146 @@
 
     let state = createInitialState();
 
+    function switchAuthMode(mode) {
+      authMode = mode;
+      document.getElementById('tab-login').className = mode === 'login' ? 'accent-btn' : '';
+      document.getElementById('tab-register').className = mode === 'register' ? 'accent-btn' : '';
+      document.getElementById('btn-auth-submit').textContent = mode === 'login' ? 'Đăng nhập' : 'Tạo tài khoản';
+      document.getElementById('auth-charname-wrap').classList.toggle('hidden', mode === 'login');
+      document.getElementById('auth-message').textContent = '';
+    }
+
+    function enterAccountWelcome(accKey, accRecord) {
+      currentAccount = { username: accKey, ...accRecord };
+      document.getElementById('step-auth').classList.add('hidden');
+      document.getElementById('step-wheel').classList.add('hidden');
+      document.getElementById('step-welcome').classList.remove('hidden');
+
+      const roleText = accRecord.isAdmin ? ' [QUYỀN ADMIN]' : '';
+      const hasSave = Boolean(accRecord.save);
+      document.getElementById('btn-continue-save').disabled = !hasSave;
+      document.getElementById('welcome-account-summary').textContent =
+        `Tài khoản: ${accKey}${roleText} • Tên nhân vật: ${accRecord.charName || 'Lâm Dã'}${hasSave ? ' • Có dữ liệu lưu.' : ' • Chưa có lưu.'}`;
+    }
+
+    function submitAuth() {
+      const uRaw = document.getElementById('auth-username').value.trim();
+      const pRaw = document.getElementById('auth-password').value;
+      const cRaw = document.getElementById('auth-charname').value.trim();
+      const msgEl = document.getElementById('auth-message');
+
+      if (!uRaw) {
+        msgEl.textContent = 'Nhập tên tài khoản trước nhé.';
+        return;
+      }
+      if (!pRaw) {
+        msgEl.textContent = 'Nhập mật khẩu trước nhé.';
+        return;
+      }
+
+      const key = uRaw.toLowerCase();
+      const store = getAccountsStore();
+
+      if (authMode === 'register') {
+        if (store[key]) {
+          msgEl.textContent = 'Tên tài khoản này đã tồn tại, thử tên khác hoặc chuyển sang Đăng nhập.';
+          return;
+        }
+        const isAdminAcc = key === 'admin';
+        const charName = cRaw || (isAdminAcc ? 'Quản Trị Viên' : 'Lâm Dã');
+        store[key] = {
+          password: pRaw,
+          charName,
+          isAdmin: isAdminAcc,
+          save: null
+        };
+        saveAccountsStore(store);
+        enterAccountWelcome(key, store[key]);
+      } else {
+        if (!store[key]) {
+          if (key === 'admin') {
+            store[key] = {
+              password: pRaw,
+              charName: 'Quản Trị Viên',
+              isAdmin: true,
+              save: null
+            };
+            saveAccountsStore(store);
+            enterAccountWelcome(key, store[key]);
+            return;
+          }
+          msgEl.textContent = 'Chưa có tài khoản này. Chuyển sang "Tạo tài khoản" để đăng ký.';
+          return;
+        }
+        if (store[key].password !== pRaw) {
+          msgEl.textContent = 'Sai mật khẩu.';
+          return;
+        }
+        if (key === 'admin') store[key].isAdmin = true;
+        saveAccountsStore(store);
+        enterAccountWelcome(key, store[key]);
+      }
+    }
+
+    function quickAdminLogin() {
+      const store = getAccountsStore();
+      if (!store.admin) {
+        store.admin = {
+          password: 'admin',
+          charName: 'Quản Trị Viên',
+          isAdmin: true,
+          save: null
+        };
+        saveAccountsStore(store);
+      }
+      enterAccountWelcome('admin', store.admin);
+    }
+
+    function backToAuth() {
+      document.getElementById('step-welcome').classList.add('hidden');
+      document.getElementById('step-wheel').classList.add('hidden');
+      document.getElementById('cards-container').classList.add('hidden');
+      document.getElementById('step-auth').classList.remove('hidden');
+      document.getElementById('intro-overlay').classList.remove('hidden');
+    }
+
+    function loadAccountSave() {
+      if (!currentAccount) return;
+      const store = getAccountsStore();
+      const rec = store[currentAccount.username];
+      if (!rec || !rec.save) return;
+      state = { ...createInitialState(rec.charName, rec.isAdmin), ...rec.save };
+      state.charName = rec.charName || state.charName || 'Lâm Dã';
+      state.isAdmin = Boolean(rec.isAdmin || currentAccount.username === 'admin');
+      document.getElementById('intro-overlay').classList.add('hidden');
+      logMsg(`Đã tải dữ liệu của tài khoản ${currentAccount.username}.`);
+      renderAll();
+    }
+
+    function saveGameState(silent = true) {
+      if (!currentAccount || !state.talent) return;
+      try {
+        const store = getAccountsStore();
+        const rec = store[currentAccount.username] || {
+          password: '',
+          charName: state.charName,
+          isAdmin: state.isAdmin
+        };
+        rec.charName = state.charName;
+        rec.isAdmin = state.isAdmin;
+        rec.save = JSON.parse(JSON.stringify(state));
+        store[currentAccount.username] = rec;
+        saveAccountsStore(store);
+        if (!silent) logMsg(`Đã lưu tiến trình tài khoản ${currentAccount.username}.`);
+      } catch (e) {
+        if (!silent) logMsg('Không lưu được dữ liệu.');
+      }
+    }
+
+    function saveGameManual() {
+      saveGameState(false);
+    }
+
     function getWeatherObj() {
       return WEATHER_TYPES.find(w => w.id === state.weatherId) || WEATHER_TYPES[0];
     }
@@ -1184,45 +1505,6 @@
       const w = WEATHER_TYPES[Math.floor(Math.random() * WEATHER_TYPES.length)];
       state.weatherId = w.id;
       logMsg(`Thời tiết đổi sang ${w.name}: ${w.desc}`);
-    }
-
-    function saveGameState(silent = true) {
-      try {
-        localStorage.setItem(SAVE_STORAGE_KEY, JSON.stringify(state));
-        updateSaveButtonStatus();
-        if (!silent) logMsg('Đã lưu game.');
-      } catch (e) {
-        if (!silent) logMsg('Lưu không thành công.');
-      }
-    }
-
-    function saveGameManual() {
-      saveGameState(false);
-    }
-
-    function loadSavedGame() {
-      try {
-        const raw = localStorage.getItem(SAVE_STORAGE_KEY);
-        if (!raw) return;
-        const parsed = JSON.parse(raw);
-        state = { ...createInitialState(), ...parsed };
-        document.getElementById('intro-overlay').classList.add('hidden');
-        logMsg('Đã mở lại bản lưu cũ.');
-        renderAll();
-      } catch (e) {
-        logMsg('Không đọc được bản lưu.');
-      }
-    }
-
-    function clearSaveData() {
-      localStorage.removeItem(SAVE_STORAGE_KEY);
-      updateSaveButtonStatus();
-      logMsg('Đã xóa bản lưu.');
-    }
-
-    function updateSaveButtonStatus() {
-      const btn = document.getElementById('btn-continue-save');
-      if (btn) btn.disabled = !localStorage.getItem(SAVE_STORAGE_KEY);
     }
 
     function getBagUsedWeight() {
@@ -1346,6 +1628,138 @@
       state.thirst = Math.min(state.maxThirst, state.thirst + 5);
       logMsg('Nghỉ 45 phút: +25 thể lực, +10 máu.');
       renderAll();
+    }
+
+    /* CÁC HÀM ADMIN TEST GAME & LỆNH LẤY ĐỒ */
+    function resolveItemKeyByQuery(query) {
+      if (!query) return null;
+      const q = query.toLowerCase().trim();
+      if (ITEM_DEFS[q]) return q;
+      for (const [k, def] of Object.entries(ITEM_DEFS)) {
+        if (def.name.toLowerCase() === q || def.name.toLowerCase().includes(q)) {
+          return k;
+        }
+      }
+      return null;
+    }
+
+    function adminQuickGive(key, qty) {
+      if (!state.isAdmin) return;
+      state.inv[key] = (state.inv[key] || 0) + qty;
+      state.selectedItem = key;
+      const msg = `Admin lấy +${qty} ${ITEM_DEFS[key]?.name || key}.`;
+      document.getElementById('admin-cmd-status').textContent = msg;
+      logMsg(msg);
+      renderAll();
+    }
+
+    function adminUnlockAllRecipes() {
+      if (!state.isAdmin) return;
+      state.unlockedRecipes = RECIPES.map(r => r.id);
+      const msg = 'Admin đã mở khóa toàn bộ công thức chế tạo.';
+      document.getElementById('admin-cmd-status').textContent = msg;
+      logMsg(msg);
+      renderAll();
+    }
+
+    function adminFullRestore() {
+      if (!state.isAdmin) return;
+      state.hp = state.maxHp;
+      state.stamina = state.maxStamina;
+      state.hunger = state.maxHunger;
+      state.thirst = 0;
+      state.isDead = false;
+      const msg = 'Admin đã hồi đầy máu, thể lực, độ no và giải khát.';
+      document.getElementById('admin-cmd-status').textContent = msg;
+      logMsg(msg);
+      renderAll();
+    }
+
+    function adminAdvanceTime(mins) {
+      if (!state.isAdmin) return;
+      advanceGameMinutes(mins);
+      const msg = `Admin tua thêm ${mins} phút game.`;
+      document.getElementById('admin-cmd-status').textContent = msg;
+      renderAll();
+    }
+
+    function adminSpawnTestPet() {
+      if (!state.isAdmin) return;
+      const st = calcPetStats('wolf', 2, 5);
+      const newPet = {
+        uid: `admin_pet_${Date.now()}`,
+        speciesId: 'wolf',
+        name: 'Sói Xám',
+        rank: 'Thường',
+        stageIdx: 2,
+        lv: 5,
+        growthPct: 0,
+        mutated: false,
+        mutateTo: 'Sói Đầu Đàn',
+        atk: st.atk,
+        def: st.def,
+        hp: st.maxHp,
+        maxHp: st.maxHp,
+        healRatePerMin: st.healRatePerMin,
+        healingRemainingHp: 0
+      };
+      state.tamedBeasts.push(newPet);
+      state.selectedPetUid = newPet.uid;
+      const msg = 'Admin thêm 1 Sói Xám (Lớn, cấp 5).';
+      document.getElementById('admin-cmd-status').textContent = msg;
+      logMsg(msg);
+      renderAll();
+    }
+
+    function runAdminCommand() {
+      if (!state.isAdmin) return;
+      const input = document.getElementById('admin-cmd-input');
+      const statusEl = document.getElementById('admin-cmd-status');
+      const raw = input.value.trim();
+      if (!raw) return;
+
+      const parts = raw.replace(/^\//, '').split(/\s+/);
+      const cmd = (parts[0] || '').toLowerCase();
+
+      if (cmd === 'help') {
+        statusEl.textContent = 'Lệnh: /give <tên_hoặc_mã> <số_lượng>, /heal, /stamina, /addtime <phút>, /day <số_ngày>, /allbp';
+      } else if (cmd === 'give') {
+        const itemQuery = parts.slice(1, parts.length - 1).join(' ') || parts[1];
+        const qtyVal = parseInt(parts[parts.length - 1], 10);
+        const qty = Number.isFinite(qtyVal) && qtyVal > 0 ? qtyVal : 1;
+        const foundKey = resolveItemKeyByQuery(itemQuery);
+        if (!foundKey) {
+          statusEl.textContent = `Không tìm thấy vật phẩm "${itemQuery}".`;
+        } else {
+          adminQuickGive(foundKey, qty);
+        }
+      } else if (cmd === 'heal') {
+        state.hp = state.maxHp;
+        state.isDead = false;
+        statusEl.textContent = 'Đã hồi đầy máu.';
+        logMsg('Admin hồi đầy máu.');
+        renderAll();
+      } else if (cmd === 'stamina') {
+        state.stamina = state.maxStamina;
+        statusEl.textContent = 'Đã hồi đầy thể lực.';
+        logMsg('Admin hồi đầy thể lực.');
+        renderAll();
+      } else if (cmd === 'addtime') {
+        const m = Math.max(1, parseInt(parts[1], 10) || 60);
+        adminAdvanceTime(m);
+      } else if (cmd === 'day') {
+        const d = Math.min(100, Math.max(1, parseInt(parts[1], 10) || 1));
+        state.day = d;
+        statusEl.textContent = `Đã đặt thành Ngày ${d}.`;
+        logMsg(`Admin đặt ngày thành ${d}.`);
+        renderAll();
+      } else if (cmd === 'allbp') {
+        adminUnlockAllRecipes();
+      } else {
+        statusEl.textContent = `Lệnh chưa rõ "${raw}". Gõ /help để xem cú pháp.`;
+      }
+
+      input.value = '';
     }
 
     function showLevelUpModal(pet, oldLv, oldStageName) {
@@ -1499,16 +1913,13 @@
         return `[Linh] Đang ${w.name.toLowerCase()}, ${state.temp}°C. ${w.desc}`;
       }
       if (q.includes('thú') || q.includes('chiến lực') || q.includes('cấp')) {
-        return `[An] Hiện bạn có ${petCount} thú. Thú cấp cao lên cấp hơi chậm, chịu khó đợi thêm thời gian.`;
+        return `[An] Hiện ${state.charName} có ${petCount} thú. Thú cấp cao lên cấp hơi chậm, chịu khó đợi thêm thời gian.`;
       }
       if (q.includes('rương') || q.includes('đi') || q.includes('bản đồ')) {
         return `[Linh] Mở rương bấm vào từng món xem thông tin luôn cho tiện. Đi càng xa càng tốn thời gian.`;
       }
-      if (q.includes('đồ') || q.includes('rìu') || q.includes('chế')) {
-        return `[Minh] Đầu chỉ có mỗi cây rìu thì cứ chặt gỗ nhặt đá dần, đủ đồ rồi chế hoặc đổi.`;
-      }
       const list = [
-        `[Linh] Ok bạn, đang là ${formatGameClock()} ngày ${state.day}, thời tiết ${w.name.toLowerCase()}.`,
+        `[Linh] Ok ${state.charName}, đang là ${formatGameClock()} ngày ${state.day}, thời tiết ${w.name.toLowerCase()}.`,
         `[Minh] Cần sắt đá hay bản vẽ thì ngó qua bảng trao đổi nhé.`,
         `[An] Nhớ cho thú ăn khi chúng bị thương.`
       ];
@@ -1521,6 +1932,7 @@
         state.isDead = true;
         const petNames = state.tamedBeasts.map(p => `${p.name} (cấp ${p.lv})`).join(', ') || 'Chưa có';
         const summary = [
+          `Nhân vật: ${state.charName}`,
           `Ngày sống được: ${state.day}/100 (${formatGameClock()})`,
           `Thiên phú: ${state.talent ? `${state.talent.name} (Hạng ${state.talent.rank})` : 'Chưa chọn'}`,
           `Nhà gỗ: Cấp ${state.houseLevel}/8`,
@@ -1539,12 +1951,14 @@
       document.getElementById('craft-block-overlay').classList.add('hidden');
       document.getElementById('chest-reward-overlay').classList.add('hidden');
       document.getElementById('adventure-log').innerHTML = '';
-      state = createInitialState();
+      const charName = currentAccount?.charName || 'Lâm Dã';
+      const isAdmin = Boolean(currentAccount?.isAdmin);
+      state = createInitialState(charName, isAdmin);
       document.getElementById('cards-container').classList.add('hidden');
       document.getElementById('step-wheel').classList.add('hidden');
+      document.getElementById('step-auth').classList.add('hidden');
       document.getElementById('step-welcome').classList.remove('hidden');
       document.getElementById('intro-overlay').classList.remove('hidden');
-      updateSaveButtonStatus();
       initNpcSelect();
       renderAll();
     }
@@ -1636,7 +2050,7 @@
       `;
       setTimeout(() => {
         document.getElementById('intro-overlay').classList.add('hidden');
-        logMsg(`Bắt đầu với thiên phú ${talent.name} (Hạng ${talent.rank}) và 1 cái rìu.`);
+        logMsg(`${state.charName} bắt đầu với thiên phú ${talent.name} (Hạng ${talent.rank}) và 1 cái rìu.`);
         saveGameState(true);
         renderAll();
       }, 550);
@@ -2004,11 +2418,11 @@
       const playerRaw = getPlayerStrength();
       const playerDmg = Math.max(10, Math.round(playerRaw * (100 / (100 + c.def * 2.2))));
       c.hp = Math.max(0, c.hp - playerDmg);
-      c.lines.push(`Bạn đánh bằng ${weaponName} (công ${playerRaw}), gây ${playerDmg} sát thương cho ${c.name} (còn ${c.hp}/${c.maxHp} máu).`);
+      c.lines.push(`${state.charName} đánh bằng ${weaponName} (công ${playerRaw}), gây ${playerDmg} sát thương cho ${c.name} (còn ${c.hp}/${c.maxHp} máu).`);
 
       if (c.hp <= 0) {
         c.defeated = true;
-        c.lines.push(`${c.name} nằm gục rồi. Chọn thuần phục hay xử lý tiếp.`);
+        c.lines.push(`${c.name} nằm gục rồi. Chọn thuần phục hay hạ luôn.`);
         renderAll();
         return;
       }
@@ -2018,10 +2432,10 @@
         const allyDmg = Math.max(8, Math.round(c.ally.atk * (100 / (100 + c.def * 2.0))));
         c.hp = Math.max(0, c.hp - allyDmg);
         if (realPet) advancePetGrowth(realPet, 12, true);
-        c.lines.push(`${c.ally.name} (cấp ${c.ally.lv}) cắn/đánh gây ${allyDmg} sát thương, ${c.name} còn ${c.hp}/${c.maxHp} máu.`);
+        c.lines.push(`${c.ally.name} (cấp ${c.ally.lv}) tấn công gây ${allyDmg} sát thương, ${c.name} còn ${c.hp}/${c.maxHp} máu.`);
         if (c.hp <= 0) {
           c.defeated = true;
-          c.lines.push(`${c.name} nằm gục rồi. Chọn thuần phục hay xử lý tiếp.`);
+          c.lines.push(`${c.name} nằm gục rồi. Chọn thuần phục hay hạ luôn.`);
           renderAll();
           return;
         }
@@ -2037,9 +2451,9 @@
       } else {
         const heroDmg = Math.max(4, Math.min(28, Math.round(c.atk * 0.35 - cBonus.threatCut)));
         state.hp = Math.max(0, state.hp - heroDmg);
-        c.lines.push(`${c.name} đánh trúng bạn (-${heroDmg} máu, còn ${state.hp}/${state.maxHp}).`);
+        c.lines.push(`${c.name} đánh trúng ${state.charName} (-${heroDmg} máu, còn ${state.hp}/${state.maxHp}).`);
         if (state.hp === 0) {
-          c.lines.push(`Bạn đã gục và tử trận.`);
+          c.lines.push(`${state.charName} đã gục và tử trận.`);
           renderAll();
           checkPlayerDeath();
           return;
@@ -2474,7 +2888,7 @@
       const input = document.getElementById('world-chat-input');
       const val = input.value.trim();
       if (!val) return;
-      addWorldMsg(`[Bạn - Ngày ${state.day}] ${val}`);
+      addWorldMsg(`[${state.charName} - Ngày ${state.day}] ${val}`);
       input.value = '';
       setTimeout(() => {
         addWorldMsg(generateNpcWorldAiReply(val));
@@ -2524,7 +2938,7 @@
       const input = document.getElementById('npc-chat-input');
       const text = input.value.trim();
       if (!text) return;
-      state.npcChats[npcId].push(`Bạn: ${text}`);
+      state.npcChats[npcId].push(`${state.charName}: ${text}`);
       const reply = npc.lines[Math.floor(Math.random() * npc.lines.length)];
       state.npcChats[npcId].push(`${npc.name.split(' ')[0]}: ${reply}`);
       input.value = '';
@@ -2607,6 +3021,21 @@
       const bagWeight = getBagUsedWeight();
       const maxCap = getMaxBagCapacity();
 
+      document.getElementById('ui-charname').textContent = state.charName || 'Lâm Dã';
+      document.getElementById('ui-account').textContent = currentAccount ? currentAccount.username : '-';
+      const accPill = document.getElementById('ui-account-pill');
+      accPill.className = state.isAdmin ? 'pill pill-admin' : 'pill';
+
+      const adminBtn = document.getElementById('btn-toggle-admin');
+      const adminBox = document.getElementById('admin-panel');
+      if (state.isAdmin) {
+        adminBtn.classList.remove('hidden');
+        adminBox.classList.remove('hidden');
+      } else {
+        adminBtn.classList.add('hidden');
+        adminBox.classList.add('hidden');
+      }
+
       document.getElementById('ui-day').textContent = state.day;
       document.getElementById('ui-clock').textContent = formatGameClock();
       document.getElementById('ui-phase').textContent = phase;
@@ -2615,7 +3044,6 @@
       document.getElementById('ui-location').textContent = locLabel;
       document.getElementById('ui-house').textContent = state.houseLevel;
       document.getElementById('ui-talent').textContent = state.talent ? `${state.talent.name} [${state.talent.rank}]` : '-';
-      document.getElementById('ui-total-item-types').textContent = Object.keys(ITEM_DEFS).length;
 
       const talentDetailEl = document.getElementById('talent-detail-box');
       if (state.talentDetailOpen && state.talent) {
@@ -2687,19 +3115,21 @@
             }).join('')
           : `<span style="color:var(--muted); font-size:0.78rem;">Chưa có thú</span>`;
 
-        const selectablePrepKeys = ['axe', 'water', 'meat', 'fish', 'bandage', 'tonic', 'mist_torch', 'mist_herb', 'wood', 'stone', 'ore'];
-        document.getElementById('prep-items-chips').innerHTML = selectablePrepKeys.map(k => {
-          const def = ITEM_DEFS[k];
-          const owned = state.inv[k] || 0;
-          const chosen = state.prepItems[k] || 0;
-          return `
-            <span style="display:inline-flex; align-items:center; gap:4px; background:#1b2434; padding:4px 7px; border-radius:6px; font-size:0.76rem;">
-              <span>${def.name} (có ${owned}, nặng ${def.weight}): <strong>${chosen}</strong></span>
-              <button type="button" style="padding:2px 6px;" onclick="adjustPrepItem('${k}', 1)" ${chosen >= owned ? 'disabled' : ''}>+</button>
-              <button type="button" style="padding:2px 6px;" onclick="adjustPrepItem('${k}', -1)" ${chosen <= 0 ? 'disabled' : ''}>-</button>
-            </span>
-          `;
-        }).join('');
+        const ownedPrepKeys = Object.keys(ITEM_DEFS).filter(k => (state.inv[k] || 0) > 0);
+        document.getElementById('prep-items-chips').innerHTML = ownedPrepKeys.length
+          ? ownedPrepKeys.map(k => {
+              const def = ITEM_DEFS[k];
+              const owned = state.inv[k] || 0;
+              const chosen = state.prepItems[k] || 0;
+              return `
+                <span style="display:inline-flex; align-items:center; gap:4px; background:#1b2434; padding:4px 7px; border-radius:6px; font-size:0.76rem;">
+                  <span>${def.name} (có ${owned}, nặng ${def.weight}): <strong>${chosen}</strong></span>
+                  <button type="button" style="padding:2px 6px;" onclick="adjustPrepItem('${k}', 1)" ${chosen >= owned ? 'disabled' : ''}>+</button>
+                  <button type="button" style="padding:2px 6px;" onclick="adjustPrepItem('${k}', -1)" ${chosen <= 0 ? 'disabled' : ''}>-</button>
+                </span>
+              `;
+            }).join('')
+          : `<span style="color:var(--muted); font-size:0.78rem;">Balo trống</span>`;
 
         const curLoc = MAP_LOCATIONS.find(m => m.id === state.selectedMapId) || MAP_LOCATIONS[0];
         const curStrat = STRATEGIES.find(s => s.id === state.selectedStrategyId) || STRATEGIES[0];
@@ -2716,18 +3146,38 @@
         const c = state.activeExploreSession.combat;
         const danger = evaluateDangerLevel(c, c.ally);
         const mobCp = calcCombatPower(c);
-        document.getElementById('exp-mob-header').textContent = `Gặp ${c.name} tại ${state.activeExploreSession.locName}`;
+        const enemyPct = Math.max(0, Math.min(100, Math.round((c.hp / Math.max(1, c.maxHp)) * 100)));
+
+        let playerTitle = `${state.charName}`;
+        let playerHpText = `Máu: ${state.hp}/${state.maxHp}`;
+        let playerPct = Math.max(0, Math.min(100, Math.round((state.hp / Math.max(1, state.maxHp)) * 100)));
+        let playerSub = `Công: ${getPlayerStrength()} • Chiến lực: ${getPlayerCombatPower()}`;
+
+        if (c.ally) {
+          playerTitle = `${state.charName} + ${c.ally.name} (cấp ${c.ally.lv})`;
+          playerHpText = `Máu bạn: ${state.hp}/${state.maxHp} • Máu thú: ${c.ally.hp}/${c.ally.maxHp}`;
+          playerPct = Math.max(0, Math.min(100, Math.round((c.ally.hp / Math.max(1, c.ally.maxHp)) * 100)));
+          playerSub = `Công bạn: ${getPlayerStrength()} • Công thú: ${c.ally.atk} • Thủ thú: ${c.ally.def}`;
+        }
+
+        document.getElementById('exp-mob-header').textContent = `Chiến đấu tại ${state.activeExploreSession.locName}`;
         document.getElementById('exp-mob-danger').innerHTML = `Mức độ: <span class="${danger.cls}">${danger.label}</span>`;
+        document.getElementById('exp-mob-time').textContent = `Đã hết ${state.activeExploreSession.totalMinutes} phút`;
+
+        document.getElementById('combat-side-player-title').textContent = playerTitle;
+        document.getElementById('combat-side-player-hp').textContent = playerHpText;
+        document.getElementById('combat-bar-player').style.width = `${playerPct}%`;
+        document.getElementById('combat-side-player-stats').textContent = playerSub;
+
+        document.getElementById('combat-side-enemy-title').textContent = `${c.name} (${c.stageLabel} • Cấp ${c.lv})`;
+        document.getElementById('combat-side-enemy-hp').textContent = `Máu: ${c.hp}/${c.maxHp} (${enemyPct}%)`;
+        document.getElementById('combat-bar-enemy').style.width = `${enemyPct}%`;
         document.getElementById('exp-mob-stats').innerHTML = `
-          <span class="mob-badge">Chiến lực: <strong>${mobCp.score} (Hạng ${mobCp.tier})</strong></span>
-          <span class="mob-badge"><strong>${c.stageLabel}</strong> • Cấp <strong>${c.lv}</strong></span>
-          <span class="mob-badge">Máu: <strong>${c.hp}/${c.maxHp}</strong></span>
-          <span class="mob-badge">Công: <strong>${c.atk}</strong> • Thủ: <strong>${c.def}</strong></span>
+          <span class="mob-badge">CL: <strong>${mobCp.score} (${mobCp.tier})</strong></span>
+          <span class="mob-badge">Nhóm: <strong>${c.rank}</strong></span>
+          <span class="mob-badge">Công: <strong>${c.atk}</strong></span>
+          <span class="mob-badge">Thủ: <strong>${c.def}</strong></span>
         `;
-        document.getElementById('exp-mob-sub').textContent = c.ally
-          ? `Đi cùng: ${c.ally.name} (cấp ${c.ally.lv}, máu ${c.ally.hp}/${c.ally.maxHp})`
-          : `Đánh một mình (công ${getPlayerStrength()})`;
-        document.getElementById('exp-mob-time').textContent = `Chuyến này đã hết ${state.activeExploreSession.totalMinutes} phút.`;
 
         if (c.defeated) {
           document.getElementById('combat-action-buttons').innerHTML = `
@@ -2760,26 +3210,33 @@
         expRepBox.classList.add('hidden');
       }
 
+      // Chỉ lấy vật phẩm đang có số lượng > 0
       const searchText = (document.getElementById('inv-search-input')?.value || '').trim().toLowerCase();
       const filterMode = document.getElementById('inv-filter-select')?.value || 'all';
 
-      const allSlots = [];
+      const ownedSlots = [];
       for (const [k, def] of Object.entries(ITEM_DEFS)) {
         const cnt = state.inv[k] || 0;
-        if (filterMode === 'owned' && cnt <= 0) continue;
+        if (cnt <= 0) continue;
         if (filterMode === 'usable' && !def.usable) continue;
         if (searchText && !def.name.toLowerCase().includes(searchText) && !def.category.toLowerCase().includes(searchText)) continue;
-        allSlots.push({ key: k, label: def.name, count: cnt, accent: cnt > 0 ? '#f8fafc' : 'var(--muted)' });
+        ownedSlots.push({ key: k, label: def.name, count: cnt, accent: '#f8fafc' });
       }
       for (const bl of Object.values(state.beastBloodlines)) {
+        if ((bl.count || 0) <= 0) continue;
+        if (filterMode === 'usable') continue;
         const key = `bl_${bl.speciesId}`;
-        if (filterMode === 'owned' && bl.count <= 0) continue;
         if (searchText && !`huyết mạch ${bl.speciesName}`.toLowerCase().includes(searchText)) continue;
-        allSlots.push({ key, label: `Huyết mạch ${bl.speciesName}`, count: bl.count, accent: '#f472b6' });
+        ownedSlots.push({ key, label: `Huyết mạch ${bl.speciesName}`, count: bl.count, accent: '#f472b6' });
       }
 
-      document.getElementById('inventory-grid').innerHTML = allSlots.length
-        ? allSlots.map(s => {
+      document.getElementById('ui-owned-item-count').textContent = ownedSlots.length;
+      if (ownedSlots.length > 0 && !ownedSlots.some(s => s.key === state.selectedItem)) {
+        state.selectedItem = ownedSlots[0].key;
+      }
+
+      document.getElementById('inventory-grid').innerHTML = ownedSlots.length
+        ? ownedSlots.map(s => {
             const activeClass = state.selectedItem === s.key ? 'selected' : '';
             return `
               <button type="button" class="inv-slot ${activeClass}" onclick="selectItem('${s.key}')">
@@ -2788,7 +3245,7 @@
               </button>
             `;
           }).join('')
-        : `<div class="inv-slot" style="color:var(--muted);">Không có món khớp bộ lọc</div>`;
+        : `<div class="inv-slot" style="color:var(--muted);">Balo hiện không có món nào</div>`;
 
       const selKey = state.selectedItem;
       const useBtn = document.getElementById('btn-use-item');
@@ -2804,12 +3261,18 @@
       } else {
         const selDef = ITEM_DEFS[selKey];
         const count = state.inv[selKey] || 0;
-        if (selDef) {
+        if (selDef && count > 0) {
           document.getElementById('insp-name').textContent = `${selDef.name} (Có: ${count})`;
           document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category} • Nặng: ${selDef.weight}`;
           document.getElementById('insp-desc').textContent = selDef.desc;
           useBtn.disabled = !selDef.usable || count <= 0 || state.isDead;
           useBtn.textContent = selDef.usable ? selDef.useLabel : 'Không dùng trực tiếp';
+        } else {
+          document.getElementById('insp-name').textContent = 'Chưa chọn vật phẩm';
+          document.getElementById('insp-type').textContent = 'Nhóm: -';
+          document.getElementById('insp-desc').textContent = 'Bấm vào một món đang có trong balo để xem chi tiết.';
+          useBtn.disabled = true;
+          useBtn.textContent = 'Dùng';
         }
       }
 
@@ -2908,12 +3371,11 @@
       autosaveAccumulatorSec += elapsedSec;
       if (autosaveAccumulatorSec >= 15) {
         autosaveAccumulatorSec = 0;
-        if (state.talent) saveGameState(true);
+        if (state.talent && currentAccount) saveGameState(true);
       }
       renderAll();
     }, 1000);
 
-    updateSaveButtonStatus();
     initNpcSelect();
     renderAll();
   </script>
