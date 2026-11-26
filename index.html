@@ -6,22 +6,22 @@
   <title>100 Ngày Sinh Tồn Trong Sương Mù</title>
   <style>
     :root {
-      --bg: #0c1018;
-      --panel: #141b26;
-      --panel-2: #1c2636;
-      --border: #2b3950;
-      --text: #e5ecf5;
+      --bg: #0b0f17;
+      --panel: #131a24;
+      --panel-2: #1b2432;
+      --border: #2a374c;
+      --text: #e6edf7;
       --muted: #94a3b8;
       --accent: #f59e0b;
       --ok: #22c55e;
       --bad: #ef4444;
-      --rank-F: #e2e8f0;
+      --rank-F: #cbd5e1;
       --rank-E: #a3e635;
       --rank-D: #22c55e;
       --rank-C: #38bdf8;
       --rank-B: #c084fc;
       --rank-A: #fb923c;
-      --rank-S: #ef4444;
+      --rank-S: #f43f5e;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,12 +41,12 @@
       padding: 7px 11px;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 0.84rem;
-      transition: background 0.14s ease, border-color 0.14s ease, transform 0.1s ease;
+      font-size: 0.83rem;
+      transition: background 0.14s ease, border-color 0.14s ease, transform 0.08s ease;
     }
-    button:hover:not(:disabled) { background: #243146; border-color: #4c648a; }
+    button:hover:not(:disabled) { background: #233044; border-color: #4b6388; }
     button:active:not(:disabled) { transform: scale(0.98); }
-    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    button:disabled { opacity: 0.42; cursor: not-allowed; }
     button.primary { background: #b45309; border-color: #d97706; color: #fff; }
     button.primary:hover:not(:disabled) { background: #c25e0c; }
     button.accent-btn { background: #1d4ed8; border-color: #3b82f6; color: #fff; }
@@ -58,12 +58,12 @@
     button.admin-btn:hover:not(:disabled) { background: #7c3aed; }
 
     input, select {
-      background: #0b0f17;
+      background: #090d14;
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 7px;
       padding: 7px 9px;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
     }
 
     .mat-ok { color: var(--ok); font-weight: 700; }
@@ -72,7 +72,7 @@
     #intro-overlay, #victory-overlay, #gameover-overlay, #craft-block-overlay, #levelup-overlay, #chest-reward-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(8, 11, 18, 0.92);
+      background: rgba(7, 10, 16, 0.92);
       z-index: 65;
       display: flex;
       align-items: center;
@@ -82,7 +82,7 @@
     }
     .intro-card, .fullscreen-modal {
       width: 100%;
-      max-width: 780px;
+      max-width: 760px;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -93,61 +93,42 @@
     .levelup-modal { border-color: #38bdf8; }
     .gameover-modal { border-color: #ef4444; }
     .warn-modal { border-color: #f59e0b; }
-    .intro-title { font-size: 1.32rem; color: #fbbf24; margin-bottom: 6px; }
-    .intro-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 14px; }
+    .intro-title { font-size: 1.3rem; color: #fbbf24; margin-bottom: 6px; }
+    .intro-sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 14px; }
 
-    .auth-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
+    .auth-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
     .auth-form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 10px;
       margin-bottom: 12px;
     }
-    .auth-field label {
-      display: block;
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-    .auth-field input {
-      width: 100%;
-    }
-    .auth-msg {
-      font-size: 0.84rem;
-      color: #fca5a5;
-      min-height: 20px;
-      margin-bottom: 10px;
-    }
+    .auth-field label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; }
+    .auth-field input { width: 100%; }
+    .auth-msg { font-size: 0.84rem; color: #fca5a5; min-height: 20px; margin-bottom: 10px; }
 
     .chest-loot-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
       gap: 8px;
       margin: 12px 0;
     }
     .chest-loot-btn {
-      background: #0e141f;
+      background: #0d131d;
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 9px;
       text-align: left;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
     }
-    .chest-loot-btn.active {
-      border-color: #fbbf24;
-      background: #232836;
-    }
+    .chest-loot-btn.active { border-color: #fbbf24; background: #222838; }
     .chest-item-detail {
-      background: #0b0f17;
+      background: #0a0e16;
       border: 1px solid #38bdf8;
       border-radius: 8px;
       padding: 11px;
       margin-bottom: 14px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
 
     .wheel-stage {
@@ -158,20 +139,20 @@
       margin: 12px 0 18px;
     }
     .wheel-ring {
-      width: 108px;
-      height: 108px;
+      width: 104px;
+      height: 104px;
       border-radius: 50%;
       border: 4px dashed #fbbf24;
-      background: conic-gradient(from 0deg, #e2e8f0, #22c55e, #38bdf8, #c084fc, #fb923c, #ef4444, #e2e8f0);
+      background: conic-gradient(from 0deg, #cbd5e1, #22c55e, #38bdf8, #c084fc, #fb923c, #f43f5e, #cbd5e1);
       display: flex;
       align-items: center;
       justify-content: center;
     }
     .wheel-core {
-      width: 80px;
-      height: 80px;
+      width: 76px;
+      height: 76px;
       border-radius: 50%;
-      background: #0f1622;
+      background: #0e1520;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -181,7 +162,7 @@
       text-align: center;
       padding: 6px;
     }
-    .spinning { animation: spinWheel 1s cubic-bezier(0.2, 0.85, 0.25, 1); }
+    .spinning { animation: spinWheel 0.95s cubic-bezier(0.2, 0.85, 0.25, 1); }
     @keyframes spinWheel {
       from { transform: rotate(0deg); }
       to { transform: rotate(720deg); }
@@ -194,10 +175,10 @@
       margin-top: 10px;
     }
     .talent-card {
-      min-height: 155px;
+      min-height: 150px;
       border-radius: 10px;
       padding: 14px;
-      background: #0e141f;
+      background: #0d131e;
       border: 1.5px solid var(--border);
       display: flex;
       flex-direction: column;
@@ -208,7 +189,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: #121a28;
+      background: #111926;
     }
     .glow-F { border-color: var(--rank-F); }
     .glow-D { border-color: var(--rank-D); }
@@ -217,13 +198,13 @@
     .glow-A { border-color: var(--rank-A); }
     .glow-S { border-color: var(--rank-S); }
 
-    .rank-F { color: var(--rank-F); }
-    .rank-E { color: var(--rank-E); }
-    .rank-D { color: var(--rank-D); }
-    .rank-C { color: var(--rank-C); }
-    .rank-B { color: var(--rank-B); }
-    .rank-A { color: var(--rank-A); }
-    .rank-S { color: var(--rank-S); }
+    .rank-F { color: var(--rank-F); font-weight: 700; }
+    .rank-E { color: var(--rank-E); font-weight: 700; }
+    .rank-D { color: var(--rank-D); font-weight: 700; }
+    .rank-C { color: var(--rank-C); font-weight: 700; }
+    .rank-B { color: var(--rank-B); font-weight: 700; }
+    .rank-A { color: var(--rank-A); font-weight: 700; }
+    .rank-S { color: var(--rank-S); font-weight: 700; }
 
     header.topbar {
       display: flex;
@@ -238,12 +219,7 @@
       top: 0;
       z-index: 20;
     }
-    .stats-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 0.82rem;
-    }
+    .stats-strip { display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.8rem; }
     .pill {
       background: var(--panel-2);
       border: 1px solid var(--border);
@@ -256,14 +232,18 @@
       color: #f3e8ff;
       font-weight: 700;
     }
-    .cold-alert {
-      background: #121e38;
-      border: 1px solid #3b82f6;
+    .status-strip {
+      background: #101a2d;
+      border: 1px solid #2b4570;
       color: #dbeafe;
       border-radius: 8px;
       padding: 7px 12px;
       margin: 10px 14px 0;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
     }
     .hp-low-alert {
       background: #3b0d11;
@@ -272,16 +252,21 @@
       border-radius: 8px;
       padding: 7px 12px;
       margin: 8px 14px 0;
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       font-weight: 700;
     }
     .toggle-bar { display: flex; flex-wrap: wrap; gap: 6px; }
+    .toggle-bar button.active-panel {
+      border-color: #fbbf24;
+      background: #252f42;
+      color: #fde68a;
+    }
 
     .main-layout {
       display: grid;
-      grid-template-columns: 1.38fr 1fr;
+      grid-template-columns: 1.35fr 1fr;
       gap: 12px;
-      padding: 12px 14px 18px;
+      padding: 12px 14px 20px;
       max-width: 1460px;
       margin: 0 auto;
     }
@@ -309,11 +294,11 @@
       padding-bottom: 6px;
       border-bottom: 1px solid #222e42;
     }
-    .box h2 { font-size: 0.98rem; color: #f8fafc; margin: 0; }
+    .box h2 { font-size: 0.96rem; color: #f8fafc; margin: 0; }
 
     .char-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 7px;
       margin-bottom: 9px;
     }
@@ -322,7 +307,7 @@
       border: 1px solid var(--border);
       border-radius: 7px;
       padding: 7px 9px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
     }
     .talent-clickable {
       border-color: #d97706;
@@ -335,7 +320,7 @@
       border-radius: 7px;
       padding: 9px;
       margin-bottom: 9px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
       color: #fde68a;
     }
 
@@ -344,67 +329,49 @@
       flex-wrap: wrap;
       gap: 7px;
       padding: 8px;
-      background: #0e141f;
+      background: #0d131d;
       border: 1px solid var(--border);
       border-radius: 8px;
     }
 
     .map-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
       gap: 7px;
       margin-top: 8px;
     }
     .map-node {
-      background: #0e1522;
+      background: #0d1420;
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 9px;
       text-align: left;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
     }
-    .map-node.selected {
-      border-color: #38bdf8;
-      background: #16263d;
-    }
-    .map-node.marked {
-      border-color: #f59e0b;
-    }
+    .map-node.selected { border-color: #38bdf8; background: #15253c; }
+    .map-node.marked { border-color: #f59e0b; }
 
     .prep-section {
-      background: #0e141f;
+      background: #0d131d;
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 9px;
       margin-top: 8px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
     }
-    .prep-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-    }
-    .chip-btn {
-      font-size: 0.77rem;
-      padding: 5px 8px;
-      border-radius: 6px;
-    }
-    .chip-btn.active {
-      background: #1d4ed8;
-      border-color: #93c5fd;
-      color: #fff;
-    }
+    .prep-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .chip-btn { font-size: 0.76rem; padding: 5px 8px; border-radius: 6px; }
+    .chip-btn.active { background: #1d4ed8; border-color: #93c5fd; color: #fff; }
 
     .action-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       gap: 8px;
       margin-bottom: 10px;
     }
 
     .modal-card {
-      background: #141f31;
+      background: #131e30;
       border: 1px solid #3b82f6;
       border-radius: 8px;
       padding: 11px;
@@ -412,7 +379,7 @@
     }
 
     .combat-card {
-      background: #1a1118;
+      background: #191018;
       border: 1.5px solid #ef4444;
       border-radius: 10px;
       padding: 12px;
@@ -437,35 +404,26 @@
       .combat-vs-grid { grid-template-columns: 1fr; }
     }
     .combatant-box {
-      background: #111724;
+      background: #101622;
       border: 1px solid #2b3950;
       border-radius: 8px;
       padding: 8px 10px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
     }
-    .combatant-enemy {
-      background: #241219;
-      border-color: #7f1d1d;
-    }
+    .combatant-enemy { background: #231118; border-color: #7f1d1d; }
     .hp-bar-track {
       width: 100%;
       height: 7px;
-      background: #090d14;
+      background: #080c13;
       border-radius: 999px;
       overflow: hidden;
       margin-top: 5px;
     }
     .hp-bar-player { height: 100%; background: #22c55e; }
     .hp-bar-enemy { height: 100%; background: #ef4444; }
-    .mob-stat-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 6px;
-      font-size: 0.78rem;
-    }
+    .mob-stat-strip { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; font-size: 0.77rem; }
     .mob-badge {
-      background: #0d121d;
+      background: #0c111b;
       border: 1px solid #334155;
       border-radius: 6px;
       padding: 2px 7px;
@@ -476,91 +434,55 @@
     .danger-extreme { color: #f87171; font-weight: 700; }
 
     .combat-feed {
-      background: #0a0e15;
+      background: #090d14;
       border: 1px solid #4c1d24;
       border-radius: 8px;
       padding: 8px 10px;
       margin-top: 8px;
-      max-height: 175px;
+      max-height: 165px;
       overflow-y: auto;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
     }
-    .combat-line {
-      padding: 3px 0;
-      border-bottom: 1px dashed #241922;
-      color: #f1f5f9;
-    }
+    .combat-line { padding: 3px 0; border-bottom: 1px dashed #241922; color: #f1f5f9; }
     .combat-line:last-child { border-bottom: none; }
     .combat-line.dead-line { color: #fbbf24; font-weight: 700; }
 
     .report-card {
-      background: #0f201b;
+      background: #0e1f1a;
       border: 1px solid #22c55e;
       border-radius: 8px;
       padding: 11px;
       margin-bottom: 10px;
     }
-    .warn-line {
-      color: #fbbf24;
-      font-size: 0.82rem;
-      margin-top: 6px;
-    }
-    .encounter-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 9px;
-    }
+    .warn-line { color: #fbbf24; font-size: 0.81rem; margin-top: 6px; }
+    .encounter-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
 
     .log-box {
-      background: #0b0f17;
+      background: #0a0e16;
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 9px;
-      height: 155px;
+      height: 150px;
       overflow-y: auto;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
     }
     .log-item { padding: 3px 0; border-bottom: 1px dashed #1e293b; }
     .log-item:last-child { border-bottom: none; }
 
-    /* TAB PHÂN LOẠI TÚI ĐỒ */
-    .bag-cat-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-    .bag-cat-btn {
-      font-size: 0.78rem;
-      padding: 5px 9px;
-      border-radius: 999px;
-    }
-    .bag-cat-btn.active {
-      background: #b45309;
-      border-color: #fbbf24;
-      color: #fff;
-    }
-    .bag-cat-btn.sup-tab.active {
-      background: #7e22ce;
-      border-color: #e879f9;
-      color: #fff;
-    }
+    .bag-cat-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .bag-cat-btn { font-size: 0.77rem; padding: 5px 9px; border-radius: 999px; }
+    .bag-cat-btn.active { background: #b45309; border-color: #fbbf24; color: #fff; }
+    .bag-cat-btn.chest-tab.active { background: #0369a1; border-color: #38bdf8; color: #fff; }
+    .bag-cat-btn.sup-tab.active { background: #7e22ce; border-color: #e879f9; color: #fff; }
 
-    .inv-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-bottom: 8px;
-      align-items: center;
-    }
+    .inv-toolbar { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; align-items: center; }
     .inv-toolbar input { flex: 1; min-width: 150px; }
 
     .inv-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
       gap: 7px;
-      max-height: 270px;
+      max-height: 265px;
       overflow-y: auto;
       padding-right: 2px;
     }
@@ -569,22 +491,17 @@
       border: 1px solid var(--border);
       border-radius: 7px;
       padding: 7px 8px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
       text-align: left;
     }
-    .inv-slot.sup-slot {
-      border-color: #a855f7;
-      background: #201533;
-    }
-    .inv-slot.selected {
-      border-color: #fbbf24;
-      background: #232f44;
-    }
+    .inv-slot.chest-slot { border-color: #0ea5e9; background: #102233; }
+    .inv-slot.sup-slot { border-color: #a855f7; background: #201533; }
+    .inv-slot.selected { border-color: #fbbf24; background: #232f44; }
 
     .progress-track {
       width: 100%;
       height: 6px;
-      background: #0b0f17;
+      background: #0a0e16;
       border: 1px solid var(--border);
       border-radius: 999px;
       overflow: hidden;
@@ -595,7 +512,7 @@
 
     .inspector-box {
       margin-top: 9px;
-      background: #0b0f17;
+      background: #0a0e16;
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 10px;
@@ -607,7 +524,7 @@
     }
 
     .craft-cat-title {
-      font-size: 0.88rem;
+      font-size: 0.87rem;
       font-weight: 700;
       color: #fbbf24;
       margin: 9px 0 5px;
@@ -626,7 +543,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
     }
 
     .quest-card {
@@ -635,24 +552,21 @@
       border-radius: 7px;
       padding: 8px 10px;
       margin-bottom: 7px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
     }
-    .quest-card.done {
-      border-color: #22c55e;
-      background: #10211c;
-    }
+    .quest-card.done { border-color: #22c55e; background: #10211c; }
 
     .hidden { display: none !important; }
 
     .chat-list {
-      background: #0b0f17;
+      background: #0a0e16;
       border: 1px solid var(--border);
       border-radius: 7px;
-      height: 145px;
+      height: 140px;
       overflow-y: auto;
       padding: 8px;
       margin-bottom: 7px;
-      font-size: 0.83rem;
+      font-size: 0.82rem;
     }
     .chat-row { display: flex; gap: 6px; }
     .chat-row input, .chat-row select { flex: 1; }
@@ -667,22 +581,14 @@
       border-radius: 7px;
       padding: 7px 9px;
       margin-bottom: 7px;
-      font-size: 0.82rem;
+      font-size: 0.81rem;
     }
 
-    .admin-cmd-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-    .admin-cmd-row input {
-      flex: 1;
-      min-width: 210px;
-    }
+    .admin-cmd-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .admin-cmd-row input { flex: 1; min-width: 210px; }
     .admin-quick-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 6px;
       margin-top: 6px;
     }
@@ -690,13 +596,12 @@
 </head>
 <body>
 
-  <!-- ĐĂNG KÝ / ĐĂNG NHẬP / ĐẶT TÊN NHÂN VẬT & RÚT THIÊN PHÚ -->
+  <!-- ĐĂNG NHẬP / ĐĂNG KÝ & RÚT THIÊN PHÚ -->
   <div id="intro-overlay">
     <div class="intro-card">
       <h1 class="intro-title">100 Ngày Sinh Tồn Trong Sương Mù</h1>
       <p class="intro-sub">
-        Tạo tài khoản hoặc đăng nhập để lưu riêng tiến trình và tên nhân vật.
-        Bảng Admin luôn sẵn sàng để test game và lấy đồ siêu phàm.
+        Đăng nhập hoặc tạo tài khoản để bắt đầu. Chọn nút trên thanh trên cùng để mở các mục khi cần.
       </p>
 
       <div id="step-auth">
@@ -708,11 +613,11 @@
         <div class="auth-form-grid">
           <div class="auth-field">
             <label for="auth-username">Tên tài khoản</label>
-            <input id="auth-username" type="text" placeholder="Ví dụ: nguoichoi1 hoặc admin" onkeydown="if(event.key==='Enter') submitAuth()" />
+            <input id="auth-username" type="text" placeholder="Tên tài khoản" onkeydown="if(event.key==='Enter') submitAuth()" />
           </div>
           <div class="auth-field">
             <label for="auth-password">Mật khẩu</label>
-            <input id="auth-password" type="password" placeholder="Nhập mật khẩu" onkeydown="if(event.key==='Enter') submitAuth()" />
+            <input id="auth-password" type="password" placeholder="Mật khẩu" onkeydown="if(event.key==='Enter') submitAuth()" />
           </div>
           <div class="auth-field" id="auth-charname-wrap">
             <label for="auth-charname">Tên nhân vật</label>
@@ -724,7 +629,6 @@
 
         <div style="display:flex; flex-wrap:wrap; gap:8px;">
           <button type="button" id="btn-auth-submit" class="primary" onclick="submitAuth()">Đăng nhập</button>
-          <button type="button" class="admin-btn" onclick="quickAdminLogin()">Vào nhanh tài khoản Admin</button>
         </div>
       </div>
 
@@ -732,7 +636,7 @@
         <p id="welcome-account-summary" class="intro-sub"></p>
         <div style="display:flex; flex-wrap:wrap; gap:8px;">
           <button class="primary" onclick="startWheel()">Quay chọn Thiên Phú (Ván mới)</button>
-          <button class="accent-btn" id="btn-continue-save" onclick="loadAccountSave()" disabled>Tiếp tục lưu của tài khoản</button>
+          <button class="accent-btn" id="btn-continue-save" onclick="loadAccountSave()" disabled>Tiếp tục lưu</button>
           <button onclick="backToAuth()">Đổi tài khoản</button>
         </div>
       </div>
@@ -752,10 +656,8 @@
   <!-- BẢNG THƯỞNG MỞ RƯƠNG -->
   <div id="chest-reward-overlay" class="hidden">
     <div class="fullscreen-modal chest-modal">
-      <h2 id="chest-reward-title" style="font-size:1.25rem; color:#fbbf24; margin-bottom:6px;">ĐỒ TRONG RƯƠNG</h2>
-      <p style="font-size:0.84rem; color:var(--muted); margin-bottom:8px;">
-        Bấm vào từng món để xem nhóm, cân nặng và công dụng:
-      </p>
+      <h2 id="chest-reward-title" style="font-size:1.2rem; color:#fbbf24; margin-bottom:6px;">ĐỒ TRONG RƯƠNG</h2>
+      <p style="font-size:0.83rem; color:var(--muted); margin-bottom:8px;">Bấm từng món để xem chi tiết:</p>
       <div id="chest-reward-grid" class="chest-loot-grid"></div>
       <div id="chest-reward-detail" class="chest-item-detail"></div>
       <button class="primary" onclick="closeChestRewardModal()">Đóng</button>
@@ -765,10 +667,8 @@
   <!-- THÔNG BÁO CHẾ TẠO KHI ĐANG Ở NGOÀI -->
   <div id="craft-block-overlay" class="hidden">
     <div class="fullscreen-modal warn-modal">
-      <h2 style="font-size:1.2rem; color:#fbbf24; margin-bottom:8px;">CHỈ CHẾ TẠO ĐƯỢC Ở NHÀ GỖ</h2>
-      <p style="font-size:0.88rem; color:#fde68a; margin-bottom:14px;">
-        Quay về Nhà gỗ rồi mở bảng Chế tạo sau nhé.
-      </p>
+      <h2 style="font-size:1.15rem; color:#fbbf24; margin-bottom:8px;">CHỈ CHẾ TẠO ĐƯỢC Ở NHÀ GỖ</h2>
+      <p style="font-size:0.86rem; color:#fde68a; margin-bottom:14px;">Hãy về Nhà gỗ trước khi chế tạo.</p>
       <button class="primary" onclick="closeCraftBlockModal()">Đã rõ</button>
     </div>
   </div>
@@ -776,9 +676,9 @@
   <!-- THÔNG BÁO THÚ LÊN CẤP -->
   <div id="levelup-overlay" class="hidden">
     <div class="fullscreen-modal levelup-modal">
-      <h2 style="font-size:1.25rem; color:#38bdf8; margin-bottom:8px;">THÚ LÊN CẤP</h2>
-      <p id="levelup-main-text" style="font-size:0.98rem; color:#e0f2fe; font-weight:700; margin-bottom:6px;"></p>
-      <p id="levelup-stats-text" style="font-size:0.86rem; color:#86efac; margin-bottom:14px; white-space:pre-line;"></p>
+      <h2 style="font-size:1.2rem; color:#38bdf8; margin-bottom:8px;">THÚ LÊN CẤP</h2>
+      <p id="levelup-main-text" style="font-size:0.95rem; color:#e0f2fe; font-weight:700; margin-bottom:6px;"></p>
+      <p id="levelup-stats-text" style="font-size:0.84rem; color:#86efac; margin-bottom:14px; white-space:pre-line;"></p>
       <button class="accent-btn" onclick="closeLevelUpModal()">Tiếp tục</button>
     </div>
   </div>
@@ -786,9 +686,9 @@
   <!-- THÔNG BÁO HẠ THÚ -->
   <div id="victory-overlay" class="hidden">
     <div class="fullscreen-modal victory-modal">
-      <h2 style="font-size:1.25rem; color:#fbbf24; margin-bottom:8px;">HẠ THÚ THÀNH CÔNG</h2>
-      <p id="victory-main-text" style="font-size:0.96rem; color:#fde68a; font-weight:700; margin-bottom:8px;"></p>
-      <p id="victory-loot-text" style="font-size:0.88rem; color:#86efac; margin-bottom:14px;"></p>
+      <h2 style="font-size:1.2rem; color:#fbbf24; margin-bottom:8px;">HẠ THÚ THÀNH CÔNG</h2>
+      <p id="victory-main-text" style="font-size:0.94rem; color:#fde68a; font-weight:700; margin-bottom:8px;"></p>
+      <p id="victory-loot-text" style="font-size:0.86rem; color:#86efac; margin-bottom:14px;"></p>
       <button class="primary" onclick="closeVictoryModal()">Tiếp tục</button>
     </div>
   </div>
@@ -796,8 +696,8 @@
   <!-- TỔNG KẾT TỬ TRẬN -->
   <div id="gameover-overlay" class="hidden">
     <div class="fullscreen-modal gameover-modal">
-      <h2 style="font-size:1.25rem; color:#f87171; margin-bottom:8px;">NHÂN VẬT ĐÃ TỬ TRẬN</h2>
-      <p id="gameover-summary" style="font-size:0.88rem; color:var(--text); margin-bottom:14px; white-space:pre-line;"></p>
+      <h2 style="font-size:1.2rem; color:#f87171; margin-bottom:8px;">NHÂN VẬT ĐÃ TỬ TRẬN</h2>
+      <p id="gameover-summary" style="font-size:0.86rem; color:var(--text); margin-bottom:14px; white-space:pre-line;"></p>
       <button class="danger-btn" onclick="restartGame()">Chơi lại ván mới</button>
     </div>
   </div>
@@ -806,56 +706,55 @@
   <header class="topbar">
     <div class="stats-strip">
       <span class="pill">Tên: <strong id="ui-charname">Lâm Dã</strong></span>
-      <span class="pill pill-admin" id="ui-account-pill">Tài khoản: <strong id="ui-account">-</strong></span>
+      <span class="pill" id="ui-account-pill">Tài khoản: <strong id="ui-account">-</strong></span>
       <span class="pill">Ngày <strong id="ui-day">1</strong>/100</span>
       <span class="pill">Giờ: <strong id="ui-clock">06:00</strong> (<span id="ui-phase">Ban ngày</span>)</span>
-      <span class="pill">Thời tiết: <strong id="ui-weather">Quang đãng</strong></span>
-      <span class="pill"><strong id="ui-temp">18°C</strong></span>
-      <span class="pill">Nơi ở: <strong id="ui-location">Nhà gỗ</strong></span>
+      <span class="pill">Thời tiết: <strong id="ui-weather">Quang đãng</strong> (<strong id="ui-temp">18°C</strong>)</span>
+      <span class="pill">Vị trí: <strong id="ui-location">Nhà gỗ</strong></span>
       <span class="pill">Nhà: <strong>Cấp <span id="ui-house">1</span>/8</strong></span>
     </div>
     <div class="toggle-bar">
-      <button onclick="togglePanel('char-panel')">Nhân vật</button>
-      <button onclick="togglePanel('explore-panel')">Thám hiểm</button>
-      <button onclick="togglePanel('bag-pet-panel')">Balo & Thú</button>
-      <button class="primary" onclick="openCraftingPanel()">Chế tạo</button>
-      <button onclick="togglePanel('house-upgrade-panel')">Nhà gỗ</button>
-      <button onclick="togglePanel('quest-panel')">Nhiệm vụ</button>
-      <button onclick="togglePanel('chat-panel')">Chat chung</button>
-      <button onclick="togglePanel('trade-panel')">Giao dịch</button>
-      <button onclick="togglePanel('npc-panel')">Chat NPC</button>
-      <button id="btn-toggle-admin" class="admin-btn" onclick="togglePanel('admin-panel')">Admin Test</button>
+      <button id="btn-toggle-char-panel" onclick="togglePanel('char-panel')">Nhân vật</button>
+      <button id="btn-toggle-explore-panel" onclick="togglePanel('explore-panel')">Thám hiểm</button>
+      <button id="btn-toggle-bag-pet-panel" onclick="togglePanel('bag-pet-panel')">Balo & Thú</button>
+      <button id="btn-toggle-craft-panel" class="primary" onclick="openCraftingPanel()">Chế tạo</button>
+      <button id="btn-toggle-house-upgrade-panel" onclick="togglePanel('house-upgrade-panel')">Nhà gỗ</button>
+      <button id="btn-toggle-quest-panel" onclick="togglePanel('quest-panel')">Nhiệm vụ</button>
+      <button id="btn-toggle-chat-panel" onclick="togglePanel('chat-panel')">Chat chung</button>
+      <button id="btn-toggle-trade-panel" onclick="togglePanel('trade-panel')">Giao dịch</button>
+      <button id="btn-toggle-npc-panel" onclick="togglePanel('npc-panel')">Chat NPC</button>
+      <button id="btn-toggle-admin" class="admin-btn hidden" onclick="togglePanel('admin-panel')">Admin</button>
       <button class="success-btn" onclick="saveGameManual()">Lưu</button>
       <button onclick="backToAuth()">Đổi TK</button>
     </div>
   </header>
 
-  <div class="cold-alert" id="cold-warning-banner">
-    <strong>06:00 (Ban ngày) • Quang đãng • 18°C:</strong> 1 giờ trong game bằng 5 phút ngoài đời.
+  <div class="status-strip" id="cold-warning-banner">
+    <span id="status-env-text">06:00 (Ban ngày) • Quang đãng • 18°C • Nhà gỗ</span>
+    <span id="status-notice-text" style="color:#fde68a;">Bấm các nút trên thanh để mở mục cần xem.</span>
   </div>
 
   <div class="hp-low-alert hidden" id="hp-danger-banner">
-    Máu đang dưới 40, chú ý hồi máu hoặc nghỉ ngơi.
+    Máu đang thấp (dưới 40), hãy dùng thuốc, ăn uống hoặc về Nhà gỗ nghỉ ngơi.
   </div>
 
   <main class="main-layout">
-    <!-- CỘT TRÁI -->
+    <!-- CỘT TRÁI (MẶC ĐỊNH TẤT CẢ MỤC ĐỀU ẨN) -->
     <div>
-      <!-- BẢNG ADMIN TEST & LỆNH LẤY ĐỒ (LUÔN HIỆN SẴN) -->
-      <section class="box admin-box" id="admin-panel">
+      <section class="box admin-box hidden" id="admin-panel">
         <div class="box-header">
-          <h2>Bảng Admin — Test Game & Lệnh Lấy Đồ</h2>
-          <button type="button" onclick="togglePanel('admin-panel')">Ẩn</button>
+          <h2>Bảng Admin</h2>
+          <button type="button" onclick="togglePanel('admin-panel')">Đóng</button>
         </div>
         <div class="admin-cmd-row">
           <input id="admin-cmd-input" type="text" placeholder="Lệnh: /sup, /give wood 50, /heal, /stamina, /addtime 180, /day 5, /allbp" onkeydown="if(event.key==='Enter') runAdminCommand()" />
-          <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy lệnh</button>
+          <button type="button" class="admin-btn" onclick="runAdminCommand()">Chạy</button>
         </div>
-        <div id="admin-cmd-status" style="font-size:0.8rem; color:#d8b4fe; margin-bottom:6px;">
-          Gõ <code>/sup</code> để lấy ngay 5 bậc vật phẩm siêu phàm, hoặc <code>/help</code> để xem danh sách lệnh:
+        <div id="admin-cmd-status" style="font-size:0.79rem; color:#d8b4fe; margin-bottom:6px;">
+          Gõ /help để xem danh sách lệnh Admin.
         </div>
         <div class="admin-quick-grid">
-          <button type="button" class="admin-btn" onclick="adminGiveSupremeSet()">+1 Bộ Siêu Phàm (5 Bậc)</button>
+          <button type="button" class="admin-btn" onclick="adminGiveSupremeSet()">+1 Bộ Siêu Phàm</button>
           <button type="button" onclick="adminQuickGive('wood', 50)">+50 Gỗ</button>
           <button type="button" onclick="adminQuickGive('stone', 50)">+50 Đá</button>
           <button type="button" onclick="adminQuickGive('ore', 30)">+30 Quặng</button>
@@ -863,21 +762,22 @@
           <button type="button" onclick="adminQuickGive('water', 20)">+20 Nước</button>
           <button type="button" onclick="adminQuickGive('chest_gold', 3)">+3 Rương Vàng</button>
           <button type="button" onclick="adminUnlockAllRecipes()">Mở mọi bản vẽ</button>
-          <button type="button" onclick="adminFullRestore()">Hồi đầy Máu & TL</button>
+          <button type="button" onclick="adminFullRestore()">Hồi đầy chỉ số</button>
           <button type="button" onclick="adminAdvanceTime(180)">Tua +180 phút</button>
-          <button type="button" onclick="adminSpawnTestPet()">Thêm 1 Sói Lớn</button>
+          <button type="button" onclick="adminSpawnTestPet()">+1 Sói Lớn</button>
         </div>
       </section>
 
-      <section class="box" id="char-panel">
+      <section class="box hidden" id="char-panel">
         <div class="box-header">
-          <h2>Nhân Vật & Sinh Hoạt</h2>
-          <button type="button" onclick="togglePanel('char-panel')">Ẩn</button>
+          <h2>Nhân Vật & Chiến Lực</h2>
+          <button type="button" onclick="togglePanel('char-panel')">Đóng</button>
         </div>
         <div class="char-grid">
           <div class="char-stat-card">Máu: <strong id="char-hp">100/100</strong></div>
           <div class="char-stat-card">Công: <strong id="char-atk">24</strong></div>
-          <div class="char-stat-card">Chiến lực: <strong id="char-power">120</strong></div>
+          <div class="char-stat-card">CL nhân vật: <strong id="char-power">120 <span class="rank-F">[F]</span></strong></div>
+          <div class="char-stat-card">Tổng CL (+Thú): <strong id="char-total-power">120 <span class="rank-F">[F]</span></strong></div>
           <div class="char-stat-card">Đói: <strong id="char-hunger">80/100</strong></div>
           <div class="char-stat-card">Khát: <strong id="char-thirst">30/100</strong></div>
           <div class="char-stat-card">Thể lực: <strong id="char-stamina">100/100</strong></div>
@@ -897,10 +797,10 @@
         </div>
       </section>
 
-      <section class="box" id="explore-panel">
+      <section class="box hidden" id="explore-panel">
         <div class="box-header">
           <h2>Thám Hiểm & Chiến Đấu</h2>
-          <button type="button" onclick="togglePanel('explore-panel')">Ẩn</button>
+          <button type="button" onclick="togglePanel('explore-panel')">Đóng</button>
         </div>
         <div class="action-grid">
           <button class="accent-btn" onclick="openWorldMap()">Mở bản đồ đi xa</button>
@@ -909,14 +809,11 @@
 
         <div class="modal-card hidden" id="expedition-pack-box">
           <div style="font-weight:700; color:#38bdf8;" id="exp-pack-title">Đồ mang theo chuyến này</div>
-          <div style="font-size:0.78rem; color:var(--muted); margin-top:2px;">
-            Đồ chưa dùng sẽ được mang về lại Nhà gỗ.
-          </div>
           <div class="prep-chips" id="exp-pack-chips" style="margin-top:8px;"></div>
         </div>
 
         <div class="modal-card hidden" id="world-map-box">
-          <div style="font-weight:700; color:#38bdf8;">Chọn khu vực đi thám hiểm</div>
+          <div style="font-weight:700; color:#38bdf8;">Chọn khu vực thám hiểm</div>
           <div class="map-grid" id="map-nodes-grid"></div>
 
           <div class="prep-section">
@@ -925,7 +822,7 @@
           </div>
 
           <div class="prep-section">
-            <div><strong>Thú đi cùng (chỉ thú Trẻ hoặc Lớn mới đánh được):</strong></div>
+            <div><strong>Thú đi cùng (chỉ thú Trẻ hoặc Lớn mới tham chiến):</strong></div>
             <div class="prep-chips" id="prep-pets-chips"></div>
           </div>
 
@@ -941,11 +838,11 @@
           </div>
         </div>
 
-        <!-- GIAO DIỆN CHIẾN ĐẤU TỐI ƯU -->
+        <!-- GIAO DIỆN CHIẾN ĐẤU -->
         <div class="combat-card hidden" id="explore-combat-box">
           <div class="combat-top-bar">
-            <div style="font-weight:700; color:#fca5a5; font-size:0.95rem;" id="exp-mob-header">Đang giao chiến</div>
-            <div style="display:flex; gap:10px; align-items:center; font-size:0.82rem;">
+            <div style="font-weight:700; color:#fca5a5; font-size:0.94rem;" id="exp-mob-header">Đang giao chiến</div>
+            <div style="display:flex; gap:10px; align-items:center; font-size:0.81rem;">
               <span id="exp-mob-danger"></span>
               <span id="exp-mob-time" style="color:#fbbf24;"></span>
             </div>
@@ -954,14 +851,14 @@
           <div class="combat-vs-grid">
             <div class="combatant-box">
               <div style="font-weight:700; color:#86efac;" id="combat-side-player-title">Phe bạn</div>
-              <div id="combat-side-player-hp" style="font-size:0.8rem; margin-top:2px;"></div>
+              <div id="combat-side-player-hp" style="font-size:0.79rem; margin-top:2px;"></div>
               <div class="hp-bar-track"><div id="combat-bar-player" class="hp-bar-player" style="width:100%"></div></div>
-              <div id="combat-side-player-stats" style="font-size:0.78rem; color:var(--muted); margin-top:4px;"></div>
+              <div id="combat-side-player-stats" style="font-size:0.77rem; color:var(--muted); margin-top:4px;"></div>
             </div>
 
             <div class="combatant-box combatant-enemy">
               <div style="font-weight:700; color:#fca5a5;" id="combat-side-enemy-title">Đối thủ</div>
-              <div id="combat-side-enemy-hp" style="font-size:0.8rem; margin-top:2px;"></div>
+              <div id="combat-side-enemy-hp" style="font-size:0.79rem; margin-top:2px;"></div>
               <div class="hp-bar-track"><div id="combat-bar-enemy" class="hp-bar-enemy" style="width:100%"></div></div>
               <div class="mob-stat-strip" id="exp-mob-stats"></div>
             </div>
@@ -972,9 +869,9 @@
         </div>
 
         <div class="report-card hidden" id="explore-report-box">
-          <div style="font-weight:700; color:#86efac;" id="exp-rep-title">Xong chuyến đi</div>
-          <p style="font-size:0.86rem; margin-top:5px;" id="exp-rep-items"></p>
-          <p style="font-size:0.82rem; color:#cbd5e1; margin-top:3px;" id="exp-rep-summary"></p>
+          <div style="font-weight:700; color:#86efac;" id="exp-rep-title">Tổng kết chuyến đi</div>
+          <p style="font-size:0.85rem; margin-top:5px;" id="exp-rep-items"></p>
+          <p style="font-size:0.81rem; color:#cbd5e1; margin-top:3px;" id="exp-rep-summary"></p>
           <div class="encounter-actions">
             <button class="primary" onclick="closeExploreReport()">Đóng</button>
           </div>
@@ -986,16 +883,16 @@
       <section class="box hidden" id="craft-panel">
         <div class="box-header">
           <h2>Chế Tạo tại Nhà gỗ</h2>
-          <button type="button" onclick="togglePanel('craft-panel')">Ẩn</button>
+          <button type="button" onclick="togglePanel('craft-panel')">Đóng</button>
         </div>
         <div id="crafting-container"></div>
       </section>
 
-      <!-- TÚI ĐỒ CHIA 6 MỤC + CHỈ HIỆN MÓN ĐANG CÓ (> 0) -->
-      <section class="box" id="bag-pet-panel">
+      <!-- TÚI ĐỒ CÓ TAB RƯƠNG & VẬT PHẨM SIÊU PHÀM -->
+      <section class="box hidden" id="bag-pet-panel">
         <div class="box-header">
-          <h2>Túi đồ (<span id="ui-owned-item-count">0</span> món đang có) & Thú</h2>
-          <button type="button" onclick="togglePanel('bag-pet-panel')">Ẩn</button>
+          <h2>Túi đồ (<span id="ui-owned-item-count">0</span> món) & Thú</h2>
+          <button type="button" onclick="togglePanel('bag-pet-panel')">Đóng</button>
         </div>
 
         <div class="bag-cat-tabs" id="bag-category-tabs">
@@ -1004,14 +901,15 @@
           <button type="button" class="bag-cat-btn" data-tab="food" onclick="setBagTab('food')">Thức ăn</button>
           <button type="button" class="bag-cat-btn" data-tab="materials" onclick="setBagTab('materials')">Nguyên liệu</button>
           <button type="button" class="bag-cat-btn" data-tab="medicine" onclick="setBagTab('medicine')">Thuốc</button>
+          <button type="button" class="bag-cat-btn chest-tab" data-tab="chests" onclick="setBagTab('chests')">Rương</button>
           <button type="button" class="bag-cat-btn sup-tab" data-tab="supreme" onclick="setBagTab('supreme')">Vật phẩm siêu phàm</button>
         </div>
 
         <div class="inv-toolbar">
-          <input id="inv-search-input" type="text" placeholder="Tìm món đang có trong túi..." oninput="renderAll()" />
+          <input id="inv-search-input" type="text" placeholder="Tìm món đang có..." oninput="renderAll()" />
           <select id="inv-filter-select" onchange="renderAll()">
-            <option value="all">Mọi trạng thái</option>
-            <option value="usable">Chỉ món dùng được</option>
+            <option value="all">Tất cả</option>
+            <option value="usable">Dùng được</option>
           </select>
         </div>
 
@@ -1020,39 +918,39 @@
         <div class="inspector-box" id="item-inspector">
           <div>
             <div style="font-weight:700; color:#fbbf24;" id="insp-name">Chưa chọn vật phẩm</div>
-            <div style="font-size:0.78rem; color:var(--muted);" id="insp-type">Nhóm: -</div>
-            <div style="font-size:0.84rem; margin-top:3px;" id="insp-desc">Bấm vào một món đang có trong túi để xem chi tiết.</div>
+            <div style="font-size:0.77rem; color:var(--muted);" id="insp-type">Nhóm: -</div>
+            <div style="font-size:0.82rem; margin-top:3px;" id="insp-desc">Chọn một món đang có trong túi để xem chi tiết.</div>
           </div>
           <button class="primary" id="btn-use-item" onclick="useSelectedItem()" disabled>Dùng</button>
         </div>
 
         <div style="margin-top:12px;">
-          <strong style="font-size:0.9rem;">Đang thuần phục (<span id="ui-taming-count">0</span>)</strong>
+          <strong style="font-size:0.88rem;">Đang thuần phục (<span id="ui-taming-count">0</span>)</strong>
           <div class="inv-grid" id="taming-queue-grid" style="margin-top:6px;"></div>
         </div>
 
         <div style="margin-top:12px;" id="pet-info-section">
           <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; margin-bottom:6px;">
-            <strong style="font-size:0.9rem;">Thú đã thu phục (<span id="ui-tamed-count">0</span>)</strong>
-            <button class="primary" onclick="feedSelectedBeast()">Cho thú ăn từ túi</button>
+            <strong style="font-size:0.88rem;">Thú đã thu phục (<span id="ui-tamed-count">0</span>)</strong>
+            <button class="primary" onclick="feedSelectedBeast()">Cho thú ăn</button>
           </div>
           <div class="inv-grid" id="tamed-beasts-grid"></div>
 
           <div class="inspector-box" id="beast-inspector">
             <div>
               <div style="font-weight:700; color:#c084fc;" id="pet-insp-name">Chưa chọn thú</div>
-              <div style="font-size:0.78rem; color:var(--muted);" id="pet-insp-meta">-</div>
-              <div style="font-size:0.82rem; margin-top:3px;" id="pet-insp-mut">-</div>
+              <div style="font-size:0.77rem; color:var(--muted);" id="pet-insp-meta">-</div>
+              <div style="font-size:0.81rem; margin-top:3px;" id="pet-insp-mut">-</div>
             </div>
             <button class="primary" id="btn-mutate-selected-pet" onclick="mutateSelectedBeastWithSelectedBloodline()" disabled>Dùng huyết mạch</button>
           </div>
         </div>
       </section>
 
-      <section class="box" id="house-upgrade-panel">
+      <section class="box hidden" id="house-upgrade-panel">
         <div class="box-header">
           <h2>Nâng cấp Nhà gỗ</h2>
-          <button type="button" onclick="togglePanel('house-upgrade-panel')">Ẩn</button>
+          <button type="button" onclick="togglePanel('house-upgrade-panel')">Đóng</button>
         </div>
         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
           <button class="primary" id="btn-upgrade-house" onclick="upgradeHouse()">Nâng cấp</button>
@@ -1061,40 +959,40 @@
       </section>
     </div>
 
-    <!-- CỘT PHẢI -->
+    <!-- CỘT PHẢI (MẶC ĐỊNH TẤT CẢ MỤC ĐỀU ẨN) -->
     <div>
-      <section class="box" id="quest-panel">
+      <section class="box hidden" id="quest-panel">
         <div class="box-header">
           <h2>Nhiệm Vụ</h2>
-          <button type="button" onclick="togglePanel('quest-panel')">Ẩn</button>
+          <button type="button" onclick="togglePanel('quest-panel')">Đóng</button>
         </div>
         <div id="quest-list"></div>
       </section>
 
-      <section class="box" id="chat-panel">
+      <section class="box hidden" id="chat-panel">
         <div class="box-header">
           <h2>Kênh Chat Chung</h2>
-          <button type="button" onclick="togglePanel('chat-panel')">Ẩn</button>
+          <button type="button" onclick="togglePanel('chat-panel')">Đóng</button>
         </div>
         <div class="chat-list" id="world-chat-list"></div>
         <div class="chat-row">
-          <input id="world-chat-input" type="text" placeholder="Gõ tin nhắn lên kênh chung..." onkeydown="if(event.key==='Enter') sendWorldChat()" />
+          <input id="world-chat-input" type="text" placeholder="Gửi tin lên kênh chung..." onkeydown="if(event.key==='Enter') sendWorldChat()" />
           <button class="accent-btn" onclick="sendWorldChat()">Gửi</button>
         </div>
       </section>
 
-      <section class="box" id="trade-panel">
+      <section class="box hidden" id="trade-panel">
         <div class="box-header">
           <h2>Trao Đổi Đồ</h2>
-          <button type="button" onclick="togglePanel('trade-panel')">Ẩn</button>
+          <button type="button" onclick="togglePanel('trade-panel')">Đóng</button>
         </div>
         <div id="trade-list"></div>
       </section>
 
-      <section class="box" id="npc-panel">
+      <section class="box hidden" id="npc-panel">
         <div class="box-header">
           <h2>Nói Chuyện Với Người Quen</h2>
-          <button type="button" onclick="togglePanel('npc-panel')">Ẩn</button>
+          <button type="button" onclick="togglePanel('npc-panel')">Đóng</button>
         </div>
         <div style="display:flex; gap:8px; margin-bottom:7px;">
           <select id="npc-select" onchange="renderNpcChat()"></select>
@@ -1114,7 +1012,7 @@
 
   <script>
     const GAME_SECONDS_PER_REAL_SECOND = 12;
-    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v2';
+    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v3';
     const CATEGORIES = ['Công cụ', 'Vật phẩm sinh hoạt', 'Vật phẩm y tế', 'Công trình'];
 
     const BAG_TABS = [
@@ -1123,49 +1021,50 @@
       { id: 'food', label: 'Thức ăn' },
       { id: 'materials', label: 'Nguyên liệu' },
       { id: 'medicine', label: 'Thuốc' },
+      { id: 'chests', label: 'Rương' },
       { id: 'supreme', label: 'Vật phẩm siêu phàm' }
     ];
 
     const WEATHER_TYPES = [
-      { id: 'clear', name: 'Quang đãng', tempMod: 0, lootMult: 1.0, mobMod: 0, desc: 'Trời quang, dễ nhìn đường.' },
-      { id: 'mist', name: 'Sương mù', tempMod: -2, lootMult: 1.12, mobMod: 0.04, desc: 'Sương phủ nhẹ, nhặt đồ dễ hơn một chút.' },
-      { id: 'cold_rain', name: 'Mưa lạnh', tempMod: -5, lootMult: 0.94, mobMod: 0.02, desc: 'Mưa lạnh, đi xa hơi hao thể lực.' },
-      { id: 'mist_storm', name: 'Bão sương', tempMod: -7, lootMult: 1.25, mobMod: 0.08, desc: 'Gió sương lạnh, nhiều đồ rơi nhưng thú hung hơn.' }
+      { id: 'clear', name: 'Quang đãng', tempMod: 0, lootMult: 1.0, mobMod: 0, desc: 'Trời quang, dễ di chuyển.' },
+      { id: 'mist', name: 'Sương mù', tempMod: -2, lootMult: 1.1, mobMod: 0.03, desc: 'Sương mù nhẹ, tăng nhẹ sản lượng nhặt.' },
+      { id: 'cold_rain', name: 'Mưa lạnh', tempMod: -5, lootMult: 0.95, mobMod: 0.02, desc: 'Mưa lạnh, tốn thêm ít thể lực khi đi xa.' },
+      { id: 'mist_storm', name: 'Bão sương', tempMod: -7, lootMult: 1.2, mobMod: 0.07, desc: 'Bão sương mạnh, nhiều đồ rơi nhưng thú dữ hơn.' }
     ];
 
     const MAP_LOCATIONS = [
-      { id: 'edge_woods', name: 'Rìa Rừng Gần', distanceKm: 2, travelMinutes: 35, mobChance: 0.20, lootMult: 1.0, desc: '2km • 35 phút • Ít thú, dễ kiếm gỗ.' },
-      { id: 'mist_stream', name: 'Suối Sương Mù', distanceKm: 5, travelMinutes: 65, mobChance: 0.25, lootMult: 1.2, desc: '5km • 65 phút • Nhiều đá & quặng.' },
-      { id: 'ancient_grove', name: 'Rừng Cổ Thụ', distanceKm: 9, travelMinutes: 100, mobChance: 0.30, lootMult: 1.45, desc: '9km • 100 phút • Nhiều gỗ & rương.' },
-      { id: 'deep_quarry', name: 'Hầm Đá Sâu', distanceKm: 14, travelMinutes: 140, mobChance: 0.36, lootMult: 1.75, desc: '14km • 140 phút • Quặng nhiều, thú mạnh.' },
-      { id: 'bloodline_rift', name: 'Khe Núi Sương', distanceKm: 20, travelMinutes: 190, mobChance: 0.42, lootMult: 2.1, desc: '20km • 190 phút • Xa nhất, nhiều đồ hiếm.' }
+      { id: 'edge_woods', name: 'Rìa Rừng Gần', distanceKm: 2, travelMinutes: 35, mobChance: 0.22, lootMult: 1.0, desc: '2km • 35 phút • Ít thú, dễ kiếm gỗ.' },
+      { id: 'mist_stream', name: 'Suối Sương Mù', distanceKm: 5, travelMinutes: 65, mobChance: 0.28, lootMult: 1.2, desc: '5km • 65 phút • Nhiều đá & quặng.' },
+      { id: 'ancient_grove', name: 'Rừng Cổ Thụ', distanceKm: 9, travelMinutes: 100, mobChance: 0.33, lootMult: 1.45, desc: '9km • 100 phút • Nhiều gỗ & rương.' },
+      { id: 'deep_quarry', name: 'Hầm Đá Sâu', distanceKm: 14, travelMinutes: 140, mobChance: 0.38, lootMult: 1.75, desc: '14km • 140 phút • Quặng nhiều, thú mạnh.' },
+      { id: 'bloodline_rift', name: 'Khe Núi Sương', distanceKm: 20, travelMinutes: 190, mobChance: 0.44, lootMult: 2.05, desc: '20km • 190 phút • Xa nhất, nhiều tài nguyên.' }
     ];
 
     const STRATEGIES = [
-      { id: 'cautious', name: 'Đi chậm dò đường', minMinutes: 20, mobMod: -0.08, lootMod: 0.92, desc: 'Ít gặp thú hơn, thêm 20 phút.' },
-      { id: 'swift', name: 'Đi nhanh nhặt đồ', minMinutes: 10, mobMod: 0.02, lootMod: 1.12, desc: 'Nhặt đồ nhỉnh hơn, thêm 10 phút.' },
-      { id: 'hunter', name: 'Đi săn & tìm dấu', minMinutes: 15, mobMod: 0.10, lootMod: 1.25, desc: 'Dễ gặp thú hơn & đồ tốt hơn, thêm 15 phút.' }
+      { id: 'cautious', name: 'Đi chậm dò đường', minMinutes: 20, mobMod: -0.08, lootMod: 0.95, desc: 'Giảm gặp thú, +20 phút.' },
+      { id: 'swift', name: 'Đi nhanh nhặt đồ', minMinutes: 10, mobMod: 0.02, lootMod: 1.12, desc: 'Nhặt đồ nhỉnh hơn, +10 phút.' },
+      { id: 'hunter', name: 'Đi săn & tìm dấu', minMinutes: 15, mobMod: 0.10, lootMod: 1.22, desc: 'Tăng gặp thú & đồ rơi, +15 phút.' }
     ];
 
     const CHEST_TIERS = [
-      { key: 'chest_bronze', name: 'Rương Đồng', wood: 8, stone: 5, ore: 1, bpChance: 0.06, supChance: 0.05 },
-      { key: 'chest_silver', name: 'Rương Bạc', wood: 14, stone: 10, ore: 3, bpChance: 0.10, supChance: 0.09 },
-      { key: 'chest_gold', name: 'Rương Vàng', wood: 22, stone: 15, ore: 6, bpChance: 0.15, supChance: 0.14 },
-      { key: 'chest_platinum', name: 'Rương Bạch Ngân', wood: 32, stone: 22, ore: 10, bpChance: 0.22, supChance: 0.20 },
-      { key: 'chest_diamond', name: 'Rương Kim Cương', wood: 45, stone: 32, ore: 16, bpChance: 0.30, supChance: 0.28 }
+      { key: 'chest_bronze', name: 'Rương Đồng', wood: 8, stone: 5, ore: 1, bpChance: 0.06, supChance: 0.015 },
+      { key: 'chest_silver', name: 'Rương Bạc', wood: 14, stone: 10, ore: 3, bpChance: 0.10, supChance: 0.025 },
+      { key: 'chest_gold', name: 'Rương Vàng', wood: 22, stone: 15, ore: 6, bpChance: 0.15, supChance: 0.04 },
+      { key: 'chest_platinum', name: 'Rương Bạch Ngân', wood: 32, stone: 22, ore: 10, bpChance: 0.22, supChance: 0.06 },
+      { key: 'chest_diamond', name: 'Rương Kim Cương', wood: 45, stone: 32, ore: 16, bpChance: 0.30, supChance: 0.085 }
     ];
 
     const RECIPES = [
-      { id: 'iron_axe', name: 'Rìu Sắt', category: 'Công cụ', blueprintKey: 'bp_iron_axe', weight: 4, powerBonus: 16, woodBonus: 5, desc: '+16 Công và nhặt thêm gỗ khi đi xa.', cost: { wood: 10, ore: 4 } },
-      { id: 'iron_pickaxe', name: 'Cuốc Chim Sắt', category: 'Công cụ', blueprintKey: 'bp_iron_pickaxe', weight: 4, powerBonus: 12, oreBonus: 3, stoneBonus: 4, desc: '+12 Công và nhặt thêm đá, quặng.', cost: { wood: 10, stone: 8, ore: 5 } },
-      { id: 'bow_arrow', name: 'Cung Tên', category: 'Công cụ', blueprintKey: 'bp_bow_arrow', weight: 3, powerBonus: 22, desc: '+22 Công khi đánh nhau.', cost: { wood: 14, hide: 2, feather: 2 } },
-      { id: 'meat_soup', name: 'Súp Thịt', category: 'Vật phẩm sinh hoạt', blueprintKey: 'bp_meat_soup', weight: 2, grantsItem: { key: 'meat', qty: 2 }, desc: 'Làm ra thêm 2 miếng thịt.', cost: { meat: 2, water: 1 } },
-      { id: 'herbal_bandage', name: 'Băng Thảo Dược', category: 'Vật phẩm y tế', blueprintKey: 'bp_bandage', weight: 1, grantsItem: { key: 'bandage', qty: 1 }, desc: 'Làm ra 1 băng thảo dược (+25 máu).', cost: { hide: 1, water: 1 } },
-      { id: 'warm_tonic', name: 'Nước Ấm Gừng', category: 'Vật phẩm y tế', blueprintKey: 'bp_tonic', weight: 1, grantsItem: { key: 'tonic', qty: 1 }, desc: 'Làm ra 1 bình nước ấm (+20 máu, giảm khát).', cost: { fish: 1, water: 2 } },
-      { id: 'watch_hut', name: 'Chòi Canh', category: 'Công trình', blueprintKey: 'bp_watch_hut', uniqueBuild: true, weight: 0, powerBonus: 14, threatReduction: 2, desc: 'Xây 1 lần: +14 Công, giảm nhẹ sát thương nhận vào.', cost: { wood: 20, stone: 10 } },
-      { id: 'spike_fence', name: 'Rào Gỗ Nhọn', category: 'Công trình', blueprintKey: 'bp_spike_fence', uniqueBuild: true, weight: 0, powerBonus: 12, threatReduction: 3, desc: 'Xây 1 lần: +12 Công, chắn bớt sát thương.', cost: { wood: 18, stone: 8, hide: 1 } },
-      { id: 'warming_stove', name: 'Bếp Sưởi', category: 'Công trình', blueprintKey: 'bp_warming_stove', uniqueBuild: true, weight: 0, powerBonus: 10, threatReduction: 2, desc: 'Xây 1 lần: +10 Công, giữ ấm nhà tốt hơn.', cost: { stone: 16, ore: 3, wood: 12 } },
-      { id: 'auto_snare', name: 'Bẫy Dây Tự Động', category: 'Công trình', blueprintKey: 'bp_auto_snare', uniqueBuild: true, weight: 0, powerBonus: 15, threatReduction: 2, desc: 'Xây 1 lần: +15 Công và kiếm thêm ít đồ khi đi xa.', cost: { wood: 22, stone: 12, ore: 5 } }
+      { id: 'iron_axe', name: 'Rìu Sắt', category: 'Công cụ', blueprintKey: 'bp_iron_axe', weight: 4, powerBonus: 16, woodBonus: 5, desc: '+16 Công và +5 gỗ mỗi chuyến đi xa.', cost: { wood: 10, ore: 4 } },
+      { id: 'iron_pickaxe', name: 'Cuốc Chim Sắt', category: 'Công cụ', blueprintKey: 'bp_iron_pickaxe', weight: 4, powerBonus: 12, oreBonus: 3, stoneBonus: 4, desc: '+12 Công và thêm đá, quặng khi đi xa.', cost: { wood: 10, stone: 8, ore: 5 } },
+      { id: 'bow_arrow', name: 'Cung Tên', category: 'Công cụ', blueprintKey: 'bp_bow_arrow', weight: 3, powerBonus: 22, desc: '+22 Công khi chiến đấu.', cost: { wood: 14, hide: 2, feather: 2 } },
+      { id: 'meat_soup', name: 'Súp Thịt', category: 'Vật phẩm sinh hoạt', blueprintKey: 'bp_meat_soup', weight: 2, grantsItem: { key: 'meat', qty: 2 }, desc: 'Chế tạo ra +2 Thịt.', cost: { meat: 2, water: 1 } },
+      { id: 'herbal_bandage', name: 'Băng Thảo Dược', category: 'Vật phẩm y tế', blueprintKey: 'bp_bandage', weight: 1, grantsItem: { key: 'bandage', qty: 1 }, desc: 'Chế tạo ra +1 Băng gạc.', cost: { hide: 1, water: 1 } },
+      { id: 'warm_tonic', name: 'Nước Ấm Gừng', category: 'Vật phẩm y tế', blueprintKey: 'bp_tonic', weight: 1, grantsItem: { key: 'tonic', qty: 1 }, desc: 'Chế tạo ra +1 Nước ấm.', cost: { fish: 1, water: 2 } },
+      { id: 'watch_hut', name: 'Chòi Canh', category: 'Công trình', blueprintKey: 'bp_watch_hut', uniqueBuild: true, weight: 0, powerBonus: 14, threatReduction: 2, desc: 'Xây 1 lần: +14 Công, giảm sát thương nhận.', cost: { wood: 20, stone: 10 } },
+      { id: 'spike_fence', name: 'Rào Gỗ Nhọn', category: 'Công trình', blueprintKey: 'bp_spike_fence', uniqueBuild: true, weight: 0, powerBonus: 12, threatReduction: 3, desc: 'Xây 1 lần: +12 Công, chắn sát thương.', cost: { wood: 18, stone: 8, hide: 1 } },
+      { id: 'warming_stove', name: 'Bếp Sưởi', category: 'Công trình', blueprintKey: 'bp_warming_stove', uniqueBuild: true, weight: 0, powerBonus: 10, threatReduction: 2, desc: 'Xây 1 lần: +10 Công, giữ ấm căn cứ.', cost: { stone: 16, ore: 3, wood: 12 } },
+      { id: 'auto_snare', name: 'Bẫy Dây Tự Động', category: 'Công trình', blueprintKey: 'bp_auto_snare', uniqueBuild: true, weight: 0, powerBonus: 15, threatReduction: 2, desc: 'Xây 1 lần: +15 Công và thêm tài nguyên đi xa.', cost: { wood: 22, stone: 12, ore: 5 } }
     ];
 
     const SUPREME_ITEM_KEYS = [
@@ -1178,27 +1077,26 @@
 
     function buildItemCatalog() {
       const items = {
-        axe: { name: 'Rìu', category: 'Dụng cụ', bagTab: 'tools', weight: 2, desc: 'Cây rìu mang theo từ đầu. Dùng để chặt gỗ.', usable: true, useLabel: 'Chặt nhẹ (+2 Gỗ, -5 TL)' },
-        wood: { name: 'Gỗ', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Gỗ rừng, dùng nâng nhà và chế đồ.', usable: false },
-        stone: { name: 'Đá', category: 'Nguyên liệu', bagTab: 'materials', weight: 3, desc: 'Đá làm vật liệu xây dựng.', usable: false },
-        ore: { name: 'Quặng', category: 'Nguyên liệu', bagTab: 'materials', weight: 4, desc: 'Quặng thô, dùng rèn đồ hoặc đổi đồ.', usable: false },
-        fish: { name: 'Cá', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Ăn đỡ đói (+20 no, -8 khát, +5 máu).', usable: true, useLabel: 'Ăn cá' },
-        water: { name: 'Nước', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Uống giải khát (-30 khát, +8 máu).', usable: true, useLabel: 'Uống nước' },
-        meat: { name: 'Thịt', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Ăn no bụng (+28 no, -6 khát, +10 máu).', usable: true, useLabel: 'Ăn thịt' },
-        hide: { name: 'Da thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Da lấy từ thú.', usable: false },
-        feather: { name: 'Lông thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 1, desc: 'Lông nhặt được.', usable: false },
-        mist_torch: { name: 'Đuốc', category: 'Dụng cụ', bagTab: 'tools', weight: 2, desc: 'Thắp sáng đỡ mệt (+18 thể lực, -12 khát, +8 máu).', usable: true, useLabel: 'Dùng đuốc' },
-        mist_herb: { name: 'Lá thuốc', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Lá thuốc (+30 máu, -20 khát, +12 thể lực).', usable: true, useLabel: 'Dùng lá thuốc' },
-        life_charm: { name: 'Bùa hộ mệnh', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Giữ bên mình +8 công; dùng ngay +35 máu.', usable: true, useLabel: 'Dùng bùa' },
-        chest_bronze: { name: 'Rương Đồng', category: 'Dụng cụ', bagTab: 'tools', weight: 3, desc: 'Mở ra có gỗ, đá, quặng và cơ hội bản vẽ.', usable: true, useLabel: 'Mở rương', chestTierIdx: 0 },
-        chest_silver: { name: 'Rương Bạc', category: 'Dụng cụ', bagTab: 'tools', weight: 4, desc: 'Mở ra nhiều nguyên liệu hơn rương đồng.', usable: true, useLabel: 'Mở rương', chestTierIdx: 1 },
-        chest_gold: { name: 'Rương Vàng', category: 'Dụng cụ', bagTab: 'tools', weight: 5, desc: 'Rương khá nhiều tài nguyên.', usable: true, useLabel: 'Mở rương', chestTierIdx: 2 },
-        chest_platinum: { name: 'Rương Bạch Ngân', category: 'Dụng cụ', bagTab: 'tools', weight: 6, desc: 'Rương nhiều nguyên liệu tốt.', usable: true, useLabel: 'Mở rương', chestTierIdx: 3 },
-        chest_diamond: { name: 'Rương Kim Cương', category: 'Dụng cụ', bagTab: 'tools', weight: 7, desc: 'Rương lớn nhất.', usable: true, useLabel: 'Mở rương', chestTierIdx: 4 },
-        bandage: { name: 'Băng gạc', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Băng vết thương, hồi +25 máu.', usable: true, useLabel: 'Băng bó' },
-        tonic: { name: 'Nước ấm', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Uống cho ấm người, +20 máu, -20 khát.', usable: true, useLabel: 'Uống nước ấm' },
+        axe: { name: 'Rìu', category: 'Dụng cụ', bagTab: 'tools', weight: 2, desc: 'Dụng cụ cơ bản. Dùng để chặt gỗ.', usable: true, useLabel: 'Chặt gỗ (+2 Gỗ, -5 TL)' },
+        wood: { name: 'Gỗ', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Nguyên liệu nâng nhà và chế tạo.', usable: false },
+        stone: { name: 'Đá', category: 'Nguyên liệu', bagTab: 'materials', weight: 3, desc: 'Nguyên liệu xây dựng và chế tạo.', usable: false },
+        ore: { name: 'Quặng', category: 'Nguyên liệu', bagTab: 'materials', weight: 4, desc: 'Quặng thô dùng chế tạo hoặc trao đổi.', usable: false },
+        fish: { name: 'Cá', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Ăn: +20 No, -8 Khát, +5 Máu.', usable: true, useLabel: 'Ăn cá' },
+        water: { name: 'Nước', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Uống: -30 Khát, +8 Máu.', usable: true, useLabel: 'Uống nước' },
+        meat: { name: 'Thịt', category: 'Thức ăn', bagTab: 'food', weight: 2, desc: 'Ăn: +28 No, -6 Khát, +10 Máu.', usable: true, useLabel: 'Ăn thịt' },
+        hide: { name: 'Da thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 2, desc: 'Da thu được từ thú.', usable: false },
+        feather: { name: 'Lông thú', category: 'Nguyên liệu', bagTab: 'materials', weight: 1, desc: 'Lông thú thu thập được.', usable: false },
+        mist_torch: { name: 'Đuốc', category: 'Dụng cụ', bagTab: 'tools', weight: 2, desc: 'Dùng: +18 Thể lực, -12 Khát, +8 Máu.', usable: true, useLabel: 'Dùng đuốc' },
+        mist_herb: { name: 'Lá thuốc', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Dùng: +30 Máu, -20 Khát, +12 Thể lực.', usable: true, useLabel: 'Dùng lá thuốc' },
+        life_charm: { name: 'Bùa hộ mệnh', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Giữ túi +8 Công; dùng ngay +35 Máu.', usable: true, useLabel: 'Dùng bùa' },
+        chest_bronze: { name: 'Rương Đồng', category: 'Rương', bagTab: 'chests', weight: 3, desc: 'Rương chứa tài nguyên và cơ hội bản vẽ.', usable: true, useLabel: 'Mở rương', chestTierIdx: 0 },
+        chest_silver: { name: 'Rương Bạc', category: 'Rương', bagTab: 'chests', weight: 4, desc: 'Rương bạc chứa tài nguyên khá.', usable: true, useLabel: 'Mở rương', chestTierIdx: 1 },
+        chest_gold: { name: 'Rương Vàng', category: 'Rương', bagTab: 'chests', weight: 5, desc: 'Rương vàng chứa nhiều tài nguyên.', usable: true, useLabel: 'Mở rương', chestTierIdx: 2 },
+        chest_platinum: { name: 'Rương Bạch Ngân', category: 'Rương', bagTab: 'chests', weight: 6, desc: 'Rương bạch ngân chứa tài nguyên tốt.', usable: true, useLabel: 'Mở rương', chestTierIdx: 3 },
+        chest_diamond: { name: 'Rương Kim Cương', category: 'Rương', bagTab: 'chests', weight: 7, desc: 'Rương giá trị cao nhất.', usable: true, useLabel: 'Mở rương', chestTierIdx: 4 },
+        bandage: { name: 'Băng gạc', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Hồi +25 Máu.', usable: true, useLabel: 'Băng bó' },
+        tonic: { name: 'Nước ấm', category: 'Thuốc', bagTab: 'medicine', weight: 1, desc: 'Hồi +20 Máu, -20 Khát.', usable: true, useLabel: 'Uống nước ấm' },
 
-        /* VẬT PHẨM SIÊU PHÀM CÓ CẤP BẬC */
         sup_mist_dew: {
           name: 'Sương Tinh Tụ [Bậc I]',
           category: 'Vật phẩm siêu phàm',
@@ -1207,7 +1105,7 @@
           weight: 1,
           usable: true,
           useLabel: 'Dùng Siêu Phàm',
-          desc: '[Bậc I - Sương Trắng] Hồi đầy Máu, Thể lực, Độ no và giải hết Khát.'
+          desc: '[Bậc I] Hồi đầy Máu, Thể lực, Độ no và giải hết Khát.'
         },
         sup_break_seal: {
           name: 'Ấn Ký Phá Giới [Bậc II]',
@@ -1217,7 +1115,7 @@
           weight: 1,
           usable: true,
           useLabel: 'Dùng Siêu Phàm',
-          desc: '[Bậc II - Sương Lam] Tăng vĩnh viễn +8 Công cho nhân vật.'
+          desc: '[Bậc II] Tăng vĩnh viễn +8 Công cho nhân vật.'
         },
         sup_beast_essence: {
           name: 'Chân Dịch Thú Hồn [Bậc III]',
@@ -1227,7 +1125,7 @@
           weight: 1,
           usable: true,
           useLabel: 'Dùng Siêu Phàm',
-          desc: '[Bậc III - Sương Tím] Đẩy nhanh +35% tiến độ thuần thú và +25% tăng trưởng cho thú nuôi.'
+          desc: '[Bậc III] +35% tiến độ thuần thú và +25% tăng trưởng thú nuôi.'
         },
         sup_mist_orb: {
           name: 'Linh Châu Xua Sương [Bậc IV]',
@@ -1237,7 +1135,7 @@
           weight: 2,
           usable: true,
           useLabel: 'Dùng Siêu Phàm',
-          desc: '[Bậc IV - Sương Xích] Tăng vĩnh viễn +12 Công và +10 sức chứa túi đồ.'
+          desc: '[Bậc IV] Tăng vĩnh viễn +12 Công và +10 sức chứa túi đồ.'
         },
         sup_sovereign_core: {
           name: 'Thiên Khải Chí Tôn [Bậc V]',
@@ -1247,19 +1145,19 @@
           weight: 2,
           usable: true,
           useLabel: 'Dùng Siêu Phàm',
-          desc: '[Bậc V - Cực Phẩm] Hồi đầy chỉ số, +20 Công vĩnh viễn, +20 Máu & Thể lực tối đa, mở mọi bản vẽ.'
+          desc: '[Bậc V] Hồi đầy chỉ số, +20 Công/Máu tối đa/Thể lực tối đa, mở mọi bản vẽ.'
         },
 
-        bp_iron_axe: { name: 'Bản vẽ Rìu Sắt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Rìu Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_axe' },
-        bp_iron_pickaxe: { name: 'Bản vẽ Cuốc Chim Sắt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Cuốc Chim Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_pickaxe' },
-        bp_bow_arrow: { name: 'Bản vẽ Cung Tên', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Cung Tên.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'bow_arrow' },
-        bp_meat_soup: { name: 'Bản vẽ Súp Thịt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Súp Thịt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'meat_soup' },
-        bp_bandage: { name: 'Bản vẽ Băng Thảo Dược', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Băng Thảo Dược.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'herbal_bandage' },
-        bp_tonic: { name: 'Bản vẽ Nước Ấm Gừng', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Nước Ấm Gừng.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'warm_tonic' },
-        bp_watch_hut: { name: 'Bản vẽ Chòi Canh', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách xây Chòi Canh.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'watch_hut' },
-        bp_spike_fence: { name: 'Bản vẽ Rào Gỗ Nhọn', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách xây Rào Gỗ Nhọn.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'spike_fence' },
-        bp_warming_stove: { name: 'Bản vẽ Bếp Sưởi', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách xây Bếp Sưởi.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'warming_stove' },
-        bp_auto_snare: { name: 'Bản vẽ Bẫy Dây Tự Động', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Học cách làm Bẫy Dây Tự Động.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'auto_snare' }
+        bp_iron_axe: { name: 'Bản vẽ Rìu Sắt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Rìu Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_axe' },
+        bp_iron_pickaxe: { name: 'Bản vẽ Cuốc Chim Sắt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Cuốc Chim Sắt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'iron_pickaxe' },
+        bp_bow_arrow: { name: 'Bản vẽ Cung Tên', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Cung Tên.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'bow_arrow' },
+        bp_meat_soup: { name: 'Bản vẽ Súp Thịt', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Súp Thịt.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'meat_soup' },
+        bp_bandage: { name: 'Bản vẽ Băng Thảo Dược', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Băng Thảo Dược.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'herbal_bandage' },
+        bp_tonic: { name: 'Bản vẽ Nước Ấm Gừng', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Nước Ấm Gừng.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'warm_tonic' },
+        bp_watch_hut: { name: 'Bản vẽ Chòi Canh', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Chòi Canh.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'watch_hut' },
+        bp_spike_fence: { name: 'Bản vẽ Rào Gỗ Nhọn', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Rào Gỗ Nhọn.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'spike_fence' },
+        bp_warming_stove: { name: 'Bản vẽ Bếp Sưởi', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Bếp Sưởi.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'warming_stove' },
+        bp_auto_snare: { name: 'Bản vẽ Bẫy Dây Tự Động', category: 'Dụng cụ', bagTab: 'tools', weight: 1, desc: 'Mở công thức Bẫy Dây Tự Động.', usable: true, useLabel: 'Học bản vẽ', unlocksRecipe: 'auto_snare' }
       };
 
       const extraSpecs = [
@@ -1269,7 +1167,7 @@
         { cat: 'Thuốc', tab: 'medicine', w: 1, usable: true, label: 'Dùng', names: ['Cao dán', 'Dầu gió', 'Rượu thuốc', 'Thuốc cầm máu', 'Thuốc hạ sốt', 'Thuốc giảm đau', 'Thuốc tiêu hóa', 'Thuốc bổ', 'Gạc sạch', 'Cồn sát trùng', 'Bột cầm máu', 'Nước muối', 'Viên ngậm', 'Dầu xoa bóp', 'Bột thảo dược', 'Cốt thuốc', 'Sáp vết thương', 'Nước rửa', 'Băng thun', 'Lá chườm'] },
         { cat: 'Dụng cụ', tab: 'tools', w: 3, usable: false, names: ['Dao găm', 'Rìu nhỏ', 'Rìu lớn', 'Cưa tay', 'Đục gỗ', 'Búa sắt', 'Kìm sắt', 'Kéo cắt', 'Lưỡi câu', 'Cần câu', 'Lưới bắt', 'Rổ tre', 'Nón lá', 'Áo mưa', 'Áo khoác', 'Găng tay', 'Ủng cao su', 'Giày đi rừng', 'Thắt lưng', 'Bao tay', 'Mũ vải', 'Khăn quàng', 'Đèn dầu', 'Ống nhòm', 'La bàn', 'Còi báo', 'Dây thừng', 'Cọc lều', 'Bạt che', 'Túi ngủ'] },
         { cat: 'Nguyên liệu', tab: 'materials', w: 2, usable: false, names: ['Bánh răng', 'Lò xo', 'Trục sắt', 'Vòng bi', 'Tấm thép', 'Ống đồng', 'Dây kẽm', 'Chốt sắt', 'Đai ốc', 'Bu lông', 'Cò bẫy', 'Lưỡi bẫy', 'Ngàm kẹp', 'Tay quay', 'Ròng rọc', 'Khung gỗ', 'Nắp đậy', 'Van nước', 'Ống dẫn', 'Mặt đồng hồ'] },
-        { cat: 'Dụng cụ', tab: 'tools', w: 3, usable: true, label: 'Mở hộp', names: ['Hộp gỗ nhỏ', 'Hộp thiếc', 'Hộp sắt', 'Hộp đồng', 'Hộp kín', 'Túi đồ cũ', 'Thùng nhỏ', 'Giỏ quà', 'Hộp dụng cụ', 'Hộp y tế', 'Hộp lương khô', 'Hộp hạt giống', 'Hộp linh kiện', 'Hộp cổ vật', 'Hộp bí mật', 'Hộp thợ săn', 'Hộp thợ mỏ', 'Hộp đi rừng', 'Hộp lưu trữ', 'Hộp đặc biệt'] },
+        { cat: 'Rương', tab: 'chests', w: 3, usable: true, label: 'Mở rương', names: ['Hộp gỗ nhỏ', 'Hộp thiếc', 'Hộp sắt', 'Hộp đồng', 'Hộp kín', 'Túi đồ cũ', 'Thùng nhỏ', 'Giỏ quà', 'Hộp dụng cụ', 'Hộp y tế', 'Hộp lương khô', 'Hộp hạt giống', 'Hộp linh kiện', 'Hộp cổ vật', 'Hộp bí mật', 'Hộp thợ săn', 'Hộp thợ mỏ', 'Hộp đi rừng', 'Hộp lưu trữ', 'Hộp đặc biệt'] },
         { cat: 'Dụng cụ', tab: 'tools', w: 1, usable: true, label: 'Xem phác thảo', names: ['Phác lều', 'Phác bếp', 'Phác giếng', 'Phác cầu', 'Phác bè', 'Phác xe đẩy', 'Phác kệ đồ', 'Phác tủ', 'Phác chuồng', 'Phác hàng rào', 'Phác bẫy thú', 'Phác máng nước', 'Phác lò sấy', 'Phác hầm trữ', 'Phác tháp canh', 'Phác cối xay', 'Phác máy bơm', 'Phác đèn hiệu', 'Phác cổng', 'Phác nhà kho'] }
       ];
 
@@ -1285,8 +1183,8 @@
             usable: grp.usable,
             useLabel: grp.label || 'Dùng',
             desc: grp.usable
-              ? `${nm} (${grp.cat}). Dùng để hồi sức hoặc đỡ đói khát.`
-              : `${nm} (${grp.cat}, nặng ${grp.w}). Dùng để chế đồ hoặc trao đổi.`
+              ? `${nm} (${grp.cat}). Dùng để hồi phục hoặc hỗ trợ sinh tồn.`
+              : `${nm} (${grp.cat}, nặng ${grp.w}). Dùng để chế tạo hoặc trao đổi.`
           };
         }
       }
@@ -1296,12 +1194,12 @@
     const ITEM_DEFS = buildItemCatalog();
 
     const TALENTS = [
-      { rank: 'F', name: 'Chân khỏe', desc: '+15 thể lực tối đa, đỡ mỏi khi đi bộ.' },
-      { rank: 'D', name: 'Quen việc rừng', desc: '+5 công, nhặt thêm một ít tài nguyên.' },
-      { rank: 'C', name: 'Mắt tinh', desc: 'Dễ thấy rương và bản vẽ hơn chút.' },
+      { rank: 'F', name: 'Chân khỏe', desc: '+15 Thể lực tối đa, bớt hao sức khi đi bộ.' },
+      { rank: 'D', name: 'Quen việc rừng', desc: '+5 Công, nhặt thêm chút gỗ khi đi xa.' },
+      { rank: 'C', name: 'Mắt tinh', desc: 'Tăng nhẹ cơ hội tìm thấy bản vẽ.' },
       { rank: 'B', name: 'Hợp thú', desc: 'Thuần thú nhanh hơn, thú lên cấp nhỉnh hơn.' },
-      { rank: 'A', name: 'Huyết mạch lạ', desc: 'Tăng chút cơ hội đột biến khi dùng huyết mạch.' },
-      { rank: 'S', name: 'Cứng cáp', desc: '+25 thể lực tối đa và +12 công.' }
+      { rank: 'A', name: 'Huyết mạch lạ', desc: 'Tăng cơ hội đột biến khi dùng huyết mạch.' },
+      { rank: 'S', name: 'Cứng cáp', desc: '+25 Thể lực tối đa và +12 Công.' }
     ];
 
     const STAGES = [
@@ -1318,39 +1216,43 @@
     };
 
     const BEAST_SPECIES = [
-      { id: 'cub_fox', name: 'Cáo Con', rank: 'Thường', baseAtk: 14, baseDef: 5, baseHp: 320, healRatePerMin: 5, tameGameHours: 18, mutateChance: 0.15, mutateTo: 'Cáo Đuôi Lửa', rewardChest: 'chest_bronze', defaultStage: 0, defaultLv: 2 },
-      { id: 'wild_cat', name: 'Mèo Rừng', rank: 'Thường', baseAtk: 16, baseDef: 6, baseHp: 420, healRatePerMin: 5, tameGameHours: 18, mutateChance: 0.16, mutateTo: 'Mèo Sương Đêm', rewardChest: 'chest_bronze', defaultStage: 1, defaultLv: 2 },
-      { id: 'spotted_deer', name: 'Hươu Sao', rank: 'Thường', baseAtk: 15, baseDef: 6, baseHp: 520, healRatePerMin: 4, tameGameHours: 20, mutateChance: 0.15, mutateTo: 'Hươu Sừng Ngọc', rewardChest: 'chest_bronze', defaultStage: 1, defaultLv: 2 },
-      { id: 'night_owl', name: 'Cú Đêm', rank: 'Thường', baseAtk: 18, baseDef: 6, baseHp: 460, healRatePerMin: 4, tameGameHours: 20, mutateChance: 0.17, mutateTo: 'Cú Bóng Tối', rewardChest: 'chest_silver', defaultStage: 1, defaultLv: 3 },
-      { id: 'wolf', name: 'Sói Xám', rank: 'Thường', baseAtk: 20, baseDef: 7, baseHp: 680, healRatePerMin: 4, tameGameHours: 24, mutateChance: 0.16, mutateTo: 'Sói Đầu Đàn', rewardChest: 'chest_silver', defaultStage: 1, defaultLv: 3 },
-      { id: 'boar', name: 'Heo Rừng', rank: 'Thường', baseAtk: 24, baseDef: 9, baseHp: 780, healRatePerMin: 3, tameGameHours: 26, mutateChance: 0.17, mutateTo: 'Heo Nanh Sắt', rewardChest: 'chest_bronze', defaultStage: 1, defaultLv: 4 },
-      { id: 'brown_bear', name: 'Gấu Nâu', rank: 'Khá', baseAtk: 28, baseDef: 11, baseHp: 1050, healRatePerMin: 4, tameGameHours: 30, mutateChance: 0.22, mutateTo: 'Gấu Đá Lớn', rewardChest: 'chest_silver', defaultStage: 1, defaultLv: 4 },
-      { id: 'snake', name: 'Rắn Lục', rank: 'Khá', baseAtk: 30, baseDef: 12, baseHp: 1100, healRatePerMin: 4, tameGameHours: 32, mutateChance: 0.24, mutateTo: 'Rắn Mào Đỏ', rewardChest: 'chest_gold', defaultStage: 1, defaultLv: 5 },
-      { id: 'mist_leopard', name: 'Báo Sương', rank: 'Hiếm', baseAtk: 35, baseDef: 14, baseHp: 1280, healRatePerMin: 5, tameGameHours: 38, mutateChance: 0.28, mutateTo: 'Báo Vằn Sương', rewardChest: 'chest_gold', defaultStage: 2, defaultLv: 3 },
-      { id: 'tiger', name: 'Hổ Rừng', rank: 'Hiếm', baseAtk: 38, baseDef: 15, baseHp: 1400, healRatePerMin: 6, tameGameHours: 42, mutateChance: 0.30, mutateTo: 'Hổ Trắng', rewardChest: 'chest_platinum', defaultStage: 2, defaultLv: 4 },
-      { id: 'mist_unicorn', name: 'Thú Sừng Trắng', rank: 'Quý', baseAtk: 46, baseDef: 19, baseHp: 1700, healRatePerMin: 7, tameGameHours: 48, mutateChance: 0.38, mutateTo: 'Thú Sừng Sáng', rewardChest: 'chest_platinum', defaultStage: 2, defaultLv: 5 },
-      { id: 'dragon', name: 'Thằn Lằn Lớn', rank: 'Quý', baseAtk: 52, baseDef: 22, baseHp: 1900, healRatePerMin: 8, tameGameHours: 54, mutateChance: 0.45, mutateTo: 'Rồng Sương Mù', rewardChest: 'chest_diamond', defaultStage: 2, defaultLv: 5 }
+      { id: 'cub_fox', name: 'Cáo Con', rank: 'Thường', baseAtk: 14, baseDef: 5, baseHp: 320, healRatePerMin: 5, tameGameHours: 18, mutateChance: 0.15, mutateTo: 'Cáo Đuôi Lửa', rewardChest: 'chest_bronze' },
+      { id: 'wild_cat', name: 'Mèo Rừng', rank: 'Thường', baseAtk: 16, baseDef: 6, baseHp: 420, healRatePerMin: 5, tameGameHours: 18, mutateChance: 0.16, mutateTo: 'Mèo Sương Đêm', rewardChest: 'chest_bronze' },
+      { id: 'spotted_deer', name: 'Hươu Sao', rank: 'Thường', baseAtk: 15, baseDef: 6, baseHp: 520, healRatePerMin: 4, tameGameHours: 20, mutateChance: 0.15, mutateTo: 'Hươu Sừng Ngọc', rewardChest: 'chest_bronze' },
+      { id: 'night_owl', name: 'Cú Đêm', rank: 'Thường', baseAtk: 18, baseDef: 6, baseHp: 460, healRatePerMin: 4, tameGameHours: 20, mutateChance: 0.17, mutateTo: 'Cú Bóng Tối', rewardChest: 'chest_silver' },
+      { id: 'wolf', name: 'Sói Xám', rank: 'Thường', baseAtk: 20, baseDef: 7, baseHp: 680, healRatePerMin: 4, tameGameHours: 24, mutateChance: 0.16, mutateTo: 'Sói Đầu Đàn', rewardChest: 'chest_silver' },
+      { id: 'boar', name: 'Heo Rừng', rank: 'Thường', baseAtk: 24, baseDef: 9, baseHp: 780, healRatePerMin: 3, tameGameHours: 26, mutateChance: 0.17, mutateTo: 'Heo Nanh Sắt', rewardChest: 'chest_bronze' },
+      { id: 'brown_bear', name: 'Gấu Nâu', rank: 'Khá', baseAtk: 28, baseDef: 11, baseHp: 1050, healRatePerMin: 4, tameGameHours: 30, mutateChance: 0.22, mutateTo: 'Gấu Đá Lớn', rewardChest: 'chest_silver' },
+      { id: 'snake', name: 'Rắn Lục', rank: 'Khá', baseAtk: 30, baseDef: 12, baseHp: 1100, healRatePerMin: 4, tameGameHours: 32, mutateChance: 0.24, mutateTo: 'Rắn Mào Đỏ', rewardChest: 'chest_gold' },
+      { id: 'mist_leopard', name: 'Báo Sương', rank: 'Hiếm', baseAtk: 35, baseDef: 14, baseHp: 1280, healRatePerMin: 5, tameGameHours: 38, mutateChance: 0.28, mutateTo: 'Báo Vằn Sương', rewardChest: 'chest_gold' },
+      { id: 'tiger', name: 'Hổ Rừng', rank: 'Hiếm', baseAtk: 38, baseDef: 15, baseHp: 1400, healRatePerMin: 6, tameGameHours: 42, mutateChance: 0.30, mutateTo: 'Hổ Trắng', rewardChest: 'chest_platinum' },
+      { id: 'mist_unicorn', name: 'Thú Sừng Trắng', rank: 'Quý', baseAtk: 46, baseDef: 19, baseHp: 1700, healRatePerMin: 7, tameGameHours: 48, mutateChance: 0.38, mutateTo: 'Thú Sừng Sáng', rewardChest: 'chest_platinum' },
+      { id: 'dragon', name: 'Thằn Lằn Lớn', rank: 'Quý', baseAtk: 52, baseDef: 22, baseHp: 1900, healRatePerMin: 8, tameGameHours: 54, mutateChance: 0.45, mutateTo: 'Rồng Sương Mù', rewardChest: 'chest_diamond' }
     ];
 
     const HOUSE_LEVELS = [
-      { level: 1, name: 'Nhà gỗ nhỏ', cost: { wood: 20, stone: 10 }, unlock: 'Chỗ ở ban đầu.' },
-      { level: 2, name: 'Nhà gỗ chắc hơn', cost: { wood: 40, stone: 25 }, unlock: 'Đỡ lạnh và thêm chút sức chứa.' },
-      { level: 3, name: 'Nhà gỗ gần suối', cost: { wood: 70, stone: 45, fish: 5 }, unlock: 'Sinh hoạt thuận tiện hơn.' },
+      { level: 1, name: 'Nhà gỗ nhỏ', cost: { wood: 20, stone: 10 }, unlock: 'Chỗ ở khởi đầu.' },
+      { level: 2, name: 'Nhà gỗ chắc hơn', cost: { wood: 40, stone: 25 }, unlock: 'Tăng sức chứa balo.' },
+      { level: 3, name: 'Nhà gỗ gần suối', cost: { wood: 70, stone: 45, fish: 5 }, unlock: 'Sinh hoạt thuận lợi hơn.' },
       { level: 4, name: 'Nhà đá gỗ', cost: { wood: 110, stone: 80, ore: 10 }, unlock: 'Tường vững hơn.' },
-      { level: 5, name: 'Trại gỗ rộng', cost: { wood: 160, stone: 120, ore: 20 }, unlock: 'Đổi đồ dễ hơn.' },
-      { level: 6, name: 'Khu nhà kiên cố', cost: { wood: 220, stone: 170, ore: 35 }, unlock: 'Chịu va chạm tốt.' },
+      { level: 5, name: 'Trại gỗ rộng', cost: { wood: 160, stone: 120, ore: 20 }, unlock: 'Mở rộng khu trú ẩn.' },
+      { level: 6, name: 'Khu nhà kiên cố', cost: { wood: 220, stone: 170, ore: 35 }, unlock: 'Chịu đựng tốt hơn.' },
       { level: 7, name: 'Khu căn cứ lớn', cost: { wood: 300, stone: 240, ore: 55 }, unlock: 'Hỗ trợ thú nuôi tốt.' },
-      { level: 8, name: 'Căn cứ hoàn chỉnh', cost: null, unlock: 'Đã nâng hết cấp.' }
+      { level: 8, name: 'Căn cứ hoàn chỉnh', cost: null, unlock: 'Đã đạt cấp tối đa.' }
     ];
 
     const NPCS = [
-      { id: 'linh', name: 'Linh (Đi buôn)', haggleBonus: 0, offer: { give: 'wood', giveQty: 12, get: 'bp_bow_arrow', getQty: 1 }, lines: ['Đường xa nhớ mang đủ nước, hết nước đi mệt lắm.', 'Tớ có bản vẽ Cung Tên, cần thì đổi 12 gỗ nhé.'] },
-      { id: 'minh', name: 'Minh (Thợ rèn)', haggleBonus: 0, offer: { give: 'ore', giveQty: 5, get: 'bp_iron_pickaxe', getQty: 1 }, lines: ['Có cuốc sắt đào đá quặng đỡ mất sức hơn hẳn.', 'Đầu game chỉ có một cái rìu thì cứ chịu khó chặt gỗ dần thôi.'] },
-      { id: 'an', name: 'An (Chăm thú)', haggleBonus: 0, offer: { give: 'fish', giveQty: 3, get: 'bp_warming_stove', getQty: 1 }, lines: ['Thú lớn cấp cao lên cấp chậm lắm, cứ kiên nhẫn nuôi.', 'Thú con nhỏ chưa đánh được đâu, để lớn thêm đã.'] }
+      { id: 'linh', name: 'Linh (Đi buôn)', haggleBonus: 0, offer: { give: 'wood', giveQty: 12, get: 'bp_bow_arrow', getQty: 1 }, lines: ['Nhớ mang đủ nước khi đi xa.', 'Mình có bản vẽ Cung Tên, đổi 12 gỗ nhé.'] },
+      { id: 'minh', name: 'Minh (Thợ rèn)', haggleBonus: 0, offer: { give: 'ore', giveQty: 5, get: 'bp_iron_pickaxe', getQty: 1 }, lines: ['Cuốc sắt giúp đào đá và quặng hiệu quả hơn.', 'Chịu khó thu thập tài nguyên trước khi tiến sâu.'] },
+      { id: 'an', name: 'An (Chăm thú)', haggleBonus: 0, offer: { give: 'fish', giveQty: 3, get: 'bp_warming_stove', getQty: 1 }, lines: ['Nhớ cho thú ăn khi bị thương.', 'Thú con nhỏ chưa tham chiến được.'] }
     ];
 
     let authMode = 'login';
     let currentAccount = null;
+
+    function isValidAdminCredentials(username, password) {
+      return username.toLowerCase() === 'admin' && password === '1104';
+    }
 
     function getAccountsStore() {
       try {
@@ -1376,33 +1278,51 @@
       return { atk, def, maxHp, healRatePerMin: sp.healRatePerMin };
     }
 
+    function scoreToRank(score) {
+      if (score >= 1600) return 'S';
+      if (score >= 1150) return 'A';
+      if (score >= 820) return 'B';
+      if (score >= 560) return 'C';
+      if (score >= 380) return 'D';
+      if (score >= 240) return 'E';
+      return 'F';
+    }
+
     function calcCombatPower(entity) {
       const sp = BEAST_SPECIES.find(s => s.id === entity.speciesId);
       const rm = sp ? (RARITY_MULT[sp.rank] || RARITY_MULT['Thường']) : RARITY_MULT['Thường'];
       const lvBonus = 1 + ((entity.lv || 1) - 1) * 0.15;
       const score = Math.round((entity.atk * 5.5 + entity.def * 4.2 + entity.maxHp * 0.16) * rm.cp * lvBonus * (entity.mutated ? 1.35 : 1));
-      let tier = 'F';
-      if (score >= 1600) tier = 'S';
-      else if (score >= 1150) tier = 'A';
-      else if (score >= 820) tier = 'B';
-      else if (score >= 560) tier = 'C';
-      else if (score >= 380) tier = 'D';
-      else if (score >= 240) tier = 'E';
-      return { score, tier };
+      return { score, tier: scoreToRank(score) };
     }
 
     function getPlayerCombatPower() {
       const str = getPlayerStrength();
-      return Math.round(str * 5.2 + state.maxHp * 0.8 + state.maxStamina * 0.5);
+      const score = Math.round(str * 6.2 + state.maxHp * 1.1 + state.maxStamina * 0.7);
+      return { score, tier: scoreToRank(score) };
     }
 
-    function createInitialState(charName = 'Lâm Dã', isAdmin = true) {
+    function getTotalCombatPower() {
+      const pCp = getPlayerCombatPower();
+      let petScore = 0;
+      if (state.selectedPetUid) {
+        const sel = state.tamedBeasts.find(p => p.uid === state.selectedPetUid);
+        if (sel) petScore = calcCombatPower(sel).score;
+      } else {
+        petScore = state.tamedBeasts.reduce((sum, p) => sum + calcCombatPower(p).score, 0);
+      }
+      const totalScore = pCp.score + petScore;
+      return { score: totalScore, tier: scoreToRank(totalScore) };
+    }
+
+    function createInitialState(charName = 'Lâm Dã', isAdmin = false) {
       return {
         charName: charName || 'Lâm Dã',
-        isAdmin: true,
+        isAdmin: Boolean(isAdmin),
         bonusAtk: 0,
         bonusBagCap: 0,
         bagTab: 'all',
+        lastNotice: 'Đã vào game. Bấm nút trên thanh trên cùng để mở mục cần dùng.',
         day: 1,
         timeOfDaySec: 6 * 3600,
         weatherId: 'clear',
@@ -1436,17 +1356,11 @@
         depletedBlueprints: [],
         craftedCounts: {},
         tamingQueue: [],
-        stats: {
-          expeditionsDone: 0,
-          chestsOpened: 0,
-          beastsDefeated: 0
-        },
+        stats: { expeditionsDone: 0, chestsOpened: 0, beastsDefeated: 0 },
         claimedQuests: [],
         tamedBeasts: [],
         beastBloodlines: {},
-        inv: {
-          axe: 1
-        },
+        inv: { axe: 1 },
         trades: [
           { id: 1, text: '12 Gỗ → 1 Bản vẽ Rìu Sắt', give: 'wood', giveQty: 12, get: 'bp_iron_axe', getQty: 1 },
           { id: 2, text: '3 Cá → 2 Nước', give: 'fish', giveQty: 3, get: 'water', getQty: 2 },
@@ -1454,18 +1368,37 @@
           { id: 4, text: '6 Gỗ → 1 Lá thuốc', give: 'wood', giveQty: 6, get: 'mist_herb', getQty: 1 }
         ],
         worldChat: [
-          '[Hệ thống] 1 giờ trong game bằng 5 phút ngoài đời. Tự lưu mỗi 15 giây.',
-          '[Linh] Vào đầu chỉ có một cái rìu thôi, chịu khó chặt gỗ nhặt đá rồi lên đường.'
+          '[Hệ thống] 1 giờ game = 5 phút thực. Tự lưu mỗi 15 giây.',
+          '[Linh] Chặt gỗ, nhặt đá và chuẩn bị đồ trước khi đi xa.'
         ],
         npcChats: {
-          linh: ['Linh: Chào bạn, mở bản đồ để chọn chỗ đi gần hay xa nhé.'],
-          minh: ['Minh: Có thêm nhiều loại đồ và thú mới rồi, đi dạo quanh rừng xem sao.'],
-          an: ['An: Thuần được thú thì nhớ cho ăn, thú lớn cấp cao lên cấp hơi lâu.']
+          linh: ['Linh: Chào bạn, cần đổi đồ hay hỏi đường thì nhắn mình.'],
+          minh: ['Minh: Có cuốc sắt và rìu sắt sẽ thu thập tốt hơn.'],
+          an: ['An: Thuần thú xong nhớ cho ăn khi chúng mất máu.']
         }
       };
     }
 
     let state = createInitialState();
+
+    function hideAllMainPanelsOnStart() {
+      const panelIds = [
+        'admin-panel',
+        'char-panel',
+        'explore-panel',
+        'bag-pet-panel',
+        'craft-panel',
+        'house-upgrade-panel',
+        'quest-panel',
+        'chat-panel',
+        'trade-panel',
+        'npc-panel'
+      ];
+      panelIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+    }
 
     function setBagTab(tabId) {
       state.bagTab = tabId;
@@ -1490,7 +1423,7 @@
       const hasSave = Boolean(accRecord.save);
       document.getElementById('btn-continue-save').disabled = !hasSave;
       document.getElementById('welcome-account-summary').textContent =
-        `Tài khoản: ${accKey} • Tên nhân vật: ${accRecord.charName || 'Lâm Dã'}${hasSave ? ' • Có dữ liệu lưu.' : ' • Chưa có lưu.'}`;
+        `Tài khoản: ${accKey} • Nhân vật: ${accRecord.charName || 'Lâm Dã'}${hasSave ? ' • Đã có lưu.' : ' • Chưa có lưu.'}`;
     }
 
     function submitAuth() {
@@ -1500,37 +1433,44 @@
       const msgEl = document.getElementById('auth-message');
 
       if (!uRaw) {
-        msgEl.textContent = 'Nhập tên tài khoản trước nhé.';
+        msgEl.textContent = 'Vui lòng nhập tên tài khoản.';
         return;
       }
       if (!pRaw) {
-        msgEl.textContent = 'Nhập mật khẩu trước nhé.';
+        msgEl.textContent = 'Vui lòng nhập mật khẩu.';
         return;
       }
 
       const key = uRaw.toLowerCase();
+      if (key === 'admin' && pRaw !== '1104') {
+        msgEl.textContent = 'Sai mật khẩu tài khoản admin.';
+        return;
+      }
+
+      const adminFlag = isValidAdminCredentials(uRaw, pRaw);
       const store = getAccountsStore();
 
       if (authMode === 'register') {
         if (store[key]) {
-          msgEl.textContent = 'Tên tài khoản này đã tồn tại, thử tên khác hoặc chuyển sang Đăng nhập.';
+          msgEl.textContent = 'Tên tài khoản đã tồn tại. Hãy chọn tên khác hoặc đăng nhập.';
           return;
         }
-        const charName = cRaw || (key === 'admin' ? 'Quản Trị Viên' : 'Lâm Dã');
+        const charName = cRaw || (adminFlag ? 'Quản Trị Viên' : 'Lâm Dã');
         store[key] = {
           password: pRaw,
           charName,
-          isAdmin: true,
+          isAdmin: adminFlag,
           save: null
         };
         saveAccountsStore(store);
         enterAccountWelcome(key, store[key]);
       } else {
         if (!store[key]) {
+          const charName = cRaw || (adminFlag ? 'Quản Trị Viên' : 'Lâm Dã');
           store[key] = {
             password: pRaw,
-            charName: key === 'admin' ? 'Quản Trị Viên' : 'Lâm Dã',
-            isAdmin: true,
+            charName,
+            isAdmin: adminFlag,
             save: null
           };
           saveAccountsStore(store);
@@ -1541,24 +1481,10 @@
           msgEl.textContent = 'Sai mật khẩu.';
           return;
         }
-        store[key].isAdmin = true;
+        store[key].isAdmin = adminFlag;
         saveAccountsStore(store);
         enterAccountWelcome(key, store[key]);
       }
-    }
-
-    function quickAdminLogin() {
-      const store = getAccountsStore();
-      if (!store.admin) {
-        store.admin = {
-          password: 'admin',
-          charName: 'Quản Trị Viên',
-          isAdmin: true,
-          save: null
-        };
-        saveAccountsStore(store);
-      }
-      enterAccountWelcome('admin', store.admin);
     }
 
     function backToAuth() {
@@ -1574,11 +1500,13 @@
       const store = getAccountsStore();
       const rec = store[currentAccount.username];
       if (!rec || !rec.save) return;
-      state = { ...createInitialState(rec.charName, true), ...rec.save };
+      const adminFlag = currentAccount.username === 'admin' && rec.password === '1104';
+      state = { ...createInitialState(rec.charName, adminFlag), ...rec.save };
       state.charName = rec.charName || state.charName || 'Lâm Dã';
-      state.isAdmin = true;
+      state.isAdmin = adminFlag;
+      hideAllMainPanelsOnStart();
       document.getElementById('intro-overlay').classList.add('hidden');
-      logMsg(`Đã tải dữ liệu của tài khoản ${currentAccount.username}.`);
+      logMsg(`Đã tải dữ liệu của ${currentAccount.username}.`);
       renderAll();
     }
 
@@ -1587,18 +1515,18 @@
       try {
         const store = getAccountsStore();
         const rec = store[currentAccount.username] || {
-          password: '',
+          password: currentAccount.password || '',
           charName: state.charName,
-          isAdmin: true
+          isAdmin: state.isAdmin
         };
         rec.charName = state.charName;
-        rec.isAdmin = true;
+        rec.isAdmin = state.isAdmin;
         rec.save = JSON.parse(JSON.stringify(state));
         store[currentAccount.username] = rec;
         saveAccountsStore(store);
-        if (!silent) logMsg(`Đã lưu tiến trình tài khoản ${currentAccount.username}.`);
+        if (!silent) logMsg(`Đã lưu tiến trình (${currentAccount.username}).`);
       } catch (e) {
-        if (!silent) logMsg('Không lưu được dữ liệu.');
+        if (!silent) logMsg('Không thể lưu dữ liệu.');
       }
     }
 
@@ -1613,7 +1541,7 @@
     function rollWeather() {
       const w = WEATHER_TYPES[Math.floor(Math.random() * WEATHER_TYPES.length)];
       state.weatherId = w.id;
-      logMsg(`Thời tiết đổi sang ${w.name}: ${w.desc}`);
+      logMsg(`Thời tiết: ${w.name}.`);
     }
 
     function getBagUsedWeight() {
@@ -1670,76 +1598,74 @@
     function campGatherWood() {
       if (state.isDead) return;
       if (state.stamina < 5) {
-        logMsg('Hết sức rồi, nghỉ ngơi chút đi.');
+        logMsg('Không đủ thể lực để chặt gỗ.');
         return;
       }
       advanceGameMinutes(15);
       state.stamina = Math.max(0, state.stamina - 5);
-      const bonus = state.talent?.rank === 'D' ? 1 : 0;
-      const gain = 4 + bonus;
+      const gain = 4 + (state.talent?.rank === 'D' ? 1 : 0);
       state.inv.wood = (state.inv.wood || 0) + gain;
-      logMsg(`Chặt được ${gain} gỗ (tốn 15 phút).`);
+      logMsg(`Chặt được +${gain} Gỗ (-5 Thể lực, 15p).`);
       renderAll();
     }
 
     function campCollectStone() {
       if (state.isDead) return;
       if (state.stamina < 5) {
-        logMsg('Hết sức rồi, nghỉ ngơi chút đi.');
+        logMsg('Không đủ thể lực để nhặt đá.');
         return;
       }
       advanceGameMinutes(15);
       state.stamina = Math.max(0, state.stamina - 5);
-      const gain = 3;
-      state.inv.stone = (state.inv.stone || 0) + gain;
-      logMsg(`Nhặt được ${gain} đá (tốn 15 phút).`);
+      state.inv.stone = (state.inv.stone || 0) + 3;
+      logMsg('Nhặt được +3 Đá (-5 Thể lực, 15p).');
       renderAll();
     }
 
     function campCookMeat() {
       if (state.isDead) return;
       if (state.locationId !== 'house') {
-        logMsg('Về Nhà gỗ mới nướng đồ được.');
+        logMsg('Chỉ nướng cá được tại Nhà gỗ.');
         return;
       }
       if ((state.inv.fish || 0) < 2) {
-        logMsg('Cần 2 cá để nướng thành 2 thịt.');
+        logMsg('Cần 2 Cá để nướng thành 2 Thịt.');
         return;
       }
       state.inv.fish -= 2;
       state.inv.meat = (state.inv.meat || 0) + 2;
       advanceGameMinutes(15);
-      logMsg('Nướng xong 2 thịt (tốn 15 phút).');
+      logMsg('Nướng thành công +2 Thịt (15p).');
       renderAll();
     }
 
     function campPurifyWater() {
       if (state.isDead) return;
       if (state.locationId !== 'house') {
-        logMsg('Về Nhà gỗ mới lọc nước được.');
+        logMsg('Chỉ lọc nước được tại Nhà gỗ.');
         return;
       }
       advanceGameMinutes(15);
       state.inv.water = (state.inv.water || 0) + 2;
-      logMsg('Lọc được thêm 2 nước (tốn 15 phút).');
+      logMsg('Lọc được +2 Nước (15p).');
       renderAll();
     }
 
     function campRest() {
       if (state.isDead) return;
       if (state.locationId !== 'house') {
-        logMsg('Về Nhà gỗ nghỉ ngơi sẽ hồi sức tốt hơn.');
+        logMsg('Về Nhà gỗ nghỉ ngơi sẽ hồi phục tốt hơn.');
         return;
       }
       advanceGameMinutes(45);
       state.stamina = Math.min(state.maxStamina, state.stamina + 25);
       state.hp = Math.min(state.maxHp, state.hp + 10);
       state.thirst = Math.min(state.maxThirst, state.thirst + 5);
-      logMsg('Nghỉ 45 phút: +25 thể lực, +10 máu.');
+      logMsg('Nghỉ 45p: +25 Thể lực, +10 Máu.');
       renderAll();
     }
 
-    /* CÁC HÀM ADMIN TEST GAME & LỆNH LẤY ĐỒ */
+    /* ADMIN COMMANDS (CHỈ KHI state.isAdmin === true) */
     function resolveItemKeyByQuery(query) {
       if (!query) return null;
       const q = query.toLowerCase().trim();
@@ -1753,57 +1679,63 @@
     }
 
     function adminQuickGive(key, qty) {
+      if (!state.isAdmin) return;
       state.inv[key] = (state.inv[key] || 0) + qty;
       state.selectedItem = key;
-      const msg = `Admin lấy +${qty} ${ITEM_DEFS[key]?.name || key}.`;
+      const msg = `Admin: +${qty} ${ITEM_DEFS[key]?.name || key}.`;
       document.getElementById('admin-cmd-status').textContent = msg;
       logMsg(msg);
       renderAll();
     }
 
     function adminGiveSupremeSet() {
+      if (!state.isAdmin) return;
       for (const k of SUPREME_ITEM_KEYS) {
         state.inv[k] = (state.inv[k] || 0) + 1;
       }
       state.bagTab = 'supreme';
       state.selectedItem = SUPREME_ITEM_KEYS[0];
-      const msg = 'Admin đã nhận 1 bộ 5 vật phẩm siêu phàm (Bậc I - Bậc V).';
+      const msg = 'Admin: +1 bộ 5 vật phẩm siêu phàm.';
       document.getElementById('admin-cmd-status').textContent = msg;
       logMsg(msg);
       renderAll();
     }
 
     function adminUnlockAllRecipes() {
+      if (!state.isAdmin) return;
       state.unlockedRecipes = RECIPES.map(r => r.id);
-      const msg = 'Admin đã mở khóa toàn bộ công thức chế tạo.';
+      const msg = 'Admin: Đã mở mọi công thức.';
       document.getElementById('admin-cmd-status').textContent = msg;
       logMsg(msg);
       renderAll();
     }
 
     function adminFullRestore() {
+      if (!state.isAdmin) return;
       state.hp = state.maxHp;
       state.stamina = state.maxStamina;
       state.hunger = state.maxHunger;
       state.thirst = 0;
       state.isDead = false;
-      const msg = 'Admin đã hồi đầy máu, thể lực, độ no và giải khát.';
+      const msg = 'Admin: Đã hồi đầy chỉ số.';
       document.getElementById('admin-cmd-status').textContent = msg;
       logMsg(msg);
       renderAll();
     }
 
     function adminAdvanceTime(mins) {
+      if (!state.isAdmin) return;
       advanceGameMinutes(mins);
-      const msg = `Admin tua thêm ${mins} phút game.`;
+      const msg = `Admin: Tua +${mins} phút.`;
       document.getElementById('admin-cmd-status').textContent = msg;
       renderAll();
     }
 
     function adminSpawnTestPet() {
+      if (!state.isAdmin) return;
       const st = calcPetStats('wolf', 2, 5);
       const newPet = {
-        uid: `admin_pet_${Date.now()}`,
+        uid: `pet_${Date.now()}`,
         speciesId: 'wolf',
         name: 'Sói Xám',
         rank: 'Thường',
@@ -1821,13 +1753,14 @@
       };
       state.tamedBeasts.push(newPet);
       state.selectedPetUid = newPet.uid;
-      const msg = 'Admin thêm 1 Sói Xám (Lớn, cấp 5).';
+      const msg = 'Admin: Thêm Sói Xám (Lớn, cấp 5).';
       document.getElementById('admin-cmd-status').textContent = msg;
       logMsg(msg);
       renderAll();
     }
 
     function runAdminCommand() {
+      if (!state.isAdmin) return;
       const input = document.getElementById('admin-cmd-input');
       const statusEl = document.getElementById('admin-cmd-status');
       const raw = input.value.trim();
@@ -1837,7 +1770,7 @@
       const cmd = (parts[0] || '').toLowerCase();
 
       if (cmd === 'help') {
-        statusEl.textContent = 'Lệnh: /sup, /give <tên_hoặc_mã> <số_lượng>, /heal, /stamina, /addtime <phút>, /day <số_ngày>, /allbp';
+        statusEl.textContent = '/sup | /give <tên> <sl> | /heal | /stamina | /addtime <phút> | /day <ngày> | /allbp';
       } else if (cmd === 'sup') {
         adminGiveSupremeSet();
       } else if (cmd === 'give') {
@@ -1846,34 +1779,33 @@
         const qty = Number.isFinite(qtyVal) && qtyVal > 0 ? qtyVal : 1;
         const foundKey = resolveItemKeyByQuery(itemQuery);
         if (!foundKey) {
-          statusEl.textContent = `Không tìm thấy vật phẩm "${itemQuery}".`;
+          statusEl.textContent = `Không tìm thấy "${itemQuery}".`;
         } else {
           adminQuickGive(foundKey, qty);
         }
       } else if (cmd === 'heal') {
         state.hp = state.maxHp;
         state.isDead = false;
-        statusEl.textContent = 'Đã hồi đầy máu.';
-        logMsg('Admin hồi đầy máu.');
+        statusEl.textContent = 'Đã hồi đầy Máu.';
+        logMsg('Admin: Hồi đầy Máu.');
         renderAll();
       } else if (cmd === 'stamina') {
         state.stamina = state.maxStamina;
-        statusEl.textContent = 'Đã hồi đầy thể lực.';
-        logMsg('Admin hồi đầy thể lực.');
+        statusEl.textContent = 'Đã hồi đầy Thể lực.';
+        logMsg('Admin: Hồi đầy Thể lực.');
         renderAll();
       } else if (cmd === 'addtime') {
-        const m = Math.max(1, parseInt(parts[1], 10) || 60);
-        adminAdvanceTime(m);
+        adminAdvanceTime(Math.max(1, parseInt(parts[1], 10) || 60));
       } else if (cmd === 'day') {
         const d = Math.min(100, Math.max(1, parseInt(parts[1], 10) || 1));
         state.day = d;
-        statusEl.textContent = `Đã đặt thành Ngày ${d}.`;
-        logMsg(`Admin đặt ngày thành ${d}.`);
+        statusEl.textContent = `Đã sang Ngày ${d}.`;
+        logMsg(`Admin: Đặt Ngày ${d}.`);
         renderAll();
       } else if (cmd === 'allbp') {
         adminUnlockAllRecipes();
       } else {
-        statusEl.textContent = `Lệnh chưa rõ "${raw}". Gõ /help để xem cú pháp.`;
+        statusEl.textContent = `Lệnh không hợp lệ: "${raw}".`;
       }
 
       input.value = '';
@@ -1881,13 +1813,12 @@
 
     function showLevelUpModal(pet, oldLv, oldStageName) {
       const newStageName = STAGES[pet.stageIdx].name;
-      const stageChanged = oldStageName !== newStageName;
       const cp = calcCombatPower(pet);
       document.getElementById('levelup-main-text').textContent =
-        `${pet.name} lên cấp ${pet.lv} (${newStageName})${stageChanged ? ' — đổi giai đoạn' : ''}`;
+        `${pet.name} đạt cấp ${pet.lv} (${newStageName})`;
       document.getElementById('levelup-stats-text').textContent =
         `Cấp: ${oldLv} → ${pet.lv}\n` +
-        `Chiến lực: ${cp.score} (Hạng ${cp.tier}) • Máu ${pet.hp}/${pet.maxHp} • Công ${pet.atk} • Thủ ${pet.def}`;
+        `CL thú: ${cp.score} [${cp.tier}] • Máu ${pet.hp}/${pet.maxHp} • Công ${pet.atk} • Thủ ${pet.def}`;
       document.getElementById('levelup-overlay').classList.remove('hidden');
     }
 
@@ -1902,8 +1833,7 @@
       const fightMult = combatBoost ? 2.4 : 1.0;
       const lvDifficulty = Math.pow(1.22, Math.max(0, (pet.lv || 1) - 1));
       const minutesPerLevel = 1560 * lvDifficulty;
-      const pctGain = (gameMinutes / minutesPerLevel) * 100 * talentMult * fightMult;
-      pet.growthPct = (pet.growthPct || 0) + pctGain;
+      pet.growthPct = (pet.growthPct || 0) + (gameMinutes / minutesPerLevel) * 100 * talentMult * fightMult;
 
       while (pet.growthPct >= 100) {
         pet.growthPct -= 100;
@@ -1956,8 +1886,7 @@
       const tameSpeedMult = state.talent?.rank === 'B' ? 1.25 : 1.0;
       const completedTames = [];
       state.tamingQueue = state.tamingQueue.filter(item => {
-        const gainPct = ((deltaGameSec * tameSpeedMult) / item.totalGameSec) * 100;
-        item.progressPct = Math.min(100, item.progressPct + gainPct);
+        item.progressPct = Math.min(100, item.progressPct + ((deltaGameSec * tameSpeedMult) / item.totalGameSec) * 100);
         if (item.progressPct >= 100) {
           completedTames.push(item);
           return false;
@@ -2004,16 +1933,21 @@
       const nextPhase = getPhaseLabel();
       if (prevPhase !== nextPhase) {
         if (Math.random() < 0.6) rollWeather();
-        logMsg(`Chuyển sang ${nextPhase} (${formatGameClock()}).`);
+        logMsg(`Chuyển sang ${nextPhase}.`);
       }
     }
 
     function logMsg(text) {
+      state.lastNotice = text;
+      const noticeEl = document.getElementById('status-notice-text');
+      if (noticeEl) noticeEl.textContent = text;
       const box = document.getElementById('adventure-log');
-      const div = document.createElement('div');
-      div.className = 'log-item';
-      div.textContent = `[Ngày ${state.day} ${formatGameClock()}] ${text}`;
-      box.prepend(div);
+      if (box) {
+        const div = document.createElement('div');
+        div.className = 'log-item';
+        div.textContent = `[Ngày ${state.day} ${formatGameClock()}] ${text}`;
+        box.prepend(div);
+      }
     }
 
     function addWorldMsg(text) {
@@ -2023,38 +1957,31 @@
 
     function generateNpcWorldAiReply(userMsg) {
       const q = userMsg.toLowerCase();
-      const petCount = state.tamedBeasts.length;
       const w = getWeatherObj();
-
       if (q.includes('thời tiết') || q.includes('sương') || q.includes('mưa') || q.includes('bão')) {
-        return `[Linh] Đang ${w.name.toLowerCase()}, ${state.temp}°C. ${w.desc}`;
+        return `[Linh] Đang ${w.name.toLowerCase()}, ${state.temp}°C.`;
       }
-      if (q.includes('thú') || q.includes('chiến lực') || q.includes('cấp')) {
-        return `[An] Hiện ${state.charName} có ${petCount} thú. Thú cấp cao lên cấp hơi chậm, chịu khó đợi thêm thời gian.`;
+      if (q.includes('chiến lực') || q.includes('thú')) {
+        const tot = getTotalCombatPower();
+        return `[An] Tổng chiến lực hiện tại của bạn: ${tot.score} [${tot.tier}].`;
       }
-      if (q.includes('rương') || q.includes('đi') || q.includes('bản đồ')) {
-        return `[Linh] Mở rương bấm vào từng món xem thông tin luôn cho tiện. Đi càng xa càng tốn thời gian.`;
-      }
-      const list = [
-        `[Linh] Ok ${state.charName}, đang là ${formatGameClock()} ngày ${state.day}, thời tiết ${w.name.toLowerCase()}.`,
-        `[Minh] Cần sắt đá hay bản vẽ thì ngó qua bảng trao đổi nhé.`,
-        `[An] Nhớ cho thú ăn khi chúng bị thương.`
-      ];
-      return list[Math.floor(Math.random() * list.length)];
+      return `[Linh] ${state.charName} nhớ chuẩn bị đủ nước và thuốc trước khi đi xa.`;
     }
 
     function checkPlayerDeath() {
       if (state.hp <= 0 && !state.isDead) {
         state.hp = 0;
         state.isDead = true;
+        const pCp = getPlayerCombatPower();
+        const totCp = getTotalCombatPower();
         const petNames = state.tamedBeasts.map(p => `${p.name} (cấp ${p.lv})`).join(', ') || 'Chưa có';
         const summary = [
           `Nhân vật: ${state.charName}`,
-          `Ngày sống được: ${state.day}/100 (${formatGameClock()})`,
-          `Thiên phú: ${state.talent ? `${state.talent.name} (Hạng ${state.talent.rank})` : 'Chưa chọn'}`,
+          `Ngày sống sót: ${state.day}/100 (${formatGameClock()})`,
+          `CL nhân vật: ${pCp.score} [${pCp.tier}] • Tổng CL: ${totCp.score} [${totCp.tier}]`,
           `Nhà gỗ: Cấp ${state.houseLevel}/8`,
           `Thú: ${petNames}`,
-          `Công thức đã mở: ${state.unlockedRecipes.length}/${RECIPES.length}`
+          `Bản vẽ đã mở: ${state.unlockedRecipes.length}/${RECIPES.length}`
         ].join('\n');
         document.getElementById('gameover-summary').textContent = summary;
         document.getElementById('gameover-overlay').classList.remove('hidden');
@@ -2068,8 +1995,9 @@
       document.getElementById('craft-block-overlay').classList.add('hidden');
       document.getElementById('chest-reward-overlay').classList.add('hidden');
       document.getElementById('adventure-log').innerHTML = '';
+      hideAllMainPanelsOnStart();
       const charName = currentAccount?.charName || 'Lâm Dã';
-      state = createInitialState(charName, true);
+      state = createInitialState(charName, Boolean(currentAccount?.isAdmin));
       document.getElementById('cards-container').classList.add('hidden');
       document.getElementById('step-wheel').classList.add('hidden');
       document.getElementById('step-auth').classList.add('hidden');
@@ -2080,11 +2008,7 @@
     }
 
     function getCraftBonuses() {
-      let power = 0;
-      let threatCut = 0;
-      let woodAdd = 0;
-      let stoneAdd = 0;
-      let oreAdd = 0;
+      let power = 0, threatCut = 0, woodAdd = 0, stoneAdd = 0, oreAdd = 0;
       for (const r of RECIPES) {
         const cnt = state.craftedCounts[r.id] || 0;
         if (cnt > 0) {
@@ -2105,9 +2029,9 @@
 
     function evaluateDangerLevel(mob, allyPet) {
       const mobCp = calcCombatPower(mob).score;
-      const myCp = getPlayerCombatPower() + (allyPet ? calcCombatPower(allyPet).score * 0.75 : 0);
+      const myCp = getPlayerCombatPower().score + (allyPet ? calcCombatPower(allyPet).score * 0.8 : 0);
       const ratio = mobCp / Math.max(80, myCp);
-      if (ratio < 0.75) return { label: 'Nhẹ', cls: 'danger-low' };
+      if (ratio < 0.75) return { label: 'Dễ', cls: 'danger-low' };
       if (ratio < 1.2) return { label: 'Vừa', cls: 'danger-med' };
       if (ratio < 1.75) return { label: 'Khó', cls: 'danger-high' };
       return { label: 'Rất khó', cls: 'danger-extreme' };
@@ -2125,7 +2049,7 @@
         document.getElementById('wheel-core').textContent = '3 Thẻ';
         document.getElementById('wheel-status').textContent = 'Chọn 1 trong 3 thẻ thiên phú:';
         dealThreeCards();
-      }, 1050);
+      }, 980);
     }
 
     function dealThreeCards() {
@@ -2138,9 +2062,9 @@
         const card = document.createElement('div');
         card.className = `talent-card face-down glow-${talent.rank}`;
         card.innerHTML = `
-          <div style="font-size:1.3rem;" class="rank-${talent.rank}">✦</div>
-          <div style="font-weight:700; margin-top:6px;">Thẻ úp</div>
-          <div style="font-size:0.8rem; color:var(--muted); margin-top:4px;">Bấm để chọn</div>
+          <div style="font-size:1.25rem;" class="rank-${talent.rank}">✦</div>
+          <div style="font-weight:700; margin-top:6px;">Thẻ thiên phú</div>
+          <div style="font-size:0.78rem; color:var(--muted); margin-top:4px;">Bấm để chọn</div>
         `;
         card.onclick = () => pickTalent(card, talent);
         container.appendChild(card);
@@ -2160,16 +2084,17 @@
       cardEl.innerHTML = `
         <div>
           <div class="rank-${talent.rank}" style="font-weight:800; font-size:0.95rem;">Hạng ${talent.rank} • ${talent.name}</div>
-          <p style="font-size:0.85rem; margin-top:6px;">${talent.desc}</p>
+          <p style="font-size:0.84rem; margin-top:6px;">${talent.desc}</p>
         </div>
         <div style="font-size:0.78rem; color:#fde68a; margin-top:8px;">Đã chọn</div>
       `;
       setTimeout(() => {
+        hideAllMainPanelsOnStart();
         document.getElementById('intro-overlay').classList.add('hidden');
-        logMsg(`${state.charName} bắt đầu với thiên phú ${talent.name} (Hạng ${talent.rank}) và 1 cái rìu.`);
+        logMsg(`Bắt đầu với thiên phú ${talent.name} [${talent.rank}]. Bấm nút để mở mục.`);
         saveGameState(true);
         renderAll();
-      }, 550);
+      }, 500);
     }
 
     function toggleTalentDetail() {
@@ -2182,7 +2107,7 @@
         document.getElementById('craft-block-overlay').classList.remove('hidden');
         return;
       }
-      document.getElementById('craft-panel').classList.toggle('hidden');
+      togglePanel('craft-panel');
     }
 
     function closeCraftBlockModal() {
@@ -2192,7 +2117,7 @@
     function returnToHouse() {
       if (state.isDead) return;
       if (state.locationId === 'house') {
-        logMsg('Đang ở Nhà gỗ rồi.');
+        logMsg('Đang ở tại Nhà gỗ.');
         return;
       }
       const returnedList = [];
@@ -2206,8 +2131,8 @@
       advanceGameMinutes(25);
       state.locationId = 'house';
       state.activeExploreSession = null;
-      const retText = returnedList.length ? ` Mang về lại: ${returnedList.join(', ')}.` : '';
-      logMsg(`Về đến Nhà gỗ (mất 25 phút).${retText}`);
+      const retText = returnedList.length ? ` Hoàn túi: ${returnedList.join(', ')}.` : '';
+      logMsg(`Về Nhà gỗ (25p).${retText}`);
       renderAll();
     }
 
@@ -2215,89 +2140,83 @@
       if (state.isDead || state.locationId === 'house') return;
       const cur = state.expeditionPack[itemKey] || 0;
       if (cur <= 0) return;
-
       state.expeditionPack[itemKey] -= 1;
       if (state.expeditionPack[itemKey] <= 0) delete state.expeditionPack[itemKey];
-
       applyConsumableEffects(itemKey, true);
       renderAll();
     }
 
     function applyConsumableEffects(key, isOnTrip = false) {
-      const place = isOnTrip ? 'khi đi xa' : '';
+      const place = isOnTrip ? ' (đi xa)' : '';
       if (key === 'axe') {
         advanceGameMinutes(10);
         state.stamina = Math.max(0, state.stamina - 5);
         state.inv.wood = (state.inv.wood || 0) + 2;
-        logMsg(`Dùng rìu chặt được 2 gỗ ${place} (10 phút).`);
+        logMsg(`Chặt gỗ +2 (-5 Thể lực, 10p)${place}.`);
       } else if (key === 'fish') {
         state.inv.fish = Math.max(0, (state.inv.fish || 0) - 1);
         state.hunger = Math.min(state.maxHunger, state.hunger + 20);
         state.thirst = Math.max(0, state.thirst - 8);
         state.hp = Math.min(state.maxHp, state.hp + 5);
-        logMsg(`Ăn cá ${place}: +20 no, -8 khát, +5 máu.`);
+        logMsg(`Ăn cá: +20 No, -8 Khát, +5 Máu${place}.`);
       } else if (key === 'water') {
         state.inv.water = Math.max(0, (state.inv.water || 0) - 1);
         state.thirst = Math.max(0, state.thirst - 30);
         state.hp = Math.min(state.maxHp, state.hp + 8);
-        logMsg(`Uống nước ${place}: -30 khát, +8 máu.`);
+        logMsg(`Uống nước: -30 Khát, +8 Máu${place}.`);
       } else if (key === 'meat') {
         state.inv.meat = Math.max(0, (state.inv.meat || 0) - 1);
         state.hunger = Math.min(state.maxHunger, state.hunger + 28);
         state.thirst = Math.max(0, state.thirst - 6);
         state.hp = Math.min(state.maxHp, state.hp + 10);
-        logMsg(`Ăn thịt ${place}: +28 no, -6 khát, +10 máu.`);
+        logMsg(`Ăn thịt: +28 No, -6 Khát, +10 Máu${place}.`);
       } else if (key === 'bandage') {
         state.inv.bandage = Math.max(0, (state.inv.bandage || 0) - 1);
         state.hp = Math.min(state.maxHp, state.hp + 25);
-        logMsg(`Dùng băng gạc ${place}: +25 máu.`);
+        logMsg(`Dùng băng gạc: +25 Máu${place}.`);
       } else if (key === 'tonic') {
         state.inv.tonic = Math.max(0, (state.inv.tonic || 0) - 1);
         state.hp = Math.min(state.maxHp, state.hp + 20);
         state.thirst = Math.max(0, state.thirst - 20);
-        logMsg(`Uống nước ấm ${place}: +20 máu, -20 khát.`);
+        logMsg(`Uống nước ấm: +20 Máu, -20 Khát${place}.`);
       } else if (key === 'mist_torch') {
         state.inv.mist_torch = Math.max(0, (state.inv.mist_torch || 0) - 1);
         state.stamina = Math.min(state.maxStamina, state.stamina + 18);
         state.thirst = Math.max(0, state.thirst - 12);
         state.hp = Math.min(state.maxHp, state.hp + 8);
-        logMsg(`Dùng đuốc ${place}: +18 thể lực, -12 khát, +8 máu.`);
+        logMsg(`Dùng đuốc: +18 Thể lực, -12 Khát, +8 Máu${place}.`);
       } else if (key === 'mist_herb') {
         state.inv.mist_herb = Math.max(0, (state.inv.mist_herb || 0) - 1);
         state.hp = Math.min(state.maxHp, state.hp + 30);
         state.thirst = Math.max(0, state.thirst - 20);
         state.stamina = Math.min(state.maxStamina, state.stamina + 12);
-        logMsg(`Dùng lá thuốc ${place}: +30 máu, -20 khát, +12 thể lực.`);
+        logMsg(`Dùng lá thuốc: +30 Máu, -20 Khát, +12 Thể lực${place}.`);
       } else if (key === 'life_charm') {
         state.inv.life_charm = Math.max(0, (state.inv.life_charm || 0) - 1);
         state.hp = Math.min(state.maxHp, state.hp + 35);
         state.stamina = Math.min(state.maxStamina, state.stamina + 15);
-        logMsg(`Dùng bùa hộ mệnh ${place}: +35 máu, +15 thể lực.`);
+        logMsg(`Dùng bùa hộ mệnh: +35 Máu, +15 Thể lực${place}.`);
       } else if (key === 'sup_mist_dew') {
         state.inv.sup_mist_dew = Math.max(0, (state.inv.sup_mist_dew || 0) - 1);
         state.hp = state.maxHp;
         state.stamina = state.maxStamina;
         state.hunger = state.maxHunger;
         state.thirst = 0;
-        logMsg(`Dùng Sương Tinh Tụ [Bậc I] ${place}: hồi đầy Máu, Thể lực, Độ no và giải hết Khát.`);
+        logMsg(`Sương Tinh Tụ [Bậc I]: Hồi đầy Máu, Thể lực, No và hết Khát${place}.`);
       } else if (key === 'sup_break_seal') {
         state.inv.sup_break_seal = Math.max(0, (state.inv.sup_break_seal || 0) - 1);
         state.bonusAtk = (state.bonusAtk || 0) + 8;
-        logMsg(`Dùng Ấn Ký Phá Giới [Bậc II] ${place}: tăng vĩnh viễn +8 Công.`);
+        logMsg(`Ấn Ký Phá Giới [Bậc II]: +8 Công vĩnh viễn${place}.`);
       } else if (key === 'sup_beast_essence') {
         state.inv.sup_beast_essence = Math.max(0, (state.inv.sup_beast_essence || 0) - 1);
-        for (const t of state.tamingQueue) {
-          t.progressPct = Math.min(100, t.progressPct + 35);
-        }
-        for (const pet of state.tamedBeasts) {
-          pet.growthPct = Math.min(99, (pet.growthPct || 0) + 25);
-        }
-        logMsg(`Dùng Chân Dịch Thú Hồn [Bậc III] ${place}: +35% tiến độ thuần thú và +25% tăng trưởng thú nuôi.`);
+        for (const t of state.tamingQueue) t.progressPct = Math.min(100, t.progressPct + 35);
+        for (const pet of state.tamedBeasts) pet.growthPct = Math.min(99, (pet.growthPct || 0) + 25);
+        logMsg(`Chân Dịch Thú Hồn [Bậc III]: +35% thuần thú, +25% tăng trưởng thú${place}.`);
       } else if (key === 'sup_mist_orb') {
         state.inv.sup_mist_orb = Math.max(0, (state.inv.sup_mist_orb || 0) - 1);
         state.bonusAtk = (state.bonusAtk || 0) + 12;
         state.bonusBagCap = (state.bonusBagCap || 0) + 10;
-        logMsg(`Dùng Linh Châu Xua Sương [Bậc IV] ${place}: +12 Công và +10 sức chứa túi đồ.`);
+        logMsg(`Linh Châu Xua Sương [Bậc IV]: +12 Công, +10 sức chứa balo${place}.`);
       } else if (key === 'sup_sovereign_core') {
         state.inv.sup_sovereign_core = Math.max(0, (state.inv.sup_sovereign_core || 0) - 1);
         state.maxHp += 20;
@@ -2308,7 +2227,7 @@
         state.hunger = state.maxHunger;
         state.thirst = 0;
         state.unlockedRecipes = RECIPES.map(r => r.id);
-        logMsg(`Dùng Thiên Khải Chí Tôn [Bậc V] ${place}: hồi đầy chỉ số, +20 Công/Máu tối đa/Thể lực tối đa, mở mọi bản vẽ.`);
+        logMsg(`Thiên Khải Chí Tôn [Bậc V]: Hồi đầy, +20 Công/Máu tối đa/Thể lực tối đa, mở mọi bản vẽ${place}.`);
       } else {
         const def = ITEM_DEFS[key];
         state.inv[key] = Math.max(0, (state.inv[key] || 0) - 1);
@@ -2316,10 +2235,10 @@
           state.hunger = Math.min(state.maxHunger, state.hunger + 16);
           state.thirst = Math.max(0, state.thirst - 14);
           state.hp = Math.min(state.maxHp, state.hp + 4);
-          logMsg(`Dùng ${def.name}: +16 no, -14 khát, +4 máu.`);
+          logMsg(`Dùng ${def.name}: +16 No, -14 Khát, +4 Máu.`);
         } else if (def?.bagTab === 'medicine') {
           state.hp = Math.min(state.maxHp, state.hp + 18);
-          logMsg(`Dùng ${def.name}: +18 máu.`);
+          logMsg(`Dùng ${def.name}: +18 Máu.`);
         } else {
           logMsg(`Đã dùng ${def?.name || key}.`);
         }
@@ -2353,7 +2272,7 @@
       const pet = state.tamedBeasts.find(p => p.uid === petUid);
       if (!pet) return;
       if (!STAGES[pet.stageIdx].canFight) {
-        logMsg(`${pet.name} còn nhỏ chưa đi đánh nhau được.`);
+        logMsg(`${pet.name} còn nhỏ, chưa tham chiến được.`);
         renderAll();
         return;
       }
@@ -2379,7 +2298,7 @@
       const nextQty = Math.max(0, Math.min(maxOwned, curQty + delta));
       const diff = nextQty - curQty;
       if (diff > 0 && getPrepUsedCapacity() + diff * (def.weight || 1) > getMaxBagCapacity()) {
-        logMsg(`Quá tải balo, không mang thêm ${def.name} được.`);
+        logMsg(`Quá tải balo khi mang thêm ${def.name}.`);
         renderAll();
         return;
       }
@@ -2397,9 +2316,10 @@
       return availableBps[Math.floor(Math.random() * availableBps.length)];
     }
 
+    /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM ĐÃ ĐƯỢC GIẢM */
     function pickSupremeItem() {
       const pool = ['sup_mist_dew', 'sup_break_seal', 'sup_beast_essence', 'sup_mist_orb'];
-      if (Math.random() < 0.15) pool.push('sup_sovereign_core');
+      if (Math.random() < 0.04) pool.push('sup_sovereign_core');
       return pool[Math.floor(Math.random() * pool.length)];
     }
 
@@ -2460,8 +2380,8 @@
 
       const foundItems = [`${woodGain} gỗ`, `${stoneGain} đá`, `${oreGain} quặng`];
       const deeds = [
-        `Đi tới ${loc.name} (${loc.distanceKm}km), kiểu đi: ${strat.name} (${totalMins} phút)`,
-        broughtList.length ? `Mang theo: ${broughtList.join(', ')}` : 'Đi tay không'
+        `${loc.name} (${loc.distanceKm}km) • ${strat.name} (${totalMins}p)`,
+        broughtList.length ? `Mang: ${broughtList.join(', ')}` : 'Không mang đồ'
       ];
 
       const extraKey = pickRandomExtraItem();
@@ -2494,7 +2414,8 @@
         foundItems.push(`1 ${ITEM_DEFS[bpKey].name}`);
       }
 
-      if (Math.random() < 0.06 * loc.lootMult) {
+      /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM THẤP (~1.5% - 3%) */
+      if (Math.random() < 0.015 * Math.min(2, loc.lootMult)) {
         const supKey = pickSupremeItem();
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
         foundItems.push(`1 ${ITEM_DEFS[supKey].name}`);
@@ -2508,7 +2429,7 @@
         encounterObj = {
           ...marked,
           fromMark: true,
-          lines: [`Gặp lại ${marked.name} (cấp ${marked.lv}, chiến lực ${cp.score} hạng ${cp.tier}, máu ${marked.hp}/${marked.maxHp}) ở ${loc.name}.`]
+          lines: [`Gặp lại ${marked.name} (Cấp ${marked.lv}, CL ${cp.score} [${cp.tier}], Máu ${marked.hp}/${marked.maxHp}).`]
         };
       } else {
         const mobChance = Math.min(0.75, Math.max(0.08, loc.mobChance + strat.mobMod + weather.mobMod + (getPhaseLabel() === 'Ban đêm' ? 0.05 : 0)));
@@ -2536,7 +2457,7 @@
             def: stStats.def,
             defeated: false,
             fromMark: false,
-            lines: [`Gặp ${sp.name} (${sp.rank}, ${STAGES[stageIdx].name} cấp ${lv}, chiến lực ${cp.score} hạng ${cp.tier}) — công ${stStats.atk}, thủ ${stStats.def}, máu ${stStats.maxHp}.`]
+            lines: [`${sp.name} (${STAGES[stageIdx].name} • Cấp ${lv} • CL ${cp.score} [${cp.tier}]) xuất hiện — Công ${stStats.atk} | Thủ ${stStats.def} | Máu ${stStats.maxHp}.`]
           };
         }
       }
@@ -2556,7 +2477,7 @@
             ally: allyPet || null
           }
         };
-        logMsg(`Tới ${loc.name} (${totalMins} phút) và gặp ${encounterObj.name} cấp ${encounterObj.lv}.`);
+        logMsg(`Tới ${loc.name} (${totalMins}p) — chạm trán ${encounterObj.name}.`);
         renderAll();
         return;
       }
@@ -2570,33 +2491,35 @@
       const c = sess.combat;
       if (c.defeated) return;
 
-      const weaponName = (state.craftedCounts.iron_axe || 0) > 0 ? 'rìu sắt' : 'rìu';
+      const weaponName = (state.craftedCounts.bow_arrow || 0) > 0 ? 'cung tên'
+        : ((state.craftedCounts.iron_axe || 0) > 0 ? 'rìu sắt' : 'rìu');
       const cBonus = getCraftBonuses();
 
-      advanceGameMinutes(12);
-      sess.totalMinutes += 12;
+      advanceGameMinutes(10);
+      sess.totalMinutes += 10;
+      state.stamina = Math.max(0, state.stamina - 3);
 
       const playerRaw = getPlayerStrength();
-      const playerDmg = Math.max(10, Math.round(playerRaw * (100 / (100 + c.def * 2.2))));
+      const playerDmg = Math.max(12, Math.round(playerRaw * (100 / (100 + c.def * 2.0))));
       c.hp = Math.max(0, c.hp - playerDmg);
-      c.lines.push(`${state.charName} đánh bằng ${weaponName} (công ${playerRaw}), gây ${playerDmg} sát thương cho ${c.name} (còn ${c.hp}/${c.maxHp} máu).`);
+      c.lines.push(`${state.charName} dùng ${weaponName}: gây ${playerDmg} sát thương (${c.name} còn ${c.hp}/${c.maxHp} Máu).`);
 
       if (c.hp <= 0) {
         c.defeated = true;
-        c.lines.push(`${c.name} nằm gục rồi. Chọn thuần phục hay hạ luôn.`);
+        c.lines.push(`${c.name} đã bị hạ gục. Chọn Thuần phục hoặc Hạ luôn.`);
         renderAll();
         return;
       }
 
       if (c.ally && c.ally.hp > 0) {
         const realPet = state.tamedBeasts.find(p => p.uid === c.ally.uid);
-        const allyDmg = Math.max(8, Math.round(c.ally.atk * (100 / (100 + c.def * 2.0))));
+        const allyDmg = Math.max(9, Math.round(c.ally.atk * (100 / (100 + c.def * 1.9))));
         c.hp = Math.max(0, c.hp - allyDmg);
-        if (realPet) advancePetGrowth(realPet, 12, true);
-        c.lines.push(`${c.ally.name} (cấp ${c.ally.lv}) tấn công gây ${allyDmg} sát thương, ${c.name} còn ${c.hp}/${c.maxHp} máu.`);
+        if (realPet) advancePetGrowth(realPet, 10, true);
+        c.lines.push(`${c.ally.name} (Cấp ${c.ally.lv}): gây ${allyDmg} sát thương (${c.name} còn ${c.hp}/${c.maxHp} Máu).`);
         if (c.hp <= 0) {
           c.defeated = true;
-          c.lines.push(`${c.name} nằm gục rồi. Chọn thuần phục hay hạ luôn.`);
+          c.lines.push(`${c.name} đã bị hạ gục. Chọn Thuần phục hoặc Hạ luôn.`);
           renderAll();
           return;
         }
@@ -2604,17 +2527,17 @@
 
       if (c.ally && c.ally.hp > 0) {
         const realPet = state.tamedBeasts.find(p => p.uid === c.ally.uid);
-        const mobDmg = Math.max(4, Math.round(c.atk * 0.72 - c.ally.def * 0.65 - cBonus.threatCut));
+        const mobDmg = Math.max(3, Math.round(c.atk * 0.68 - c.ally.def * 0.7 - cBonus.threatCut));
         const lostHp = Math.min(c.ally.hp, mobDmg);
         c.ally.hp = Math.max(0, c.ally.hp - lostHp);
         if (realPet) realPet.hp = c.ally.hp;
-        c.lines.push(`${c.name} đánh trúng ${c.ally.name} (-${lostHp} máu, còn ${c.ally.hp}/${c.maxHp}).`);
+        c.lines.push(`${c.name} đánh ${c.ally.name}: -${lostHp} Máu thú (còn ${c.ally.hp}/${c.ally.maxHp}).`);
       } else {
-        const heroDmg = Math.max(4, Math.min(28, Math.round(c.atk * 0.35 - cBonus.threatCut)));
+        const heroDmg = Math.max(3, Math.min(26, Math.round(c.atk * 0.32 - cBonus.threatCut)));
         state.hp = Math.max(0, state.hp - heroDmg);
-        c.lines.push(`${c.name} đánh trúng ${state.charName} (-${heroDmg} máu, còn ${state.hp}/${state.maxHp}).`);
+        c.lines.push(`${c.name} đánh ${state.charName}: -${heroDmg} Máu (còn ${state.hp}/${state.maxHp}).`);
         if (state.hp === 0) {
-          c.lines.push(`${state.charName} đã gục và tử trận.`);
+          c.lines.push(`${state.charName} đã tử trận.`);
           renderAll();
           checkPlayerDeath();
           return;
@@ -2647,8 +2570,8 @@
       };
       advanceGameMinutes(15);
       sess.totalMinutes += 15;
-      sess.deeds.push(`Đánh dấu ${c.name} cấp ${c.lv} ở ${sess.locName} rồi đi tiếp`);
-      logMsg(`Đã đánh dấu ${c.name} ở ${sess.locName}.`);
+      sess.deeds.push(`Đánh dấu ${c.name} Cấp ${c.lv}`);
+      logMsg(`Đã đánh dấu ${c.name} tại ${sess.locName}.`);
       const finished = { totalMinutes: sess.totalMinutes, foundItems: sess.foundItems, deeds: sess.deeds };
       state.activeExploreSession = null;
       finalizeExploration(finished);
@@ -2669,8 +2592,8 @@
         progressPct: 1,
         totalGameSec: (c.tameGameHours || 24) * 3600
       });
-      sess.deeds.push(`Bắt đầu thuần ${c.name}`);
-      logMsg(`Đang thuần ${c.name}, chờ thanh tiến độ chạy đủ 100%.`);
+      sess.deeds.push(`Thuần phục ${c.name}`);
+      logMsg(`Bắt đầu thuần phục ${c.name}.`);
       const finished = { totalMinutes: sess.totalMinutes, foundItems: sess.foundItems, deeds: sess.deeds };
       state.activeExploreSession = null;
       finalizeExploration(finished);
@@ -2690,7 +2613,8 @@
       state.stats.beastsDefeated = (state.stats.beastsDefeated || 0) + 1;
 
       const extraDrops = [`${meatGain} thịt`, `${hideGain} da thú`, `1 ${ITEM_DEFS[chestKey].name}`];
-      if (Math.random() < 0.25) {
+      /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM KHI HẠ THÚ THẤP (6%) */
+      if (Math.random() < 0.06) {
         const supKey = pickSupremeItem();
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
         extraDrops.push(`1 ${ITEM_DEFS[supKey].name}`);
@@ -2711,10 +2635,10 @@
       }
 
       sess.foundItems.push(...extraDrops);
-      sess.deeds.push(`Hạ ${c.name} (${c.stageLabel} cấp ${c.lv})`);
+      sess.deeds.push(`Hạ ${c.name} (Cấp ${c.lv})`);
 
-      document.getElementById('victory-main-text').textContent = `Đã hạ ${c.name} (${c.stageLabel} cấp ${c.lv}).`;
-      document.getElementById('victory-loot-text').textContent = `Nhặt được: ${extraDrops.join(', ')}.`;
+      document.getElementById('victory-main-text').textContent = `Đã hạ ${c.name} (${c.stageLabel} • Cấp ${c.lv}).`;
+      document.getElementById('victory-loot-text').textContent = `Nhận: ${extraDrops.join(', ')}.`;
       document.getElementById('victory-overlay').classList.remove('hidden');
 
       const finished = { totalMinutes: sess.totalMinutes, foundItems: sess.foundItems, deeds: sess.deeds };
@@ -2729,7 +2653,7 @@
 
     function finalizeExploration(reportData) {
       state.lastExploreReport = reportData;
-      logMsg(`Xong chuyến (${reportData.totalMinutes} phút): ${reportData.foundItems.join(', ')}.`);
+      logMsg(`Xong chuyến (${reportData.totalMinutes}p): ${reportData.foundItems.join(', ')}.`);
       renderAll();
     }
 
@@ -2752,20 +2676,20 @@
       const pet = state.tamedBeasts.find(b => b.uid === state.selectedPetUid);
       if (!pet) return;
       if (pet.hp >= pet.maxHp && (pet.healingRemainingHp || 0) <= 0) {
-        logMsg(`${pet.name} đang đầy máu.`);
+        logMsg(`${pet.name} đã đầy máu.`);
         return;
       }
 
       const foodOrder = [
-        { key: 'meat', healPool: 120, label: 'thịt' },
-        { key: 'fish', healPool: 90, label: 'cá' },
-        { key: 'water', healPool: 60, label: 'nước' },
-        { key: 'tonic', healPool: 140, label: 'nước ấm' }
+        { key: 'meat', healPool: 120, label: 'Thịt' },
+        { key: 'fish', healPool: 90, label: 'Cá' },
+        { key: 'water', healPool: 60, label: 'Nước' },
+        { key: 'tonic', healPool: 140, label: 'Nước ấm' }
       ];
 
       const chosenFood = foodOrder.find(f => (state.inv[f.key] || 0) > 0);
       if (!chosenFood) {
-        logMsg('Trong túi hết đồ ăn/nước uống để cho thú ăn.');
+        logMsg('Hết thức ăn/nước uống cho thú.');
         renderAll();
         return;
       }
@@ -2774,7 +2698,7 @@
       const missing = Math.max(0, pet.maxHp - pet.hp - (pet.healingRemainingHp || 0));
       const addedPool = Math.min(Math.max(20, missing), chosenFood.healPool);
       pet.healingRemainingHp = (pet.healingRemainingHp || 0) + addedPool;
-      logMsg(`Cho ${pet.name} ăn 1 ${chosenFood.label}, hồi dần +${addedPool} máu.`);
+      logMsg(`Cho ${pet.name} ăn 1 ${chosenFood.label} (hồi dần +${addedPool} Máu).`);
       renderAll();
     }
 
@@ -2803,9 +2727,9 @@
         pet.def = Math.round(pet.def * 1.45);
         pet.hp = Math.round(pet.hp * 1.5);
         pet.maxHp = pet.hp;
-        logMsg(`${oldName} đột biến thành ${pet.name}!`);
+        logMsg(`${oldName} đột biến thành ${pet.name}.`);
       } else {
-        logMsg(`Dùng huyết mạch ${bl.speciesName} lên ${pet.name} nhưng chưa đột biến.`);
+        logMsg(`Dùng huyết mạch ${bl.speciesName} cho ${pet.name} (chưa đột biến).`);
       }
       renderAll();
     }
@@ -2832,8 +2756,7 @@
         return `
           <button type="button" class="chest-loot-btn ${active}" onclick="selectChestRewardItem(${idx})">
             <div style="font-weight:700; color:#fbbf24;">${rw.name}</div>
-            <div style="color:#86efac; font-size:0.84rem; margin-top:2px;">+${rw.qty}</div>
-            <div style="color:#93c5fd; font-size:0.74rem; margin-top:3px;">Bấm xem chi tiết</div>
+            <div style="color:#86efac; font-size:0.83rem; margin-top:2px;">+${rw.qty}</div>
           </button>
         `;
       }).join('');
@@ -2843,8 +2766,8 @@
       const detailEl = document.getElementById('chest-reward-detail');
       if (cur && def) {
         detailEl.innerHTML = `
-          <div style="font-weight:700; color:#38bdf8; font-size:0.98rem;">${def.name} (+${cur.qty})</div>
-          <div style="color:var(--muted); font-size:0.8rem; margin-top:2px;">Nhóm: <strong>${def.category}</strong> • Nặng: <strong>${def.weight}</strong></div>
+          <div style="font-weight:700; color:#38bdf8; font-size:0.95rem;">${def.name} (+${cur.qty})</div>
+          <div style="color:var(--muted); font-size:0.79rem; margin-top:2px;">Nhóm: <strong>${def.category}</strong> • Nặng: <strong>${def.weight}</strong></div>
           <p style="margin-top:6px; color:var(--text);">${def.desc}</p>
         `;
       } else {
@@ -2885,13 +2808,14 @@
         rewards.push({ key: bpKey, name: ITEM_DEFS[bpKey].name, qty: 1 });
       }
 
-      if (Math.random() < (tier.supChance || 0.1)) {
+      /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM TỪ RƯƠNG ĐÃ ĐƯỢC GIẢM (1.5% - 8.5%) */
+      if (Math.random() < (tier.supChance || 0.02)) {
         const supKey = pickSupremeItem();
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
         rewards.push({ key: supKey, name: ITEM_DEFS[supKey].name, qty: 1 });
       }
 
-      logMsg(`Mở ${tier.name}: ${rewards.map(r => `+${r.qty} ${r.name}`).join(', ')}.`);
+      logMsg(`Mở ${tier.name}.`);
       openChestRewardModal(tier.name, rewards, 0);
       renderAll();
     }
@@ -2915,7 +2839,7 @@
         if (!state.unlockedRecipes.includes(def.unlocksRecipe)) {
           state.unlockedRecipes.push(def.unlocksRecipe);
           const rec = RECIPES.find(r => r.id === def.unlocksRecipe);
-          logMsg(`Học được cách làm ${rec ? rec.name : def.unlocksRecipe}.`);
+          logMsg(`Mở công thức: ${rec ? rec.name : def.unlocksRecipe}.`);
         }
         renderAll();
         return;
@@ -2938,19 +2862,17 @@
       const r = RECIPES.find(x => x.id === recipeId);
       if (!r || !state.unlockedRecipes.includes(r.id)) return;
       if (r.uniqueBuild && (state.craftedCounts[r.id] || 0) >= 1) {
-        logMsg(`${r.name} chỉ xây được 1 lần.`);
+        logMsg(`${r.name} đã đạt giới hạn.`);
         return;
       }
       if (!canCraftRecipe(r)) return;
 
-      for (const [k, need] of Object.entries(r.cost)) {
-        state.inv[k] -= need;
-      }
+      for (const [k, need] of Object.entries(r.cost)) state.inv[k] -= need;
       state.craftedCounts[r.id] = (state.craftedCounts[r.id] || 0) + 1;
       if (r.grantsItem) {
         state.inv[r.grantsItem.key] = (state.inv[r.grantsItem.key] || 0) + r.grantsItem.qty;
       }
-      logMsg(`Làm xong ${r.name}.`);
+      logMsg(`Chế tạo xong ${r.name}.`);
       renderAll();
     }
 
@@ -2959,18 +2881,16 @@
       if (!cfg.cost) return;
       for (const [k, v] of Object.entries(cfg.cost)) {
         if ((state.inv[k] || 0) < v) {
-          logMsg('Chưa đủ đồ nâng nhà.');
+          logMsg('Chưa đủ tài nguyên nâng cấp Nhà gỗ.');
           renderAll();
           return;
         }
       }
-      for (const [k, v] of Object.entries(cfg.cost)) {
-        state.inv[k] -= v;
-      }
+      for (const [k, v] of Object.entries(cfg.cost)) state.inv[k] -= v;
       state.houseLevel += 1;
       state.maxStamina += 10;
       state.stamina = Math.min(state.maxStamina, state.stamina + 10);
-      logMsg(`Nhà lên cấp ${state.houseLevel}.`);
+      logMsg(`Nhà gỗ lên cấp ${state.houseLevel}.`);
       renderAll();
     }
 
@@ -2980,38 +2900,29 @@
         {
           id: 'q_explore_2',
           title: 'Đi xa 2 chuyến',
-          desc: 'Hoàn thành 2 chuyến trên bản đồ.',
+          desc: 'Hoàn thành 2 chuyến thám hiểm.',
           cur: state.stats?.expeditionsDone || 0,
           target: 2,
-          rewardText: '+1 Rương Bạc, +1 Sương Tinh Tụ [Bậc I]',
-          grant: () => {
-            state.inv.chest_silver = (state.inv.chest_silver || 0) + 1;
-            state.inv.sup_mist_dew = (state.inv.sup_mist_dew || 0) + 1;
-          }
+          rewardText: '+1 Rương Bạc',
+          grant: () => { state.inv.chest_silver = (state.inv.chest_silver || 0) + 1; }
         },
         {
           id: 'q_craft_1',
-          title: 'Chế tạo 1 món',
-          desc: 'Làm 1 món hoặc công trình ở Nhà gỗ.',
+          title: 'Chế tạo 1 lần',
+          desc: 'Chế tạo 1 vật phẩm hoặc công trình.',
           cur: totalCrafted,
           target: 1,
-          rewardText: '+1 Rương Vàng, +1 Ấn Ký Phá Giới [Bậc II]',
-          grant: () => {
-            state.inv.chest_gold = (state.inv.chest_gold || 0) + 1;
-            state.inv.sup_break_seal = (state.inv.sup_break_seal || 0) + 1;
-          }
+          rewardText: '+1 Rương Vàng',
+          grant: () => { state.inv.chest_gold = (state.inv.chest_gold || 0) + 1; }
         },
         {
           id: 'q_hunt_1',
-          title: 'Hạ 1 con thú',
-          desc: 'Đánh hạ 1 con thú khi đi thám hiểm.',
+          title: 'Hạ 1 thú',
+          desc: 'Hạ gục 1 con thú khi đi xa.',
           cur: state.stats?.beastsDefeated || 0,
           target: 1,
-          rewardText: '+1 Rương Bạch Ngân, +1 Chân Dịch Thú Hồn [Bậc III]',
-          grant: () => {
-            state.inv.chest_platinum = (state.inv.chest_platinum || 0) + 1;
-            state.inv.sup_beast_essence = (state.inv.sup_beast_essence || 0) + 1;
-          }
+          rewardText: '+1 Rương Bạch Ngân',
+          grant: () => { state.inv.chest_platinum = (state.inv.chest_platinum || 0) + 1; }
         }
       ];
     }
@@ -3022,7 +2933,7 @@
       if (!q || q.cur < q.target) return;
       state.claimedQuests.push(qId);
       q.grant();
-      logMsg(`Nhận thưởng nhiệm vụ "${q.title}": ${q.rewardText}.`);
+      logMsg(`Nhận thưởng: ${q.rewardText}.`);
       renderAll();
     }
 
@@ -3036,18 +2947,44 @@
             <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
               <strong>${q.title} (${Math.min(q.cur, q.target)}/${q.target})</strong>
               <button type="button" class="${ready ? 'primary' : ''}" onclick="claimQuestReward('${q.id}')" ${ready ? '' : 'disabled'}>
-                ${claimed ? 'Đã nhận' : (ready ? 'Nhận' : 'Chưa xong')}
+                ${claimed ? 'Đã nhận' : (ready ? 'Nhận' : 'Chưa đạt')}
               </button>
             </div>
-            <div style="color:var(--muted); font-size:0.78rem; margin-top:2px;">${q.desc}</div>
-            <div style="color:#86efac; font-size:0.78rem; margin-top:2px;">Thưởng: ${q.rewardText}</div>
+            <div style="color:var(--muted); font-size:0.77rem; margin-top:2px;">${q.desc}</div>
+            <div style="color:#86efac; font-size:0.77rem; margin-top:2px;">Thưởng: ${q.rewardText}</div>
           </div>
         `;
       }).join('');
     }
 
+    function syncPanelButtonsState() {
+      const mapBtnToPanel = [
+        ['btn-toggle-char-panel', 'char-panel'],
+        ['btn-toggle-explore-panel', 'explore-panel'],
+        ['btn-toggle-bag-pet-panel', 'bag-pet-panel'],
+        ['btn-toggle-craft-panel', 'craft-panel'],
+        ['btn-toggle-house-upgrade-panel', 'house-upgrade-panel'],
+        ['btn-toggle-quest-panel', 'quest-panel'],
+        ['btn-toggle-chat-panel', 'chat-panel'],
+        ['btn-toggle-trade-panel', 'trade-panel'],
+        ['btn-toggle-npc-panel', 'npc-panel'],
+        ['btn-toggle-admin', 'admin-panel']
+      ];
+      for (const [btnId, panelId] of mapBtnToPanel) {
+        const btn = document.getElementById(btnId);
+        const panel = document.getElementById(panelId);
+        if (btn && panel) {
+          btn.classList.toggle('active-panel', !panel.classList.contains('hidden'));
+        }
+      }
+    }
+
     function togglePanel(id) {
-      document.getElementById(id).classList.toggle('hidden');
+      if (id === 'admin-panel' && !state.isAdmin) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.toggle('hidden');
+      syncPanelButtonsState();
     }
 
     function renderWorldChat() {
@@ -3060,22 +2997,21 @@
       const input = document.getElementById('world-chat-input');
       const val = input.value.trim();
       if (!val) return;
-      addWorldMsg(`[${state.charName} - Ngày ${state.day}] ${val}`);
+      addWorldMsg(`[${state.charName}] ${val}`);
       input.value = '';
-      setTimeout(() => {
-        addWorldMsg(generateNpcWorldAiReply(val));
-      }, 220);
+      setTimeout(() => addWorldMsg(generateNpcWorldAiReply(val)), 200);
     }
 
     function renderTrades() {
       const container = document.getElementById('trade-list');
       container.innerHTML = '';
       state.trades.forEach((t) => {
+        const canAfford = (state.inv[t.give] || 0) >= t.giveQty;
         const div = document.createElement('div');
         div.className = 'trade-item';
         div.innerHTML = `
           <span>${t.text}</span>
-          <button onclick="executeTrade(${t.id})">Đổi</button>
+          <button onclick="executeTrade(${t.id})" ${canAfford ? '' : 'disabled'}>Đổi</button>
         `;
         container.appendChild(div);
       });
@@ -3086,7 +3022,7 @@
       if (!t || (state.inv[t.give] || 0) < t.giveQty) return;
       state.inv[t.give] -= t.giveQty;
       state.inv[t.get] = (state.inv[t.get] || 0) + t.getQty;
-      logMsg(`Đã đổi: ${t.text}.`);
+      logMsg(`Đổi thành công: ${t.text}.`);
       renderAll();
     }
 
@@ -3124,7 +3060,7 @@
       if ((state.inv[npc.offer.give] || 0) < needQty) return;
       state.inv[npc.offer.give] -= needQty;
       state.inv[npc.offer.get] = (state.inv[npc.offer.get] || 0) + npc.offer.getQty;
-      state.npcChats[npcId].push(`${npc.name.split(' ')[0]}: Đồng ý, đổi xong rồi nhé.`);
+      state.npcChats[npcId].push(`${npc.name.split(' ')[0]}: Đã đổi xong.`);
       logMsg(`Đổi đồ xong với ${npc.name}.`);
       renderAll();
     }
@@ -3134,9 +3070,9 @@
       const npc = NPCS.find(n => n.id === npcId);
       if (Math.random() < 0.55 && npc.haggleBonus < 3) {
         npc.haggleBonus += 1;
-        state.npcChats[npcId].push(`${npc.name.split(' ')[0]}: Thôi bớt cho 1 món nữa đấy.`);
+        state.npcChats[npcId].push(`${npc.name.split(' ')[0]}: Bớt thêm 1 món.`);
       } else {
-        state.npcChats[npcId].push(`${npc.name.split(' ')[0]}: Không bớt thêm được nữa đâu.`);
+        state.npcChats[npcId].push(`${npc.name.split(' ')[0]}: Không bớt được nữa.`);
       }
       renderNpcChat();
     }
@@ -3146,7 +3082,7 @@
       const unlocked = RECIPES.filter(r => state.unlockedRecipes.includes(r.id));
 
       if (!unlocked.length) {
-        container.innerHTML = `<p class="intro-sub" style="margin-bottom:0;">Chưa mở cách làm món nào. Đi nhặt hoặc đổi bản vẽ rồi bấm Dùng để học.</p>`;
+        container.innerHTML = `<p class="intro-sub" style="margin-bottom:0;">Chưa mở công thức nào. Hãy học bản vẽ trong túi đồ.</p>`;
         return;
       }
 
@@ -3172,8 +3108,8 @@
             <div class="build-card">
               <div>
                 <div><strong>${r.name}</strong> ${r.uniqueBuild ? `(${countBuilt}/1)` : `(Đã làm: ${countBuilt})`}</div>
-                <div style="color:var(--muted); font-size:0.78rem;">${r.desc}</div>
-                <div style="font-size:0.8rem; margin-top:2px;">${costSpans}</div>
+                <div style="color:var(--muted); font-size:0.77rem;">${r.desc}</div>
+                <div style="font-size:0.79rem; margin-top:2px;">${costSpans}</div>
               </div>
               <button class="${okAll ? 'primary' : ''}" onclick="craftRecipe('${r.id}')" ${okAll ? '' : 'disabled'}>${maxedUnique ? 'Đã làm' : 'Làm'}</button>
             </div>
@@ -3194,7 +3130,19 @@
       const maxCap = getMaxBagCapacity();
 
       document.getElementById('ui-charname').textContent = state.charName || 'Lâm Dã';
-      document.getElementById('ui-account').textContent = currentAccount ? `${currentAccount.username} (Admin)` : 'Admin Test';
+      document.getElementById('ui-account').textContent = currentAccount ? currentAccount.username : '-';
+      const accPill = document.getElementById('ui-account-pill');
+      const adminBtn = document.getElementById('btn-toggle-admin');
+      const adminBox = document.getElementById('admin-panel');
+
+      if (state.isAdmin) {
+        accPill.className = 'pill pill-admin';
+        adminBtn.classList.remove('hidden');
+      } else {
+        accPill.className = 'pill';
+        adminBtn.classList.add('hidden');
+        adminBox.classList.add('hidden');
+      }
 
       document.getElementById('ui-day').textContent = state.day;
       document.getElementById('ui-clock').textContent = formatGameClock();
@@ -3205,24 +3153,31 @@
       document.getElementById('ui-house').textContent = state.houseLevel;
       document.getElementById('ui-talent').textContent = state.talent ? `${state.talent.name} [${state.talent.rank}]` : '-';
 
+      const pCp = getPlayerCombatPower();
+      const totCp = getTotalCombatPower();
+
       const talentDetailEl = document.getElementById('talent-detail-box');
       if (state.talentDetailOpen && state.talent) {
         talentDetailEl.classList.remove('hidden');
-        talentDetailEl.innerHTML = `<strong>${state.talent.name} (Hạng ${state.talent.rank}):</strong> ${state.talent.desc}`;
+        talentDetailEl.innerHTML = `<strong>${state.talent.name} [${state.talent.rank}]:</strong> ${state.talent.desc}`;
       } else {
         talentDetailEl.classList.add('hidden');
       }
 
       document.getElementById('char-hp').textContent = `${state.hp}/${state.maxHp}`;
       document.getElementById('char-atk').textContent = getPlayerStrength();
-      document.getElementById('char-power').textContent = getPlayerCombatPower();
+      document.getElementById('char-power').innerHTML = `${pCp.score} <span class="rank-${pCp.tier}">[${pCp.tier}]</span>`;
+      document.getElementById('char-total-power').innerHTML = `${totCp.score} <span class="rank-${totCp.tier}">[${totCp.tier}]</span>`;
       document.getElementById('char-hunger').textContent = `${state.hunger}/${state.maxHunger}`;
       document.getElementById('char-thirst').textContent = `${state.thirst}/${state.maxThirst}`;
       document.getElementById('char-stamina').textContent = `${state.stamina}/${state.maxStamina}`;
       document.getElementById('char-bag').textContent = `${bagWeight}/${maxCap}`;
 
-      document.getElementById('cold-warning-banner').innerHTML =
-        `<strong>${formatGameClock()} (${phase}) • ${weather.name} • ${state.temp}°C • ${locLabel}:</strong> ${weather.desc}`;
+      document.getElementById('status-env-text').textContent =
+        `${formatGameClock()} (${phase}) • ${weather.name} • ${state.temp}°C • ${locLabel} • Tổng CL: ${totCp.score} [${totCp.tier}]`;
+      if (state.lastNotice) {
+        document.getElementById('status-notice-text').textContent = state.lastNotice;
+      }
 
       document.getElementById('hp-danger-banner').classList.toggle('hidden', !(state.hp < 40 && !state.isDead));
 
@@ -3235,9 +3190,9 @@
           const def = ITEM_DEFS[k];
           const canUseNow = Boolean(def?.usable);
           return `
-            <span style="display:inline-flex; align-items:center; gap:6px; background:#1b2434; padding:5px 8px; border-radius:7px; font-size:0.78rem;">
+            <span style="display:inline-flex; align-items:center; gap:6px; background:#1b2434; padding:5px 8px; border-radius:7px; font-size:0.77rem;">
               <span>${def?.name || k}: <strong>${q}</strong></span>
-              <button type="button" class="primary" style="padding:3px 7px; font-size:0.74rem;" onclick="useExpeditionItem('${k}')" ${canUseNow ? '' : 'disabled'}>Dùng</button>
+              <button type="button" class="primary" style="padding:3px 7px; font-size:0.73rem;" onclick="useExpeditionItem('${k}')" ${canUseNow ? '' : 'disabled'}>Dùng</button>
             </span>
           `;
         }).join('');
@@ -3254,9 +3209,9 @@
           return `
             <button type="button" class="map-node ${isSel ? 'selected' : ''} ${markedMob ? 'marked' : ''}" onclick="selectMapNode('${m.id}')">
               <div><strong>${m.name}</strong> (${m.distanceKm}km)</div>
-              <div style="color:#93c5fd; font-size:0.76rem;">Đi mất ${m.travelMinutes} phút</div>
-              <div style="color:var(--muted); font-size:0.76rem; margin-top:2px;">${m.desc}</div>
-              ${markedMob ? `<div style="color:#fbbf24; font-size:0.76rem; margin-top:3px;">★ Đã đánh dấu: ${markedMob.name} cấp ${markedMob.lv} (${markedMob.hp}/${markedMob.maxHp})</div>` : ''}
+              <div style="color:#93c5fd; font-size:0.75rem;">${m.travelMinutes} phút</div>
+              <div style="color:var(--muted); font-size:0.75rem; margin-top:2px;">${m.desc}</div>
+              ${markedMob ? `<div style="color:#fbbf24; font-size:0.75rem; margin-top:3px;">★ ${markedMob.name} Cấp ${markedMob.lv} (${markedMob.hp}/${markedMob.maxHp})</div>` : ''}
             </button>
           `;
         }).join('');
@@ -3271,9 +3226,9 @@
               const st = STAGES[pet.stageIdx];
               const cp = calcCombatPower(pet);
               const active = state.prepPetUid === pet.uid;
-              return `<button type="button" class="chip-btn ${active ? 'active' : ''}" onclick="togglePrepPet('${pet.uid}')" ${!st.canFight ? 'disabled' : ''}>${pet.name} (${st.name} cấp ${pet.lv} • CL ${cp.score})</button>`;
+              return `<button type="button" class="chip-btn ${active ? 'active' : ''}" onclick="togglePrepPet('${pet.uid}')" ${!st.canFight ? 'disabled' : ''}>${pet.name} (${st.name} • Cấp ${pet.lv} • CL ${cp.score} [${cp.tier}])</button>`;
             }).join('')
-          : `<span style="color:var(--muted); font-size:0.78rem;">Chưa có thú</span>`;
+          : `<span style="color:var(--muted); font-size:0.77rem;">Chưa có thú</span>`;
 
         const ownedPrepKeys = Object.keys(ITEM_DEFS).filter(k => (state.inv[k] || 0) > 0);
         document.getElementById('prep-items-chips').innerHTML = ownedPrepKeys.length
@@ -3282,20 +3237,20 @@
               const owned = state.inv[k] || 0;
               const chosen = state.prepItems[k] || 0;
               return `
-                <span style="display:inline-flex; align-items:center; gap:4px; background:#1b2434; padding:4px 7px; border-radius:6px; font-size:0.76rem;">
+                <span style="display:inline-flex; align-items:center; gap:4px; background:#1b2434; padding:4px 7px; border-radius:6px; font-size:0.75rem;">
                   <span>${def.name} (có ${owned}, nặng ${def.weight}): <strong>${chosen}</strong></span>
                   <button type="button" style="padding:2px 6px;" onclick="adjustPrepItem('${k}', 1)" ${chosen >= owned ? 'disabled' : ''}>+</button>
                   <button type="button" style="padding:2px 6px;" onclick="adjustPrepItem('${k}', -1)" ${chosen <= 0 ? 'disabled' : ''}>-</button>
                 </span>
               `;
             }).join('')
-          : `<span style="color:var(--muted); font-size:0.78rem;">Túi trống</span>`;
+          : `<span style="color:var(--muted); font-size:0.77rem;">Túi trống</span>`;
 
         const curLoc = MAP_LOCATIONS.find(m => m.id === state.selectedMapId) || MAP_LOCATIONS[0];
         const curStrat = STRATEGIES.find(s => s.id === state.selectedStrategyId) || STRATEGIES[0];
-        document.getElementById('prep-load-info').textContent = `Mang ${getPrepUsedCapacity()}/${maxCap}`;
+        document.getElementById('prep-load-info').textContent = `${getPrepUsedCapacity()}/${maxCap}`;
         document.getElementById('map-travel-summary').textContent =
-          `Tới ${curLoc.name} (${curLoc.distanceKm}km) • ${curStrat.name} • Tổng ${curLoc.travelMinutes + curStrat.minMinutes} phút.`;
+          `${curLoc.name} (${curLoc.distanceKm}km) • ${curStrat.name} • ${curLoc.travelMinutes + curStrat.minMinutes} phút.`;
       } else {
         mapBox.classList.add('hidden');
       }
@@ -3308,21 +3263,22 @@
         const mobCp = calcCombatPower(c);
         const enemyPct = Math.max(0, Math.min(100, Math.round((c.hp / Math.max(1, c.maxHp)) * 100)));
 
-        let playerTitle = `${state.charName}`;
-        let playerHpText = `Máu: ${state.hp}/${state.maxHp}`;
+        let playerTitle = `${state.charName} • CL ${pCp.score} [${pCp.tier}]`;
+        let playerHpText = `Máu: ${state.hp}/${state.maxHp} • Thể lực: ${state.stamina}/${state.maxStamina}`;
         let playerPct = Math.max(0, Math.min(100, Math.round((state.hp / Math.max(1, state.maxHp)) * 100)));
-        let playerSub = `Công: ${getPlayerStrength()} • Chiến lực: ${getPlayerCombatPower()}`;
+        let playerSub = `Công: ${getPlayerStrength()}`;
 
         if (c.ally) {
-          playerTitle = `${state.charName} + ${c.ally.name} (cấp ${c.ally.lv})`;
+          const allyCp = calcCombatPower(c.ally);
+          playerTitle = `${state.charName} + ${c.ally.name} (Cấp ${c.ally.lv})`;
           playerHpText = `Máu bạn: ${state.hp}/${state.maxHp} • Máu thú: ${c.ally.hp}/${c.ally.maxHp}`;
           playerPct = Math.max(0, Math.min(100, Math.round((c.ally.hp / Math.max(1, c.ally.maxHp)) * 100)));
-          playerSub = `Công bạn: ${getPlayerStrength()} • Công thú: ${c.ally.atk} • Thủ thú: ${c.ally.def}`;
+          playerSub = `Công bạn: ${getPlayerStrength()} • Thú CL ${allyCp.score} [${allyCp.tier}] (Công ${c.ally.atk} | Thủ ${c.ally.def})`;
         }
 
-        document.getElementById('exp-mob-header').textContent = `Chiến đấu tại ${state.activeExploreSession.locName}`;
-        document.getElementById('exp-mob-danger').innerHTML = `Mức độ: <span class="${danger.cls}">${danger.label}</span>`;
-        document.getElementById('exp-mob-time').textContent = `Đã hết ${state.activeExploreSession.totalMinutes} phút`;
+        document.getElementById('exp-mob-header').textContent = `Giao chiến tại ${state.activeExploreSession.locName}`;
+        document.getElementById('exp-mob-danger').innerHTML = `Độ khó: <span class="${danger.cls}">${danger.label}</span>`;
+        document.getElementById('exp-mob-time').textContent = `${state.activeExploreSession.totalMinutes} phút`;
 
         document.getElementById('combat-side-player-title').textContent = playerTitle;
         document.getElementById('combat-side-player-hp').textContent = playerHpText;
@@ -3333,8 +3289,8 @@
         document.getElementById('combat-side-enemy-hp').textContent = `Máu: ${c.hp}/${c.maxHp} (${enemyPct}%)`;
         document.getElementById('combat-bar-enemy').style.width = `${enemyPct}%`;
         document.getElementById('exp-mob-stats').innerHTML = `
-          <span class="mob-badge">CL: <strong>${mobCp.score} (${mobCp.tier})</strong></span>
-          <span class="mob-badge">Nhóm: <strong>${c.rank}</strong></span>
+          <span class="mob-badge">CL: <strong>${mobCp.score} [${mobCp.tier}]</strong></span>
+          <span class="mob-badge">Loại: <strong>${c.rank}</strong></span>
           <span class="mob-badge">Công: <strong>${c.atk}</strong></span>
           <span class="mob-badge">Thủ: <strong>${c.def}</strong></span>
         `;
@@ -3346,8 +3302,8 @@
           `;
         } else {
           document.getElementById('combat-action-buttons').innerHTML = `
-            <button class="danger-btn" onclick="stepCombatRound()">Đánh 1 hiệp</button>
-            <button onclick="markAndLeaveCombat()">Đánh dấu & đi tiếp</button>
+            <button class="danger-btn" onclick="stepCombatRound()">Tấn công</button>
+            <button onclick="markAndLeaveCombat()">Đánh dấu & rời đi</button>
           `;
         }
 
@@ -3363,8 +3319,8 @@
       if (state.lastExploreReport) {
         expRepBox.classList.remove('hidden');
         const rep = state.lastExploreReport;
-        document.getElementById('exp-rep-title').textContent = `Xong chuyến (${rep.totalMinutes} phút)`;
-        document.getElementById('exp-rep-items').textContent = `Nhặt được: ${rep.foundItems.join(', ')}.`;
+        document.getElementById('exp-rep-title').textContent = `Hoàn tất chuyến đi (${rep.totalMinutes} phút)`;
+        document.getElementById('exp-rep-items').textContent = `Thu thập: ${rep.foundItems.join(', ')}.`;
         document.getElementById('exp-rep-summary').textContent = rep.deeds.join(' • ');
       } else {
         expRepBox.classList.add('hidden');
@@ -3388,8 +3344,9 @@
           count: cnt,
           tab: def.bagTab || 'tools',
           usable: Boolean(def.usable),
+          isChest: def.bagTab === 'chests',
           isSupreme: def.bagTab === 'supreme',
-          accent: def.bagTab === 'supreme' ? '#e879f9' : '#f8fafc'
+          accent: def.bagTab === 'supreme' ? '#e879f9' : (def.bagTab === 'chests' ? '#38bdf8' : '#f8fafc')
         });
       }
       for (const bl of Object.values(state.beastBloodlines)) {
@@ -3400,6 +3357,7 @@
           count: bl.count,
           tab: 'materials',
           usable: false,
+          isChest: false,
           isSupreme: false,
           accent: '#f472b6'
         });
@@ -3423,14 +3381,15 @@
         ? filteredSlots.map(s => {
             const activeClass = state.selectedItem === s.key ? 'selected' : '';
             const supClass = s.isSupreme ? 'sup-slot' : '';
+            const chestClass = s.isChest ? 'chest-slot' : '';
             return `
-              <button type="button" class="inv-slot ${supClass} ${activeClass}" onclick="selectItem('${s.key}')">
+              <button type="button" class="inv-slot ${supClass} ${chestClass} ${activeClass}" onclick="selectItem('${s.key}')">
                 <div style="color:${s.accent};">${s.label}</div>
                 <strong>${s.count}</strong>
               </button>
             `;
           }).join('')
-        : `<div class="inv-slot" style="color:var(--muted);">Không có món nào trong mục "${curTabLabel}"</div>`;
+        : `<div class="inv-slot" style="color:var(--muted);">Không có vật phẩm trong tab "${curTabLabel}"</div>`;
 
       const selKey = state.selectedItem;
       const useBtn = document.getElementById('btn-use-item');
@@ -3439,15 +3398,15 @@
         const bl = state.beastBloodlines[spId];
         const cnt = bl ? bl.count : 0;
         document.getElementById('insp-name').textContent = `Huyết mạch ${bl ? bl.speciesName : ''} (Có: ${cnt})`;
-        document.getElementById('insp-type').textContent = `Mục: Nguyên liệu • Huyết mạch (${bl ? bl.rank : ''})`;
-        document.getElementById('insp-desc').textContent = `Lấy từ thú, thử dùng cho thú nuôi để xem có đột biến không.`;
+        document.getElementById('insp-type').textContent = `Tab: Nguyên liệu • Huyết mạch (${bl ? bl.rank : ''})`;
+        document.getElementById('insp-desc').textContent = `Dùng cho thú nuôi để thử đột biến.`;
         useBtn.disabled = cnt <= 0 || !state.selectedPetUid;
         useBtn.textContent = 'Dùng cho thú';
       } else {
         const selDef = ITEM_DEFS[selKey];
         const count = state.inv[selKey] || 0;
         if (selDef && count > 0) {
-          const rankInfo = selDef.gradeRank ? ` • Cấp bậc: ${selDef.gradeRank}` : '';
+          const rankInfo = selDef.gradeRank ? ` • ${selDef.gradeRank}` : '';
           document.getElementById('insp-name').textContent = `${selDef.name} (Có: ${count})`;
           document.getElementById('insp-type').textContent = `Nhóm: ${selDef.category}${rankInfo} • Nặng: ${selDef.weight}`;
           document.getElementById('insp-desc').textContent = selDef.desc;
@@ -3456,7 +3415,7 @@
         } else {
           document.getElementById('insp-name').textContent = 'Chưa chọn vật phẩm';
           document.getElementById('insp-type').textContent = 'Nhóm: -';
-          document.getElementById('insp-desc').textContent = 'Bấm vào một món đang có trong túi để xem chi tiết.';
+          document.getElementById('insp-desc').textContent = 'Chọn một món đang có trong túi để xem chi tiết.';
           useBtn.disabled = true;
           useBtn.textContent = 'Dùng';
         }
@@ -3469,12 +3428,12 @@
             return `
               <div class="inv-slot">
                 <div><strong>${t.name}</strong> (${t.rank})</div>
-                <div style="font-size:0.76rem; color:#93c5fd;">Đang thuần: <strong>${pctStr}%</strong></div>
+                <div style="font-size:0.75rem; color:#93c5fd;">Thuần phục: <strong>${pctStr}%</strong></div>
                 <div class="progress-track"><div class="progress-fill" style="width:${pctStr}%"></div></div>
               </div>
             `;
           }).join('')
-        : `<div class="inv-slot" style="color:var(--muted);">Chưa thuần con nào</div>`;
+        : `<div class="inv-slot" style="color:var(--muted);">Chưa thuần thú nào</div>`;
 
       if (!state.selectedPetUid && state.tamedBeasts.length > 0) {
         state.selectedPetUid = state.tamedBeasts[0].uid;
@@ -3491,16 +3450,16 @@
             return `
               <button type="button" class="inv-slot ${isSel ? 'selected' : ''}" onclick="selectBeast('${pet.uid}')">
                 <div><strong>${pet.name}</strong> <span class="rank-${cp.tier}">[${cp.tier}]</span>${pet.mutated ? ' ✦' : ''}</div>
-                <div style="color:#fbbf24; font-size:0.74rem;">CL ${cp.score} • ${pet.rank}</div>
-                <div style="color:#93c5fd; font-size:0.76rem;">${st.name} • Cấp ${pet.lv}/${st.maxLv}</div>
-                <div style="color:var(--muted); font-size:0.74rem;">Máu ${pet.hp}/${pet.maxHp}${healTag}</div>
-                <div style="font-size:0.74rem;">Công ${pet.atk} | Thủ ${pet.def}</div>
-                <div style="font-size:0.7rem; color:#fde68a; margin-top:2px;">Lên cấp: ${gPct}%</div>
+                <div style="color:#fbbf24; font-size:0.73rem;">CL ${cp.score} • ${pet.rank}</div>
+                <div style="color:#93c5fd; font-size:0.75rem;">${st.name} • Cấp ${pet.lv}/${st.maxLv}</div>
+                <div style="color:var(--muted); font-size:0.73rem;">Máu ${pet.hp}/${pet.maxHp}${healTag}</div>
+                <div style="font-size:0.73rem;">Công ${pet.atk} | Thủ ${pet.def}</div>
+                <div style="font-size:0.69rem; color:#fde68a; margin-top:2px;">Tăng trưởng: ${gPct}%</div>
                 <div class="progress-track"><div class="growth-fill" style="width:${gPct}%"></div></div>
               </button>
             `;
           }).join('')
-        : `<div class="inv-slot" style="color:var(--muted);">Chưa có thú nào</div>`;
+        : `<div class="inv-slot" style="color:var(--muted);">Chưa có thú</div>`;
 
       const selPet = state.tamedBeasts.find(b => b.uid === state.selectedPetUid);
       const blEntries = getAvailableBloodlineEntries();
@@ -3508,20 +3467,18 @@
       if (selPet) {
         const st = STAGES[selPet.stageIdx];
         const cp = calcCombatPower(selPet);
-        const healInfo = (selPet.healingRemainingHp || 0) > 0
-          ? ` • Đang hồi thêm ${Math.round(selPet.healingRemainingHp)} máu`
-          : '';
-        const fightNote = st.canFight ? 'Đi đánh được' : 'Còn nhỏ chưa đi đánh được';
-        document.getElementById('pet-insp-name').textContent = `${selPet.name} • CL ${cp.score} (Hạng ${cp.tier}) ${selPet.mutated ? '• Đã đột biến' : ''}`;
+        const healInfo = (selPet.healingRemainingHp || 0) > 0 ? ` • Đang hồi +${Math.round(selPet.healingRemainingHp)} Máu` : '';
+        const fightNote = st.canFight ? 'Tham chiến được' : 'Còn nhỏ';
+        document.getElementById('pet-insp-name').textContent = `${selPet.name} • CL ${cp.score} [${cp.tier}] ${selPet.mutated ? '• Đột biến' : ''}`;
         document.getElementById('pet-insp-meta').textContent =
-          `${selPet.rank} • ${st.name} (cấp ${selPet.lv}/${st.maxLv}, ${fightNote}) • Máu ${selPet.hp}/${selPet.maxHp}${healInfo} • Công ${selPet.atk} / Thủ ${selPet.def}`;
+          `${selPet.rank} • ${st.name} (Cấp ${selPet.lv}/${st.maxLv}, ${fightNote}) • Máu ${selPet.hp}/${selPet.maxHp}${healInfo} • Công ${selPet.atk} | Thủ ${selPet.def}`;
         document.getElementById('pet-insp-mut').textContent = blEntries.length
-          ? `Huyết mạch có sẵn: ${blEntries.map(e => `${e.speciesName} (${e.count})`).join(', ')}`
-          : 'Chưa có huyết mạch nào.';
+          ? `Huyết mạch: ${blEntries.map(e => `${e.speciesName} (${e.count})`).join(', ')}`
+          : 'Không có huyết mạch.';
         petBtn.disabled = selPet.mutated || blEntries.length === 0;
       } else {
         document.getElementById('pet-insp-name').textContent = 'Chưa chọn thú';
-        document.getElementById('pet-insp-meta').textContent = 'Thuần thú ở ngoài rồi quay về chăm.';
+        document.getElementById('pet-insp-meta').textContent = 'Thuần thú khi đi xa rồi quản lý tại đây.';
         document.getElementById('pet-insp-mut').textContent = '-';
         petBtn.disabled = true;
       }
@@ -3531,18 +3488,19 @@
       const reqEl = document.getElementById('house-req');
       if (!hCfg.cost) {
         upBtn.disabled = true;
-        upBtn.textContent = 'Đã cấp 8';
+        upBtn.textContent = 'Cấp tối đa (8/8)';
         reqEl.textContent = hCfg.unlock;
       } else {
         upBtn.disabled = false;
         const costStr = Object.entries(hCfg.cost).map(([k, v]) => `${ITEM_DEFS[k]?.name || k}: ${v}`).join(', ');
-        reqEl.textContent = `Lên cấp ${state.houseLevel + 1} cần ${costStr} — ${HOUSE_LEVELS[state.houseLevel].unlock}`;
+        reqEl.textContent = `Cấp ${state.houseLevel + 1} cần: ${costStr} — ${HOUSE_LEVELS[state.houseLevel].unlock}`;
       }
 
       renderCraftingPanel();
       renderQuests();
       renderTrades();
       renderWorldChat();
+      syncPanelButtonsState();
     }
 
     let lastRealTick = Date.now();
@@ -3562,6 +3520,7 @@
       renderAll();
     }, 1000);
 
+    hideAllMainPanelsOnStart();
     initNpcSelect();
     renderAll();
   </script>
