@@ -226,6 +226,12 @@
       padding: 4px 9px;
       border-radius: 999px;
     }
+    .pill-night {
+      background: #2b111c;
+      border-color: #ef4444;
+      color: #fca5a5;
+      font-weight: 700;
+    }
     .pill-admin {
       background: #3b1c6e;
       border-color: #a78bfa;
@@ -244,6 +250,11 @@
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 8px;
+    }
+    .status-strip.night-danger {
+      background: #2e0d14;
+      border-color: #dc2626;
+      color: #fecaca;
     }
     .hp-low-alert {
       background: #3b0d11;
@@ -455,6 +466,7 @@
       margin-bottom: 10px;
     }
     .warn-line { color: #fbbf24; font-size: 0.81rem; margin-top: 6px; }
+    .danger-line { color: #f87171; font-weight: 700; font-size: 0.81rem; margin-top: 4px; }
     .encounter-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
 
     .log-box {
@@ -708,7 +720,7 @@
       <span class="pill">Tên: <strong id="ui-charname">Lâm Dã</strong></span>
       <span class="pill" id="ui-account-pill">Tài khoản: <strong id="ui-account">-</strong></span>
       <span class="pill">Ngày <strong id="ui-day">1</strong>/100</span>
-      <span class="pill">Giờ: <strong id="ui-clock">06:00</strong> (<span id="ui-phase">Ban ngày</span>)</span>
+      <span class="pill" id="ui-phase-pill">Giờ: <strong id="ui-clock">06:00</strong> (<span id="ui-phase">Ban ngày</span>)</span>
       <span class="pill">Thời tiết: <strong id="ui-weather">Quang đãng</strong> (<strong id="ui-temp">18°C</strong>)</span>
       <span class="pill">Vị trí: <strong id="ui-location">Nhà gỗ</strong></span>
       <span class="pill">Nhà: <strong>Cấp <span id="ui-house">1</span>/8</strong></span>
@@ -832,6 +844,7 @@
           </div>
 
           <p class="warn-line" id="map-travel-summary"></p>
+          <p class="danger-line hidden" id="map-night-danger-note"></p>
           <div class="encounter-actions">
             <button class="primary" onclick="executeMapExpedition()">Lên đường</button>
             <button onclick="closeWorldMap()">Đóng</button>
@@ -1012,7 +1025,7 @@
 
   <script>
     const GAME_SECONDS_PER_REAL_SECOND = 12;
-    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v3';
+    const ACCOUNTS_STORAGE_KEY = 'mist_100_days_accounts_v4';
     const CATEGORIES = ['Công cụ', 'Vật phẩm sinh hoạt', 'Vật phẩm y tế', 'Công trình'];
 
     const BAG_TABS = [
@@ -1027,23 +1040,25 @@
 
     const WEATHER_TYPES = [
       { id: 'clear', name: 'Quang đãng', tempMod: 0, lootMult: 1.0, mobMod: 0, desc: 'Trời quang, dễ di chuyển.' },
-      { id: 'mist', name: 'Sương mù', tempMod: -2, lootMult: 1.1, mobMod: 0.03, desc: 'Sương mù nhẹ, tăng nhẹ sản lượng nhặt.' },
-      { id: 'cold_rain', name: 'Mưa lạnh', tempMod: -5, lootMult: 0.95, mobMod: 0.02, desc: 'Mưa lạnh, tốn thêm ít thể lực khi đi xa.' },
-      { id: 'mist_storm', name: 'Bão sương', tempMod: -7, lootMult: 1.2, mobMod: 0.07, desc: 'Bão sương mạnh, nhiều đồ rơi nhưng thú dữ hơn.' }
+      { id: 'mist', name: 'Sương mù', tempMod: -2, lootMult: 1.1, mobMod: 0.04, desc: 'Sương mù nhẹ, tăng nhẹ sản lượng nhặt.' },
+      { id: 'cold_rain', name: 'Mưa lạnh', tempMod: -5, lootMult: 0.95, mobMod: 0.03, desc: 'Mưa lạnh, tốn thêm ít thể lực khi đi xa.' },
+      { id: 'mist_storm', name: 'Bão sương', tempMod: -7, lootMult: 1.2, mobMod: 0.08, desc: 'Bão sương mạnh, nhiều đồ rơi nhưng thú dữ hơn.' }
     ];
 
+    /* TĂNG THỜI GIAN ĐI THÁM HIỂM TỪNG KHU VỰC */
     const MAP_LOCATIONS = [
-      { id: 'edge_woods', name: 'Rìa Rừng Gần', distanceKm: 2, travelMinutes: 35, mobChance: 0.22, lootMult: 1.0, desc: '2km • 35 phút • Ít thú, dễ kiếm gỗ.' },
-      { id: 'mist_stream', name: 'Suối Sương Mù', distanceKm: 5, travelMinutes: 65, mobChance: 0.28, lootMult: 1.2, desc: '5km • 65 phút • Nhiều đá & quặng.' },
-      { id: 'ancient_grove', name: 'Rừng Cổ Thụ', distanceKm: 9, travelMinutes: 100, mobChance: 0.33, lootMult: 1.45, desc: '9km • 100 phút • Nhiều gỗ & rương.' },
-      { id: 'deep_quarry', name: 'Hầm Đá Sâu', distanceKm: 14, travelMinutes: 140, mobChance: 0.38, lootMult: 1.75, desc: '14km • 140 phút • Quặng nhiều, thú mạnh.' },
-      { id: 'bloodline_rift', name: 'Khe Núi Sương', distanceKm: 20, travelMinutes: 190, mobChance: 0.44, lootMult: 2.05, desc: '20km • 190 phút • Xa nhất, nhiều tài nguyên.' }
+      { id: 'edge_woods', name: 'Rìa Rừng Gần', distanceKm: 2, travelMinutes: 65, mobChance: 0.28, nightMobChance: 0.82, lootMult: 1.0, desc: '2km • 65 phút • Khởi đầu dễ kiếm gỗ.' },
+      { id: 'mist_stream', name: 'Suối Sương Mù', distanceKm: 5, travelMinutes: 115, mobChance: 0.34, nightMobChance: 0.86, lootMult: 1.2, desc: '5km • 115 phút • Nhiều đá & quặng.' },
+      { id: 'ancient_grove', name: 'Rừng Cổ Thụ', distanceKm: 9, travelMinutes: 170, mobChance: 0.40, nightMobChance: 0.89, lootMult: 1.45, desc: '9km • 170 phút • Nhiều gỗ & rương.' },
+      { id: 'deep_quarry', name: 'Hầm Đá Sâu', distanceKm: 14, travelMinutes: 235, mobChance: 0.46, nightMobChance: 0.92, lootMult: 1.75, desc: '14km • 235 phút • Quặng nhiều, thú mạnh.' },
+      { id: 'bloodline_rift', name: 'Khe Núi Sương', distanceKm: 20, travelMinutes: 320, mobChance: 0.54, nightMobChance: 0.96, lootMult: 2.05, desc: '20km • 320 phút • Xa nhất, nhiều tài nguyên.' }
     ];
 
+    /* TĂNG THỜI GIAN CHIẾN THUẬT ĐI XA */
     const STRATEGIES = [
-      { id: 'cautious', name: 'Đi chậm dò đường', minMinutes: 20, mobMod: -0.08, lootMod: 0.95, desc: 'Giảm gặp thú, +20 phút.' },
-      { id: 'swift', name: 'Đi nhanh nhặt đồ', minMinutes: 10, mobMod: 0.02, lootMod: 1.12, desc: 'Nhặt đồ nhỉnh hơn, +10 phút.' },
-      { id: 'hunter', name: 'Đi săn & tìm dấu', minMinutes: 15, mobMod: 0.10, lootMod: 1.22, desc: 'Tăng gặp thú & đồ rơi, +15 phút.' }
+      { id: 'cautious', name: 'Đi chậm dò đường', minMinutes: 35, mobMod: -0.06, lootMod: 0.95, desc: 'Giảm nhẹ gặp thú ban ngày, +35 phút.' },
+      { id: 'swift', name: 'Đi nhanh nhặt đồ', minMinutes: 25, mobMod: 0.04, lootMod: 1.12, desc: 'Nhặt đồ nhỉnh hơn, +25 phút.' },
+      { id: 'hunter', name: 'Đi săn & tìm dấu', minMinutes: 45, mobMod: 0.12, lootMod: 1.22, desc: 'Tăng gặp thú & đồ rơi, +45 phút.' }
     ];
 
     const CHEST_TIERS = [
@@ -1230,25 +1245,27 @@
       { id: 'dragon', name: 'Thằn Lằn Lớn', rank: 'Quý', baseAtk: 52, baseDef: 22, baseHp: 1900, healRatePerMin: 8, tameGameHours: 54, mutateChance: 0.45, mutateTo: 'Rồng Sương Mù', rewardChest: 'chest_diamond' }
     ];
 
+    /* TĂNG YÊU CẦU NGUYÊN LIỆU NÂNG CẤP NHÀ GỖ */
     const HOUSE_LEVELS = [
-      { level: 1, name: 'Nhà gỗ nhỏ', cost: { wood: 20, stone: 10 }, unlock: 'Chỗ ở khởi đầu.' },
-      { level: 2, name: 'Nhà gỗ chắc hơn', cost: { wood: 40, stone: 25 }, unlock: 'Tăng sức chứa balo.' },
-      { level: 3, name: 'Nhà gỗ gần suối', cost: { wood: 70, stone: 45, fish: 5 }, unlock: 'Sinh hoạt thuận lợi hơn.' },
-      { level: 4, name: 'Nhà đá gỗ', cost: { wood: 110, stone: 80, ore: 10 }, unlock: 'Tường vững hơn.' },
-      { level: 5, name: 'Trại gỗ rộng', cost: { wood: 160, stone: 120, ore: 20 }, unlock: 'Mở rộng khu trú ẩn.' },
-      { level: 6, name: 'Khu nhà kiên cố', cost: { wood: 220, stone: 170, ore: 35 }, unlock: 'Chịu đựng tốt hơn.' },
-      { level: 7, name: 'Khu căn cứ lớn', cost: { wood: 300, stone: 240, ore: 55 }, unlock: 'Hỗ trợ thú nuôi tốt.' },
+      { level: 1, name: 'Nhà gỗ nhỏ', cost: { wood: 45, stone: 25, ore: 5 }, unlock: 'Chỗ ở khởi đầu.' },
+      { level: 2, name: 'Nhà gỗ chắc hơn', cost: { wood: 90, stone: 55, ore: 15 }, unlock: 'Tăng sức chứa balo.' },
+      { level: 3, name: 'Nhà gỗ gần suối', cost: { wood: 150, stone: 95, ore: 28, fish: 10 }, unlock: 'Sinh hoạt thuận lợi hơn.' },
+      { level: 4, name: 'Nhà đá gỗ', cost: { wood: 230, stone: 155, ore: 50, hide: 8 }, unlock: 'Tường vững hơn.' },
+      { level: 5, name: 'Trại gỗ rộng', cost: { wood: 330, stone: 230, ore: 80, hide: 14 }, unlock: 'Mở rộng khu trú ẩn.' },
+      { level: 6, name: 'Khu nhà kiên cố', cost: { wood: 450, stone: 320, ore: 120, hide: 20 }, unlock: 'Chịu đựng tốt hơn.' },
+      { level: 7, name: 'Khu căn cứ lớn', cost: { wood: 600, stone: 430, ore: 170, hide: 28 }, unlock: 'Hỗ trợ thú nuôi tốt.' },
       { level: 8, name: 'Căn cứ hoàn chỉnh', cost: null, unlock: 'Đã đạt cấp tối đa.' }
     ];
 
     const NPCS = [
-      { id: 'linh', name: 'Linh (Đi buôn)', haggleBonus: 0, offer: { give: 'wood', giveQty: 12, get: 'bp_bow_arrow', getQty: 1 }, lines: ['Nhớ mang đủ nước khi đi xa.', 'Mình có bản vẽ Cung Tên, đổi 12 gỗ nhé.'] },
-      { id: 'minh', name: 'Minh (Thợ rèn)', haggleBonus: 0, offer: { give: 'ore', giveQty: 5, get: 'bp_iron_pickaxe', getQty: 1 }, lines: ['Cuốc sắt giúp đào đá và quặng hiệu quả hơn.', 'Chịu khó thu thập tài nguyên trước khi tiến sâu.'] },
+      { id: 'linh', name: 'Linh (Đi buôn)', haggleBonus: 0, offer: { give: 'wood', giveQty: 12, get: 'bp_bow_arrow', getQty: 1 }, lines: ['Ban đêm ngoài rừng cực nguy hiểm, nên về sớm.', 'Mình có bản vẽ Cung Tên, đổi 12 gỗ nhé.'] },
+      { id: 'minh', name: 'Minh (Thợ rèn)', haggleBonus: 0, offer: { give: 'ore', giveQty: 5, get: 'bp_iron_pickaxe', getQty: 1 }, lines: ['Nâng nhà giờ tốn nhiều gỗ, đá và quặng hơn.', 'Có cuốc sắt sẽ đào đá và quặng nhanh hơn.'] },
       { id: 'an', name: 'An (Chăm thú)', haggleBonus: 0, offer: { give: 'fish', giveQty: 3, get: 'bp_warming_stove', getQty: 1 }, lines: ['Nhớ cho thú ăn khi bị thương.', 'Thú con nhỏ chưa tham chiến được.'] }
     ];
 
     let authMode = 'login';
     let currentAccount = null;
+    let nightRoamMinutesAcc = 0;
 
     function isValidAdminCredentials(username, password) {
       return username.toLowerCase() === 'admin' && password === '1104';
@@ -1368,12 +1385,12 @@
           { id: 4, text: '6 Gỗ → 1 Lá thuốc', give: 'wood', giveQty: 6, get: 'mist_herb', getQty: 1 }
         ],
         worldChat: [
-          '[Hệ thống] 1 giờ game = 5 phút thực. Tự lưu mỗi 15 giây.',
-          '[Linh] Chặt gỗ, nhặt đá và chuẩn bị đồ trước khi đi xa.'
+          '[Hệ thống] 1 giờ game = 5 phút thực. Ban đêm ngoài rừng cực kỳ nguy hiểm.',
+          '[Linh] Nhớ về Nhà gỗ trước khi trời tối, ban đêm quái thú rất hung dữ.'
         ],
         npcChats: {
-          linh: ['Linh: Chào bạn, cần đổi đồ hay hỏi đường thì nhắn mình.'],
-          minh: ['Minh: Có cuốc sắt và rìu sắt sẽ thu thập tốt hơn.'],
+          linh: ['Linh: Ban đêm ở ngoài rất nguy hiểm, quái thú dễ tấn công bất ngờ.'],
+          minh: ['Minh: Nâng cấp Nhà gỗ giờ tốn nhiều nguyên liệu hơn trước.'],
           an: ['An: Thuần thú xong nhớ cho ăn khi chúng mất máu.']
         }
       };
@@ -1504,6 +1521,7 @@
       state = { ...createInitialState(rec.charName, adminFlag), ...rec.save };
       state.charName = rec.charName || state.charName || 'Lâm Dã';
       state.isAdmin = adminFlag;
+      nightRoamMinutesAcc = 0;
       hideAllMainPanelsOnStart();
       document.getElementById('intro-overlay').classList.add('hidden');
       logMsg(`Đã tải dữ liệu của ${currentAccount.username}.`);
@@ -1586,6 +1604,10 @@
     function getPhaseLabel() {
       const hour = Math.floor(state.timeOfDaySec / 3600) % 24;
       return (hour >= 6 && hour < 18) ? 'Ban ngày' : 'Ban đêm';
+    }
+
+    function isNightOutside() {
+      return getPhaseLabel() === 'Ban đêm' && state.locationId !== 'house';
     }
 
     function formatGameClock() {
@@ -1865,6 +1887,68 @@
       }
     }
 
+    function createEnemyEncounter(loc, isNight) {
+      const fightableSpecies = BEAST_SPECIES.filter(s => s.id !== 'cub_fox');
+      const sp = fightableSpecies[Math.floor(Math.random() * fightableSpecies.length)];
+      const stageIdx = isNight ? (Math.random() < 0.35 ? 1 : 2) : (Math.random() < 0.65 ? 1 : 2);
+      const nightLvBoost = isNight ? 1 + Math.floor(Math.random() * 2) : 0;
+      const lv = Math.min(10, Math.max(1, Math.floor(loc.distanceKm / 2.5) + Math.floor(Math.random() * 3) + 1 + nightLvBoost));
+      const stStats = calcPetStats(sp.id, stageIdx, lv);
+      const nightMult = isNight ? 1.35 : 1.0;
+      const atk = Math.round(stStats.atk * nightMult);
+      const def = Math.round(stStats.def * (isNight ? 1.2 : 1.0));
+      const maxHp = Math.round(stStats.maxHp * (isNight ? 1.25 : 1.0));
+      const cp = calcCombatPower({ speciesId: sp.id, lv, atk, def, maxHp });
+      const tag = isNight ? ' [ĐÊM NGUY HIỂM]' : '';
+      return {
+        speciesId: sp.id,
+        name: sp.name,
+        rank: sp.rank,
+        stageIdx,
+        stageLabel: STAGES[stageIdx].name,
+        lv,
+        mutateTo: sp.mutateTo,
+        mutateChance: sp.mutateChance,
+        tameGameHours: sp.tameGameHours,
+        rewardChest: sp.rewardChest,
+        isNightAmbush: isNight,
+        hp: maxHp,
+        maxHp,
+        atk,
+        def,
+        defeated: false,
+        fromMark: false,
+        lines: [`${sp.name}${tag} (${STAGES[stageIdx].name} • Cấp ${lv} • CL ${cp.score} [${cp.tier}]) lao ra — Công ${atk} | Thủ ${def} | Máu ${maxHp}.`]
+      };
+    }
+
+    function triggerNightAmbushIfOutside(minutesPassed) {
+      if (state.isDead || !state.talent) return;
+      if (!isNightOutside() || state.activeExploreSession) {
+        nightRoamMinutesAcc = 0;
+        return;
+      }
+      nightRoamMinutesAcc += minutesPassed;
+      if (nightRoamMinutesAcc < 12) return;
+      nightRoamMinutesAcc = 0;
+
+      const loc = MAP_LOCATIONS.find(m => m.id === state.locationId) || MAP_LOCATIONS[0];
+      if (Math.random() < 0.78) {
+        document.getElementById('explore-panel').classList.remove('hidden');
+        state.mapOpen = false;
+        const mob = createEnemyEncounter(loc, true);
+        state.activeExploreSession = {
+          locId: loc.id,
+          locName: loc.name,
+          totalMinutes: 0,
+          foundItems: [],
+          deeds: [`Bị ${mob.name} tập kích ban đêm tại ${loc.name}`],
+          combat: { ...mob, ally: null }
+        };
+        logMsg(`ĐÊM NGUY HIỂM: ${mob.name} tập kích bạn tại ${loc.name}.`);
+      }
+    }
+
     function advanceGameMinutes(minutes) {
       if (minutes <= 0) return;
       const deltaGameSec = minutes * 60;
@@ -1933,8 +2017,14 @@
       const nextPhase = getPhaseLabel();
       if (prevPhase !== nextPhase) {
         if (Math.random() < 0.6) rollWeather();
-        logMsg(`Chuyển sang ${nextPhase}.`);
+        if (nextPhase === 'Ban đêm' && state.locationId !== 'house') {
+          logMsg('Trời đã tối, ở ngoài cực kỳ nguy hiểm và dễ bị quái thú tấn công.');
+        } else {
+          logMsg(`Chuyển sang ${nextPhase}.`);
+        }
       }
+
+      triggerNightAmbushIfOutside(minutes);
     }
 
     function logMsg(text) {
@@ -1958,6 +2048,9 @@
     function generateNpcWorldAiReply(userMsg) {
       const q = userMsg.toLowerCase();
       const w = getWeatherObj();
+      if (q.includes('đêm') || q.includes('tối') || q.includes('quái')) {
+        return `[Linh] Ban đêm ngoài rừng cực kỳ nguy hiểm, tỷ lệ bị quái thú tấn công rất cao.`;
+      }
       if (q.includes('thời tiết') || q.includes('sương') || q.includes('mưa') || q.includes('bão')) {
         return `[Linh] Đang ${w.name.toLowerCase()}, ${state.temp}°C.`;
       }
@@ -1965,7 +2058,7 @@
         const tot = getTotalCombatPower();
         return `[An] Tổng chiến lực hiện tại của bạn: ${tot.score} [${tot.tier}].`;
       }
-      return `[Linh] ${state.charName} nhớ chuẩn bị đủ nước và thuốc trước khi đi xa.`;
+      return `[Linh] ${state.charName} nhớ chuẩn bị đủ nước, thuốc và về sớm trước khi trời tối.`;
     }
 
     function checkPlayerDeath() {
@@ -1995,6 +2088,7 @@
       document.getElementById('craft-block-overlay').classList.add('hidden');
       document.getElementById('chest-reward-overlay').classList.add('hidden');
       document.getElementById('adventure-log').innerHTML = '';
+      nightRoamMinutesAcc = 0;
       hideAllMainPanelsOnStart();
       const charName = currentAccount?.charName || 'Lâm Dã';
       state = createInitialState(charName, Boolean(currentAccount?.isAdmin));
@@ -2028,13 +2122,13 @@
     }
 
     function evaluateDangerLevel(mob, allyPet) {
-      const mobCp = calcCombatPower(mob).score;
+      const mobCp = calcCombatPower(mob).score * (getPhaseLabel() === 'Ban đêm' ? 1.3 : 1.0);
       const myCp = getPlayerCombatPower().score + (allyPet ? calcCombatPower(allyPet).score * 0.8 : 0);
       const ratio = mobCp / Math.max(80, myCp);
       if (ratio < 0.75) return { label: 'Dễ', cls: 'danger-low' };
-      if (ratio < 1.2) return { label: 'Vừa', cls: 'danger-med' };
-      if (ratio < 1.75) return { label: 'Khó', cls: 'danger-high' };
-      return { label: 'Rất khó', cls: 'danger-extreme' };
+      if (ratio < 1.15) return { label: 'Vừa', cls: 'danger-med' };
+      if (ratio < 1.65) return { label: 'Khó', cls: 'danger-high' };
+      return { label: 'Cực kỳ nguy hiểm', cls: 'danger-extreme' };
     }
 
     function startWheel() {
@@ -2128,11 +2222,12 @@
         }
       }
       state.expeditionPack = {};
-      advanceGameMinutes(25);
+      nightRoamMinutesAcc = 0;
+      advanceGameMinutes(35);
       state.locationId = 'house';
       state.activeExploreSession = null;
       const retText = returnedList.length ? ` Hoàn túi: ${returnedList.join(', ')}.` : '';
-      logMsg(`Về Nhà gỗ (25p).${retText}`);
+      logMsg(`Về Nhà gỗ an toàn (35p).${retText}`);
       renderAll();
     }
 
@@ -2316,7 +2411,7 @@
       return availableBps[Math.floor(Math.random() * availableBps.length)];
     }
 
-    /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM ĐÃ ĐƯỢC GIẢM */
+    /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM THẤP */
     function pickSupremeItem() {
       const pool = ['sup_mist_dew', 'sup_break_seal', 'sup_beast_essence', 'sup_mist_orb'];
       if (Math.random() < 0.04) pool.push('sup_sovereign_core');
@@ -2350,18 +2445,27 @@
 
       const totalMins = loc.travelMinutes + strat.minMinutes;
       advanceGameMinutes(totalMins);
+      if (state.activeExploreSession) {
+        state.mapOpen = false;
+        state.prepPetUid = null;
+        renderAll();
+        return;
+      }
+
       state.locationId = loc.id;
       state.mapOpen = false;
       state.stats.expeditionsDone = (state.stats.expeditionsDone || 0) + 1;
 
+      const isNight = getPhaseLabel() === 'Ban đêm';
       const distFactor = 1 + loc.distanceKm * 0.05;
-      const rainExtraStamina = weather.id === 'cold_rain' ? 4 : 0;
-      state.hunger = Math.max(0, state.hunger - Math.round(6 * distFactor));
-      state.thirst = Math.min(state.maxThirst, state.thirst + Math.round(10 * distFactor));
-      state.stamina = Math.max(10, state.stamina - Math.round(8 * distFactor) - rainExtraStamina);
+      const rainExtraStamina = weather.id === 'cold_rain' ? 5 : 0;
+      const nightExtraStamina = isNight ? 6 : 0;
+      state.hunger = Math.max(0, state.hunger - Math.round(7 * distFactor));
+      state.thirst = Math.min(state.maxThirst, state.thirst + Math.round(11 * distFactor));
+      state.stamina = Math.max(8, state.stamina - Math.round(10 * distFactor) - rainExtraStamina - nightExtraStamina);
 
       if (state.hunger === 0 || state.thirst >= state.maxThirst) {
-        state.hp = Math.max(0, state.hp - 12);
+        state.hp = Math.max(0, state.hp - 14);
         checkPlayerDeath();
         if (state.isDead) return;
       }
@@ -2380,7 +2484,7 @@
 
       const foundItems = [`${woodGain} gỗ`, `${stoneGain} đá`, `${oreGain} quặng`];
       const deeds = [
-        `${loc.name} (${loc.distanceKm}km) • ${strat.name} (${totalMins}p)`,
+        `${loc.name} (${loc.distanceKm}km) • ${strat.name} (${totalMins}p)${isNight ? ' • Đêm' : ''}`,
         broughtList.length ? `Mang: ${broughtList.join(', ')}` : 'Không mang đồ'
       ];
 
@@ -2414,7 +2518,6 @@
         foundItems.push(`1 ${ITEM_DEFS[bpKey].name}`);
       }
 
-      /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM THẤP (~1.5% - 3%) */
       if (Math.random() < 0.015 * Math.min(2, loc.lootMult)) {
         const supKey = pickSupremeItem();
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
@@ -2432,33 +2535,10 @@
           lines: [`Gặp lại ${marked.name} (Cấp ${marked.lv}, CL ${cp.score} [${cp.tier}], Máu ${marked.hp}/${marked.maxHp}).`]
         };
       } else {
-        const mobChance = Math.min(0.75, Math.max(0.08, loc.mobChance + strat.mobMod + weather.mobMod + (getPhaseLabel() === 'Ban đêm' ? 0.05 : 0)));
+        const baseChance = isNight ? (loc.nightMobChance || 0.85) : loc.mobChance;
+        const mobChance = Math.min(0.96, Math.max(0.12, baseChance + (isNight ? 0.04 : strat.mobMod) + weather.mobMod));
         if (Math.random() < mobChance) {
-          const fightableSpecies = BEAST_SPECIES.filter(s => s.id !== 'cub_fox');
-          const sp = fightableSpecies[Math.floor(Math.random() * fightableSpecies.length)];
-          const stageIdx = Math.random() < 0.65 ? 1 : 2;
-          const lv = Math.min(10, Math.max(1, Math.floor(loc.distanceKm / 2.5) + Math.floor(Math.random() * 3) + 1));
-          const stStats = calcPetStats(sp.id, stageIdx, lv);
-          const cp = calcCombatPower({ speciesId: sp.id, lv, atk: stStats.atk, def: stStats.def, maxHp: stStats.maxHp });
-          encounterObj = {
-            speciesId: sp.id,
-            name: sp.name,
-            rank: sp.rank,
-            stageIdx,
-            stageLabel: STAGES[stageIdx].name,
-            lv,
-            mutateTo: sp.mutateTo,
-            mutateChance: sp.mutateChance,
-            tameGameHours: sp.tameGameHours,
-            rewardChest: sp.rewardChest,
-            hp: stStats.maxHp,
-            maxHp: stStats.maxHp,
-            atk: stStats.atk,
-            def: stStats.def,
-            defeated: false,
-            fromMark: false,
-            lines: [`${sp.name} (${STAGES[stageIdx].name} • Cấp ${lv} • CL ${cp.score} [${cp.tier}]) xuất hiện — Công ${stStats.atk} | Thủ ${stStats.def} | Máu ${stStats.maxHp}.`]
-          };
+          encounterObj = createEnemyEncounter(loc, isNight);
         }
       }
 
@@ -2477,7 +2557,7 @@
             ally: allyPet || null
           }
         };
-        logMsg(`Tới ${loc.name} (${totalMins}p) — chạm trán ${encounterObj.name}.`);
+        logMsg(`Tới ${loc.name} (${totalMins}p)${isNight ? ' vào BAN ĐÊM' : ''} — chạm trán ${encounterObj.name}.`);
         renderAll();
         return;
       }
@@ -2491,13 +2571,14 @@
       const c = sess.combat;
       if (c.defeated) return;
 
+      const isNight = getPhaseLabel() === 'Ban đêm';
       const weaponName = (state.craftedCounts.bow_arrow || 0) > 0 ? 'cung tên'
         : ((state.craftedCounts.iron_axe || 0) > 0 ? 'rìu sắt' : 'rìu');
       const cBonus = getCraftBonuses();
 
       advanceGameMinutes(10);
       sess.totalMinutes += 10;
-      state.stamina = Math.max(0, state.stamina - 3);
+      state.stamina = Math.max(0, state.stamina - (isNight ? 5 : 3));
 
       const playerRaw = getPlayerStrength();
       const playerDmg = Math.max(12, Math.round(playerRaw * (100 / (100 + c.def * 2.0))));
@@ -2525,17 +2606,19 @@
         }
       }
 
+      const nightAtkMult = isNight ? 1.45 : 1.0;
       if (c.ally && c.ally.hp > 0) {
         const realPet = state.tamedBeasts.find(p => p.uid === c.ally.uid);
-        const mobDmg = Math.max(3, Math.round(c.atk * 0.68 - c.ally.def * 0.7 - cBonus.threatCut));
+        const mobDmg = Math.max(5, Math.round(c.atk * 0.72 * nightAtkMult - c.ally.def * 0.65 - cBonus.threatCut));
         const lostHp = Math.min(c.ally.hp, mobDmg);
         c.ally.hp = Math.max(0, c.ally.hp - lostHp);
         if (realPet) realPet.hp = c.ally.hp;
-        c.lines.push(`${c.name} đánh ${c.ally.name}: -${lostHp} Máu thú (còn ${c.ally.hp}/${c.ally.maxHp}).`);
+        c.lines.push(`${c.name} đánh ${c.ally.name}${isNight ? ' (đêm)' : ''}: -${lostHp} Máu thú (còn ${c.ally.hp}/${c.ally.maxHp}).`);
       } else {
-        const heroDmg = Math.max(3, Math.min(26, Math.round(c.atk * 0.32 - cBonus.threatCut)));
+        const maxHeroHit = isNight ? 38 : 26;
+        const heroDmg = Math.max(5, Math.min(maxHeroHit, Math.round(c.atk * 0.36 * nightAtkMult - cBonus.threatCut)));
         state.hp = Math.max(0, state.hp - heroDmg);
-        c.lines.push(`${c.name} đánh ${state.charName}: -${heroDmg} Máu (còn ${state.hp}/${state.maxHp}).`);
+        c.lines.push(`${c.name} đánh ${state.charName}${isNight ? ' (đêm)' : ''}: -${heroDmg} Máu (còn ${state.hp}/${state.maxHp}).`);
         if (state.hp === 0) {
           c.lines.push(`${state.charName} đã tử trận.`);
           renderAll();
@@ -2613,7 +2696,6 @@
       state.stats.beastsDefeated = (state.stats.beastsDefeated || 0) + 1;
 
       const extraDrops = [`${meatGain} thịt`, `${hideGain} da thú`, `1 ${ITEM_DEFS[chestKey].name}`];
-      /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM KHI HẠ THÚ THẤP (6%) */
       if (Math.random() < 0.06) {
         const supKey = pickSupremeItem();
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
@@ -2808,7 +2890,6 @@
         rewards.push({ key: bpKey, name: ITEM_DEFS[bpKey].name, qty: 1 });
       }
 
-      /* TỶ LỆ RƠI VẬT PHẨM SIÊU PHÀM TỪ RƯƠNG ĐÃ ĐƯỢC GIẢM (1.5% - 8.5%) */
       if (Math.random() < (tier.supChance || 0.02)) {
         const supKey = pickSupremeItem();
         state.inv[supKey] = (state.inv[supKey] || 0) + 1;
@@ -2881,7 +2962,7 @@
       if (!cfg.cost) return;
       for (const [k, v] of Object.entries(cfg.cost)) {
         if ((state.inv[k] || 0) < v) {
-          logMsg('Chưa đủ tài nguyên nâng cấp Nhà gỗ.');
+          logMsg('Chưa đủ nguyên liệu nâng cấp Nhà gỗ.');
           renderAll();
           return;
         }
@@ -3122,8 +3203,9 @@
 
     function renderAll() {
       const phase = getPhaseLabel();
+      const isNight = phase === 'Ban đêm';
       const weather = getWeatherObj();
-      state.temp = Math.max(-25, 18 - Math.floor(state.day * 0.35) - (phase === 'Ban đêm' ? 5 : 0) + weather.tempMod);
+      state.temp = Math.max(-25, 18 - Math.floor(state.day * 0.35) - (isNight ? 7 : 0) + weather.tempMod);
       const locObj = MAP_LOCATIONS.find(m => m.id === state.locationId);
       const locLabel = state.locationId === 'house' ? 'Nhà gỗ' : (locObj ? locObj.name : 'Ngoài đồng');
       const bagWeight = getBagUsedWeight();
@@ -3131,6 +3213,9 @@
 
       document.getElementById('ui-charname').textContent = state.charName || 'Lâm Dã';
       document.getElementById('ui-account').textContent = currentAccount ? currentAccount.username : '-';
+      const phasePill = document.getElementById('ui-phase-pill');
+      phasePill.className = isNight ? 'pill pill-night' : 'pill';
+
       const accPill = document.getElementById('ui-account-pill');
       const adminBtn = document.getElementById('btn-toggle-admin');
       const adminBox = document.getElementById('admin-panel');
@@ -3173,8 +3258,11 @@
       document.getElementById('char-stamina').textContent = `${state.stamina}/${state.maxStamina}`;
       document.getElementById('char-bag').textContent = `${bagWeight}/${maxCap}`;
 
+      const statusStrip = document.getElementById('cold-warning-banner');
+      statusStrip.classList.toggle('night-danger', isNight && state.locationId !== 'house');
+      const nightTag = (isNight && state.locationId !== 'house') ? ' • CẢNH BÁO ĐÊM: QUÁI THÚ TẤN CÔNG CAO' : '';
       document.getElementById('status-env-text').textContent =
-        `${formatGameClock()} (${phase}) • ${weather.name} • ${state.temp}°C • ${locLabel} • Tổng CL: ${totCp.score} [${totCp.tier}]`;
+        `${formatGameClock()} (${phase}) • ${weather.name} • ${state.temp}°C • ${locLabel} • Tổng CL: ${totCp.score} [${totCp.tier}]${nightTag}`;
       if (state.lastNotice) {
         document.getElementById('status-notice-text').textContent = state.lastNotice;
       }
@@ -3206,10 +3294,11 @@
         document.getElementById('map-nodes-grid').innerHTML = MAP_LOCATIONS.map(m => {
           const isSel = m.id === state.selectedMapId;
           const markedMob = state.markedMonsters[m.id];
+          const nightRatePct = Math.round((m.nightMobChance || 0.85) * 100);
           return `
             <button type="button" class="map-node ${isSel ? 'selected' : ''} ${markedMob ? 'marked' : ''}" onclick="selectMapNode('${m.id}')">
               <div><strong>${m.name}</strong> (${m.distanceKm}km)</div>
-              <div style="color:#93c5fd; font-size:0.75rem;">${m.travelMinutes} phút</div>
+              <div style="color:#93c5fd; font-size:0.75rem;">${m.travelMinutes} phút • Đêm gặp thú ~${nightRatePct}%</div>
               <div style="color:var(--muted); font-size:0.75rem; margin-top:2px;">${m.desc}</div>
               ${markedMob ? `<div style="color:#fbbf24; font-size:0.75rem; margin-top:3px;">★ ${markedMob.name} Cấp ${markedMob.lv} (${markedMob.hp}/${markedMob.maxHp})</div>` : ''}
             </button>
@@ -3248,9 +3337,22 @@
 
         const curLoc = MAP_LOCATIONS.find(m => m.id === state.selectedMapId) || MAP_LOCATIONS[0];
         const curStrat = STRATEGIES.find(s => s.id === state.selectedStrategyId) || STRATEGIES[0];
+        const totalEstMins = curLoc.travelMinutes + curStrat.minMinutes;
+        const arriveSec = (state.timeOfDaySec + totalEstMins * 60) % 86400;
+        const arriveHour = Math.floor(arriveSec / 3600);
+        const willBeNight = arriveHour < 6 || arriveHour >= 18;
+
         document.getElementById('prep-load-info').textContent = `${getPrepUsedCapacity()}/${maxCap}`;
         document.getElementById('map-travel-summary').textContent =
-          `${curLoc.name} (${curLoc.distanceKm}km) • ${curStrat.name} • ${curLoc.travelMinutes + curStrat.minMinutes} phút.`;
+          `${curLoc.name} (${curLoc.distanceKm}km) • ${curStrat.name} • ${totalEstMins} phút.`;
+
+        const nightNoteEl = document.getElementById('map-night-danger-note');
+        if (willBeNight || isNight) {
+          nightNoteEl.classList.remove('hidden');
+          nightNoteEl.textContent = 'Cảnh báo: Chuyến đi rơi vào ban đêm — cực kỳ nguy hiểm, tỷ lệ bị quái thú tấn công rất cao!';
+        } else {
+          nightNoteEl.classList.add('hidden');
+        }
       } else {
         mapBox.classList.add('hidden');
       }
@@ -3276,7 +3378,7 @@
           playerSub = `Công bạn: ${getPlayerStrength()} • Thú CL ${allyCp.score} [${allyCp.tier}] (Công ${c.ally.atk} | Thủ ${c.ally.def})`;
         }
 
-        document.getElementById('exp-mob-header').textContent = `Giao chiến tại ${state.activeExploreSession.locName}`;
+        document.getElementById('exp-mob-header').textContent = `Giao chiến tại ${state.activeExploreSession.locName}${isNight ? ' (ĐÊM NGUY HIỂM)' : ''}`;
         document.getElementById('exp-mob-danger').innerHTML = `Độ khó: <span class="${danger.cls}">${danger.label}</span>`;
         document.getElementById('exp-mob-time').textContent = `${state.activeExploreSession.totalMinutes} phút`;
 
